@@ -7,8 +7,15 @@ namespace UnitTestHotel
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void HK_001GetNewFormReturnNewForm()
         {
+            //act
+            
+
+            //arrange
+
+
+            //assert
         }
     }
 }
