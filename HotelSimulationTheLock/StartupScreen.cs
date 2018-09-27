@@ -11,9 +11,7 @@ using System.Windows.Forms;
 namespace HotelSimulationTheLock
 {
     public partial class StartupScreen : Form
-    {
-        //below the Simulation is linked to this form
-        Simulation hotelsimulation = new Simulation();
+    {  
 
         public StartupScreen()
         {
@@ -23,7 +21,9 @@ namespace HotelSimulationTheLock
         }
 
         private void _runSimulation_Click(object sender, EventArgs e)
-        {            
+        {
+            //below the Simulation is linked to this form
+            Simulation hotelsimulation = new Simulation();
             hotelsimulation.Show();
             this.Hide();
         }

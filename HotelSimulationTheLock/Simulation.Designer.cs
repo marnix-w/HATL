@@ -35,7 +35,6 @@
             // 
             this._eventsOutput.Location = new System.Drawing.Point(25, 12);
             this._eventsOutput.Name = "_eventsOutput";
-            this._eventsOutput.ReadOnly = true;
             this._eventsOutput.Size = new System.Drawing.Size(514, 426);
             this._eventsOutput.TabIndex = 0;
             this._eventsOutput.Text = "";
