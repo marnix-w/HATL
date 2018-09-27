@@ -36,7 +36,7 @@ namespace HotelSimulationTheLock.Model
 
         public void DumpMessage(Simulation messageOutput)
         {
-            messageOutput.
+        
         }
 
     }
