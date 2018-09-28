@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HotelEvents;
 
-namespace HotelSimulationTheLock
+namespace HotelSimulationTheLock.Caracters
 {
-    class Cinema : IArea, HotelEventListener
+    class Receptionist : HotelEventListener
     {
-
-
-
         public void Notify(HotelEvent evt)
         {
-            if (evt.EventType.Equals(HotelEventType.STAR_CINEMA))
+            if (evt.EventType.Equals(HotelEventType.EVACUATE))
             {
 
             }
         }
-
-        }
+    }
 }

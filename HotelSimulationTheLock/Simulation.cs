@@ -18,25 +18,13 @@ namespace HotelSimulationTheLock
         {
             InitializeComponent();
 
+            Reception test = new Reception();
+
             HotelEventManager.Start();
-
-            float newHTE = 10000f;
-
-            HotelEventManager.HTE_Factor = newHTE;
-
             Console.WriteLine(!HotelEventManager.Running);
-
-            Model.showListener temp = new Model.showListener();
-
-            HotelEventManager.Register(temp);
-                        
-            new Thread((ThreadStart)(() =>
-            {
-                while (true)
-                {
-
-                }
-            })).Start();
+            
+            HotelEventManager.HTE_Factor = 0.5f;
+            
         }
     }
 }
