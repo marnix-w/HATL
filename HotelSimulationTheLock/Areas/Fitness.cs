@@ -9,9 +9,6 @@ namespace HotelSimulationTheLock
 {
     class Fitness : IArea
     {
-        public void Notify(HotelEvent evt)
-        {
-           
-        }
+        
     }
 }

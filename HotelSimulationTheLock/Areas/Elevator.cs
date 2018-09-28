@@ -9,8 +9,6 @@ namespace HotelSimulationTheLock
 {
     class Elevator : IArea
     {
-        public void Notify(HotelEvent evt)
-        {           
-        }
+        
     }
 }

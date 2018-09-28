@@ -9,8 +9,6 @@ namespace HotelSimulationTheLock.Areas
 {
     class Staircase : IArea
     {
-        public void Notify(HotelEvent evt)
-        {
-        }
+        
     }
 }

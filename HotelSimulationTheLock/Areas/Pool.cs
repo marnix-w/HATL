@@ -9,9 +9,6 @@ namespace HotelSimulationTheLock.Areas
 {
     class Pool : IArea
     {
-        public void Notify(HotelEvent evt)
-        {
-          
-        }
+        
     }
 }

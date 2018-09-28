@@ -18,14 +18,7 @@ namespace HotelSimulationTheLock
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new StartupScreen());
-
-          
-
             
-
-
-
-
         }
     }
 }

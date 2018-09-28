@@ -22,14 +22,9 @@ namespace HotelSimulationTheLock
 
             HotelEventManager.Start();
             Console.WriteLine(!HotelEventManager.Running);
-
             
-
             HotelEventManager.HTE_Factor = 0.5f;
-
             
-    
-           
         }
     }
 }

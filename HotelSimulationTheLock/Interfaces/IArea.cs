@@ -7,7 +7,7 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    interface IArea : HotelEventListener
+    interface IArea 
     {
 
        
