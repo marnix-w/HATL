@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelSimulationTheLock.Interfaces
+namespace HotelSimulationTheLock
 {
-    class IMovable
+    interface IMovable
     {
     }
 }

@@ -7,7 +7,7 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    class Guest : HotelEventListener
+    class Guest : IMovable, HotelEventListener
     {
 
         public string Name { get; set; }

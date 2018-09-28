@@ -61,8 +61,9 @@
     <Compile Include="Areas\Restaurant.cs" />
     <Compile Include="Areas\Room.cs" />
     <Compile Include="Areas\Staircase.cs" />
+    <Compile Include="Assets\Json\JsonSerializer.cs" />
     <Compile Include="Factories\AreaFactory.cs" />
-    <Compile Include="Factories\IMovable.cs" />
+    <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Model\showListener.cs" />
     <Compile Include="Movable\Guest.cs" />
     <Compile Include="Movable\Maid.cs" />
@@ -115,7 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Images\" />
-    <Folder Include="Assets\Json\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Libraries\HotelEvents.dll" />
