@@ -4,8 +4,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HotelEvents;
 
-namespace HotelSimulationTheLock.Interfaces
+namespace HotelSimulationTheLock
 {
     public class IArea
     {
@@ -15,6 +16,6 @@ namespace HotelSimulationTheLock.Interfaces
         public Point Position { get; set; }
         public Point Dimension { get; set; }
         public int Capacity { get; set; }
-     
     }
+
 }
