@@ -62,11 +62,11 @@
     <Compile Include="Areas\Room.cs" />
     <Compile Include="Areas\Staircase.cs" />
     <Compile Include="Assets\Json\JsonSerializer.cs" />
-    <Compile Include="Caracters\Guest.cs" />
-    <Compile Include="Caracters\Maid.cs" />
-    <Compile Include="Caracters\Receptionist.cs" />
     <Compile Include="Factories\AreaFactory.cs" />
     <Compile Include="Model\showListener.cs" />
+    <Compile Include="Movable\Guest.cs" />
+    <Compile Include="Movable\Maid.cs" />
+    <Compile Include="Movable\Receptionist.cs" />
     <Compile Include="Simulation.cs">
       <SubType>Form</SubType>
     </Compile>
