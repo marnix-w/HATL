@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HotelEvents;
 
-namespace HotelSimulationTheLock.Areas
+namespace HotelSimulationTheLock
 {
     class Pool : IArea
     {
