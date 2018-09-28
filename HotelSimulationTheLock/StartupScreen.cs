@@ -1,5 +1,4 @@
-﻿using HotelSimulationTheLock.Interfaces;
-using HotelSimulationTheLock.Model;
+﻿using HotelSimulationTheLock.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

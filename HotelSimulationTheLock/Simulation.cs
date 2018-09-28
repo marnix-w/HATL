@@ -1,5 +1,4 @@
 ﻿using HotelEvents;
-using HotelSimulationTheLock.Interfaces;
 using HotelSimulationTheLock.Model;
 using System;
 using System.Collections.Generic;
