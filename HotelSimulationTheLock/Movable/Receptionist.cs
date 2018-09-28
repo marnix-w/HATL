@@ -7,7 +7,7 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock.Caracters
 {
-    class Receptionist : HotelEventListener
+    class Receptionist : IMovable, HotelEventListener
     {
         public void Notify(HotelEvent evt)
         {
