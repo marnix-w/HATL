@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelSimulationTheLock.Factories
+namespace HotelSimulationTheLock.Model
 {
-    class AreaFactory
+    class Hotel
     {
-
-       
-
     }
 }
