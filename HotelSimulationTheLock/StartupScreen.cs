@@ -28,7 +28,7 @@ namespace HotelSimulationTheLock
 
         private void _runSimulation_Click(object sender, EventArgs e)
         {
-            List<IArea> layout = null;
+            List<JsonModel> layout = null;
 
             if (layout == null)
             {
@@ -44,14 +44,14 @@ namespace HotelSimulationTheLock
 
 
         // Json uitlezen en dan een list van maken voor layout
-        private List<IArea> ReadLayoutJson(string path)
+        private List<JsonModel> ReadLayoutJson(string path)
         {
             try
             {
                 StreamReader file = new StreamReader(path);
                 string json = file.ReadToEnd();
                 file.Close();
-                return JsonConvert.DeserializeObject<List<IArea>>(json);
+                return JsonConvert.DeserializeObject<List<JsonModel>>(json);
             }
             catch (Exception ex)
             {

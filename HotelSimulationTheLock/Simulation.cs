@@ -16,7 +16,7 @@ namespace HotelSimulationTheLock
     public partial class Simulation : Form
     {
       
-        public Simulation(List<IArea> layout)
+        public Simulation(List<JsonModel> layout)
         {
             InitializeComponent();
 
@@ -31,7 +31,7 @@ namespace HotelSimulationTheLock
             HotelEventManager.Register(temp);
 
 
-            foreach(IArea item in layout)
+            foreach(JsonModel item in layout)
             {
                 _eventsOutput.Text += item.Classification;              
                 _eventsOutput.Text += item.AreaType;
