@@ -1,4 +1,6 @@
 ﻿using HotelEvents;
+using HotelSimulationTheLock.Interfaces;
+using HotelSimulationTheLock.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +16,8 @@ namespace HotelSimulationTheLock
 {
     public partial class Simulation : Form
     {
-        public Simulation()
+      
+        public Simulation(List<IArea> layout)
         {
             InitializeComponent();
 
@@ -29,7 +32,7 @@ namespace HotelSimulationTheLock
             Model.showListener temp = new Model.showListener();
 
             HotelEventManager.Register(temp);
-                        
+
             new Thread((ThreadStart)(() =>
             {
                 while (true)
@@ -37,6 +40,28 @@ namespace HotelSimulationTheLock
 
                 }
             })).Start();
+
+            foreach(IArea item in layout)
+            {
+               Console.WriteLine(item.ID);
+               Console.WriteLine(item.AreaType);
+               Console.WriteLine(item.Capacity);
+               Console.WriteLine(item.Classification);
+               Console.WriteLine(item.Dimension);
+               Console.WriteLine(item.Position);
+
+                _eventsOutput.Text += item.Classification;              
+                _eventsOutput.Text += item.AreaType;
+                _eventsOutput.Text += item.ID;
+                _eventsOutput.Text += item.Position;
+                _eventsOutput.Text += item.Dimension;
+                _eventsOutput.Text += item.Capacity;
+
+                _eventsOutput.Text += "\n";
+            }
+
+         
         }
+
     }
 }
