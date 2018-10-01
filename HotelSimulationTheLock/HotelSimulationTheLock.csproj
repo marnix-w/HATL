@@ -60,7 +60,6 @@
     <Compile Include="Areas\Staircase.cs" />
     <Compile Include="Factories\AreaFactory.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
-    <Compile Include="Model\ExtendedRoomsModel.cs" />
     <Compile Include="Model\Hotel.cs" />
     <Compile Include="Model\JsonModel.cs" />
     <Compile Include="Movable\Guest.cs" />
