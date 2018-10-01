@@ -13,19 +13,29 @@ namespace HotelSimulationTheLock
     [ExportMetadata("AreaType", "Staircase")]
     public class Staircase : IArea
     {
+        public Point Position { get; set; }
+        public Point Dimension { get; set; } = new Point(1, 1);
+        public int Capacity { get; set; }
+        public Image Art { get; set; } = Properties.Resources.staircase;
+        public Enum Status { get; set; }
 
-        public IArea CreateArea()
+
+        private Staircase()
         {
-            return new Staircase();
+                     
         }
 
-        public Point Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Point Dimension { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Capacity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Image Art { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int ArtWidth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int ArtHeight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Enum Status { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        
+        public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
+        {
+            Staircase st = new Staircase();
+            st.Position = position;
+            st.Capacity = capacity;
+
+            return st;
+        }
+
+        
 
     }
 }

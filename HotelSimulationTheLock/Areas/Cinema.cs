@@ -14,21 +14,29 @@ namespace HotelSimulationTheLock
     [ExportMetadata("AreaType", "Cinema")]
     public class Cinema : IArea, HotelEventListener
     {
+        public Point Position { get; set; }
+        public Point Dimension { get; set; }
+        public int Capacity { get; set; }
+        public Image Art { get; set; } = Properties.Resources.cinema;
+        public Enum Status { get; set; }
 
-        public IArea CreateArea()
+
+        private Cinema()
         {
-            return new Cinema();
+            HotelEventManager.Register(this);           
         }
 
-        public Point Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Point Dimension { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Capacity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Image Art { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int ArtWidth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int ArtHeight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Enum Status { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
+        {
+            Cinema cm = new Cinema();
 
+            cm.Position = position;
+            cm.Capacity = capacity;
+            cm.Dimension = dimension;
 
+            return cm;
+        }
+        
         public void Notify(HotelEvent evt)
         {
             if (evt.EventType.Equals(HotelEventType.STAR_CINEMA))
