@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HotelEvents;
 
-namespace HotelSimulationTheLock.Caracters
+namespace HotelSimulationTheLock
 {
     class Maid : IMovable, HotelEventListener
     {
