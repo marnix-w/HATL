@@ -11,8 +11,7 @@ namespace HotelSimulationTheLock
 {
     public interface IArea
     {
-        IArea CreateArea();
-    //    string AreaType { get; set; }
+        IArea CreateArea();  
         Point Position { get; set; }
         Point Dimension { get; set; }
         int Capacity { get; set; }

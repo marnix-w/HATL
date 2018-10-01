@@ -19,7 +19,6 @@ namespace HotelSimulationTheLock
             return new Elevator();
         }
 
-        public string AreaType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Point Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Point Dimension { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int Capacity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
