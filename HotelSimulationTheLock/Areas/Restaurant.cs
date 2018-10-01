@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using HotelEvents;
 
-namespace HotelSimulationTheLock.Areas
+namespace HotelSimulationTheLock
 {
     [Export(typeof(IArea))]
     [ExportMetadata("AreaType", "Restaurant")]
-    class Restaurant : IArea
+    public class Restaurant : IArea
     {
         public IArea CreateArea()
         {

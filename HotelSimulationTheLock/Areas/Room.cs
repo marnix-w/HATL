@@ -10,7 +10,7 @@ namespace HotelSimulationTheLock
 {
     [Export(typeof(IArea))]
     [ExportMetadata("AreaType", "Room")]
-    class Room : IArea
+    public class Room : IArea
     {
         public IArea CreateArea()
         {

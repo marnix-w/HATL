@@ -24,13 +24,12 @@ namespace HotelSimulationTheLock
 
             for (int i = 0; i < typa.Length; i++)
             {
-                temp.Add(a.areaFactory.GetArea(typa[i]));
+                temp.Add(a.AreaFactory.GetArea(typa[i]));
             }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new StartupScreen());
-            
+            Application.Run(new StartupScreen());          
         }
     }
 }

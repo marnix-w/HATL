@@ -8,7 +8,7 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    class Reception : IArea, HotelEventListener
+    public class Reception : IArea, HotelEventListener
     {
 
         public IArea CreateArea()

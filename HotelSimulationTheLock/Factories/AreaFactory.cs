@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace HotelSimulationTheLock
 {
     [Export(typeof(AreaFactory))]
-    class AreaFactory 
+    public class AreaFactory 
     {
         [ImportMany]
         IEnumerable<Lazy<IArea, IAreaData>> AreaTypes;

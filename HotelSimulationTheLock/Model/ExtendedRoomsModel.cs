@@ -14,13 +14,13 @@ namespace HotelSimulationTheLock
         string AreaType { get; }
     }
 
-    class ExtendedRoomsModel
+    public class ExtendedRoomsModel
     {
         private CompositionContainer _container;
 
         [Import(typeof(AreaFactory))]
-        public AreaFactory areaFactory;
-
+        public AreaFactory AreaFactory { get; set; }
+        
         public ExtendedRoomsModel()
         {
             //An aggregate catalog that combines multiple catalogs
