@@ -11,6 +11,11 @@ namespace HotelSimulationTheLock
     class Reception : IArea, HotelEventListener
     {
 
+        public IArea CreateArea()
+        {
+            return new Reception();
+        }
+
         public Reception()
         {
             HotelEventManager.Register(this);

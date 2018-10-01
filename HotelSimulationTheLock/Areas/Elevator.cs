@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,13 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
+    [Export(typeof(IArea))]
+    [ExportMetadata("AreaType", "Elevator")]
     class Elevator : IArea
     {
-
+        public IArea CreateArea()
+        {
+            return new Elevator();
+        }
     }
 }

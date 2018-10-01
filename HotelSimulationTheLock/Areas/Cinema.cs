@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -9,9 +10,14 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
+    [Export(typeof(IArea))]
+    [ExportMetadata("AreaType", "Cinema")]
     class Cinema : IArea, HotelEventListener
     {
-
+        public IArea CreateArea()
+        {
+            return new Cinema();
+        }
 
         public void Notify(HotelEvent evt)
         {
@@ -21,5 +27,5 @@ namespace HotelSimulationTheLock
             }
         }
 
-        }
+    }
 }

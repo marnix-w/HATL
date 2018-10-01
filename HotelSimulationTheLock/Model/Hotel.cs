@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelSimulationTheLock
 {
-    class Hotel
+    public class Hotel
     {
     }
 }

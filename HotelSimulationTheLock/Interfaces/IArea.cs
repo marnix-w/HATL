@@ -11,7 +11,7 @@ namespace HotelSimulationTheLock
 {
     public interface IArea
     {
-
+        IArea CreateArea();
     }
 
 }
