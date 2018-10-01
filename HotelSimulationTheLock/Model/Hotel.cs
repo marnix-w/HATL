@@ -15,7 +15,7 @@ namespace HotelSimulationTheLock
     public class Hotel
     {
         //this list will be filled with IAreas objects
-        private List<IArea> _hotelList = new List<IArea>();
+        public List<IArea> HotelAreaList = new List<IArea>();
 
         //a hotel needs to have a list of current guests 
         private List<Guest> _guestsList = new List<Guest>();
@@ -49,23 +49,14 @@ namespace HotelSimulationTheLock
                 {
                     temp = Int32.Parse(Regex.Match(i.Classification, @"\d+").Value);
                 }
-               
-               
-                _hotelList.Add(tijdelijk.AreaFactory.GetArea(i.AreaType, i.Position, i.Capacity, i.Dimension, temp));
+
+
+                HotelAreaList.Add(tijdelijk.AreaFactory.GetArea(i.AreaType, i.Position, i.Capacity, i.Dimension, temp));
             }
 
-            DumpData();
-          
         }
 
-        public void DumpData()
-        {
-            foreach(IArea a in _hotelList)
-            {
-                Console.Write(" " + a.Capacity +  a.Dimension + a.Position + a.Status + a.GetType().ToString());
-                Console.WriteLine("");
-            }
-        }
+      
 
     }
 }
