@@ -14,12 +14,12 @@ namespace HotelSimulationTheLock
     [ExportMetadata("AreaType", "Cinema")]
     public class Cinema : IArea, HotelEventListener
     {
-<<<<<<< HEAD
+
         public IArea CreateArea()
         {
             return new Cinema();
         }
-=======
+
         public string AreaType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Point Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Point Dimension { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -28,7 +28,7 @@ namespace HotelSimulationTheLock
         public int ArtWidth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int ArtHeight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Enum Status { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
->>>>>>> origin/hotel-startup-sprint-2
+
 
         public void Notify(HotelEvent evt)
         {

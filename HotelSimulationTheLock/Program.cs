@@ -15,17 +15,16 @@ namespace HotelSimulationTheLock
         [STAThread]
         static void Main()
         {
+            //ExtendedRoomsModel a = new ExtendedRoomsModel();
 
-            ExtendedRoomsModel a = new ExtendedRoomsModel();
+            //string[] typa = { "Room", "Pool", "Fitness", "Cinema" };
 
-            string[] typa = { "Room", "Pool", "Fitness", "Cinema" };
+            //List<IArea> temp = new List<IArea>();
 
-            List<IArea> temp = new List<IArea>();
-
-            for (int i = 0; i < typa.Length; i++)
-            {
-                temp.Add(a.AreaFactory.GetArea(typa[i]));
-            }
+            //for (int i = 0; i < typa.Length; i++)
+            //{
+            //    temp.Add(a.AreaFactory.GetArea(typa[i]));
+            //}
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

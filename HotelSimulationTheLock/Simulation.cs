@@ -26,7 +26,7 @@ namespace HotelSimulationTheLock
             Console.WriteLine(!HotelEventManager.Running);
 
 
-            Model.showListener temp = new Model.showListener();
+            Model.showListener temp = new showListener();
 
             HotelEventManager.Register(temp);
 
