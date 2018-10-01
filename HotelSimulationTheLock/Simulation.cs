@@ -41,9 +41,7 @@ namespace HotelSimulationTheLock
                 _eventsOutput.Text += item.Capacity;
 
                 _eventsOutput.Text += "\n";
-            }
-         
-
+            }   
             
             HotelEventManager.HTE_Factor = 0.5f;
 

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelSimulationTheLock.Model
+namespace HotelSimulationTheLock
 {
     public class JsonModel
     {
