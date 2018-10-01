@@ -17,6 +17,7 @@ namespace HotelSimulationTheLock
         public string Classification { get; set; }
         public Image Art { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int ArtWidth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int ArtHeight { get; set; }
+        public int ArtHeight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
     }
 }
