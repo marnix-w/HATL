@@ -14,7 +14,7 @@ namespace HotelSimulationTheLock
 {
     public partial class Simulation : Form
     {
-      public Hotel HotelArea { get; set; }
+        public Hotel HotelArea { get; set; }
 
         public Simulation(List<JsonModel> layout)
         {
@@ -29,18 +29,6 @@ namespace HotelSimulationTheLock
 
 
 
-            //foreach (JsonModel item in layout)
-            //{
-            //    _eventsOutput.Text += item.Classification;
-            //    _eventsOutput.Text += item.AreaType;
-            //    _eventsOutput.Text += item.ID;
-            //    _eventsOutput.Text += item.Position;
-            //    _eventsOutput.Text += item.Dimension;
-            //    _eventsOutput.Text += item.Capacity;
-
-            //    _eventsOutput.Text += "\n";
-            //}
-
             showHotelAreaOverView();
 
             HotelEventManager.HTE_Factor = 0.5f;
@@ -49,16 +37,8 @@ namespace HotelSimulationTheLock
 
         public void showHotelAreaOverView()
         {
-           
-                foreach (IArea i in HotelArea.HotelAreaList)
-                {
-                    //Console.Write(" " + a.Capacity + a.Dimension + a.Position + a.Status + a.GetType().ToString());
-                    //Console.WriteLine("");
-
-
-             //   _eventsOutput.Text += i.Classification;
-            //    _eventsOutput.Text += i.AreaType;
-           //     _eventsOutput.Text += i.ID;
+            foreach (IArea i in HotelArea.HotelAreaList)
+            {
                 _eventsOutput.Text += i.Position;
                 _eventsOutput.Text += i.Status;
                 _eventsOutput.Text += i.Dimension;
@@ -66,8 +46,15 @@ namespace HotelSimulationTheLock
                 _eventsOutput.Text += i.GetType().ToString();
 
                 _eventsOutput.Text += "\n";
+
+                PictureBox test = new PictureBox();
+                test.Location = new Point(i.Position.X * 96, i.Position.Y * 96);
+                test.Width = i.Dimension.X * 96;
+                test.Height = i.Dimension.Y * 96;
+                test.Image = i.Art;
+                this.Controls.Add(test);
             }
-            
+
         }
 
     }
