@@ -16,19 +16,30 @@ namespace HotelSimulationTheLock
     [ExportMetadata("AreaType", "Restaurant")]
     public class Restaurant : IArea
     {
+        public Point Position { get; set; }
+        public Point Dimension { get; set; }
+        public int Capacity { get; set; }
+        public Image Art { get; set; } = Properties.Resources.restaurant;
+        public Enum Status { get; set; }
 
-        public IArea CreateArea()
+
+        private Restaurant()
         {
-            return new Restaurant();
+                        
         }
 
-        public Point Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Point Dimension { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Capacity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Image Art { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int ArtWidth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int ArtHeight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Enum Status { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
+        {
+            Restaurant rs = new Restaurant();
+
+            rs.Position = position;
+            rs.Capacity = capacity;
+            rs.Dimension = dimension;
+
+            return rs;
+        }
+
+        
 
     }
 }

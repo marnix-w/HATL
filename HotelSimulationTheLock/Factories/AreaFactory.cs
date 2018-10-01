@@ -15,11 +15,12 @@ namespace HotelSimulationTheLock
         [ImportMany]
         IEnumerable<Lazy<IArea, IAreaData>> AreaTypes;
         
-        public IArea GetArea(string typeOfArea)
+
+        public IArea GetArea(string typeOfArea, Point position, int capacity, Point dimension, int clasification)
         {
             foreach (Lazy<IArea, IAreaData> i in AreaTypes)
             {
-                if (i.Metadata.AreaType.Equals(typeOfArea)) return i.Value.CreateArea();
+                if (i.Metadata.AreaType.Equals(typeOfArea)) return i.Value.CreateArea(position, capacity, dimension, clasification);
             }
 
             //Error handeling

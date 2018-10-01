@@ -90,6 +90,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Simulation.resx">
       <DependentUpon>Simulation.cs</DependentUpon>
@@ -113,10 +114,35 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Images\" />
     <Folder Include="Assets\Json\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Images\cinema.png" />
+    <None Include="Assets\Images\cleaning_emargance.png" />
+    <None Include="Assets\Images\concept_hotel.png" />
+    <None Include="Assets\Images\customer.png" />
+    <None Include="Assets\Images\elevator_not_pressent.png" />
+    <None Include="Assets\Images\elevator_pressent.png" />
+    <None Include="Assets\Images\fire_emargance.png" />
+    <None Include="Assets\Images\fitness.png" />
+    <None Include="Assets\Images\hallway.png" />
+    <None Include="Assets\Images\lobby_couch.png" />
+    <None Include="Assets\Images\lobby_window.png" />
+    <None Include="Assets\Images\maid.png" />
+    <None Include="Assets\Images\reception.png" />
+    <None Include="Assets\Images\receptionist.png" />
+    <None Include="Assets\Images\restaurant.png" />
+    <None Include="Assets\Images\room_five_star_locked.png" />
+    <None Include="Assets\Images\room_five_star_open.png" />
+    <None Include="Assets\Images\room_four_star_locked.png" />
+    <None Include="Assets\Images\room_four_star_open.png" />
+    <None Include="Assets\Images\room_one_star_locked.png" />
+    <None Include="Assets\Images\room_one_star_open.png" />
+    <None Include="Assets\Images\room_three_star_locked.png" />
+    <None Include="Assets\Images\room_three_star_open.png" />
+    <None Include="Assets\Images\room_two_star_locked.png" />
+    <None Include="Assets\Images\room_two_star_open.png" />
+    <None Include="Assets\Images\staircase.png" />
     <Content Include="Assets\Libraries\HotelEvents.dll" />
     <Content Include="Extended_Areas\Pool.dll" />
   </ItemGroup>

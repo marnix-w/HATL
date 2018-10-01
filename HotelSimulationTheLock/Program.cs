@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,16 +16,16 @@ namespace HotelSimulationTheLock
         [STAThread]
         static void Main()
         {
-            //ExtendedRoomsModel a = new ExtendedRoomsModel();
+            ExtendedRoomsModel a = new ExtendedRoomsModel();
 
-            //string[] typa = { "Room", "Pool", "Fitness", "Cinema" };
+            string[] typa = { "Cinema", "Pool", "Fitness", "Cinema" };
 
-            //List<IArea> temp = new List<IArea>();
+            List<IArea> temp = new List<IArea>();
 
-            //for (int i = 0; i < typa.Length; i++)
-            //{
-            //    temp.Add(a.AreaFactory.GetArea(typa[i]));
-            //}
+            for (int i = 0; i < typa.Length; i++)
+            {
+                temp.Add(a.AreaFactory.GetArea((typa[i]), new Point(0,0), 1, new Point(0, 0), 5));
+            }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

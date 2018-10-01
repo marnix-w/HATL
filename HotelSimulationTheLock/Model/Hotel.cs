@@ -23,10 +23,10 @@ namespace HotelSimulationTheLock
         private List<Maid> _maidList = new List<Maid>();
 
         //a hotel has only 1 elavator
-        private Elevator _elavator = new Elevator();
+        //private Elevator _elavator = new Elevator();
 
         //a hotel has only 1 staircase
-        private Staircase _starcase = new Staircase();
+        //private Staircase _starcase = new Staircase();
 
         // private Timer HteTimer { get; set; }
 
