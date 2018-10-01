@@ -55,6 +55,26 @@ namespace HotelSimulationTheLock
                 this.Controls.Add(test);
             }
 
+          
+            for (int i = 1; i < 8; i++)
+            {
+                //elavator
+                PictureBox elevator = new PictureBox();
+                elevator.Location = new Point(0, i * 96);
+                elevator.Image = Properties.Resources.elevator_not_pressent;
+                elevator.Width = 96;
+                elevator.Height = 96;
+                this.Controls.Add(elevator);
+
+                //staircase
+                PictureBox staircase = new PictureBox();
+                staircase.Location = new Point(9 * 96 , i * 96);
+                staircase.Image = Properties.Resources.staircase;
+                staircase.Width = 96;
+                staircase.Height = 96;
+                this.Controls.Add(staircase);
+            }
+
         }
 
     }
