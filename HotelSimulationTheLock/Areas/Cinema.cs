@@ -18,6 +18,7 @@ namespace HotelSimulationTheLock
         public Image Art { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int ArtWidth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int ArtHeight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Enum Status { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void Notify(HotelEvent evt)
         {

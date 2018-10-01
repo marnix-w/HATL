@@ -18,5 +18,6 @@ namespace HotelSimulationTheLock
         Image Art { get; set; }
         int ArtWidth { get; set; }
         int ArtHeight { get; set; }
+        Enum Status { get; set; }
     }
 }
