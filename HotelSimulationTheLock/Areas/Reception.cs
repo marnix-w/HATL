@@ -9,7 +9,7 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    class Reception : IArea, HotelEventListener
+    public class Reception : IArea, HotelEventListener
     {
         public string AreaType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Point Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -19,6 +19,11 @@ namespace HotelSimulationTheLock
         public int ArtWidth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int ArtHeight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Enum Status { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public IArea CreateArea()
+        {
+            return new Reception();
+        }
 
         public Reception()
         {
