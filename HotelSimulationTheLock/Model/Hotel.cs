@@ -39,7 +39,7 @@ namespace HotelSimulationTheLock
         {
             HotelEventManager.HTE_Factor = HTESeconds;
 
-            ExtendedRoomsModel tijdelijk = new ExtendedRoomsModel();
+            AreaFactory tijdelijk = new AreaFactory();
 
             foreach (JsonModel i in layout)
             {
@@ -51,7 +51,7 @@ namespace HotelSimulationTheLock
                 }
 
 
-                HotelAreaList.Add(tijdelijk.AreaFactory.GetArea(i.AreaType, i.Position, i.Capacity, i.Dimension, temp));
+                HotelAreaList.Add(tijdelijk.GetArea(i.AreaType, i.Position, i.Capacity, i.Dimension, temp));
             }
 
         }
