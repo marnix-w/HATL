@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
@@ -28,17 +29,42 @@ namespace HotelSimulationTheLock
         //a hotel has only 1 staircase
         //private Staircase _starcase = new Staircase();
 
-        // private Timer HteTimer { get; set; }
-
         //amount of events per second
         public int HtePerSecond { get; set; }
 
         //an hotel has a background image
         public PictureBox Background { get; set; }
 
-        public Hotel(float HTESeconds)
+        public Hotel(List<JsonModel> layout, float HTESeconds)
         {
             HotelEventManager.HTE_Factor = HTESeconds;
+
+            ExtendedRoomsModel tijdelijk = new ExtendedRoomsModel();
+
+            foreach (JsonModel i in layout)
+            {
+                int temp = 0;
+
+                if(i.Classification != null)
+                {
+                    temp = Int32.Parse(Regex.Match(i.Classification, @"\d+").Value);
+                }
+               
+               
+                _hotelList.Add(tijdelijk.AreaFactory.GetArea(i.AreaType, i.Position, i.Capacity, i.Dimension, temp));
+            }
+
+            DumpData();
+          
+        }
+
+        public void DumpData()
+        {
+            foreach(IArea a in _hotelList)
+            {
+                Console.Write(" " + a.Capacity +  a.Dimension + a.Position + a.Status + a.GetType().ToString());
+                Console.WriteLine("");
+            }
         }
 
     }
