@@ -63,7 +63,6 @@
     <Compile Include="Model\ExtendedRoomsModel.cs" />
     <Compile Include="Model\Hotel.cs" />
     <Compile Include="Model\JsonModel.cs" />
-    <Compile Include="Model\showListener.cs" />
     <Compile Include="Movable\Guest.cs" />
     <Compile Include="Movable\Maid.cs" />
     <Compile Include="Movable\Receptionist.cs" />
