@@ -31,20 +31,21 @@ namespace HotelSimulationTheLock
 
         private Room()
         {
-            
+
 
         }
 
-        public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
+        public IArea CreateArea(Point position, int capacity, Point dimension, int classification)
         {
             Room rm = new Room
             {
                 Position = position,
                 Dimension = dimension,
-                Classification = clasification
+                Classification = classification
             };
 
-            switch (clasification)
+
+            switch (classification)
             {
                 case 1:
                     rm.Art = Properties.Resources.room_one_star_open;
@@ -70,7 +71,7 @@ namespace HotelSimulationTheLock
             return rm;
         }
 
-        
+
 
     }
 }
