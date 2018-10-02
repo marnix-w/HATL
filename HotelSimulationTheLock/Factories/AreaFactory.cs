@@ -10,19 +10,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace HotelSimulationTheLock
-{
-    public interface IAreaData
-    {
-        string AreaType { get; }
-    }
-
-   
+{  
     public class AreaFactory 
     {
         private CompositionContainer _container;
 
         [ImportMany]
-        IEnumerable<Lazy<IArea, IAreaData>> AreaTypes;
+        IEnumerable<Lazy<IArea, IAreaType>> AreaTypes;
 
         public AreaFactory()
         {
@@ -30,7 +24,16 @@ namespace HotelSimulationTheLock
             var catalog = new AggregateCatalog();
             //Adds all the parts found in the same assembly as the Program class
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(Program).Assembly));
-            catalog.Catalogs.Add(new DirectoryCatalog(Directory.GetCurrentDirectory() + @"..\..\..\Extended_Areas"));
+
+            try
+            {
+                catalog.Catalogs.Add(new DirectoryCatalog(Directory.GetCurrentDirectory() + @"..\..\..\Extended_Areas"));
+            }
+            catch (CompositionException)
+            {
+                // Error handeling
+                Debug.WriteLine("The deliverd DLL does implement the IArea interface correctly please fix");
+            }
 
             //Create the CompositionContainer with the parts in the catalog
             _container = new CompositionContainer(catalog);
@@ -48,7 +51,7 @@ namespace HotelSimulationTheLock
 
         public IArea GetArea(string typeOfArea, Point position, int capacity, Point dimension, int clasification)
         {
-            foreach (Lazy<IArea, IAreaData> i in AreaTypes)
+            foreach (Lazy<IArea, IAreaType> i in AreaTypes)
             {
                 if (i.Metadata.AreaType.Equals(typeOfArea)) return i.Value.CreateArea(position, capacity, dimension, clasification);
             }

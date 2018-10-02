@@ -33,9 +33,9 @@
             // 
             // _eventsOutput
             // 
-            this._eventsOutput.Location = new System.Drawing.Point(25, 12);
+            this._eventsOutput.Location = new System.Drawing.Point(997, 12);
             this._eventsOutput.Name = "_eventsOutput";
-            this._eventsOutput.Size = new System.Drawing.Size(514, 426);
+            this._eventsOutput.Size = new System.Drawing.Size(370, 473);
             this._eventsOutput.TabIndex = 0;
             this._eventsOutput.Text = "";
             // 
@@ -43,7 +43,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1388, 853);
             this.Controls.Add(this._eventsOutput);
             this.Name = "Simulation";
             this.Text = "Simulation";

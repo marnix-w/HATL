@@ -15,7 +15,7 @@ namespace HotelSimulationTheLock
         public Point Dimension { get; set; } = new Point(1, 1);
         public int Capacity { get; set; } = 1;
         public Image Art { get; set; } = Properties.Resources.reception;
-        public Enum Status { get; set; }
+        Status IArea.Status { get; set; }
 
         public Reception()
         {

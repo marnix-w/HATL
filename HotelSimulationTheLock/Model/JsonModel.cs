@@ -22,7 +22,7 @@ namespace HotelSimulationTheLock
         [JsonProperty("Position")]
         public Point Position { get; set; }
 
-        [JsonProperty("Dimention")]
+        [JsonProperty("Dimension")]
         public Point Dimension { get; set; }
 
         [JsonProperty("Capacity")]

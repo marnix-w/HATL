@@ -9,6 +9,20 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
+    public enum Status
+    {
+        Empty,
+        Ocupied,
+        NeedCleaning
+        //Ect
+    }
+
+
+    public interface IAreaType
+    {
+        string AreaType { get; }
+    }
+    
     public interface IArea
     {
         IArea CreateArea(Point position, int capacity, Point dimension, int clasification);  
@@ -16,7 +30,7 @@ namespace HotelSimulationTheLock
         Point Dimension { get; set; }
         int Capacity { get; set; }
         Image Art { get; set; }
-        Enum Status { get; set; }
+        Status Status { get; set; }
 
     }
 }

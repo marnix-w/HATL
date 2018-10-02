@@ -19,24 +19,27 @@ namespace HotelSimulationTheLock
         public Point Position { get; set; }
         public Point Dimension { get; set; }
         public int Capacity { get; set; } = 1;
-        public string Classification { get; set; }
+        public int Classification { get; set; }
         public Image Art { get; set; }
-        public Enum Status { get; set; }
+        Status IArea.Status { get; set; }
 
         private Room()
         {
-            
+
 
         }
 
-        public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
+        public IArea CreateArea(Point position, int capacity, Point dimension, int classification)
         {
-            Room rm = new Room();
+            Room rm = new Room
+            {
+                Position = position,
+                Dimension = dimension,
+                Classification = classification
+            };
 
-            rm.Position = position;
-            rm.Dimension = dimension;
 
-            switch (clasification)
+            switch (classification)
             {
                 case 1:
                     rm.Art = Properties.Resources.room_one_star_open;
@@ -62,7 +65,7 @@ namespace HotelSimulationTheLock
             return rm;
         }
 
-        
+
 
     }
 }
