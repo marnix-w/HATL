@@ -64,47 +64,49 @@ namespace HotelSimulationTheLock
 
         }
 
-        public void SetNieghbors()
+        private void SetNieghbors()
         {
-            int MaxX = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X;
+            int MaxX = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X + 1;
 
             foreach (IArea area in HotelAreaList)
             {
 
-                // add right niegbor
-                for (int i = 1; i < MaxX; i++)
-                {                    
-                    if (!(HotelAreaList.Find(X => X.Position == new Point(area.Position.X + i, area.Position.Y)) is null))
-                    {
-                        area.Edge.Add(HotelAreaList.Where(X => X.Position == new Point(area.Position.X + i, area.Position.Y)).Single(), i);
-                        break;
-                    }
-                }
-                // add left niegbor
+                bool rightSet = false;
+                bool leftSet = false;
+
                 for (int i = 1; i < MaxX; i++)
                 {
-                    if (!(HotelAreaList.Find(X => X.Position == new Point(area.Position.X - i, area.Position.Y)) is null))
+                    // right edge
+                    if (!rightSet && AddNiehgbor(area, i, 0, i))
                     {
-                        area.Edge.Add(HotelAreaList.Where(X => X.Position == new Point(area.Position.X - i, area.Position.Y)).Single(), i);
-                        break;
+                        rightSet = true;
+                        continue;
                     }
-                }              
+                    //left edge
+                    if (!leftSet && AddNiehgbor(area, -i, 0, i))
+                    {
+                        leftSet = true;
+                        continue;
+                    }
+                }
                 if (area.Position.X == 0 || area.Position.X == MaxX)
                 {
                     // add top neighbor
-                    if (!(HotelAreaList.Find(X => X.Position == new Point(area.Position.X, area.Position.Y + 1)) is null))
-                    {
-                        area.Edge.Add(HotelAreaList.Where(X => X.Position == new Point(area.Position.X, area.Position.Y + 1)).Single(), 1);
-                        break;
-                    }
+                    AddNiehgbor(area, 0, 1, 1);
                     // add bothem neighbor
-                    if (!(HotelAreaList.Find(X => X.Position == new Point(area.Position.X, area.Position.Y - 1)) is null))
-                    {
-                        area.Edge.Add(HotelAreaList.Where(X => X.Position == new Point(area.Position.X, area.Position.Y - 1)).Single(), 1);
-                        break;
-                    }
+                    AddNiehgbor(area, 0, -1, 1);
                 }
             }
+        }
+
+        private bool AddNiehgbor(IArea area, int xOffset, int yOffset, int wieght)
+        {
+            if (!(HotelAreaList.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)) is null))
+            {
+                area.Edge.Add(HotelAreaList.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)), wieght);
+                return true;
+            }
+            return false;
         }
 
         public void Notify(HotelEvent evt)
