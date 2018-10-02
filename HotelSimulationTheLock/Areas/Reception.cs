@@ -9,30 +9,21 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    public class Reception : IArea, HotelEventListener
+    class Reception : IArea, HotelEventListener
     {
-        public Point Position { get; set; } = new Point(0, 1); // LOOK FOR Y OR X (nu als xy)
-        public Point Dimension { get; set; } = new Point(1, 1);
-        public int Capacity { get; set; } = 1;
-        public Image Art { get; set; } = Properties.Resources.reception;
-        Status IArea.Status { get; set; }
-
-        // Dijkstra search varibles
-        public double? BackTrackCost { get; set; } = null;
-        public IArea NearestToStart { get; set; } = null;
-        public bool Visited { get; set; } = false;
-        public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
+        public string AreaType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Point Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Point Dimension { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Capacity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Image Art { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int ArtWidth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int ArtHeight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Reception()
         {
             HotelEventManager.Register(this);
         }
 
-        public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
-        {
-            return new Reception();
-        }
-        
         public void Notify(HotelEvent evt)
         {
             if (evt.EventType.Equals(HotelEventType.CHECK_IN))

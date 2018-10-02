@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,40 +8,14 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    [Export(typeof(IArea))]
-    [ExportMetadata("AreaType", "Fitness")]
-    public class Fitness : IArea
+    class Fitness : IArea
     {
-        public Point Position { get; set; }
-        public Point Dimension { get; set; }
-        public int Capacity { get; set; }
-        public Image Art { get; set; } = Properties.Resources.fitness;
-        Status IArea.Status { get; set; }
-
-        // Dijkstra search varibles
-        public double? BackTrackCost { get; set; } = null;
-        public IArea NearestToStart { get; set; } = null;
-        public bool Visited { get; set; } = false;
-        public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
-
-        private Fitness()
-        {
-            
-        }
-
-        public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
-        {
-            Fitness ft = new Fitness
-            {
-                Position = position,
-                Capacity = capacity,
-                Dimension = dimension
-            };
-
-            return ft;
-        }
-
-        
-
+        public string AreaType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Point Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Point Dimension { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Capacity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Image Art { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int ArtWidth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int ArtHeight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }
