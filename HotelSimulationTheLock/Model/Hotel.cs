@@ -45,7 +45,10 @@ namespace HotelSimulationTheLock
         {
             HotelEventManager.HTE_Factor = HTESeconds;
 
-            AreaFactory tijdelijk = new AreaFactory();
+            AreaFactory Factory = new AreaFactory();
+
+
+
 
             foreach (JsonModel i in layout)
             {
@@ -57,8 +60,34 @@ namespace HotelSimulationTheLock
                 }
 
 
-                HotelAreaList.Add(tijdelijk.GetArea(i.AreaType, i.Position, i.Capacity, i.Dimension, temp));
+                HotelAreaList.Add(Factory.GetArea(i.AreaType, i.Position, i.Capacity, i.Dimension, temp));
             }
+
+            int MaxX = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X + 1;
+            int MaxY = HotelAreaList.OrderBy(Y => Y.Position.Y).Last().Position.Y;
+
+            for (int i = 0; i < MaxY; i++)
+            {
+                // 5 is the capacity get from setting screen
+                HotelAreaList.Add(Factory.GetArea("Elevator", new Point(0, i), 5, new Point(1, 1), 0));
+                HotelAreaList.Add(Factory.GetArea("Staircase", new Point(MaxX, i), 5, new Point(MaxX, 1), 0));
+            }
+            for (int i = 1; i < MaxX - 1; i++)
+            {
+                if (i == 1)
+                {
+                    HotelAreaList.Add(Factory.GetArea("Room", new Point(i, 0), 5, new Point(MaxX, 1), 1));
+                }
+                else if (i % 2 == 0) // UNSTABLE !!!
+                {
+                    HotelAreaList.Add(Factory.GetArea("Room", new Point(i, 0), 5, new Point(MaxX, 1), 1)); // window
+                }
+                else
+                {
+                    HotelAreaList.Add(Factory.GetArea("Room", new Point(i, 0), 5, new Point(MaxX, 1), 1)); // couch
+                }
+            }
+
 
             SetNieghbors();
 
