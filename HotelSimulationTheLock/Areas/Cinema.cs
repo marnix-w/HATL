@@ -14,11 +14,18 @@ namespace HotelSimulationTheLock
     [ExportMetadata("AreaType", "Cinema")]
     public class Cinema : IArea, HotelEventListener
     {
+        // Properties
         public Point Position { get; set; }
         public Point Dimension { get; set; }
         public int Capacity { get; set; }
         public Image Art { get; set; } = Properties.Resources.cinema;
         Status IArea.Status { get; set; }
+
+        // Dijkstra search varibles
+        public double? BackTrackCost { get; set; } = null;
+        public IArea NearestToStart { get; set; } = null;
+        public bool Visited { get; set; } = false;
+        public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
 
         private Cinema()
         {
@@ -27,11 +34,12 @@ namespace HotelSimulationTheLock
 
         public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
         {
-            Cinema cm = new Cinema();
-
-            cm.Position = position;
-            cm.Capacity = capacity;
-            cm.Dimension = dimension;
+            Cinema cm = new Cinema
+            {
+                Position = position,
+                Capacity = capacity,
+                Dimension = dimension
+            };
 
             return cm;
         }

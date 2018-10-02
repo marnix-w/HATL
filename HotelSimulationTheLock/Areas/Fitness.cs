@@ -19,6 +19,12 @@ namespace HotelSimulationTheLock
         public Image Art { get; set; } = Properties.Resources.fitness;
         Status IArea.Status { get; set; }
 
+        // Dijkstra search varibles
+        public double? BackTrackCost { get; set; } = null;
+        public IArea NearestToStart { get; set; } = null;
+        public bool Visited { get; set; } = false;
+        public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
+
         private Fitness()
         {
             
@@ -26,11 +32,12 @@ namespace HotelSimulationTheLock
 
         public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
         {
-            Fitness ft = new Fitness();
-
-            ft.Position = position;
-            ft.Capacity = capacity;
-            ft.Dimension = dimension;
+            Fitness ft = new Fitness
+            {
+                Position = position,
+                Capacity = capacity,
+                Dimension = dimension
+            };
 
             return ft;
         }
