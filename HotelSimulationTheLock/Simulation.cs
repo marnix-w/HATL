@@ -14,7 +14,7 @@ namespace HotelSimulationTheLock
 {
     public partial class Simulation : Form
     {
-      public Hotel HotelArea { get; set; }
+        public Hotel HotelArea { get; set; }
 
         public Simulation(List<JsonModel> layout)
         {
@@ -49,25 +49,31 @@ namespace HotelSimulationTheLock
 
         public void showHotelAreaOverView()
         {
-           
-                foreach (IArea i in HotelArea.HotelAreaList)
+
+            foreach (IArea i in HotelArea.HotelAreaList)
+            {
+                //_eventsOutput.Text += i.Position;
+                //_eventsOutput.Text += i.Status;
+                //_eventsOutput.Text += i.Dimension;
+                //_eventsOutput.Text += i.Capacity;
+                //_eventsOutput.Text += i.GetType().ToString();
+
+                //_eventsOutput.Text += "\n";
+
+                string type = i.GetType().ToString().Replace("HotelSimulationTheLock.", "");
+
+                if (type.Equals("Room"))
                 {
-                    //Console.Write(" " + a.Capacity + a.Dimension + a.Position + a.Status + a.GetType().ToString());
-                    //Console.WriteLine("");
-
-
-             //   _eventsOutput.Text += i.Classification;
-            //    _eventsOutput.Text += i.AreaType;
-           //     _eventsOutput.Text += i.ID;
-                _eventsOutput.Text += i.Position;
-                _eventsOutput.Text += i.Status;
-                _eventsOutput.Text += i.Dimension;
-                _eventsOutput.Text += i.Capacity;
-                _eventsOutput.Text += i.GetType().ToString();
+                    _eventsOutput.Text += type + " " + ((Room)i).Classification + " Star: " + i.Status;
+                }
+                else
+                {
+                    _eventsOutput.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.Status;
+                }
 
                 _eventsOutput.Text += "\n";
             }
-            
+
         }
 
     }
