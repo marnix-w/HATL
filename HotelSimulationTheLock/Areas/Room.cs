@@ -19,7 +19,7 @@ namespace HotelSimulationTheLock
         public Point Position { get; set; }
         public Point Dimension { get; set; }
         public int Capacity { get; set; } = 1;
-        public string Classification { get; set; }
+        public int Classification { get; set; }
         public Image Art { get; set; }
         Status IArea.Status { get; set; }
 
@@ -40,7 +40,8 @@ namespace HotelSimulationTheLock
             Room rm = new Room
             {
                 Position = position,
-                Dimension = dimension
+                Dimension = dimension,
+                Classification = clasification
             };
 
             switch (clasification)

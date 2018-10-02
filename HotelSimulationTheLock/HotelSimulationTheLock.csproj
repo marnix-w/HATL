@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Json\" />
+    <Folder Include="Extended_Areas\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Images\cinema.png" />
@@ -143,7 +144,6 @@
     <None Include="Assets\Images\room_two_star_open.png" />
     <None Include="Assets\Images\staircase.png" />
     <Content Include="Assets\Libraries\HotelEvents.dll" />
-    <Content Include="Extended_Areas\Pool.dll" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">

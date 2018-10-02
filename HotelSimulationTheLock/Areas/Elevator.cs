@@ -9,6 +9,17 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
+    public class ElevatorRequest
+    {
+        /// <summary>
+        /// Up = true, Down = false;
+        /// </summary>
+        public bool UpOrDown { get; set; }
+
+
+    }
+
+
     [Export(typeof(IArea))]
     [ExportMetadata("AreaType", "Elevator")]
     public class Elevator : IArea
@@ -18,6 +29,8 @@ namespace HotelSimulationTheLock
         public int Capacity { get; set; }
         public Image Art { get; set; }
         Status IArea.Status { get; set; }
+        
+        
 
         // Dijkstra search varibles
         public double? BackTrackCost { get; set; } = null;
