@@ -9,7 +9,7 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    public class Reception : IArea, HotelEventListener
+    public class Reception : IArea
     {
         public Point Position { get; set; } = new Point(0, 1); // LOOK FOR Y OR X (nu als xy)
         public Point Dimension { get; set; } = new Point(1, 1);
@@ -19,7 +19,7 @@ namespace HotelSimulationTheLock
 
         public Reception()
         {
-            HotelEventManager.Register(this);
+            
         }
 
         public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
@@ -27,28 +27,6 @@ namespace HotelSimulationTheLock
             return new Reception();
         }
         
-        public void Notify(HotelEvent evt)
-        {
-            if (evt.EventType.Equals(HotelEventType.CHECK_IN))
-            {
-                string name = "";
-                string request = "";
-
-                if (!(evt.Data is null))
-                {
-                    name = evt.Data.FirstOrDefault().Key;
-                    request = evt.Data.FirstOrDefault().Value;
-                }
-                else
-                {
-                    name = "test guest";
-                    request = "no request";
-                }
-                 
-                Guest guest = new Guest(name, request);
-
-                Debug.WriteLine($"new guest = name: {name}, request: {request} ");
-            }
-        }
+        
     }
 }
