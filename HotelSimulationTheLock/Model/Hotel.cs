@@ -51,7 +51,7 @@ namespace HotelSimulationTheLock
             {
                 int temp = 0;
 
-                if(i.Classification != null)
+                if (i.Classification != null)
                 {
                     temp = int.Parse(Regex.Match(i.Classification, @"\d+").Value);
                 }
@@ -60,6 +60,51 @@ namespace HotelSimulationTheLock
                 HotelAreaList.Add(tijdelijk.GetArea(i.AreaType, i.Position, i.Capacity, i.Dimension, temp));
             }
 
+            SetNieghbors();
+
+        }
+
+        public void SetNieghbors()
+        {
+            int MaxX = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X;
+
+            foreach (IArea area in HotelAreaList)
+            {
+
+                // add right niegbor
+                for (int i = 1; i < MaxX; i++)
+                {                    
+                    if (!(HotelAreaList.Find(X => X.Position == new Point(area.Position.X + i, area.Position.Y)) is null))
+                    {
+                        area.Edge.Add(HotelAreaList.Where(X => X.Position == new Point(area.Position.X + i, area.Position.Y)).Single(), i);
+                        break;
+                    }
+                }
+                // add left niegbor
+                for (int i = 1; i < MaxX; i++)
+                {
+                    if (!(HotelAreaList.Find(X => X.Position == new Point(area.Position.X - i, area.Position.Y)) is null))
+                    {
+                        area.Edge.Add(HotelAreaList.Where(X => X.Position == new Point(area.Position.X - i, area.Position.Y)).Single(), i);
+                        break;
+                    }
+                }              
+                if (area.Position.X == 0 || area.Position.X == MaxX)
+                {
+                    // add top neighbor
+                    if (!(HotelAreaList.Find(X => X.Position == new Point(area.Position.X, area.Position.Y + 1)) is null))
+                    {
+                        area.Edge.Add(HotelAreaList.Where(X => X.Position == new Point(area.Position.X, area.Position.Y + 1)).Single(), 1);
+                        break;
+                    }
+                    // add bothem neighbor
+                    if (!(HotelAreaList.Find(X => X.Position == new Point(area.Position.X, area.Position.Y - 1)) is null))
+                    {
+                        area.Edge.Add(HotelAreaList.Where(X => X.Position == new Point(area.Position.X, area.Position.Y - 1)).Single(), 1);
+                        break;
+                    }
+                }
+            }
         }
 
         public void Notify(HotelEvent evt)
@@ -85,6 +130,7 @@ namespace HotelSimulationTheLock
                 Debug.WriteLine($"new guest = name: {name}, request: {request} ");
             }
         }
+
 
     }
 }

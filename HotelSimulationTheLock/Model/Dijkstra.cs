@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelSimulationTheLock
 {
-    public interface IMovable
+    class Dijkstra
     {
     }
 }
