@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelSimulationTheLock.Adapter
+namespace HotelSimulationTheLock
 {
-    class JsonAdapter
+    class Dijkstra
     {
     }
 }
