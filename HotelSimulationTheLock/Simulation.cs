@@ -38,15 +38,21 @@ namespace HotelSimulationTheLock
         {
             foreach (IArea i in HotelArea.HotelAreaList)
             {
-                // DrawHotelToBitmap(i.Art, i.Position.X * 96, i.Position.Y * 96, i.Dimension.X * 96, i.Dimension.Y * 96);
 
-                _eventsOutput.Text += i.Position;
-                _eventsOutput.Text += i.Status;
-                _eventsOutput.Text += i.Dimension;
-                _eventsOutput.Text += i.Capacity;
-                _eventsOutput.Text += i.GetType().ToString();
+                string type = i.GetType().ToString().Replace("HotelSimulationTheLock.", "");
+
+                if (type.Equals("Room"))
+                {
+                    _eventsOutput.Text += type + " " + ((Room)i).Classification + " Star: " + i.Status;
+                }
+                else
+                {
+                    _eventsOutput.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.Status;
+                }
 
                 _eventsOutput.Text += "\n";
+
+
 
                 PictureBox test = new PictureBox();
                 test.Location = new Point(i.Position.X * 96, i.Position.Y * 96);
