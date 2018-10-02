@@ -21,7 +21,7 @@ namespace HotelSimulationTheLock
         public int Capacity { get; set; } = 1;
         public string Classification { get; set; }
         public Image Art { get; set; }
-        public Enum Status { get; set; }
+        Status IArea.Status { get; set; }
 
         private Room()
         {

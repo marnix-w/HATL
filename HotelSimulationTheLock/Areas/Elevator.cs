@@ -17,8 +17,7 @@ namespace HotelSimulationTheLock
         public Point Dimension { get; set; }
         public int Capacity { get; set; }
         public Image Art { get; set; }
-        public Enum Status { get; set; }
-
+        Status IArea.Status { get; set; }
 
         private Elevator()
         {

@@ -47,7 +47,7 @@ namespace HotelSimulationTheLock
 
                 if(i.Classification != null)
                 {
-                    temp = Int32.Parse(Regex.Match(i.Classification, @"\d+").Value);
+                    temp = int.Parse(Regex.Match(i.Classification, @"\d+").Value);
                 }
 
 
