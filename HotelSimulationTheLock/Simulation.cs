@@ -41,16 +41,32 @@ namespace HotelSimulationTheLock
 
                 string type = i.GetType().ToString().Replace("HotelSimulationTheLock.", "");
 
+
                 if (type.Equals("Room"))
                 {
-                    _eventsOutput.Text += type + " " + ((Room)i).Classification + " Star: " + i.Status;
+                    _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.Status;
+                    _roomsStatus.Text += "\n";
+                }
+                else if (type.Equals("Restaurant"))
+                {
+                    _restaurantStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.Status;
+                    _restaurantStatus.Text += "\n";
+                }
+                else if (type.Equals("Fitness"))
+                {
+                    _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.Status;
+                    _fitnessStatus.Text += "\n";
+                }
+                else if (type.Equals("Pool"))
+                {
+                    _poolStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.Status;
+                    _poolStatus.Text += "\n";
                 }
                 else
                 {
-                    _eventsOutput.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.Status;
+          
                 }
 
-                _eventsOutput.Text += "\n";
 
 
 
@@ -59,7 +75,7 @@ namespace HotelSimulationTheLock
                 test.Width = i.Dimension.X * 96;
                 test.Height = i.Dimension.Y * 96;
                 test.SizeMode = PictureBoxSizeMode.StretchImage;
-                test.Image = i.Art;
+                test.Image = i.Art;        
 
                 this.Controls.Add(test);
             }
