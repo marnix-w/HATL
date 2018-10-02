@@ -57,9 +57,7 @@ namespace HotelSimulationTheLock
 
                 this.Controls.Add(test);
             }
-
-
-
+                       
 
             for (int i = 1; i < 8; i++)
             {
@@ -83,6 +81,29 @@ namespace HotelSimulationTheLock
                 staircase.Image = Properties.Resources.staircase;
                 staircase.SizeMode = PictureBoxSizeMode.AutoSize;
                 this.Controls.Add(staircase);
+            }
+
+            //lobby
+            for (int i = 1; i < 9; i++)
+            {
+                PictureBox lobby = new PictureBox();
+                lobby.Location = new Point(i * 96, 7 * 96);
+                if (i%2 == 0)
+                {
+                    lobby.Image = Properties.Resources.lobby_couch;
+                }                
+                else
+                {
+                    lobby.Image = Properties.Resources.lobby_window;
+                }
+                if (i == 8)
+                {
+                    lobby.Image = Properties.Resources.reception;
+                }
+
+
+                lobby.SizeMode = PictureBoxSizeMode.AutoSize;
+                this.Controls.Add(lobby);
             }
 
 
