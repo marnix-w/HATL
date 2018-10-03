@@ -54,12 +54,14 @@
     <Compile Include="Areas\Cinema.cs" />
     <Compile Include="Areas\Elevator.cs" />
     <Compile Include="Areas\Fitness.cs" />
+    <Compile Include="Areas\Lobby.cs" />
     <Compile Include="Areas\Reception.cs" />
     <Compile Include="Areas\Restaurant.cs" />
     <Compile Include="Areas\Room.cs" />
     <Compile Include="Areas\Staircase.cs" />
     <Compile Include="Factories\AreaFactory.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
+    <Compile Include="Model\Dijkstra.cs" />
     <Compile Include="Model\Hotel.cs" />
     <Compile Include="Model\JsonModel.cs" />
     <Compile Include="Movable\Guest.cs" />

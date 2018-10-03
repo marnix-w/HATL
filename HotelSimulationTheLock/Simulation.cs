@@ -34,6 +34,9 @@ namespace HotelSimulationTheLock
 
         }
 
+        
+
+
         public void ShowHotelAreaOverView()
         {
             foreach (IArea i in HotelArea.HotelAreaList)
@@ -71,62 +74,19 @@ namespace HotelSimulationTheLock
 
 
                 PictureBox test = new PictureBox();
-                test.Location = new Point(i.Position.X * 96, i.Position.Y * 96);
-                test.Width = i.Dimension.X * 96;
-                test.Height = i.Dimension.Y * 96;
+                test.Location = new Point(10, 10);
+                test.Width = (HotelArea.HotelWidth + 1) * 96;
+                test.Height = (HotelArea.HotelHieght + 1) * 96;
                 test.SizeMode = PictureBoxSizeMode.StretchImage;
-                test.Image = i.Art;        
+                test.Image = HotelArea.DrawHotel();        
 
                 this.Controls.Add(test);
             }
                        
 
-            for (int i = 1; i < 8; i++)
-            {
-                //elavator
-                PictureBox elevator = new PictureBox();
-                elevator.Location = new Point(0, i * 96);
-                if (i == 7)
-                {
-                    elevator.Image = Properties.Resources.elevator_pressent;
-                }
-                else
-                {
-                    elevator.Image = Properties.Resources.elevator_not_pressent;
-                }
-                elevator.SizeMode = PictureBoxSizeMode.AutoSize;
-                this.Controls.Add(elevator);
+            
 
-                //staircase
-                PictureBox staircase = new PictureBox();
-                staircase.Location = new Point(9 * 96, i * 96);
-                staircase.Image = Properties.Resources.staircase;
-                staircase.SizeMode = PictureBoxSizeMode.AutoSize;
-                this.Controls.Add(staircase);
-            }
-
-            //lobby
-            for (int i = 1; i < 9; i++)
-            {
-                PictureBox lobby = new PictureBox();
-                lobby.Location = new Point(i * 96, 7 * 96);
-                if (i%2 == 0)
-                {
-                    lobby.Image = Properties.Resources.lobby_couch;
-                }                
-                else
-                {
-                    lobby.Image = Properties.Resources.lobby_window;
-                }
-                if (i == 8)
-                {
-                    lobby.Image = Properties.Resources.reception;
-                }
-
-
-                lobby.SizeMode = PictureBoxSizeMode.AutoSize;
-                this.Controls.Add(lobby);
-            }
+            
 
 
 

@@ -19,6 +19,12 @@ namespace HotelSimulationTheLock
         public Image Art { get; set; } = Properties.Resources.staircase;
         Status IArea.Status { get; set; }
 
+        // Dijkstra search varibles
+        public double? BackTrackCost { get; set; } = null;
+        public IArea NearestToStart { get; set; } = null;
+        public bool Visited { get; set; } = false;
+        public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
+
         private Staircase()
         {
                      
@@ -27,9 +33,11 @@ namespace HotelSimulationTheLock
         
         public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
         {
-            Staircase st = new Staircase();
-            st.Position = position;
-            st.Capacity = capacity;
+            Staircase st = new Staircase
+            {
+                Position = position,
+                Capacity = capacity
+            };
 
             return st;
         }

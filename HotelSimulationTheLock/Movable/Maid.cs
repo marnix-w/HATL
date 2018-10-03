@@ -15,6 +15,10 @@ namespace HotelSimulationTheLock
             {
                 // add to cleaning ques next
             }
+            else if (evt.EventType.Equals(HotelEventType.CHECK_OUT))
+            {
+                // clean the room
+            }
         }
     }
 }

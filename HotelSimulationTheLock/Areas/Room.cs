@@ -23,6 +23,12 @@ namespace HotelSimulationTheLock
         public Image Art { get; set; }
         Status IArea.Status { get; set; }
 
+        // Dijkstra search varibles
+        public double? BackTrackCost { get; set; } = null;
+        public IArea NearestToStart { get; set; } = null;
+        public bool Visited { get; set; } = false;
+        public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
+
         private Room()
         {
 
