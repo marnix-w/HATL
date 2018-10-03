@@ -16,9 +16,8 @@ namespace HotelSimulationTheLock
     public partial class Simulation : Form
     {
         public Hotel HotelArea { get; set; }
-       
-        
-        int count = 0;
+        public PictureBox test = new PictureBox();
+  
         public Simulation(List<JsonModel> layout)
         {
             InitializeComponent();
@@ -56,10 +55,17 @@ namespace HotelSimulationTheLock
                 {
                     Guest t = (Guest)g;
                     _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest;
-                    _guestStatus.Text += "\n";                 
+                    _guestStatus.Text += "\n";   
+                    
                     this.Controls.Add(g.Art);
-                    g.Art.Left += 20;
-                    g.Art.BringToFront();
+                    if (g.Art.Left < 600)
+                    {
+                        g.Art.Left += 40;
+                    }
+                   
+
+                  
+                        g.Art.BringToFront();
                 }
                 if (g is Maid)
                 {
@@ -98,7 +104,7 @@ namespace HotelSimulationTheLock
                         break;
                 }
 
-                PictureBox test = new PictureBox();
+              
                 test.Location = new Point(50, 100);              
                 test.Width = (Hotel.HotelWidth + 1) * 96;
                 test.Height = (Hotel.HotelHeight) * 96;
