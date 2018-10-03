@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using HotelEvents;
 
 namespace HotelSimulationTheLock
@@ -13,13 +15,15 @@ namespace HotelSimulationTheLock
         public string Name { get; set; }
         public int RoomRequest { get; set; }
 
+        public PictureBox bob { get; set; }
+
         public Guest(string name, int roomRequest)
         {
-            
+            bob = new PictureBox();
             RoomRequest = roomRequest;
             Name = name;
-            
-
+            bob.Image = Properties.Resources.customer;
+            bob.Location = new Point(400, 400);
         }
 
         public void Notify(HotelEvent evt)

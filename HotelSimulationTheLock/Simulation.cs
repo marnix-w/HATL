@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace HotelSimulationTheLock
@@ -30,11 +31,21 @@ namespace HotelSimulationTheLock
 
             ShowHotelAreaOverView();
 
+
             HotelEventManager.HTE_Factor = 0.5f;
+
+            System.Timers.Timer aTimer = new System.Timers.Timer();
+            aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            aTimer.Interval = 5000;
+            aTimer.Enabled = true;
 
         }
 
-        
+
+        public void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            showMoveAbleOverView();
+        }
 
 
         public void ShowHotelAreaOverView()
@@ -90,6 +101,17 @@ namespace HotelSimulationTheLock
 
 
 
+        }
+
+        private void showMoveAbleOverView()
+        {
+            
+            foreach(IMovable m in HotelArea.IMovableList)
+            {
+                
+                _guestStatus.Text += m.ToString();
+                _guestStatus.Text += "\n";
+            }
         }
 
 
