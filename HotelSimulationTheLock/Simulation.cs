@@ -16,8 +16,8 @@ namespace HotelSimulationTheLock
     public partial class Simulation : Form
     {
         public Hotel HotelArea { get; set; }
-        PictureBox Background = new PictureBox();
-        PictureBox test = new PictureBox();
+       
+        
         int count = 0;
         public Simulation(List<JsonModel> layout)
         {
@@ -97,7 +97,7 @@ namespace HotelSimulationTheLock
                         break;
                 }
 
-                
+                PictureBox test = new PictureBox();
                 test.Location = new Point(50, 100);
                 test.Width = (Hotel.HotelWidth + 1) * 96;
                 test.Height = (Hotel.HotelHeight) * 96;
