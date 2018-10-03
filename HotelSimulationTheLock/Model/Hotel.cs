@@ -18,19 +18,9 @@ namespace HotelSimulationTheLock
         //this list will be filled with IAreas objects
         public List<IArea> HotelAreaList = new List<IArea>();
 
-        //a hotel needs to have a list of current guests 
-        private List<Guest> _guestsList = new List<Guest>();
+        public int HotelHieght { get; set; }
+        public int HotelWidth { get; set; }
 
-        //a hotel needs to have maids to cleanup stuff
-        private List<Maid> _maidList = new List<Maid>();
-
-        //a hotel has only 1 elavator
-        //private Elevator _elavator = new Elevator();
-
-        //a hotel has only 1 staircase
-        //private Staircase _starcase = new Staircase();
-
-        //amount of events per second
         public int HtePerSecond { get; set; }
 
         //an hotel has a background image
@@ -46,10 +36,7 @@ namespace HotelSimulationTheLock
             HotelEventManager.HTE_Factor = HTESeconds;
 
             AreaFactory Factory = new AreaFactory();
-
-
-
-
+            
             foreach (JsonModel i in layout)
             {
                 int temp = 0;
@@ -63,47 +50,67 @@ namespace HotelSimulationTheLock
                 HotelAreaList.Add(Factory.GetArea(i.AreaType, i.Position, i.Capacity, i.Dimension, temp));
             }
 
-            int MaxX = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X + 1;
-            int MaxY = HotelAreaList.OrderBy(Y => Y.Position.Y).Last().Position.Y;
+            HotelWidth = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X;
+            HotelHieght = HotelAreaList.OrderBy(Y => Y.Position.Y).Last().Position.Y;
 
-            for (int i = 0; i < MaxY; i++)
+            // UNSTABLE !!!
+
+            for (int i = 0; i < HotelHieght + 1; i++)
             {
                 // 5 is the capacity get from setting screen
                 HotelAreaList.Add(Factory.GetArea("Elevator", new Point(0, i), 5, new Point(1, 1), 0));
-                HotelAreaList.Add(Factory.GetArea("Staircase", new Point(MaxX, i), 5, new Point(MaxX, 1), 0));
+                HotelAreaList.Add(Factory.GetArea("Staircase", new Point(HotelWidth + 1, i), 5, new Point(1, 1), 0));
             }
-            for (int i = 1; i < MaxX - 1; i++)
+            for (int i = 1; i < HotelWidth - 1; i++)
             {
                 if (i == 1)
                 {
-                    HotelAreaList.Add(Factory.GetArea("Room", new Point(i, 0), 5, new Point(MaxX, 1), 1));
+                    HotelAreaList.Add(Factory.GetArea("Reception", new Point(1, HotelHieght + 1), 5, new Point(1, 1), 1));
                 }
-                else if (i % 2 == 0) // UNSTABLE !!!
+                else if (i % 2 == 0) 
                 {
-                    HotelAreaList.Add(Factory.GetArea("Room", new Point(i, 0), 5, new Point(MaxX, 1), 1)); // window
+                    HotelAreaList.Add(Factory.GetArea("Lobby", new Point(i, HotelHieght + 1), 5, new Point(1, 1), i)); // window
                 }
                 else
                 {
-                    HotelAreaList.Add(Factory.GetArea("Room", new Point(i, 0), 5, new Point(MaxX, 1), 1)); // couch
+                    HotelAreaList.Add(Factory.GetArea("Lobby", new Point(i, HotelHieght + 1), 5, new Point(1, 1), i)); // couch
                 }
             }
 
+            // UNSTABLE !!!
 
             SetNieghbors();
 
         }
 
+        public Bitmap DrawHotel()
+        {
+            // all art is 96 * 96 pixels
+            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHieght + 1) * 96);
+
+            using (Graphics graphics = Graphics.FromImage(buffer))
+            {
+                foreach (IArea area in HotelAreaList)
+                {
+                    graphics.DrawImage(area.Art, area.Position.X * 96, area.Position.Y * 96, area.Dimension.X * 96, area.Dimension.Y * 96);
+                }
+  
+            }
+            
+            return buffer;
+
+        }
+
         private void SetNieghbors()
         {
-            int MaxX = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X + 1;
-
+            
             foreach (IArea area in HotelAreaList)
             {
 
                 bool rightSet = false;
                 bool leftSet = false;
 
-                for (int i = 1; i < MaxX; i++)
+                for (int i = 1; i < HotelWidth + 1; i++)
                 {
                     // right edge
                     if (!rightSet && AddNiehgbor(area, i, 0, i))
@@ -118,7 +125,7 @@ namespace HotelSimulationTheLock
                         continue;
                     }
                 }
-                if (area.Position.X == 0 || area.Position.X == MaxX)
+                if (area.Position.X == 0 || area.Position.X == HotelWidth + 1)
                 {
                     // add top neighbor
                     AddNiehgbor(area, 0, 1, 1);

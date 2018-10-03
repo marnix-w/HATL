@@ -54,6 +54,7 @@
     <Compile Include="Areas\Cinema.cs" />
     <Compile Include="Areas\Elevator.cs" />
     <Compile Include="Areas\Fitness.cs" />
+    <Compile Include="Areas\Lobby.cs" />
     <Compile Include="Areas\Reception.cs" />
     <Compile Include="Areas\Restaurant.cs" />
     <Compile Include="Areas\Room.cs" />
