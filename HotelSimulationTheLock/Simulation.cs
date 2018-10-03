@@ -57,6 +57,7 @@ namespace HotelSimulationTheLock
                     _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest;
                     _guestStatus.Text += "\n";                 
                     this.Controls.Add(g.Art);
+                    this.BringToFront();
                 }
                 if (g is Maid)
                 {
@@ -97,11 +98,12 @@ namespace HotelSimulationTheLock
                 PictureBox test = new PictureBox();
                 test.Location = new Point(50, 100);
                 test.Width = (Hotel.HotelWidth + 1) * 96;
-                test.Height = (Hotel.HotelHieght) * 96;
+                test.Height = (Hotel.HotelHeight) * 96;
                 test.SizeMode = PictureBoxSizeMode.StretchImage;
                 test.Image = HotelArea.DrawHotel();
 
                 this.Controls.Add(test);
+                test.SendToBack();
             }
         }
 

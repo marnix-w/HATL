@@ -52,7 +52,7 @@ namespace HotelSimulationTheLock
                 Dimension = dimension
             };
 
-            if (clasification == Hotel.HotelHieght + 1)
+            if (clasification == Hotel.HotelHeight + 1)
             {
                 ev.Art = Properties.Resources.elevator_pressent;
             }

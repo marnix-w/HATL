@@ -23,7 +23,7 @@ namespace HotelSimulationTheLock
         //a hotel needs to have a list of current guests 
         public List<IMovable> IMovableList = new List<IMovable>();
 
-        public static int HotelHieght { get; set; }
+        public static int HotelHeight { get; set; }
         public static int HotelWidth { get; set; }
 
         public int HtePerSecond { get; set; }
@@ -57,10 +57,10 @@ namespace HotelSimulationTheLock
             }
 
             HotelWidth = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X;
-            HotelHieght = HotelAreaList.OrderBy(Y => Y.Position.Y).Last().Position.Y;
+            HotelHeight = HotelAreaList.OrderBy(Y => Y.Position.Y).Last().Position.Y;
             
 
-            for (int i = 1; i < HotelHieght + 2; i++)
+            for (int i = 1; i < HotelHeight + 2; i++)
             {
                 // 5 is the capacity get from setting screen
                 HotelAreaList.Add(Factory.GetArea("Elevator", new Point(0, i), 5, new Point(1, 1), i));
@@ -70,11 +70,11 @@ namespace HotelSimulationTheLock
             {
                 if (i == 1)
                 {
-                    HotelAreaList.Add(Factory.GetArea("Reception", new Point(1, HotelHieght + 1), 5, new Point(1, 1), 1));
+                    HotelAreaList.Add(Factory.GetArea("Reception", new Point(1, HotelHeight + 1), 5, new Point(1, 1), 1));
                 }                
                 else
                 {
-                    HotelAreaList.Add(Factory.GetArea("Lobby", new Point(i, HotelHieght + 1), 5, new Point(1, 1), i)); // lobby
+                    HotelAreaList.Add(Factory.GetArea("Lobby", new Point(i, HotelHeight + 1), 5, new Point(1, 1), i)); // lobby
                 }
             }
             
@@ -82,7 +82,7 @@ namespace HotelSimulationTheLock
             IMovableList.Add(new Maid());
             IMovableList.Add(new Maid());
 
-            SetNieghbors();
+            SetNeighbor();
                      
 
         }
@@ -90,7 +90,7 @@ namespace HotelSimulationTheLock
         public Bitmap DrawHotel()
         {
             // all art is 96 * 96 pixels
-            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHieght + 1) * 96, PixelFormat.Format16bppRgb565);
+            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHeight + 1) * 96, PixelFormat.Format16bppRgb565);
 
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
@@ -104,7 +104,7 @@ namespace HotelSimulationTheLock
 
         }
 
-        private void SetNieghbors()
+        private void SetNeighbor()
         {
             
             foreach (IArea area in HotelAreaList)
@@ -116,13 +116,13 @@ namespace HotelSimulationTheLock
                 for (int i = 1; i < HotelWidth + 1; i++)
                 {
                     // right edge
-                    if (!rightSet && AddNiehgbor(area, i, 0, i))
+                    if (!rightSet && AddNeihgbor(area, i, 0, i))
                     {
                         rightSet = true;
                         continue;
                     }
                     //left edge
-                    if (!leftSet && AddNiehgbor(area, -i, 0, i))
+                    if (!leftSet && AddNeihgbor(area, -i, 0, i))
                     {
                         leftSet = true;
                         continue;
@@ -131,14 +131,14 @@ namespace HotelSimulationTheLock
                 if (area.Position.X == 0 || area.Position.X == HotelWidth + 1)
                 {
                     // add top neighbor
-                    AddNiehgbor(area, 0, 1, 1);
+                    AddNeihgbor(area, 0, 1, 1);
                     // add bothem neighbor
-                    AddNiehgbor(area, 0, -1, 1);
+                    AddNeihgbor(area, 0, -1, 1);
                 }
             }
         }
 
-        private bool AddNiehgbor(IArea area, int xOffset, int yOffset, int wieght)
+        private bool AddNeihgbor(IArea area, int xOffset, int yOffset, int wieght)
         {
             if (!(HotelAreaList.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)) is null))
             {
