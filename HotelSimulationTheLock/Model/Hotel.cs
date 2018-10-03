@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -40,7 +41,7 @@ namespace HotelSimulationTheLock
 
 
             AreaFactory Factory = new AreaFactory();
-
+            
 
             foreach (JsonModel i in layout)
             {
@@ -52,11 +53,13 @@ namespace HotelSimulationTheLock
                 }
 
 
-                HotelAreaList.Add(Factory.GetArea(i.AreaType, i.Position + new Size(0, -1), i.Capacity, i.Dimension, temp));
+                HotelAreaList.Add(Factory.GetArea(i.AreaType, i.Position + new Size(0,-1), i.Capacity, i.Dimension, temp));
             }
 
             HotelWidth = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHieght = HotelAreaList.OrderBy(Y => Y.Position.Y).Last().Position.Y;
+
+            // UNSTABLE !!!
 
             for (int i = 0; i < HotelHieght + 2; i++)
             {
@@ -70,7 +73,7 @@ namespace HotelSimulationTheLock
                 {
                     HotelAreaList.Add(Factory.GetArea("Reception", new Point(1, HotelHieght + 1), 5, new Point(1, 1), 1));
                 }
-                else if (i % 2 == 0)
+                else if (i % 2 == 0) 
                 {
                     HotelAreaList.Add(Factory.GetArea("Lobby", new Point(i, HotelHieght + 1), 5, new Point(1, 1), i)); // window
                 }
@@ -80,31 +83,33 @@ namespace HotelSimulationTheLock
                 }
             }
 
+            // UNSTABLE !!!
+
             SetNieghbors();
+                     
 
         }
 
         public Bitmap DrawHotel()
         {
             // all art is 96 * 96 pixels
-            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHieght + 2) * 96);
+            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHieght + 2) * 96, PixelFormat.Format16bppRgb565);
 
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
                 foreach (IArea area in HotelAreaList)
                 {
                     graphics.DrawImage(area.Art, area.Position.X * 96, area.Position.Y * 96, area.Dimension.X * 96, area.Dimension.Y * 96);
-                }
-
+                } 
             }
-
+            
             return buffer;
 
         }
 
         private void SetNieghbors()
         {
-
+            
             foreach (IArea area in HotelAreaList)
             {
 
