@@ -64,7 +64,7 @@ namespace HotelSimulationTheLock
                 PictureBox test = new PictureBox();
                 test.Location = new Point(10, 10);
                 test.Width = (Hotel.HotelWidth + 1) * 96;
-                test.Height = (Hotel.HotelHieght + 1) * 96;
+                test.Height = (Hotel.HotelHieght) * 96;
                 test.SizeMode = PictureBoxSizeMode.StretchImage;
                 test.Image = HotelArea.DrawHotel();
 
