@@ -55,13 +55,15 @@ namespace HotelSimulationTheLock
                 {
                     Guest t = (Guest)g;
                     _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest;
-                    _guestStatus.Text += "\n";
+                    _guestStatus.Text += "\n";                 
+                    this.Controls.Add(g.Art);
                 }
                 if (g is Maid)
                 {
                     Maid m = (Maid)g;
                     _maidStatus.Text += "Maid \t" + m.Status + "\t" + m.Position;
                     _maidStatus.Text += "\n";
+                    this.Controls.Add(m.Art);
                 }                
             }    
         }
