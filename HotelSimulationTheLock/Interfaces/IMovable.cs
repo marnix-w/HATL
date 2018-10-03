@@ -22,7 +22,7 @@ namespace HotelSimulationTheLock
     {
         Point Position { get; set; }
         PictureBox Art { get; set; }
-
         MovableStatus Status { get; set; }
+
     }
 }

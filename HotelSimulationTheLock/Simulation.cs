@@ -42,8 +42,6 @@ namespace HotelSimulationTheLock
 
         }
 
-
-
         void timer_Tick(object sender, EventArgs e)
         {
             //guest overview
@@ -62,50 +60,42 @@ namespace HotelSimulationTheLock
                 if (g is Maid)
                 {
                     Maid m = (Maid)g;
-                    _maidStatus.Text += "Maid " + m.Status + "\t" + m.Position;
+                    _maidStatus.Text += "Maid \t" + m.Status + "\t" + m.Position;
                     _maidStatus.Text += "\n";
-                }
-                
-            }
-
-           
-            
+                }                
+            }    
         }
 
-
+        //Overview of hotel facilities
         public void ShowHotelAreaOverView()
         {
             foreach (IArea i in HotelArea.HotelAreaList)
             {
-
                 string type = i.GetType().ToString().Replace("HotelSimulationTheLock.", "");
 
+                switch (type)
+                {      
 
-                if (type.Equals("Room"))
-                {
-                    _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.AreaStatus;
-                    _roomsStatus.Text += "\n";
+                    case "Room":
+                        _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.AreaStatus;
+                        _roomsStatus.Text += "\n";
+                        break;
+                    case "Restaurant":
+                        _restaurantStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
+                        _restaurantStatus.Text += "\n";
+                        break;
+                    case "Fitness":
+                        _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
+                        _fitnessStatus.Text += "\n";
+                        break;
+                    default:
+                        break;
                 }
-                else if (type.Equals("Restaurant"))
-                {
-                    _restaurantStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                    _restaurantStatus.Text += "\n";
-                }
-                else if (type.Equals("Fitness"))
-                {
-                    _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                    _fitnessStatus.Text += "\n";
-                }              
-                else
-                {
-
-                }
-
 
                 PictureBox test = new PictureBox();
                 test.Location = new Point(10, 10);
                 test.Width = (Hotel.HotelWidth + 1) * 96;
-                test.Height = (Hotel.HotelHieght + 1) * 96;
+                test.Height = (Hotel.HotelHieght) * 96;
                 test.SizeMode = PictureBoxSizeMode.StretchImage;
                 test.Image = HotelArea.DrawHotel();
 

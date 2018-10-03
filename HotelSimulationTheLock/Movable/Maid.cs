@@ -13,7 +13,6 @@ namespace HotelSimulationTheLock
     {
         public Point Position { get; set; }
         public PictureBox Art { get; set; }
-
         public MovableStatus Status { get; set; }
         Queue<HotelEvent> CleaningEmergencies { get; set; }
 
