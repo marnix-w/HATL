@@ -20,5 +20,6 @@ namespace HotelSimulationTheLock
     {
         Point Position { get; set; }
         Image Art { get; set; }
+        MovableStatus MovableStatus { get; set; }
     }
 }
