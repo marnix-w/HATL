@@ -48,15 +48,15 @@
             // 
             this._maidStatus.Location = new System.Drawing.Point(1207, 98);
             this._maidStatus.Name = "_maidStatus";
-            this._maidStatus.Size = new System.Drawing.Size(139, 260);
+            this._maidStatus.Size = new System.Drawing.Size(94, 260);
             this._maidStatus.TabIndex = 1;
             this._maidStatus.Text = "";
             // 
             // _guestStatus
             // 
-            this._guestStatus.Location = new System.Drawing.Point(1372, 98);
+            this._guestStatus.Location = new System.Drawing.Point(1324, 98);
             this._guestStatus.Name = "_guestStatus";
-            this._guestStatus.Size = new System.Drawing.Size(137, 260);
+            this._guestStatus.Size = new System.Drawing.Size(185, 260);
             this._guestStatus.TabIndex = 2;
             this._guestStatus.Text = "";
             // 
@@ -88,7 +88,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1530, 853);
+            this.ClientSize = new System.Drawing.Size(1530, 845);
             this.Controls.Add(this._poolStatus);
             this.Controls.Add(this._fitnessStatus);
             this.Controls.Add(this._restaurantStatus);

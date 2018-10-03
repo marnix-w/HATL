@@ -21,7 +21,7 @@ namespace HotelSimulationTheLock
         public int Capacity { get; set; } = 1;
         public int Classification { get; set; }
         public Image Art { get; set; }
-        Status IArea.Status { get; set; }
+        AreaStatus IArea.AreaStatus { get; set; }
 
         // Dijkstra search varibles
         public double? BackTrackCost { get; set; } = null;

@@ -28,7 +28,7 @@ namespace HotelSimulationTheLock
         public Point Dimension { get; set; }
         public int Capacity { get; set; }
         public Image Art { get; set; } = Properties.Resources.elevator_not_pressent;
-        Status IArea.Status { get; set; }
+        AreaStatus IArea.AreaStatus { get; set; }
         
         
 

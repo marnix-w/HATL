@@ -30,21 +30,30 @@ namespace HotelSimulationTheLock
             Console.WriteLine(!HotelEventManager.Running);
 
             ShowHotelAreaOverView();
-
+            showMoveAbleOverView();
 
             HotelEventManager.HTE_Factor = 0.5f;
 
-            System.Timers.Timer aTimer = new System.Timers.Timer();
-            aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            aTimer.Interval = 5000;
-            aTimer.Enabled = true;
+            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
+
+
+            t.Interval = 1000; // specify interval time as you want
+            t.Tick += new EventHandler(timer_Tick);
+            t.Start();
 
         }
 
 
-        public void OnTimedEvent(object source, ElapsedEventArgs e)
+
+        void timer_Tick(object sender, EventArgs e)
         {
-            showMoveAbleOverView();
+            _guestStatus.Text = string.Empty;
+
+            foreach (Guest m in HotelArea.IMovableList)
+            {
+                _guestStatus.Text += m.Name + "\t" + m.Status + "\t" + m.RoomRequest;
+                _guestStatus.Text += "\n";
+            }
         }
 
 
@@ -58,30 +67,28 @@ namespace HotelSimulationTheLock
 
                 if (type.Equals("Room"))
                 {
-                    _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.Status;
+                    _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.AreaStatus;
                     _roomsStatus.Text += "\n";
                 }
                 else if (type.Equals("Restaurant"))
                 {
-                    _restaurantStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.Status;
+                    _restaurantStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
                     _restaurantStatus.Text += "\n";
                 }
                 else if (type.Equals("Fitness"))
                 {
-                    _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.Status;
+                    _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
                     _fitnessStatus.Text += "\n";
                 }
                 else if (type.Equals("Pool"))
                 {
-                    _poolStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.Status;
+                    _poolStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
                     _poolStatus.Text += "\n";
                 }
                 else
                 {
-          
+
                 }
-
-
 
 
                 PictureBox test = new PictureBox();
@@ -89,32 +96,18 @@ namespace HotelSimulationTheLock
                 test.Width = (Hotel.HotelWidth + 1) * 96;
                 test.Height = (Hotel.HotelHieght + 1) * 96;
                 test.SizeMode = PictureBoxSizeMode.StretchImage;
-                test.Image = HotelArea.DrawHotel();        
+                test.Image = HotelArea.DrawHotel();
 
                 this.Controls.Add(test);
             }
-                       
-
-            
-
-            
-
-
-
         }
 
         private void showMoveAbleOverView()
         {
-            
-            foreach(IMovable m in HotelArea.IMovableList)
-            {
-                
-                _guestStatus.Text += m.ToString();
-                _guestStatus.Text += "\n";
-            }
+
+
+
         }
-
-
 
     }
 }

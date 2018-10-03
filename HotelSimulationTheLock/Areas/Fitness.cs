@@ -17,7 +17,7 @@ namespace HotelSimulationTheLock
         public Point Dimension { get; set; }
         public int Capacity { get; set; }
         public Image Art { get; set; } = Properties.Resources.fitness;
-        Status IArea.Status { get; set; }
+        AreaStatus IArea.AreaStatus { get; set; }
 
         // Dijkstra search varibles
         public double? BackTrackCost { get; set; } = null;

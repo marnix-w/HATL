@@ -86,6 +86,7 @@ namespace HotelSimulationTheLock
             // UNSTABLE !!!
 
             SetNieghbors();
+                     
 
         }
 
@@ -99,8 +100,7 @@ namespace HotelSimulationTheLock
                 foreach (IArea area in HotelAreaList)
                 {
                     graphics.DrawImage(area.Art, area.Position.X * 96, area.Position.Y * 96, area.Dimension.X * 96, area.Dimension.Y * 96);
-                }
-  
+                } 
             }
             
             return buffer;
@@ -176,8 +176,8 @@ namespace HotelSimulationTheLock
                 Guest guest = new Guest(name, requestInt);
 
                 IMovableList.Add(guest);
-
-                Debug.WriteLine($"new guest = name: {name}, request: {request} ");
+               
+                Console.WriteLine($"new guest = name: {name}, request: {request} ");
             }
         }
 
