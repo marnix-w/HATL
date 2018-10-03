@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -91,7 +92,7 @@ namespace HotelSimulationTheLock
         public Bitmap DrawHotel()
         {
             // all art is 96 * 96 pixels
-            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHieght + 2) * 96);
+            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHieght + 2) * 96, PixelFormat.Format16bppRgb565);
 
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
