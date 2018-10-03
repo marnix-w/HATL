@@ -79,8 +79,8 @@ namespace HotelSimulationTheLock
             }
             
 
-            IMovableList.Add(new Maid());
-            IMovableList.Add(new Maid());
+            IMovableList.Add(new Maid(HotelWidth * 96 - 182, HotelHeight * 96 + 35));
+            IMovableList.Add(new Maid(HotelWidth * 96 - 92, HotelHeight * 96 + 35));
 
             SetNeighbor();
                      
