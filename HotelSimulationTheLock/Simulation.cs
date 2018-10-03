@@ -16,8 +16,8 @@ namespace HotelSimulationTheLock
     public partial class Simulation : Form
     {
         public Hotel HotelArea { get; set; }
-        public PictureBox test = new PictureBox();
-  
+
+
         public Simulation(List<JsonModel> layout)
         {
             InitializeComponent();
@@ -29,7 +29,8 @@ namespace HotelSimulationTheLock
             HotelEventManager.Start();
             Console.WriteLine(!HotelEventManager.Running);
 
-            ShowHotelAreaOverView(); 
+            //Calling function to fill RichTextboxes
+            _fillHotelSimulation();
 
             HotelEventManager.HTE_Factor = 0.5f;
 
@@ -55,17 +56,14 @@ namespace HotelSimulationTheLock
                 {
                     Guest t = (Guest)g;
                     _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest;
-                    _guestStatus.Text += "\n";   
-                    
+                    _guestStatus.Text += "\n";
+
                     this.Controls.Add(g.Art);
                     if (g.Art.Left < 600)
                     {
                         g.Art.Left += 40;
                     }
-                   
-
-                  
-                        g.Art.BringToFront();
+                    g.Art.BringToFront();
                 }
                 if (g is Maid)
                 {
@@ -74,19 +72,19 @@ namespace HotelSimulationTheLock
                     _maidStatus.Text += "\n";
                     this.Controls.Add(m.Art);
                     m.Art.BringToFront();
-                }                
-            }    
+                }
+            }
         }
 
         //Overview of hotel facilities
-        public void ShowHotelAreaOverView()
+        private void _fillHotelSimulation()
         {
             foreach (IArea i in HotelArea.HotelAreaList)
             {
                 string type = i.GetType().ToString().Replace("HotelSimulationTheLock.", "");
 
                 switch (type)
-                {      
+                {
 
                     case "Room":
                         _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.AreaStatus;
@@ -104,16 +102,16 @@ namespace HotelSimulationTheLock
                         break;
                 }
 
-              
-                test.Location = new Point(50, 100);              
-                test.Width = (Hotel.HotelWidth + 1) * 96;
-                test.Height = (Hotel.HotelHeight) * 96;
-                test.SizeMode = PictureBoxSizeMode.StretchImage;
-                test.Image = HotelArea.DrawHotel();          
-                Controls.Add(test);
-                test.SendToBack();
+                PictureBox HotelBackground = new PictureBox();
+                HotelBackground.Location = new Point(50, 100);
+                HotelBackground.Width = (Hotel.HotelWidth + 1) * 96;
+                HotelBackground.Height = (Hotel.HotelHeight) * 96;
+                HotelBackground.SizeMode = PictureBoxSizeMode.StretchImage;
+                HotelBackground.Image = HotelArea.DrawHotel();
+                Controls.Add(HotelBackground);
+                HotelBackground.SendToBack();
             }
         }
-     
+
     }
 }
