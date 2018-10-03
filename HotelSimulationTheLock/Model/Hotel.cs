@@ -21,7 +21,7 @@ namespace HotelSimulationTheLock
 
 
         //a hotel needs to have a list of current guests 
-        private List<IMovable> _iMovableList = new List<IMovable>();
+        public List<IMovable> IMovableList = new List<IMovable>();
 
         public static int HotelHieght { get; set; }
         public static int HotelWidth { get; set; }
@@ -78,6 +78,9 @@ namespace HotelSimulationTheLock
                 }
             }
             
+
+            IMovableList.Add(new Maid());
+            IMovableList.Add(new Maid());
 
             SetNieghbors();
                      
@@ -149,8 +152,9 @@ namespace HotelSimulationTheLock
         {
             if (evt.EventType.Equals(HotelEventType.CHECK_IN))
             {
-                string name = "";
-                string request = "";
+                
+                string name = string.Empty;
+                string request = string.Empty;
                 int requestInt = 0;
 
                 if (!(evt.Data is null))
@@ -168,9 +172,9 @@ namespace HotelSimulationTheLock
 
                 Guest guest = new Guest(name, requestInt);
 
-                _iMovableList.Add(guest);
-
-                Debug.WriteLine($"new guest = name: {name}, request: {request} ");
+                IMovableList.Add(guest);
+               
+                Console.WriteLine($"new guest = name: {name}, request: {request} ");
             }
         }
 

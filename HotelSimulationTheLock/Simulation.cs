@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace HotelSimulationTheLock
@@ -28,13 +29,42 @@ namespace HotelSimulationTheLock
             HotelEventManager.Start();
             Console.WriteLine(!HotelEventManager.Running);
 
-            ShowHotelAreaOverView();
+            ShowHotelAreaOverView(); 
 
             HotelEventManager.HTE_Factor = 0.5f;
 
+            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
+
+
+            t.Interval = 1000; // specify interval time as you want
+            t.Tick += new EventHandler(timer_Tick);
+            t.Start();
+
         }
 
-        
+        void timer_Tick(object sender, EventArgs e)
+        {
+            //guest overview
+            _guestStatus.Text = string.Empty;
+            //maid overview
+            _maidStatus.Text = string.Empty;
+
+            foreach (IMovable g in HotelArea.IMovableList)
+            {
+                if (g is Guest)
+                {
+                    Guest t = (Guest)g;
+                    _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest;
+                    _guestStatus.Text += "\n";
+                }
+                if (g is Maid)
+                {
+                    Maid m = (Maid)g;
+                    _maidStatus.Text += "Maid \t" + m.Status + "\t" + m.Position;
+                    _maidStatus.Text += "\n";
+                }                
+            }    
+        }
 
         //Overview of hotel facilities
         public void ShowHotelAreaOverView()
@@ -44,7 +74,8 @@ namespace HotelSimulationTheLock
                 string type = i.GetType().ToString().Replace("HotelSimulationTheLock.", "");
 
                 switch (type)
-                {
+                {      
+
                     case "Room":
                         _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.AreaStatus;
                         _roomsStatus.Text += "\n";
@@ -71,5 +102,6 @@ namespace HotelSimulationTheLock
                 this.Controls.Add(test);
             }
         }
+
     }
 }
