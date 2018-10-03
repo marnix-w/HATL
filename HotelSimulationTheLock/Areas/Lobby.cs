@@ -32,7 +32,10 @@ namespace HotelSimulationTheLock.Areas
                 Capacity = capacity,
             };
 
-            
+            if (clasification % 2 == 0)
+            {
+                lb.Art = Properties.Resources.lobby_couch;
+            }
 
             return lb;
 
