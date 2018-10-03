@@ -63,7 +63,7 @@ namespace HotelSimulationTheLock
             for (int i = 0; i < HotelHieght + 2; i++)
             {
                 // 5 is the capacity get from setting screen
-                HotelAreaList.Add(Factory.GetArea("Elevator", new Point(0, i), 5, new Point(1, 1), 0));
+                HotelAreaList.Add(Factory.GetArea("Elevator", new Point(0, i), 5, new Point(1, 1), i));
                 HotelAreaList.Add(Factory.GetArea("Staircase", new Point(HotelWidth + 1, i), 5, new Point(1, 1), 0));
             }
             for (int i = 1; i < HotelWidth + 1; i++)
