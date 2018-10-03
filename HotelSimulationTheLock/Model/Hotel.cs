@@ -22,8 +22,8 @@ namespace HotelSimulationTheLock
         //a hotel needs to have a list of current guests 
         private List<IMovable> _iMovableList = new List<IMovable>();
 
-        public int HotelHieght { get; set; }
-        public int HotelWidth { get; set; }
+        public static int HotelHieght { get; set; }
+        public static int HotelWidth { get; set; }
 
         public int HtePerSecond { get; set; }
 
