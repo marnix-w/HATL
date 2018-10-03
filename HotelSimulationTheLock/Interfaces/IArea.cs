@@ -40,6 +40,7 @@ namespace HotelSimulationTheLock
         /// IArea: Conected to, Int: Time to treverse in HTE
         /// </summary>
         Dictionary<IArea, int> Edge { get; set; }
+        
 
         // Functions
         IArea CreateArea(Point position, int capacity, Point dimension, int clasification);
