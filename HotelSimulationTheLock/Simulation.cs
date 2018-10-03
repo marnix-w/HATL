@@ -18,7 +18,17 @@ namespace HotelSimulationTheLock
         public Hotel HotelArea { get; set; }
 
 
-        public Simulation(List<JsonModel> layout)
+        public Simulation(List<JsonModel> layout,
+                                            int maid_amount,
+                                                int elevator_in_hte,
+                                                    int elevator_cap,
+                                                        int hte_per_sec,
+                                                            int staircase_in_hte,
+                                                                int cinema_dur,
+                                                                    int restaurant_cap,
+                                                                        int fitness_dur,
+                                                                            int fitness_cap)
+
         {
             InitializeComponent();
 
