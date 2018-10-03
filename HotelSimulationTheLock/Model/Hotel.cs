@@ -86,6 +86,19 @@ namespace HotelSimulationTheLock
 
             SetNieghbors();
 
+            List<IArea> t = new List<IArea>();
+
+            Dijkstra sigismund = new Dijkstra(HotelAreaList);
+
+            t = sigismund.GetShortestPathDijikstra(HotelAreaList.Find(X => X.Position == new Point(0, 0)), HotelAreaList.Find(Y => Y.Position == new Point(3, 2)));
+
+            foreach (IArea item in t)
+            {
+                Debug.WriteLine(item.Position);
+            }
+
+           
+
         }
 
         public Bitmap DrawHotel()
