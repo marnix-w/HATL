@@ -27,7 +27,7 @@ namespace HotelSimulationTheLock
         public Point Position { get; set; }
         public Point Dimension { get; set; }
         public int Capacity { get; set; }
-        public Image Art { get; set; }
+        public Image Art { get; set; } = Properties.Resources.elevator_not_pressent;
         Status IArea.Status { get; set; }
         
         
@@ -51,16 +51,7 @@ namespace HotelSimulationTheLock
                 Capacity = capacity,
                 Dimension = dimension
             };
-
-            if (dimension.Equals(new Point(0, 0)))
-            {
-                ev.Art = Properties.Resources.elevator_pressent;
-            }
-            else
-            {
-                Art = Properties.Resources.elevator_not_pressent;
-            }
-
+            
             return ev;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -9,9 +10,11 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
+    [Export(typeof(IArea))]
+    [ExportMetadata("AreaType", "Reception")]
     public class Reception : IArea
     {
-        public Point Position { get; set; } = new Point(0, 1); // LOOK FOR Y OR X (nu als xy)
+        public Point Position { get; set; }
         public Point Dimension { get; set; } = new Point(1, 1);
         public int Capacity { get; set; } = 1;
         public Image Art { get; set; } = Properties.Resources.reception;
@@ -30,7 +33,12 @@ namespace HotelSimulationTheLock
 
         public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
         {
-            return new Reception();
+            Reception rc = new Reception()
+            {
+                Position = position
+            };
+
+            return rc;
         }
         
         
