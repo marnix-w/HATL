@@ -10,12 +10,12 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    public enum Status
+    public enum AreaStatus
     {
-        Empty,
-        Ocupied,
-        NeedCleaning
-        //Ect
+        EMPTY,
+        OCCUPIED,
+        NEED_CLEANING
+        //Etc
     }
     
     public interface IAreaType
@@ -30,7 +30,7 @@ namespace HotelSimulationTheLock
         Point Dimension { get; set; }
         int Capacity { get; set; }
         Image Art { get; set; }
-        Status Status { get; set; }
+        AreaStatus AreaStatus { get; set; }
 
         // Properties for dijkstra search
         double? BackTrackCost { get; set; }

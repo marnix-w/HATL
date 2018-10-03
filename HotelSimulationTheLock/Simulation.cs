@@ -47,27 +47,27 @@ namespace HotelSimulationTheLock
 
                 if (type.Equals("Room"))
                 {
-                    _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.Status;
+                    _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.AreaStatus;
                     _roomsStatus.Text += "\n";
                 }
                 else if (type.Equals("Restaurant"))
                 {
-                    _restaurantStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.Status;
+                    _restaurantStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
                     _restaurantStatus.Text += "\n";
                 }
                 else if (type.Equals("Fitness"))
                 {
-                    _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.Status;
+                    _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
                     _fitnessStatus.Text += "\n";
                 }
                 else if (type.Equals("Pool"))
                 {
-                    _poolStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.Status;
+                    _poolStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
                     _poolStatus.Text += "\n";
                 }
                 else
                 {
-          
+
                 }
 
 
@@ -78,21 +78,10 @@ namespace HotelSimulationTheLock
                 test.Width = (Hotel.HotelWidth + 1) * 96;
                 test.Height = (Hotel.HotelHieght + 1) * 96;
                 test.SizeMode = PictureBoxSizeMode.StretchImage;
-                test.Image = HotelArea.DrawHotel();        
+                test.Image = HotelArea.DrawHotel();
 
                 this.Controls.Add(test);
             }
-                       
-
-            
-
-            
-
-
-
         }
-
-
-
     }
 }

@@ -88,7 +88,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1530, 853);
+            this.ClientSize = new System.Drawing.Size(1530, 845);
             this.Controls.Add(this._poolStatus);
             this.Controls.Add(this._fitnessStatus);
             this.Controls.Add(this._restaurantStatus);

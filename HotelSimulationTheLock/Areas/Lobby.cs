@@ -16,7 +16,7 @@ namespace HotelSimulationTheLock.Areas
         public Point Dimension { get; set; } = new Point(1, 1);
         public int Capacity { get; set; }
         public Image Art { get; set; } = Properties.Resources.lobby_window;
-        public Status Status { get; set; }
+        public AreaStatus AreaStatus { get; set; }
         
         // dijkstra variables
         public double? BackTrackCost { get; set; }

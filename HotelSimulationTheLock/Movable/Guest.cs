@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,8 @@ namespace HotelSimulationTheLock
 {
     class Guest : IMovable, HotelEventListener
     {
-
+        public Point Position { get; set; }
+        public Image Art { get; set; }
         public string Name { get; set; }
         public int RoomRequest { get; set; }
 
