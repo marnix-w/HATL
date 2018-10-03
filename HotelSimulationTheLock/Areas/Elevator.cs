@@ -51,7 +51,12 @@ namespace HotelSimulationTheLock
                 Capacity = capacity,
                 Dimension = dimension
             };
-            
+
+            if (clasification == Hotel.HotelHieght + 1)
+            {
+                ev.Art = Properties.Resources.elevator_pressent;
+            }
+
             return ev;
         }
 
