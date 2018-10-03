@@ -25,10 +25,11 @@ namespace HotelSimulationTheLock
             Art = new PictureBox();
             RoomRequest = roomRequest;
             Name = name;
-            Art.Image = Properties.Resources.customer;           
-            Art.Width =32;
-            Art.Height =64;
-            Art.Location = new Point(0 ,Hotel.HotelHeight  * 96 + 35);
+            Art.Image = Properties.Resources.customer;
+            Art.SizeMode = PictureBoxSizeMode.AutoSize;
+    
+            Art.BackColor = Color.Transparent;
+            Art.Location = new Point(50 ,Hotel.HotelHeight  * 96 + 35);
         }
 
         public void Notify(HotelEvent evt)

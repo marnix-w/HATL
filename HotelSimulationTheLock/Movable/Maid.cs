@@ -16,10 +16,14 @@ namespace HotelSimulationTheLock
         public MovableStatus Status { get; set; }
         Queue<HotelEvent> CleaningEmergencies { get; set; }
 
-        public void Notify(HotelEvent evt)
+        public Maid()
         {
             Art = new PictureBox();
             Art.Image = Properties.Resources.maid;
+        }
+
+        public void Notify(HotelEvent evt)
+        {         
 
             if (evt.EventType.Equals(HotelEventType.CLEANING_EMERGENCY))
             {

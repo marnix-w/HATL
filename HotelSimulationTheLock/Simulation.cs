@@ -17,7 +17,8 @@ namespace HotelSimulationTheLock
     {
         public Hotel HotelArea { get; set; }
         PictureBox Background = new PictureBox();
-
+        PictureBox test = new PictureBox();
+        int count = 0;
         public Simulation(List<JsonModel> layout)
         {
             InitializeComponent();
@@ -56,8 +57,8 @@ namespace HotelSimulationTheLock
                     Guest t = (Guest)g;
                     _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest;
                     _guestStatus.Text += "\n";                 
-                    this.Controls.Add(g.Art);
-                    this.BringToFront();
+                    this.Controls.Add(g.Art);                
+                    g.Art.BringToFront();
                 }
                 if (g is Maid)
                 {
@@ -65,6 +66,7 @@ namespace HotelSimulationTheLock
                     _maidStatus.Text += "Maid \t" + m.Status + "\t" + m.Position;
                     _maidStatus.Text += "\n";
                     this.Controls.Add(m.Art);
+                    m.Art.BringToFront();
                 }                
             }    
         }
@@ -95,17 +97,16 @@ namespace HotelSimulationTheLock
                         break;
                 }
 
-                PictureBox test = new PictureBox();
+                
                 test.Location = new Point(50, 100);
                 test.Width = (Hotel.HotelWidth + 1) * 96;
                 test.Height = (Hotel.HotelHeight) * 96;
                 test.SizeMode = PictureBoxSizeMode.StretchImage;
-                test.Image = HotelArea.DrawHotel();
-
-                this.Controls.Add(test);
+                test.Image = HotelArea.DrawHotel();          
+                Controls.Add(test);
                 test.SendToBack();
             }
         }
-
+     
     }
 }
