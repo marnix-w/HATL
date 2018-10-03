@@ -47,7 +47,7 @@ namespace HotelSimulationTheLock
                 }
 
 
-                HotelAreaList.Add(Factory.GetArea(i.AreaType, i.Position, i.Capacity, i.Dimension, temp));
+                HotelAreaList.Add(Factory.GetArea(i.AreaType, i.Position + new Size(0,-1), i.Capacity, i.Dimension, temp));
             }
 
             HotelWidth = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X;
@@ -55,13 +55,13 @@ namespace HotelSimulationTheLock
 
             // UNSTABLE !!!
 
-            for (int i = 0; i < HotelHieght + 1; i++)
+            for (int i = 0; i < HotelHieght + 2; i++)
             {
                 // 5 is the capacity get from setting screen
                 HotelAreaList.Add(Factory.GetArea("Elevator", new Point(0, i), 5, new Point(1, 1), 0));
                 HotelAreaList.Add(Factory.GetArea("Staircase", new Point(HotelWidth + 1, i), 5, new Point(1, 1), 0));
             }
-            for (int i = 1; i < HotelWidth - 1; i++)
+            for (int i = 1; i < HotelWidth + 1; i++)
             {
                 if (i == 1)
                 {
@@ -86,7 +86,7 @@ namespace HotelSimulationTheLock
         public Bitmap DrawHotel()
         {
             // all art is 96 * 96 pixels
-            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHieght + 1) * 96);
+            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHieght + 2) * 96);
 
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
