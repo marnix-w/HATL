@@ -12,6 +12,7 @@ namespace HotelSimulationTheLock
     {
         public Point Position { get; set; }
         public Image Art { get; set; }
+        public MovableStatus MovableStatus { get; set; }
         public void Notify(HotelEvent evt)
         {
             if (evt.EventType.Equals(HotelEventType.EVACUATE))

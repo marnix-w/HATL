@@ -36,42 +36,30 @@ namespace HotelSimulationTheLock
 
         
 
-
+        //Overview of hotel facilities
         public void ShowHotelAreaOverView()
         {
             foreach (IArea i in HotelArea.HotelAreaList)
             {
-
                 string type = i.GetType().ToString().Replace("HotelSimulationTheLock.", "");
 
-
-                if (type.Equals("Room"))
+                switch (type)
                 {
-                    _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.AreaStatus;
-                    _roomsStatus.Text += "\n";
+                    case "Room":
+                        _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.AreaStatus;
+                        _roomsStatus.Text += "\n";
+                        break;
+                    case "Restaurant":
+                        _restaurantStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
+                        _restaurantStatus.Text += "\n";
+                        break;
+                    case "Fitness":
+                        _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
+                        _fitnessStatus.Text += "\n";
+                        break;
+                    default:
+                        break;
                 }
-                else if (type.Equals("Restaurant"))
-                {
-                    _restaurantStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                    _restaurantStatus.Text += "\n";
-                }
-                else if (type.Equals("Fitness"))
-                {
-                    _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                    _fitnessStatus.Text += "\n";
-                }
-                else if (type.Equals("Pool"))
-                {
-                    _poolStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                    _poolStatus.Text += "\n";
-                }
-                else
-                {
-
-                }
-
-
-
 
                 PictureBox test = new PictureBox();
                 test.Location = new Point(10, 10);

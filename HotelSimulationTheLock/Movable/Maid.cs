@@ -12,6 +12,7 @@ namespace HotelSimulationTheLock
     {
         public Point Position { get; set; }
         public Image Art { get; set; }
+        public MovableStatus MovableStatus { get; set; }
         Queue<HotelEvent> CleaningEmergencies { get; set; }
 
         public void Notify(HotelEvent evt)
