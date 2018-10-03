@@ -53,15 +53,14 @@ namespace HotelSimulationTheLock
                 }
 
 
-                HotelAreaList.Add(Factory.GetArea(i.AreaType, i.Position + new Size(0,-1), i.Capacity, i.Dimension, temp));
+                HotelAreaList.Add(Factory.GetArea(i.AreaType, i.Position, i.Capacity, i.Dimension, temp));
             }
 
             HotelWidth = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHieght = HotelAreaList.OrderBy(Y => Y.Position.Y).Last().Position.Y;
+            
 
-            // UNSTABLE !!!
-
-            for (int i = 0; i < HotelHieght + 2; i++)
+            for (int i = 1; i < HotelHieght + 2; i++)
             {
                 // 5 is the capacity get from setting screen
                 HotelAreaList.Add(Factory.GetArea("Elevator", new Point(0, i), 5, new Point(1, 1), i));
@@ -72,18 +71,13 @@ namespace HotelSimulationTheLock
                 if (i == 1)
                 {
                     HotelAreaList.Add(Factory.GetArea("Reception", new Point(1, HotelHieght + 1), 5, new Point(1, 1), 1));
-                }
-                else if (i % 2 == 0) 
-                {
-                    HotelAreaList.Add(Factory.GetArea("Lobby", new Point(i, HotelHieght + 1), 5, new Point(1, 1), i)); // window
-                }
+                }                
                 else
                 {
-                    HotelAreaList.Add(Factory.GetArea("Lobby", new Point(i, HotelHieght + 1), 5, new Point(1, 1), i)); // couch
+                    HotelAreaList.Add(Factory.GetArea("Lobby", new Point(i, HotelHieght + 1), 5, new Point(1, 1), i)); // lobby
                 }
             }
-
-            // UNSTABLE !!!
+            
 
             SetNieghbors();
                      
@@ -93,13 +87,13 @@ namespace HotelSimulationTheLock
         public Bitmap DrawHotel()
         {
             // all art is 96 * 96 pixels
-            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHieght + 2) * 96, PixelFormat.Format16bppRgb565);
+            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHieght + 1) * 96, PixelFormat.Format16bppRgb565);
 
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
                 foreach (IArea area in HotelAreaList)
                 {
-                    graphics.DrawImage(area.Art, area.Position.X * 96, area.Position.Y * 96, area.Dimension.X * 96, area.Dimension.Y * 96);
+                    graphics.DrawImage(area.Art, area.Position.X * 96, (area.Position.Y - 1) * 96, area.Dimension.X * 96, area.Dimension.Y * 96);
                 } 
             }
             
