@@ -12,21 +12,20 @@ namespace HotelSimulationTheLock
     class Guest : IMovable, HotelEventListener
     {
         public Point Position { get; set; }
-        public Image Art { get; set; }
-
+        public PictureBox Art { get; set; }
         public MovableStatus Status { get; set; }
         public string Name { get; set; }
         public int RoomRequest { get; set; }
 
-        public PictureBox bob { get; set; }
+      
 
         public Guest(string name, int roomRequest)
         {
-            bob = new PictureBox();
+            Art = new PictureBox();
             RoomRequest = roomRequest;
             Name = name;
-            bob.Image = Properties.Resources.customer;
-            bob.Location = new Point(400, 400);
+            Art.Image = Properties.Resources.customer;
+            Art.Location = new Point(0, Hotel.HotelHieght + 1);
         }
 
         public void Notify(HotelEvent evt)

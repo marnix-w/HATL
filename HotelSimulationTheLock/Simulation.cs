@@ -29,8 +29,7 @@ namespace HotelSimulationTheLock
             HotelEventManager.Start();
             Console.WriteLine(!HotelEventManager.Running);
 
-            ShowHotelAreaOverView();
-            showMoveAbleOverView();
+            ShowHotelAreaOverView(); 
 
             HotelEventManager.HTE_Factor = 0.5f;
 
@@ -47,13 +46,30 @@ namespace HotelSimulationTheLock
 
         void timer_Tick(object sender, EventArgs e)
         {
+            //guest overview
             _guestStatus.Text = string.Empty;
+            //maid overview
+            _maidStatus.Text = string.Empty;
 
-            foreach (Guest m in HotelArea.IMovableList)
+            foreach (IMovable g in HotelArea.IMovableList)
             {
-                _guestStatus.Text += m.Name + "\t" + m.Status + "\t" + m.RoomRequest;
-                _guestStatus.Text += "\n";
+                if (g is Guest)
+                {
+                    Guest t = (Guest)g;
+                    _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest;
+                    _guestStatus.Text += "\n";
+                }
+                if (g is Maid)
+                {
+                    Maid m = (Maid)g;
+                    _maidStatus.Text += "Maid " + m.Status + "\t" + m.Position;
+                    _maidStatus.Text += "\n";
+                }
+                
             }
+
+           
+            
         }
 
 
@@ -79,12 +95,7 @@ namespace HotelSimulationTheLock
                 {
                     _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
                     _fitnessStatus.Text += "\n";
-                }
-                else if (type.Equals("Pool"))
-                {
-                    _poolStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                    _poolStatus.Text += "\n";
-                }
+                }              
                 else
                 {
 
@@ -100,13 +111,6 @@ namespace HotelSimulationTheLock
 
                 this.Controls.Add(test);
             }
-        }
-
-        private void showMoveAbleOverView()
-        {
-
-
-
         }
 
     }

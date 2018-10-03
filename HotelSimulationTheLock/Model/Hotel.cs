@@ -85,6 +85,9 @@ namespace HotelSimulationTheLock
 
             // UNSTABLE !!!
 
+            IMovableList.Add(new Maid());
+            IMovableList.Add(new Maid());
+
             SetNieghbors();
                      
 
