@@ -85,19 +85,7 @@ namespace HotelSimulationTheLock
             // UNSTABLE !!!
 
             SetNieghbors();
-
-            List<IArea> t = new List<IArea>();
-
-            Dijkstra sigismund = new Dijkstra(HotelAreaList);
-
-            t = sigismund.GetShortestPathDijikstra(HotelAreaList.Find(X => X.Position == new Point(0, 0)), HotelAreaList.Find(Y => Y.Position == new Point(3, 2)));
-
-            foreach (IArea item in t)
-            {
-                Debug.WriteLine(item.Position);
-            }
-
-           
+                     
 
         }
 
@@ -111,8 +99,7 @@ namespace HotelSimulationTheLock
                 foreach (IArea area in HotelAreaList)
                 {
                     graphics.DrawImage(area.Art, area.Position.X * 96, area.Position.Y * 96, area.Dimension.X * 96, area.Dimension.Y * 96);
-                }
-  
+                } 
             }
             
             return buffer;
