@@ -11,9 +11,9 @@ namespace HotelSimulationTheLock
     {
 
         public string Name { get; set; }
-        public string RoomRequest { get; set; }
+        public int RoomRequest { get; set; }
 
-        public Guest(string name, string roomRequest)
+        public Guest(string name, int roomRequest)
         {
             
             RoomRequest = roomRequest;
@@ -30,7 +30,7 @@ namespace HotelSimulationTheLock
                 // find requested guest
 
                 case HotelEventType.CHECK_OUT:
-                    // guest.checkouy()
+                    // guest.checkout()
                     break;
                 case HotelEventType.EVACUATE:
                     // guest.evacuate()

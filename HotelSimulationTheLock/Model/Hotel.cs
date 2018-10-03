@@ -19,7 +19,7 @@ namespace HotelSimulationTheLock
         public List<IArea> HotelAreaList = new List<IArea>();
 
         //a hotel needs to have a list of current guests 
-        private List<Guest> _guestsList = new List<Guest>();
+        private List<IMovable> _iMovableList = new List<IMovable>();
 
         //a hotel needs to have maids to cleanup stuff
         private List<Maid> _maidList = new List<Maid>();
@@ -36,22 +36,19 @@ namespace HotelSimulationTheLock
         //an hotel has a background image
         public PictureBox Background { get; set; }
 
-        public Hotel()
-        {
-            HotelEventManager.Register(this);
-        }
-
         public Hotel(List<JsonModel> layout, float HTESeconds)
         {
             HotelEventManager.HTE_Factor = HTESeconds;
 
             AreaFactory tijdelijk = new AreaFactory();
 
+            HotelEventManager.Register(this);
+
             foreach (JsonModel i in layout)
             {
                 int temp = 0;
 
-                if(i.Classification != null)
+                if (i.Classification != null)
                 {
                     temp = int.Parse(Regex.Match(i.Classification, @"\d+").Value);
                 }
@@ -68,11 +65,14 @@ namespace HotelSimulationTheLock
             {
                 string name = "";
                 string request = "";
+                int requestInt = 0;
 
                 if (!(evt.Data is null))
                 {
                     name = evt.Data.FirstOrDefault().Key;
                     request = evt.Data.FirstOrDefault().Value;
+
+                    requestInt = int.Parse(Regex.Match(request, @"\d+").Value);
                 }
                 else
                 {
@@ -80,7 +80,9 @@ namespace HotelSimulationTheLock
                     request = "no request";
                 }
 
-                Guest guest = new Guest(name, request);
+                Guest guest = new Guest(name, requestInt);
+
+                _iMovableList.Add(guest);
 
                 Debug.WriteLine($"new guest = name: {name}, request: {request} ");
             }
