@@ -178,7 +178,7 @@ namespace HotelSimulationTheLock
                     request = "no request";
                 }
 
-                Guest guest = new Guest(name, requestInt);
+                Guest guest = new Guest(name, requestInt, 50, HotelHeight  * 96 + 42);
 
                 IMovableList.Add(guest);
 
