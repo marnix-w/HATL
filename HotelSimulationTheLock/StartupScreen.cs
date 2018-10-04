@@ -84,7 +84,7 @@ namespace HotelSimulationTheLock
                                                             fitness_cap_TB.Value
                                                         );
             hotelsimulation.Show();
-            this.Hide();
+           // this.Hide();
         }
 
 
