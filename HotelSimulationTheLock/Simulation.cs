@@ -17,7 +17,7 @@ namespace HotelSimulationTheLock
     {
         public Hotel HotelArea { get; set; }
         public int UnitTestvalue { get; set; }
-
+        public List<JsonModel> test_model { get; set; }
 
         public Simulation(List<JsonModel> layout,
                                             int maid_amount,
@@ -33,6 +33,7 @@ namespace HotelSimulationTheLock
         {
             InitializeComponent();
 
+            test_model = layout;
             
 
             HotelArea = new Hotel(layout, 0.5f);

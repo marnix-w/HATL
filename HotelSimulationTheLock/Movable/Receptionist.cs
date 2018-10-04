@@ -9,7 +9,7 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    class Receptionist : IMovable, HotelEventListener
+    public class Receptionist : IMovable, HotelEventListener
     {
         public Point Position { get; set; }
         public PictureBox Art { get; set; }

@@ -61,7 +61,7 @@ namespace HotelSimulationTheLock
             fitness_cap_LB.Text = _fitness_cap;  
         }
 
-        private void _runSimulation_Click(object sender, EventArgs e)
+        public void _runSimulation_Click(object sender, EventArgs e)
         {
             
 
@@ -84,7 +84,7 @@ namespace HotelSimulationTheLock
                                                             fitness_cap_TB.Value
                                                         );
             hotelsimulation.Show();
-            this.Hide();
+           // this.Hide();
         }
 
 

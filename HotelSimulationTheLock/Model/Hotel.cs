@@ -26,11 +26,6 @@ namespace HotelSimulationTheLock
         public static int HotelHeight { get; set; }
         public static int HotelWidth { get; set; }
 
-        public int HtePerSecond { get; set; }
-
-        //an hotel has a background image
-        public PictureBox Background { get; set; }
-
         public Hotel(List<JsonModel> layout, float HTESeconds)
         {
             HotelEventManager.HTE_Factor = HTESeconds;
@@ -92,8 +87,8 @@ namespace HotelSimulationTheLock
             }
             
 
-            IMovableList.Add(new Maid(HotelWidth * 96 - 182, HotelHeight * 96 + 35));
-            IMovableList.Add(new Maid(HotelWidth * 96 - 92, HotelHeight * 96 + 35));
+            IMovableList.Add(new Maid(HotelWidth * 96 - 182, HotelHeight * 96 + 42));
+            IMovableList.Add(new Maid(HotelWidth * 96 - 92, HotelHeight * 96 + 42));
 
             SetNeighbor();
                      
