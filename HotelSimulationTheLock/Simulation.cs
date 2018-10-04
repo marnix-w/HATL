@@ -13,11 +13,13 @@ using System.Windows.Forms;
 
 namespace HotelSimulationTheLock
 {
-    public partial class Simulation : Form
+    public partial class Simulation : Form, HotelEventListener
     {
         public Hotel HotelArea { get; set; }
         public int UnitTestvalue { get; set; }
         public List<JsonModel> test_model { get; set; }
+        private PictureBox HotelBackground { get; set; }
+
 
         public Simulation(List<JsonModel> layout,
                                             int maid_amount,
@@ -71,21 +73,13 @@ namespace HotelSimulationTheLock
                     Guest t = (Guest)g;
                     _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest;
                     _guestStatus.Text += "\n";
-
-                    this.Controls.Add(g.Art);
-                    if (g.Art.Left < 600)
-                    {
-                        g.Art.Left += 40;
-                    }
-                    g.Art.BringToFront();
+                    
                 }
                 if (g is Maid)
                 {
                     Maid m = (Maid)g;
                     _maidStatus.Text += "Maid \t" + m.Status + "\t" + m.Position;
-                    _maidStatus.Text += "\n";
-                    this.Controls.Add(m.Art);
-                    m.Art.BringToFront();
+                    _maidStatus.Text += "\n";                    
                 }
             }
         }
@@ -116,16 +110,24 @@ namespace HotelSimulationTheLock
                         break;
                 }
 
-                PictureBox HotelBackground = new PictureBox();
-                HotelBackground.Location = new Point(50, 100);
-                HotelBackground.Width = (Hotel.HotelWidth + 1) * 96;
-                HotelBackground.Height = (Hotel.HotelHeight) * 96;
-                HotelBackground.SizeMode = PictureBoxSizeMode.StretchImage;
-                HotelBackground.Image = HotelArea.DrawHotel();
+                HotelBackground = new PictureBox
+                {
+                    Location = new Point(50, 100),
+                    Width = (Hotel.HotelWidth + 1) * 96,
+                    Height = (Hotel.HotelHeight) * 96,
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Image = HotelArea.Superimpose(HotelArea.DrawHotel(), HotelArea.DrawMovables())
+                };
+
                 Controls.Add(HotelBackground);
-                HotelBackground.SendToBack();
+                
             }
         }
 
+        public void Notify(HotelEvent evt)
+        {
+            HotelBackground.Image = HotelArea.Superimpose(HotelArea.DrawHotel(), HotelArea.DrawMovables());
+            HotelBackground.Refresh();
+        }
     }
 }

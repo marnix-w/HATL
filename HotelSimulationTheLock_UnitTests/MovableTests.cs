@@ -16,7 +16,7 @@ namespace HotelSimulationTheLock_UnitTests
         public void TestIfReceptionistLivesAfterCreation()
         {
             //arrange
-             Receptionist CoolBob;
+            IMovable CoolBob;
 
             //act
             CoolBob = new Receptionist();
@@ -29,10 +29,10 @@ namespace HotelSimulationTheLock_UnitTests
         public void TestIfMaidLivesAfterCreation()
         {
             //arrange
-            Maid Barbra;
+            IMovable Barbra;
 
             //act
-            Barbra = new Maid(1, 1);
+            Barbra = new Maid(new System.Drawing.Point(0, 0));
 
             //assert
             Assert.IsInstanceOfType(Barbra, typeof(Maid));
@@ -42,10 +42,10 @@ namespace HotelSimulationTheLock_UnitTests
         public void TestIfGuestLivesAfterCreation()
         {
             //arrange
-            Guest Bob;
+            IMovable Bob;
 
             //act
-            Bob = new Guest("Bob", 1);
+            Bob = new Guest("Bob", 1, new System.Drawing.Point(0,0));
 
             //assert
             Assert.IsInstanceOfType(Bob, typeof(Guest));

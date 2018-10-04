@@ -30,11 +30,12 @@ namespace HotelSimulationTheLock
 
         public Cinema()
         {
-            HotelEventManager.Register(this);
+         
         }
 
         public IArea CreateArea()
         {
+            HotelEventManager.Register(this);
             return new Cinema();
         }
 

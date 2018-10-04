@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
@@ -87,18 +88,28 @@ namespace HotelSimulationTheLock
             }
 
 
-            IMovableList.Add(new Maid(HotelWidth * 96 - 182, HotelHeight * 96 + 42));
-            IMovableList.Add(new Maid(HotelWidth * 96 - 92, HotelHeight * 96 + 42));
+            IMovableList.Add(new Maid(new Point(4, HotelHeight + 1)));
+            IMovableList.Add(new Maid(new Point(6, HotelHeight + 1)));
+            IMovableList.Add(new Guest(":(", 5, new Point(1, 1)));
 
             SetNeighbor();
 
 
         }
 
+        public Bitmap Superimpose(Bitmap largeBmp, Bitmap smallBmp)
+        {
+            Graphics g = Graphics.FromImage(largeBmp);
+            g.CompositingMode = CompositingMode.SourceOver;
+                   
+            g.DrawImage(smallBmp, new Point(0,0));
+            return largeBmp;
+        }
+
         public Bitmap DrawHotel()
         {
             // all art is 96 * 96 pixels
-            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHeight + 1) * 96, PixelFormat.Format16bppRgb565);
+            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHeight + 1) * 96);
 
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
@@ -106,8 +117,29 @@ namespace HotelSimulationTheLock
                 {
                     graphics.DrawImage(area.Art, area.Position.X * 96, (area.Position.Y - 1) * 96, area.Dimension.Width * 96, area.Dimension.Height * 96);
                 }
+                
             }
+            
+            return buffer;
 
+        }
+
+        public Bitmap DrawMovables()
+        {
+            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHeight + 1) * 96);
+            
+            using (Graphics graphics = Graphics.FromImage(buffer))
+            {
+                List<IMovable> t = IMovableList;
+
+                foreach (IMovable movable in t)
+                {
+                    graphics.DrawImage(movable.Art, movable.Position.X * 96 * 1.05f, (movable.Position.Y - 1) * 96 * 1.05f, movable.Art.Width, movable.Art.Height);
+
+                }
+
+            }
+            
             return buffer;
 
         }
@@ -178,12 +210,14 @@ namespace HotelSimulationTheLock
                     request = "no request";
                 }
 
-                Guest guest = new Guest(name, requestInt);
+                
+                Guest guest = new Guest(name, requestInt, new Point(5,6));
 
                 IMovableList.Add(guest);
 
                 Console.WriteLine($"new guest = name: {name}, request: {request} ");
             }
+            
         }
 
 
