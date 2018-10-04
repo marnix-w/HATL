@@ -15,10 +15,10 @@ namespace HotelSimulationTheLock
     public class AreaFactory 
     {
         // For this project we used a special variation on the Design pattern factory
-        // this variation makes it highly explandeble
+        // this variation makes the simulation MODULAIR
         // it implements the MEF framework to capture new types of areas and can directly work with them
-        // if an area will be added they have to implement the IArea interface and by filling in de create area method 
-        // it is compatible with the program. this way it is posible to add loads of new area's without having to deal with 
+        // if an area will be added they have to implement the IArea interface and by filling in the create area method 
+        // it is compatable with the program. this way it is posible to add loads of new area's without having to deal with 
         // implementation in the program
 
         // the container in wich the composition will be held
@@ -28,7 +28,7 @@ namespace HotelSimulationTheLock
         IEnumerable<Lazy<IArea, IAreaType>> AreaTypes;
 
         /// <summary>
-        /// When a factory is made it will check the decicated folder for what rooms it can make
+        /// When a factory is made it will check the function for what rooms it can make
         /// </summary>
         public AreaFactory()
         {
@@ -37,8 +37,8 @@ namespace HotelSimulationTheLock
             //Adds all the parts found in the same assembly as the Program class
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(Program).Assembly));
 
-            // In develpment of this factory an error ocoured when we added an external DLL area that didnt fully implement IArea correctly 
-            // This caused mayor error in the project. after searching the web fot a fix i stumbled upon a stack overflow thread that solved my problem
+            // In development of this factory an error occured when we added an external DLL area that didnt fully implement IArea correctly 
+            // This caused a mayor error in the project. after searching the web fot a fix we stumbled upon a stack overflow thread that solved our problem
             // https://stackoverflow.com/questions/4144683/handle-reflectiontypeloadexception-during-mef-composition
             // instead of reading all DLL files in at the same time. we now do each one induvidualy. then we force faulty DLL's to crash and catch the exception
             // en exclude them from the project.
