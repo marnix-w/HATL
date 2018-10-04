@@ -25,16 +25,28 @@ namespace HotelSimulationTheLock
             //Adds all the parts found in the same assembly as the Program class
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(Program).Assembly));
 
-            try
-            {
-                catalog.Catalogs.Add(new DirectoryCatalog(Directory.GetCurrentDirectory() + @"..\..\..\Extended_Areas"));
-            }
-            catch (CompositionException)
-            {
-                // Error handeling
-                Debug.WriteLine("The deliverd DLL does implement the IArea interface correctly please fix");
-            }
+            // this is some black magicx
+            // https://stackoverflow.com/questions/4144683/handle-reflectiontypeloadexception-during-mef-composition
 
+            var files = Directory.EnumerateFiles(Directory.GetCurrentDirectory() + @"..\..\..\Extended_Areas", "*.dll", SearchOption.AllDirectories);
+
+            foreach (var item in files)
+            {
+                AssemblyCatalog a = new AssemblyCatalog(item);
+                
+                try
+                {
+                    a.Parts.ToArray();
+                }
+                catch (System.Reflection.ReflectionTypeLoadException)
+                {
+                    continue;
+                }
+
+                catalog.Catalogs.Add(new DirectoryCatalog(Directory.GetCurrentDirectory() + @"..\..\..\Extended_Areas"));
+
+            }
+            
             //Create the CompositionContainer with the parts in the catalog
             _container = new CompositionContainer(catalog);
 
