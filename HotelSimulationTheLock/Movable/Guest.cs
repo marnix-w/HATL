@@ -23,8 +23,6 @@ namespace HotelSimulationTheLock
        
         public Guest(string name, int roomRequest, int x, int y)
         {
-          
-          
             // TO BE CHANGED NO PIXTURE BOX SPAM
             Art = new PictureBox();
             RoomRequest = roomRequest;
