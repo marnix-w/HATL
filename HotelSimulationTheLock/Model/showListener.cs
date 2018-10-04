@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HotelEvents;
 
-namespace HotelSimulationTheLock.Model
+namespace HotelSimulationTheLock
 {
     class showListener : HotelEventListener
     {

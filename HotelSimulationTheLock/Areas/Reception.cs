@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -9,43 +10,41 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    class Reception : IArea, HotelEventListener
+    [Export(typeof(IArea))]
+    [ExportMetadata("AreaType", "Reception")]
+    public class Reception : IArea
     {
-        public string AreaType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Point Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Point Dimension { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Capacity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Image Art { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int ArtWidth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int ArtHeight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Point Position { get; set; }
+        public Size Dimension { get; set; } = new Size(1, 1);
+        public int Capacity { get; set; } = 1;
+        public Bitmap Art { get; set; } = Properties.Resources.reception;
+        public AreaStatus AreaStatus { get; set; }
+
+        // Dijkstra search varibles
+        public double? BackTrackCost { get; set; } = null;
+        public IArea NearestToStart { get; set; } = null;
+        public bool Visited { get; set; } = false;
+        public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
+        public List<IMovable> Movables { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Reception()
         {
-            HotelEventManager.Register(this);
+
         }
 
-        public void Notify(HotelEvent evt)
+        public IArea CreateArea()
         {
-            if (evt.EventType.Equals(HotelEventType.CHECK_IN))
-            {
-                string name = "";
-                string request = "";
+            return new Reception();
+        }
 
-                if (!(evt.Data is null))
-                {
-                    name = evt.Data.FirstOrDefault().Key;
-                    request = evt.Data.FirstOrDefault().Value;
-                }
-                else
-                {
-                    name = "test guest";
-                    request = "no request";
-                }
-                 
-                Guest guest = new Guest(name, request);
+        public void SetJsonValues(Point position, int capacity, Size dimension, int classification)
+        {
+            Position = position;
+        }
 
-                Debug.WriteLine($"new guest = name: {name}, request: {request} ");
-            }
+        public bool AddMovable(IMovable movable)
+        {
+            throw new NotImplementedException();
         }
     }
 }

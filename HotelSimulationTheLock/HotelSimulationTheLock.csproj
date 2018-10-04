@@ -41,7 +41,9 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Workflow.ComponentModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,7 +58,7 @@
     <Compile Include="Areas\Cinema.cs" />
     <Compile Include="Areas\Elevator.cs" />
     <Compile Include="Areas\Fitness.cs" />
-    <Compile Include="Areas\Pool.cs" />
+    <Compile Include="Areas\Lobby.cs" />
     <Compile Include="Areas\Reception.cs" />
     <Compile Include="Areas\Restaurant.cs" />
     <Compile Include="Areas\Room.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Simulation.resx">
       <DependentUpon>Simulation.cs</DependentUpon>
@@ -100,6 +103,7 @@
       <DependentUpon>StartupScreen.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Assets\Libraries\Hotel.layout" />
+    <None Include="Assets\Libraries\Hotel_reparatie.layout" />
     <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -116,11 +120,42 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Images\" />
     <Folder Include="Assets\Json\" />
+    <Folder Include="Extended_Areas\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Images\cinema.png" />
+    <None Include="Assets\Images\cleaning_emargance.png" />
+    <None Include="Assets\Images\concept_hotel.png" />
+    <None Include="Assets\Images\customer.png" />
+    <None Include="Assets\Images\elevator_not_pressent.png" />
+    <None Include="Assets\Images\elevator_pressent.png" />
+    <None Include="Assets\Images\fire_emargance.png" />
+    <None Include="Assets\Images\fitness.png" />
+    <None Include="Assets\Images\hallway.png" />
+    <None Include="Assets\Images\lobby_couch.png" />
+    <None Include="Assets\Images\lobby_window.png" />
+    <None Include="Assets\Images\maid.png" />
+    <None Include="Assets\Images\reception.png" />
+    <None Include="Assets\Images\receptionist.png" />
+    <None Include="Assets\Images\restaurant.png" />
+    <None Include="Assets\Images\room_five_star_locked.png" />
+    <None Include="Assets\Images\room_five_star_open.png" />
+    <None Include="Assets\Images\room_four_star_locked.png" />
+    <None Include="Assets\Images\room_four_star_open.png" />
+    <None Include="Assets\Images\room_one_star_locked.png" />
+    <None Include="Assets\Images\room_one_star_open.png" />
+    <None Include="Assets\Images\room_three_star_locked.png" />
+    <None Include="Assets\Images\room_three_star_open.png" />
+    <None Include="Assets\Images\room_two_star_locked.png" />
+    <None Include="Assets\Images\room_two_star_open.png" />
+    <None Include="Assets\Images\staircase.png" />
     <Content Include="Assets\Libraries\HotelEvents.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

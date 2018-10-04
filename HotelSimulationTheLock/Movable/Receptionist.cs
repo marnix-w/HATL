@@ -1,14 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using HotelEvents;
 
-namespace HotelSimulationTheLock.Caracters
+namespace HotelSimulationTheLock
 {
-    class Receptionist : IMovable, HotelEventListener
+    public class Receptionist : IMovable, HotelEventListener
     {
+        public Point Position { get; set; }
+        public PictureBox Art { get; set; }
+        public MovableStatus Status { get; set; }
+        public IArea area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public Receptionist()
+        {
+            
+        }
+
         public void Notify(HotelEvent evt)
         {
             if (evt.EventType.Equals(HotelEventType.EVACUATE))

@@ -1,25 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    class Guest : IMovable, HotelEventListener
+    public class Guest : IMovable, HotelEventListener
     {
+        public Point Position { get; set; }
+        public PictureBox Art { get; set; }
+        public MovableStatus Status { get; set; }
 
         public string Name { get; set; }
-        public string RoomRequest { get; set; }
+        public int RoomRequest { get; set; }
+        public IArea area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public Guest(string name, string roomRequest)
+        public Guest(string name, int roomRequest)
         {
-            
+           
+
+
+            // TO BE CHANGED NO PIXTURE BOX SPAM
+            Art = new PictureBox();
             RoomRequest = roomRequest;
             Name = name;
-            
-
+            Art.Image = Properties.Resources.customer;
+            Art.SizeMode = PictureBoxSizeMode.AutoSize;
+    
+            Art.BackColor = Color.Transparent;
+            Art.Location = new Point(50 ,Hotel.HotelHeight  * 96 + 42);
         }
 
         public void Notify(HotelEvent evt)
@@ -30,7 +43,7 @@ namespace HotelSimulationTheLock
                 // find requested guest
 
                 case HotelEventType.CHECK_OUT:
-                    // guest.checkouy()
+                    // guest.checkout()
                     break;
                 case HotelEventType.EVACUATE:
                     // guest.evacuate()

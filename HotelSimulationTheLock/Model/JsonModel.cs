@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelSimulationTheLock.Model
+namespace HotelSimulationTheLock
 {
     public class JsonModel
     {
-        [JsonProperty("ID")]
-        public int ID { get; set; }
+        //[JsonProperty("ID")]
+        //public int ID { get; set; }
 
         [JsonProperty("Classification")]
         public string Classification { get; set; }
@@ -22,8 +22,8 @@ namespace HotelSimulationTheLock.Model
         [JsonProperty("Position")]
         public Point Position { get; set; }
 
-        [JsonProperty("Dimention")]
-        public Point Dimension { get; set; }
+        [JsonProperty("Dimension")]
+        public Size Dimension { get; set; }
 
         [JsonProperty("Capacity")]
         public int Capacity { get; set; }
