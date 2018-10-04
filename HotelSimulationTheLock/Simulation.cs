@@ -16,6 +16,7 @@ namespace HotelSimulationTheLock
     public partial class Simulation : Form
     {
         public Hotel HotelArea { get; set; }
+        public int UnitTestvalue { get; set; }
 
 
         public Simulation(List<JsonModel> layout,
@@ -31,6 +32,8 @@ namespace HotelSimulationTheLock
 
         {
             InitializeComponent();
+
+            
 
             HotelArea = new Hotel(layout, 0.5f);
 
