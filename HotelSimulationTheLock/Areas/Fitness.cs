@@ -28,7 +28,7 @@ namespace HotelSimulationTheLock
 
         public Fitness()
         {
-            
+
         }
 
         public IArea CreateArea()

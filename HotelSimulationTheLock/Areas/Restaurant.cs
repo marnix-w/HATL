@@ -31,7 +31,7 @@ namespace HotelSimulationTheLock
 
         public Restaurant()
         {
-                        
+
         }
 
         public IArea CreateArea()

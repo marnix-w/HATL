@@ -12,7 +12,7 @@ namespace HotelSimulationTheLock
     /// <summary>
     /// An implementation of a combenation of a Factory design pattern and a bit of the MEF framework
     /// </summary>
-    public class AreaFactory 
+    public class AreaFactory
     {
         // For this project we used a special variation on the Design pattern factory
         // this variation makes the simulation MODULAIR
@@ -23,7 +23,7 @@ namespace HotelSimulationTheLock
 
         // the container in wich the composition will be held
         private CompositionContainer _container;
-                
+
         [ImportMany]
         IEnumerable<Lazy<IArea, IAreaType>> AreaTypes;
 
@@ -42,13 +42,13 @@ namespace HotelSimulationTheLock
             // https://stackoverflow.com/questions/4144683/handle-reflectiontypeloadexception-during-mef-composition
             // instead of reading all DLL files in at the same time. we now do each one induvidualy. then we force faulty DLL's to crash and catch the exception
             // en exclude them from the project.
-            
+
             var files = Directory.EnumerateFiles(Directory.GetCurrentDirectory() + @"..\..\..\Extended_Areas", "*.dll", SearchOption.AllDirectories);
 
             foreach (var file in files)
             {
                 AssemblyCatalog newArea = new AssemblyCatalog(file);
-                
+
                 try
                 {
                     newArea.Parts.ToArray();
@@ -62,14 +62,14 @@ namespace HotelSimulationTheLock
                 catalog.Catalogs.Add(newArea);
 
             }
-            
+
             //Create the CompositionContainer with the parts in the catalog
             _container = new CompositionContainer(catalog);
 
             //Fill the imports of this object                     
             _container.ComposeParts(this);
-            
-            
+
+
         }
 
         /// <summary>
@@ -90,6 +90,6 @@ namespace HotelSimulationTheLock
             return null;
 
         }
-      
+
     }
 }

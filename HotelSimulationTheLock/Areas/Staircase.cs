@@ -28,10 +28,10 @@ namespace HotelSimulationTheLock
 
         public Staircase()
         {
-                     
+
         }
 
-        
+
         public IArea CreateArea()
         {
             return new Staircase();

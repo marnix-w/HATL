@@ -15,10 +15,7 @@ namespace HotelSimulationTheLock
         /// Up = true, Down = false;
         /// </summary>
         public bool UpOrDown { get; set; }
-
-
     }
-
 
     [Export(typeof(IArea))]
     [ExportMetadata("AreaType", "Elevator")]
@@ -29,8 +26,8 @@ namespace HotelSimulationTheLock
         public int Capacity { get; set; }
         public Bitmap Art { get; set; } = Properties.Resources.elevator_not_pressent;
         public AreaStatus AreaStatus { get; set; }
-        
-        
+
+
 
         // Dijkstra search varibles
         public double? BackTrackCost { get; set; } = null;
@@ -41,7 +38,7 @@ namespace HotelSimulationTheLock
 
         public Elevator()
         {
-            
+
         }
 
         public IArea CreateArea()
@@ -51,7 +48,7 @@ namespace HotelSimulationTheLock
 
         public void SetJsonValues(Point position, int capacity, Size dimension, int classification)
         {
-            Position = position;            
+            Position = position;
         }
 
         public bool AddMovable(IMovable movable)

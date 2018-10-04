@@ -29,12 +29,12 @@ namespace HotelSimulationTheLock
         public Hotel(List<JsonModel> layout, float HTESeconds)
         {
             HotelEventManager.HTE_Factor = HTESeconds;
-            
+
             HotelEventManager.Register(this);
-            
+
             AreaFactory Factory = new AreaFactory();
-            
-            
+
+
 
             foreach (JsonModel i in layout)
             {
@@ -44,7 +44,7 @@ namespace HotelSimulationTheLock
                 {
                     temp = int.Parse(Regex.Match(i.Classification, @"\d+").Value);
                 }
-                
+
                 IArea area = Factory.GetArea(i.AreaType);
                 area.SetJsonValues(i.Position, i.Capacity, i.Dimension, temp);
                 HotelAreaList.Add(area);
@@ -52,7 +52,7 @@ namespace HotelSimulationTheLock
 
             HotelWidth = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreaList.OrderBy(Y => Y.Position.Y).Last().Position.Y;
-            
+
 
             for (int i = 1; i < HotelHeight + 2; i++)
             {
@@ -75,7 +75,7 @@ namespace HotelSimulationTheLock
                     reception.SetJsonValues(new Point(1, HotelHeight + 1), 5, new Size(1, 1), 1);
 
                     HotelAreaList.Add(reception);
-                }                
+                }
                 else
                 {
                     IArea Lobby = Factory.GetArea("Lobby");
@@ -85,13 +85,13 @@ namespace HotelSimulationTheLock
                     HotelAreaList.Add(Lobby);
                 }
             }
-            
+
 
             IMovableList.Add(new Maid(HotelWidth * 96 - 182, HotelHeight * 96 + 42));
             IMovableList.Add(new Maid(HotelWidth * 96 - 92, HotelHeight * 96 + 42));
 
             SetNeighbor();
-                     
+
 
         }
 
@@ -105,16 +105,16 @@ namespace HotelSimulationTheLock
                 foreach (IArea area in HotelAreaList)
                 {
                     graphics.DrawImage(area.Art, area.Position.X * 96, (area.Position.Y - 1) * 96, area.Dimension.Width * 96, area.Dimension.Height * 96);
-                } 
+                }
             }
-            
+
             return buffer;
 
         }
 
         private void SetNeighbor()
         {
-            
+
             foreach (IArea area in HotelAreaList)
             {
 
@@ -160,7 +160,7 @@ namespace HotelSimulationTheLock
         {
             if (evt.EventType.Equals(HotelEventType.CHECK_IN))
             {
-                
+
                 string name = string.Empty;
                 string request = string.Empty;
                 int requestInt = 0;
@@ -181,7 +181,7 @@ namespace HotelSimulationTheLock
                 Guest guest = new Guest(name, requestInt);
 
                 IMovableList.Add(guest);
-               
+
                 Console.WriteLine($"new guest = name: {name}, request: {request} ");
             }
         }

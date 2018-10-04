@@ -30,14 +30,14 @@ namespace HotelSimulationTheLock
 
         public Cinema()
         {
-            HotelEventManager.Register(this);           
+            HotelEventManager.Register(this);
         }
 
         public IArea CreateArea()
         {
             return new Cinema();
         }
-        
+
         public void Notify(HotelEvent evt)
         {
             if (evt.EventType.Equals(HotelEventType.STAR_CINEMA))

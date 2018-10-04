@@ -48,7 +48,7 @@ namespace HotelSimulationTheLock
             InitializeComponent();
 
             Console.WriteLine(_path);
-       
+
             //casting string to textbox
             maid_LB.Text = _maid_amount;
             elevator_hte_LB.Text = _elevator_dur;
@@ -58,12 +58,12 @@ namespace HotelSimulationTheLock
             cinema_dur_LB.Text = _cinema_dur;
             restaurant_cap_LB.Text = restaurant_cap;
             fitnes_dur_LB.Text = _fitness_dur;
-            fitness_cap_LB.Text = _fitness_cap;  
+            fitness_cap_LB.Text = _fitness_cap;
         }
 
         public void _runSimulation_Click(object sender, EventArgs e)
         {
-            
+
 
             if (layout == null)
             {
@@ -84,7 +84,7 @@ namespace HotelSimulationTheLock
                                                             fitness_cap_TB.Value
                                                         );
             hotelsimulation.Show();
-           // this.Hide();
+            // this.Hide();
         }
 
 

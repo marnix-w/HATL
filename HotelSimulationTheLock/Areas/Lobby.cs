@@ -17,7 +17,7 @@ namespace HotelSimulationTheLock
         public int Capacity { get; set; }
         public Bitmap Art { get; set; } = Properties.Resources.lobby_window;
         public AreaStatus AreaStatus { get; set; }
-        
+
         // dijkstra variables
         public double? BackTrackCost { get; set; }
         public IArea NearestToStart { get; set; }

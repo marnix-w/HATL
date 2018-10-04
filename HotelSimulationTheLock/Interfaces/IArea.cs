@@ -17,7 +17,7 @@ namespace HotelSimulationTheLock
         NEED_CLEANING
         //Etc
     }
-    
+
     /// <summary>
     /// A uniqe identifier for an Iarea implementor
     /// </summary>
@@ -25,7 +25,7 @@ namespace HotelSimulationTheLock
     {
         string AreaType { get; }
     }
-    
+
     public interface IArea
     {
         // Movable implementation
@@ -48,7 +48,7 @@ namespace HotelSimulationTheLock
         /// IArea: Conected to, Int: Time to treverse in HTE
         /// </summary>
         Dictionary<IArea, int> Edge { get; set; }
-        
+
 
         // Functions
         IArea CreateArea();

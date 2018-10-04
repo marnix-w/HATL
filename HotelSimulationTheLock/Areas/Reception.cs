@@ -29,7 +29,7 @@ namespace HotelSimulationTheLock
 
         public Reception()
         {
-            
+
         }
 
         public IArea CreateArea()

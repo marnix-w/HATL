@@ -34,7 +34,7 @@ namespace HotelSimulationTheLock
             InitializeComponent();
 
             test_model = layout;
-            
+
 
             HotelArea = new Hotel(layout, 0.5f);
 

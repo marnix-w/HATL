@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelSimulationTheLock
+namespace HotelSimulationTheLock.Adapter
 {
+<<<<<<< HEAD:HotelSimulationTheLock/Model/Dijkstra.cs
     public class Dijkstra
+=======
+    class JsonAdapter
+>>>>>>> master:HotelSimulationTheLock/Adapter/JsonAdapter.cs
     {
         public List<IArea> Graph { get; set; }
 
