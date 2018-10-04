@@ -15,9 +15,14 @@ namespace HotelSimulationTheLock
         public PictureBox Art { get; set; }
         public MovableStatus Status { get; set; }
         Queue<HotelEvent> CleaningEmergencies { get; set; }
+        public IArea area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Maid(int startingX, int startingY)
         {
+           
+
+
+            // CHANGE
             Art = new PictureBox();
             Art.Image = Properties.Resources.maid;
             Art.SizeMode = PictureBoxSizeMode.AutoSize;

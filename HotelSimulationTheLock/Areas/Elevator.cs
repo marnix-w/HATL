@@ -25,9 +25,9 @@ namespace HotelSimulationTheLock
     public class Elevator : IArea
     {
         public Point Position { get; set; }
-        public Point Dimension { get; set; }
+        public Size Dimension { get; set; } = new Size(1, 1);
         public int Capacity { get; set; }
-        public Image Art { get; set; } = Properties.Resources.elevator_not_pressent;
+        public Bitmap Art { get; set; } = Properties.Resources.elevator_not_pressent;
         public AreaStatus AreaStatus { get; set; }
         
         
@@ -37,30 +37,26 @@ namespace HotelSimulationTheLock
         public IArea NearestToStart { get; set; } = null;
         public bool Visited { get; set; } = false;
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
+        public List<IMovable> Movables { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Elevator()
         {
             
         }
 
-        public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
+        public IArea CreateArea()
         {
-            Elevator ev = new Elevator
-            {
-                Position = position,
-                Capacity = capacity,
-                Dimension = dimension
-            };
-
-            if (clasification == Hotel.HotelHeight + 1)
-            {
-                ev.Art = Properties.Resources.elevator_pressent;
-            }
-
-            return ev;
+            return new Elevator();
         }
 
-        
+        public void SetJsonValues(Point position, int capacity, Size dimension, int classification)
+        {
+            Position = position;            
+        }
 
+        public bool AddMovable(IMovable movable)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

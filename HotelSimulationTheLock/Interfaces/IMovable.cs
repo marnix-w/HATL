@@ -20,6 +20,10 @@ namespace HotelSimulationTheLock
     }
     public interface IMovable
     {
+        // area status
+        IArea area { get; set; }
+
+        // properties
         Point Position { get; set; }
         PictureBox Art { get; set; }
         MovableStatus Status { get; set; }
