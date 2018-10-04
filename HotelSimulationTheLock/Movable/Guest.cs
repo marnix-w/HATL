@@ -29,7 +29,7 @@ namespace HotelSimulationTheLock
             Art.SizeMode = PictureBoxSizeMode.AutoSize;
     
             Art.BackColor = Color.Transparent;
-            Art.Location = new Point(50 ,Hotel.HotelHeight  * 96 + 35);
+            Art.Location = new Point(50 ,Hotel.HotelHeight  * 96 + 42);
         }
 
         public void Notify(HotelEvent evt)
