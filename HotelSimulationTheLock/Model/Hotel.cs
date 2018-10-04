@@ -26,11 +26,6 @@ namespace HotelSimulationTheLock
         public static int HotelHeight { get; set; }
         public static int HotelWidth { get; set; }
 
-        public int HtePerSecond { get; set; }
-
-        //an hotel has a background image
-        public PictureBox Background { get; set; }
-
         public Hotel(List<JsonModel> layout, float HTESeconds)
         {
             HotelEventManager.HTE_Factor = HTESeconds;
