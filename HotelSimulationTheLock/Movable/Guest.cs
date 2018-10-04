@@ -11,6 +11,7 @@ namespace HotelSimulationTheLock
 {
     public class Guest : IMovable, HotelEventListener
     {
+        public Random rng = new Random();
         public Point Position { get; set; }
         public PictureBox Art { get; set; }
         public MovableStatus Status { get; set; }
@@ -19,20 +20,22 @@ namespace HotelSimulationTheLock
         public int RoomRequest { get; set; }
         public IArea area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public Guest(string name, int roomRequest)
+        public Guest(string name, int roomRequest, int x, int y)
         {
-           
-
-
             // TO BE CHANGED NO PIXTURE BOX SPAM
             Art = new PictureBox();
             RoomRequest = roomRequest;
             Name = name;
             Art.Image = Properties.Resources.customer;
             Art.SizeMode = PictureBoxSizeMode.AutoSize;
-    
-            Art.BackColor = Color.Transparent;
-            Art.Location = new Point(50 ,Hotel.HotelHeight  * 96 + 42);
+            Position = new Point(x, y);
+            Art.Location = Position;
+        }
+
+        public void MoveCustomer(Guest guest)
+        {
+            Position = new Point(guest.Position.X + rng.Next(10,50), guest.Position.Y);
+            Art.Location = Position;
         }
 
         public void Notify(HotelEvent evt)

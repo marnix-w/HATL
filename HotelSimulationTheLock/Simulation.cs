@@ -69,14 +69,15 @@ namespace HotelSimulationTheLock
                 if (g is Guest)
                 {
                     Guest t = (Guest)g;
-                    _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest;
+                    _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
                     _guestStatus.Text += "\n";
 
                     this.Controls.Add(g.Art);
-                    if (g.Art.Left < 600)
+                    if(t.Position.X < 800)
                     {
-                        g.Art.Left += 40;
+                        t.MoveCustomer(t);
                     }
+                 
                     g.Art.BringToFront();
                 }
                 if (g is Maid)
@@ -101,12 +102,12 @@ namespace HotelSimulationTheLock
                 {
 
                     case "Room":
-                        _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.AreaStatus;
+                        _roomsStatus.Text += ((Room)i).Classification + " Star " + type + "\t" +  i.AreaStatus + "\t " + ((Room)i).Position;
                         _roomsStatus.Text += "\n";
                         break;
                     case "Restaurant":
-                        _restaurantStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                        _restaurantStatus.Text += "\n";
+                        _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
+                        _fitnessStatus.Text += "\n";
                         break;
                     case "Fitness":
                         _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
