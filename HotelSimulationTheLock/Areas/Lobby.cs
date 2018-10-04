@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelSimulationTheLock.Areas
+namespace HotelSimulationTheLock
 {
     [Export(typeof(IArea))]
     [ExportMetadata("AreaType", "Lobby")]
-    class Lobby : IArea
+    public class Lobby : IArea
     {
         public Point Position { get; set; }
         public Point Dimension { get; set; } = new Point(1, 1);
@@ -23,6 +23,11 @@ namespace HotelSimulationTheLock.Areas
         public IArea NearestToStart { get; set; }
         public bool Visited { get; set; }
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
+
+        public Lobby()
+        {
+
+        }
 
         public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
         {

@@ -19,7 +19,7 @@ namespace HotelSimulationTheLock
         public Point Dimension { get; set; }
         public int Capacity { get; set; }
         public Image Art { get; set; } = Properties.Resources.cinema;
-        AreaStatus IArea.AreaStatus { get; set; }
+        public AreaStatus AreaStatus { get; set; }
 
         // Dijkstra search varibles
         public double? BackTrackCost { get; set; } = null;
@@ -27,7 +27,7 @@ namespace HotelSimulationTheLock
         public bool Visited { get; set; } = false;
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
 
-        private Cinema()
+        public Cinema()
         {
             HotelEventManager.Register(this);           
         }

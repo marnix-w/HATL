@@ -34,9 +34,7 @@ namespace HotelSimulationTheLock
         public Hotel(List<JsonModel> layout, float HTESeconds)
         {
             HotelEventManager.HTE_Factor = HTESeconds;
-
-
-
+            
             HotelEventManager.Register(this);
 
 
