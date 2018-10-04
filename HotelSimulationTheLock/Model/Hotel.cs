@@ -87,22 +87,19 @@ namespace HotelSimulationTheLock
                 }
             }
 
-
             IMovableList.Add(new Maid(new Point(4, HotelHeight + 1)));
             IMovableList.Add(new Maid(new Point(6, HotelHeight + 1)));
-            IMovableList.Add(new Guest(":(", 5, new Point(1, 1)));
+
 
             SetNeighbor();
-
-
         }
 
         public Bitmap Superimpose(Bitmap largeBmp, Bitmap smallBmp)
         {
             Graphics g = Graphics.FromImage(largeBmp);
             g.CompositingMode = CompositingMode.SourceOver;
-                   
-            g.DrawImage(smallBmp, new Point(0,0));
+
+            g.DrawImage(smallBmp, new Point(0, 0));
             return largeBmp;
         }
 
@@ -117,17 +114,14 @@ namespace HotelSimulationTheLock
                 {
                     graphics.DrawImage(area.Art, area.Position.X * 96, (area.Position.Y - 1) * 96, area.Dimension.Width * 96, area.Dimension.Height * 96);
                 }
-                
             }
-            
             return buffer;
-
         }
 
         public Bitmap DrawMovables()
         {
             Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHeight + 1) * 96);
-            
+
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
                 List<IMovable> t = IMovableList;
@@ -137,11 +131,9 @@ namespace HotelSimulationTheLock
                     graphics.DrawImage(movable.Art, movable.Position.X * 96 * 1.05f, (movable.Position.Y - 1) * 96 * 1.05f, movable.Art.Width, movable.Art.Height);
 
                 }
-
             }
-            
-            return buffer;
 
+            return buffer;
         }
 
         private void SetNeighbor()
@@ -209,15 +201,16 @@ namespace HotelSimulationTheLock
                     name = "test guest";
                     request = "no request";
                 }
-        
-                Guest guest = new Guest(name, requestInt, new Point(5,6));
+
+                IMovableList.Add(new Guest(name, requestInt, new Point(0, HotelHeight + 1)));
+                //Guest guest = new Guest(name, requestInt, new Point(0, HotelHeight + 1));
 
 
-                IMovableList.Add(guest);
+                //IMovableList.Add(guest);
 
                 Console.WriteLine($"new guest = name: {name}, request: {request} ");
             }
-            
+
         }
 
 

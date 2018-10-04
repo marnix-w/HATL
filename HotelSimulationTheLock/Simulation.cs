@@ -73,25 +73,17 @@ namespace HotelSimulationTheLock
                 if (g is Guest t)
                 {
                     _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
-                    _guestStatus.Text += "\n";
-
-                    Controls.Add(t.bobsname);
+                    _guestStatus.Text += "\n";                         
                     
-
-                    if (t.Position.X < 800)
-                    {
-                        t.MoveCustomer(t);
-                    }
-
-                  
-                    //t.bobsname.BringToFront();
-
                 }
                 if (g is Maid m)
                 {
                     _maidStatus.Text += "Maid \t" + m.Status + "\t" + m.Position;
                     _maidStatus.Text += "\n";                    
                 }
+
+                HotelBackground.Image = HotelArea.Superimpose(HotelArea.DrawHotel(), HotelArea.DrawMovables());
+                HotelBackground.Refresh();
             }
         }
 
@@ -138,8 +130,7 @@ namespace HotelSimulationTheLock
 
         public void Notify(HotelEvent evt)
         {
-            HotelBackground.Image = HotelArea.Superimpose(HotelArea.DrawHotel(), HotelArea.DrawMovables());
-            HotelBackground.Refresh();
+           
         }
     }
 }
