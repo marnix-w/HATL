@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreaFactoyTests.cs" />
+    <Compile Include="MovableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartupScreenTest.cs" />
   </ItemGroup>
