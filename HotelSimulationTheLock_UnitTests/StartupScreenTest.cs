@@ -33,12 +33,28 @@ namespace HotelSimulationTheLock_UnitTests
 
             //act       
             test_startupscreen = new StartupScreen();            
-            test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"\Hotel_reparatie.layout");
+            test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout");
             test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
 
           
             //assert
             Assert.IsNotNull(test_startupscreen.layout);
+        }
+
+        [TestMethod]
+        public void TestIfPathIsNotFound()
+        {
+            //arrange         
+            StartupScreen test_startupscreen;
+            string test_path;
+
+            //act       
+            test_startupscreen = new StartupScreen();
+            test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout");
+            test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
+
+            //assert
+            Assert.IsNull(test_startupscreen.layout);
         }
 
         [TestMethod]
@@ -53,6 +69,26 @@ namespace HotelSimulationTheLock_UnitTests
 
             //assert
             Assert.IsNotNull(test_startupscreen.maid_LB.Text);
+        }
+
+
+        [TestMethod]
+        public void TetstIfOnClickPassingDataThroughIsWorking()
+        {
+            //arrange         
+            StartupScreen test_startupscreen;           
+            string test_path;
+            Simulation test_simulation;
+
+            //act       
+            test_startupscreen = new StartupScreen();
+            test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout");
+            test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
+
+            test_simulation = new Simulation(test_startupscreen.layout, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+            test_simulation.test_model = test_startupscreen.layout;
+            //assert
+            Assert.AreEqual(test_startupscreen.layout, test_simulation.test_model);
         }
     }
 }
