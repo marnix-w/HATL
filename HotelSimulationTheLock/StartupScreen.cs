@@ -17,8 +17,8 @@ namespace HotelSimulationTheLock
 
 
         // private string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel.layout");
-        private string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel_reparatie.layout");
-
+        public string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel_reparatie.layout");
+        public List<JsonModel> layout;
         //global hte settings
         private string _hte_per_sec = "Amount HTE ticks per second ";
 
@@ -63,7 +63,7 @@ namespace HotelSimulationTheLock
 
         private void _runSimulation_Click(object sender, EventArgs e)
         {
-            List<JsonModel> layout = null;
+            
 
             if (layout == null)
             {
@@ -89,7 +89,7 @@ namespace HotelSimulationTheLock
 
 
         // Json uitlezen en dan een list van maken voor layout
-        private List<JsonModel> ReadLayoutJson(string path)
+        public List<JsonModel> ReadLayoutJson(string path)
         {
             try
             {
