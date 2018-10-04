@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActualPool">
+      <HintPath>Extended_Areas\ActualPool.dll</HintPath>
+    </Reference>
     <Reference Include="HotelEvents">
       <HintPath>..\HotelSimulationTheLock\Assets\Libraries\HotelEvents.dll</HintPath>
     </Reference>

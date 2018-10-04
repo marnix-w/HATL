@@ -43,22 +43,17 @@ namespace HotelSimulationTheLock
                     continue;
                 }
 
-                catalog.Catalogs.Add(new DirectoryCatalog(Directory.GetCurrentDirectory() + @"..\..\..\Extended_Areas"));
+                catalog.Catalogs.Add(a);
 
             }
             
             //Create the CompositionContainer with the parts in the catalog
             _container = new CompositionContainer(catalog);
 
-            //Fill the imports of this object
-            try
-            {
-                _container.ComposeParts(this);
-            }
-            catch (CompositionException compositionException)
-            {
-                Console.WriteLine(compositionException.ToString());
-            }
+            //Fill the imports of this object                     
+            _container.ComposeParts(this);
+            
+            
         }
 
         public IArea GetArea(string typeOfArea, Point position, int capacity, Point dimension, int clasification)

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Collections.Generic;
 using HotelSimulationTheLock;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 
 namespace HotelSimulationTheLock_UnitTests
 {
@@ -77,6 +75,23 @@ namespace HotelSimulationTheLock_UnitTests
 
             //assert
             Assert.AreEqual(expected, gotten);
+        }
+
+        [TestMethod]
+        public void CreateNonexistentRoomsUsingAreaFactoryAndRealDLL()
+        {
+            // arrange
+            IArea expected;
+            IArea gotten;
+            AreaFactory areaFactory = new AreaFactory();
+
+            //act
+            expected = new ActualPool.ActualPool();
+
+            gotten = areaFactory.GetArea("ActualPool", new Point(420, 420), int.MaxValue, new Point(-1, -1), 666);
+
+            //assert
+            Assert.AreEqual(expected.GetType(), gotten.GetType());
         }
 
     }
