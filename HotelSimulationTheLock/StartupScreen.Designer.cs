@@ -282,24 +282,24 @@
         #endregion
 
         private System.Windows.Forms.Button _runSimulation;
-        private System.Windows.Forms.TrackBar maid_TB;
-        private System.Windows.Forms.Label maid_LB;
-        private System.Windows.Forms.Label elevator_hte_LB;
-        private System.Windows.Forms.TrackBar elevator_hte_TB;
-        private System.Windows.Forms.Label elevator_cap_LB;
-        private System.Windows.Forms.TrackBar elevator_cap_TB;
-        private System.Windows.Forms.Label hte_per_sec_LB;
-        private System.Windows.Forms.TrackBar hte_per_sec_TB;
-        private System.Windows.Forms.Label staircase_hte_LB;
-        private System.Windows.Forms.TrackBar staircase_hte_TB;
-        private System.Windows.Forms.Label cinema_dur_LB;
-        private System.Windows.Forms.TrackBar cinema_dur_TB;
-        private System.Windows.Forms.Label restaurant_cap_LB;
-        private System.Windows.Forms.TrackBar restaurant_cap_TB;
-        private System.Windows.Forms.Label fitness_cap_LB;
-        private System.Windows.Forms.TrackBar fitness_cap_TB;
-        private System.Windows.Forms.Label fitnes_dur_LB;
-        private System.Windows.Forms.TrackBar fitness_dur_TB;
+        protected System.Windows.Forms.TrackBar maid_TB;
+        protected System.Windows.Forms.Label elevator_hte_LB;
+        protected System.Windows.Forms.TrackBar elevator_hte_TB;
+        protected System.Windows.Forms.Label elevator_cap_LB;
+        protected System.Windows.Forms.TrackBar elevator_cap_TB;
+        protected System.Windows.Forms.Label hte_per_sec_LB;
+        protected System.Windows.Forms.TrackBar hte_per_sec_TB;
+        protected System.Windows.Forms.Label staircase_hte_LB;
+        protected System.Windows.Forms.TrackBar staircase_hte_TB;
+        protected System.Windows.Forms.Label cinema_dur_LB;
+        protected System.Windows.Forms.TrackBar cinema_dur_TB;
+        protected System.Windows.Forms.Label restaurant_cap_LB;
+        protected System.Windows.Forms.TrackBar restaurant_cap_TB;
+        protected System.Windows.Forms.Label fitness_cap_LB;
+        protected System.Windows.Forms.TrackBar fitness_cap_TB;
+        protected System.Windows.Forms.Label fitnes_dur_LB;
+        protected System.Windows.Forms.TrackBar fitness_dur_TB;
+        public System.Windows.Forms.Label maid_LB;
     }
 }
 
