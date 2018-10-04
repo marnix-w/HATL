@@ -44,8 +44,8 @@ namespace HotelSimulationTheLock
             Console.WriteLine(!HotelEventManager.Running);
 
             //Calling function to fill RichTextboxes
-            _fillHotelSimulation();
-
+            _fillRichTextBox();
+            _drawHotel();
             HotelEventManager.HTE_Factor = 0.5f;
 
             System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
@@ -66,22 +66,23 @@ namespace HotelSimulationTheLock
 
             foreach (IMovable g in HotelArea.IMovableList)
             {
-                if (g is Guest)
+                if (g is Guest t)
                 {
-                    Guest t = (Guest)g;
-                    _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest;
+                    _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
                     _guestStatus.Text += "\n";
+                    Controls.Add(t.bobsname);
+                    Controls.Add(t.Art);
 
-                    this.Controls.Add(g.Art);
-                    if (g.Art.Left < 600)
+                    if (t.Position.X < 800)
                     {
-                        g.Art.Left += 40;
+                        t.MoveCustomer(t);
                     }
-                    g.Art.BringToFront();
+
+                    t.Art.BringToFront();
+                    t.bobsname.BringToFront();
                 }
-                if (g is Maid)
+                if (g is Maid m)
                 {
-                    Maid m = (Maid)g;
                     _maidStatus.Text += "Maid \t" + m.Status + "\t" + m.Position;
                     _maidStatus.Text += "\n";
                     this.Controls.Add(m.Art);
@@ -91,7 +92,7 @@ namespace HotelSimulationTheLock
         }
 
         //Overview of hotel facilities
-        private void _fillHotelSimulation()
+        private void _fillRichTextBox()
         {
             foreach (IArea i in HotelArea.HotelAreaList)
             {
@@ -101,12 +102,12 @@ namespace HotelSimulationTheLock
                 {
 
                     case "Room":
-                        _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.AreaStatus;
+                        _roomsStatus.Text += ((Room)i).Classification + " Star " + type + "\t" +  i.AreaStatus + "\t " + ((Room)i).Position;
                         _roomsStatus.Text += "\n";
                         break;
                     case "Restaurant":
-                        _restaurantStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                        _restaurantStatus.Text += "\n";
+                        _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
+                        _fitnessStatus.Text += "\n";
                         break;
                     case "Fitness":
                         _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
@@ -115,16 +116,20 @@ namespace HotelSimulationTheLock
                     default:
                         break;
                 }
+               
+            }       
+        }
 
-                PictureBox HotelBackground = new PictureBox();
-                HotelBackground.Location = new Point(50, 100);
-                HotelBackground.Width = (Hotel.HotelWidth + 1) * 96;
-                HotelBackground.Height = (Hotel.HotelHeight) * 96;
-                HotelBackground.SizeMode = PictureBoxSizeMode.StretchImage;
-                HotelBackground.Image = HotelArea.DrawHotel();
-                Controls.Add(HotelBackground);
-                HotelBackground.SendToBack();
-            }
+        private void _drawHotel()
+        {
+            PictureBox HotelBackground = new PictureBox();
+            HotelBackground.Location = new Point(50, 100);
+            HotelBackground.Width = (Hotel.HotelWidth + 1) * 96;
+            HotelBackground.Height = (Hotel.HotelHeight) * 96;
+            HotelBackground.SizeMode = PictureBoxSizeMode.StretchImage;
+            HotelBackground.Image = HotelArea.DrawHotel();
+            Controls.Add(HotelBackground);
+            HotelBackground.SendToBack();
         }
 
     }
