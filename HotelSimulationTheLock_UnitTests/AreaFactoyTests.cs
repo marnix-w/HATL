@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using HotelSimulationTheLock;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using ActualPool;
 
 namespace HotelSimulationTheLock_UnitTests
 {
@@ -21,7 +22,7 @@ namespace HotelSimulationTheLock_UnitTests
             //act
             expected = null;            
             
-            gotten = areaFactory.GetArea("SexDungeon", new Point(69, 69), int.MaxValue, new Point(-1, -1), 9001);
+            gotten = areaFactory.GetArea("SexDungeon");
 
             //assert
             Assert.AreEqual(expected, gotten);            
@@ -45,14 +46,14 @@ namespace HotelSimulationTheLock_UnitTests
             expected.Add(new Room());
             expected.Add(new Staircase());
             
-            gotten.Add(areaFactory.GetArea("Cinema", new Point(1, 1), 1, new Point(1, 1), 5));
-            gotten.Add(areaFactory.GetArea("Elevator", new Point(1, 1), 1, new Point(1, 1), 5));
-            gotten.Add(areaFactory.GetArea("Fitness", new Point(1, 1), 1, new Point(1, 1), 5));
-            gotten.Add(areaFactory.GetArea("Lobby", new Point(1, 1), 1, new Point(1, 1), 5));
-            gotten.Add(areaFactory.GetArea("Reception", new Point(1, 1), 1, new Point(1, 1), 5));
-            gotten.Add(areaFactory.GetArea("Restaurant", new Point(1, 1), 1, new Point(1, 1), 5));
-            gotten.Add(areaFactory.GetArea("Room", new Point(1, 1), 1, new Point(1, 1), 5));
-            gotten.Add(areaFactory.GetArea("StairCase", new Point(1, 1), 1, new Point(1, 1), 5));
+            gotten.Add(areaFactory.GetArea("Cinema"));
+            gotten.Add(areaFactory.GetArea("Elevator"));
+            gotten.Add(areaFactory.GetArea("Fitness"));
+            gotten.Add(areaFactory.GetArea("Lobby"));
+            gotten.Add(areaFactory.GetArea("Reception"));
+            gotten.Add(areaFactory.GetArea("Restaurant"));
+            gotten.Add(areaFactory.GetArea("Room"));
+            gotten.Add(areaFactory.GetArea("StairCase"));
 
             //assert
             for (int i = 0; i < gotten.Count - 1; i++)
@@ -73,11 +74,30 @@ namespace HotelSimulationTheLock_UnitTests
             //act
             expected = null;
 
-            gotten = areaFactory.GetArea("Pool", new Point(420, 420), int.MaxValue, new Point(-1, -1), 666);
+            gotten = areaFactory.GetArea("Pool");
 
             //assert
             Assert.AreEqual(expected, gotten);
         }
+
+        // THIS TEST CAN BE SET WITH THE CORRECT DLL ONES IAREA IS FULLY DIFEND
+
+        //[TestMethod]
+        //public void CreateNonexistentRoomsUsingAreaFactoryAndRealDLL()
+        //{
+        //    // arrange
+        //    IArea expected;
+        //    IArea gotten;
+        //    AreaFactory areaFactory = new AreaFactory();
+
+        //    //act
+        //    expected = new ActualPool.ActualPool();
+
+        //    gotten = areaFactory.GetArea("ActualPool");
+
+        //    //assert
+        //    Assert.AreEqual(expected.GetType(), gotten.GetType());
+        //}
 
     }
 }

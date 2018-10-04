@@ -18,6 +18,9 @@ namespace HotelSimulationTheLock
         //Etc
     }
     
+    /// <summary>
+    /// A uniqe identifier for an Iarea implementor
+    /// </summary>
     public interface IAreaType
     {
         string AreaType { get; }
@@ -25,17 +28,22 @@ namespace HotelSimulationTheLock
     
     public interface IArea
     {
+        // Movable implementation
+        List<IMovable> Movables { get; set; }
+
+
         // Properties
         Point Position { get; set; }
-        Point Dimension { get; set; }
+        Size Dimension { get; set; }
         int Capacity { get; set; }
-        Image Art { get; set; }
+        Bitmap Art { get; set; }
         AreaStatus AreaStatus { get; set; }
 
         // Properties for dijkstra search
         double? BackTrackCost { get; set; }
         IArea NearestToStart { get; set; }
         bool Visited { get; set; }
+
         /// <summary>
         /// IArea: Conected to, Int: Time to treverse in HTE
         /// </summary>
@@ -43,7 +51,11 @@ namespace HotelSimulationTheLock
         
 
         // Functions
-        IArea CreateArea(Point position, int capacity, Point dimension, int clasification);
+        IArea CreateArea();
+
+        void SetJsonValues(Point position, int capacity, Size dimension, int classification);
+
+        bool AddMovable(IMovable movable);
 
     }
 }

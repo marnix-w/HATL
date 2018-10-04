@@ -14,9 +14,9 @@ namespace HotelSimulationTheLock
     public class Fitness : IArea
     {
         public Point Position { get; set; }
-        public Point Dimension { get; set; }
+        public Size Dimension { get; set; }
         public int Capacity { get; set; }
-        public Image Art { get; set; } = Properties.Resources.fitness;
+        public Bitmap Art { get; set; } = Properties.Resources.fitness;
         public AreaStatus AreaStatus { get; set; }
 
         // Dijkstra search varibles
@@ -24,25 +24,27 @@ namespace HotelSimulationTheLock
         public IArea NearestToStart { get; set; } = null;
         public bool Visited { get; set; } = false;
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
+        public List<IMovable> Movables { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Fitness()
         {
             
         }
 
-        public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
+        public IArea CreateArea()
         {
-            Fitness ft = new Fitness
-            {
-                Position = position,
-                Capacity = capacity,
-                Dimension = dimension
-            };
-
-            return ft;
+            return new Fitness();
         }
 
-        
+        public void SetJsonValues(Point position, int capacity, Size dimension, int classification)
+        {
+            Position = position;
+            Dimension = dimension;
+        }
 
+        public bool AddMovable(IMovable movable)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

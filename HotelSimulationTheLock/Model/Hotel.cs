@@ -31,9 +31,9 @@ namespace HotelSimulationTheLock
             HotelEventManager.HTE_Factor = HTESeconds;
             
             HotelEventManager.Register(this);
-
-
+            
             AreaFactory Factory = new AreaFactory();
+            
             
 
             foreach (JsonModel i in layout)
@@ -44,9 +44,10 @@ namespace HotelSimulationTheLock
                 {
                     temp = int.Parse(Regex.Match(i.Classification, @"\d+").Value);
                 }
-
-
-                HotelAreaList.Add(Factory.GetArea(i.AreaType, i.Position, i.Capacity, i.Dimension, temp));
+                
+                IArea area = Factory.GetArea(i.AreaType);
+                area.SetJsonValues(i.Position, i.Capacity, i.Dimension, temp);
+                HotelAreaList.Add(area);
             }
 
             HotelWidth = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X;
@@ -56,18 +57,32 @@ namespace HotelSimulationTheLock
             for (int i = 1; i < HotelHeight + 2; i++)
             {
                 // 5 is the capacity get from setting screen
-                HotelAreaList.Add(Factory.GetArea("Elevator", new Point(0, i), 5, new Point(1, 1), i));
-                HotelAreaList.Add(Factory.GetArea("Staircase", new Point(HotelWidth + 1, i), 5, new Point(1, 1), 0));
+                IArea elevator = Factory.GetArea("Elevator");
+                IArea staircase = Factory.GetArea("Staircase");
+
+                elevator.SetJsonValues(new Point(0, i), 5, new Size(1, 1), i);
+                staircase.SetJsonValues(new Point(HotelWidth + 1, i), 5, new Size(1, 1), 0);
+
+                HotelAreaList.Add(elevator);
+                HotelAreaList.Add(staircase);
             }
             for (int i = 1; i < HotelWidth + 1; i++)
             {
                 if (i == 1)
                 {
-                    HotelAreaList.Add(Factory.GetArea("Reception", new Point(1, HotelHeight + 1), 5, new Point(1, 1), 1));
+                    IArea reception = Factory.GetArea("Reception");
+
+                    reception.SetJsonValues(new Point(1, HotelHeight + 1), 5, new Size(1, 1), 1);
+
+                    HotelAreaList.Add(reception);
                 }                
                 else
                 {
-                    HotelAreaList.Add(Factory.GetArea("Lobby", new Point(i, HotelHeight + 1), 5, new Point(1, 1), i)); // lobby
+                    IArea Lobby = Factory.GetArea("Lobby");
+
+                    Lobby.SetJsonValues(new Point(i, HotelHeight + 1), 5, new Size(1, 1), i);
+
+                    HotelAreaList.Add(Lobby);
                 }
             }
             
@@ -89,7 +104,7 @@ namespace HotelSimulationTheLock
             {
                 foreach (IArea area in HotelAreaList)
                 {
-                    graphics.DrawImage(area.Art, area.Position.X * 96, (area.Position.Y - 1) * 96, area.Dimension.X * 96, area.Dimension.Y * 96);
+                    graphics.DrawImage(area.Art, area.Position.X * 96, (area.Position.Y - 1) * 96, area.Dimension.Width * 96, area.Dimension.Height * 96);
                 } 
             }
             

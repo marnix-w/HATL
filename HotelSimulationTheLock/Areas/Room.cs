@@ -17,10 +17,10 @@ namespace HotelSimulationTheLock
     public class Room : IArea
     {
         public Point Position { get; set; }
-        public Point Dimension { get; set; }
+        public Size Dimension { get; set; }
         public int Capacity { get; set; } = 1;
         public int Classification { get; set; }
-        public Image Art { get; set; }
+        public Bitmap Art { get; set; }
         public AreaStatus AreaStatus { get; set; }
 
         // Dijkstra search varibles
@@ -28,6 +28,7 @@ namespace HotelSimulationTheLock
         public IArea NearestToStart { get; set; } = null;
         public bool Visited { get; set; } = false;
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
+        public List<IMovable> Movables { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Room()
         {
@@ -35,43 +36,43 @@ namespace HotelSimulationTheLock
 
         }
 
-        public IArea CreateArea(Point position, int capacity, Point dimension, int classification)
+        public IArea CreateArea()
         {
-            Room rm = new Room
-            {
-                Position = position,
-                Dimension = dimension,
-                Classification = classification
-            };
+            return new Room();
+        }
 
+        public void SetJsonValues(Point position, int capacity, Size dimension, int classification)
+        {
+            Position = position;
+            Capacity = capacity;
+            Dimension = dimension;
+            Classification = classification;
 
             switch (classification)
             {
                 case 1:
-                    rm.Art = Properties.Resources.room_one_star_open;
+                    Art = Properties.Resources.room_one_star_open;
                     break;
                 case 2:
-                    rm.Art = Properties.Resources.room_two_star_open;
+                    Art = Properties.Resources.room_two_star_open;
                     break;
                 case 3:
-                    rm.Art = Properties.Resources.room_three_star_open;
+                    Art = Properties.Resources.room_three_star_open;
                     break;
                 case 4:
-                    rm.Art = Properties.Resources.room_four_star_open;
+                    Art = Properties.Resources.room_four_star_open;
                     break;
                 case 5:
-                    rm.Art = Properties.Resources.room_five_star_open;
+                    Art = Properties.Resources.room_five_star_open;
                     break;
                 default:
-                    // error handeling
-                    Debug.WriteLine("The requested classification does not excist");
                     break;
             }
-
-            return rm;
         }
 
-
-
+        public bool AddMovable(IMovable movable)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

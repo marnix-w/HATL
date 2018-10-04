@@ -17,11 +17,14 @@ namespace HotelSimulationTheLock
 
         public string Name { get; set; }
         public int RoomRequest { get; set; }
-
-      
+        public IArea area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Guest(string name, int roomRequest)
         {
+           
+
+
+            // TO BE CHANGED NO PIXTURE BOX SPAM
             Art = new PictureBox();
             RoomRequest = roomRequest;
             Name = name;

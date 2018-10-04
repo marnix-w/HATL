@@ -14,6 +14,12 @@ namespace HotelSimulationTheLock
         public Point Position { get; set; }
         public PictureBox Art { get; set; }
         public MovableStatus Status { get; set; }
+        public IArea area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public Receptionist()
+        {
+            
+        }
 
         public void Notify(HotelEvent evt)
         {

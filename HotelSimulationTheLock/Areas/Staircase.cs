@@ -14,9 +14,9 @@ namespace HotelSimulationTheLock
     public class Staircase : IArea
     {
         public Point Position { get; set; }
-        public Point Dimension { get; set; } = new Point(1, 1);
+        public Size Dimension { get; set; } = new Size(1, 1);
         public int Capacity { get; set; }
-        public Image Art { get; set; } = Properties.Resources.staircase;
+        public Bitmap Art { get; set; } = Properties.Resources.staircase;
         public AreaStatus AreaStatus { get; set; }
 
         // Dijkstra search varibles
@@ -24,6 +24,7 @@ namespace HotelSimulationTheLock
         public IArea NearestToStart { get; set; } = null;
         public bool Visited { get; set; } = false;
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
+        public List<IMovable> Movables { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Staircase()
         {
@@ -31,18 +32,19 @@ namespace HotelSimulationTheLock
         }
 
         
-        public IArea CreateArea(Point position, int capacity, Point dimension, int clasification)
+        public IArea CreateArea()
         {
-            Staircase st = new Staircase
-            {
-                Position = position,
-                Capacity = capacity
-            };
-
-            return st;
+            return new Staircase();
         }
 
-        
+        public void SetJsonValues(Point position, int capacity, Size dimension, int classification)
+        {
+            Position = position;
+        }
 
+        public bool AddMovable(IMovable movable)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
