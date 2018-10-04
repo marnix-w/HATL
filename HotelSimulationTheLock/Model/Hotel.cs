@@ -209,9 +209,9 @@ namespace HotelSimulationTheLock
                     name = "test guest";
                     request = "no request";
                 }
-
-                
+        
                 Guest guest = new Guest(name, requestInt, new Point(5,6));
+
 
                 IMovableList.Add(guest);
 

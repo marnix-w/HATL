@@ -46,8 +46,8 @@ namespace HotelSimulationTheLock
             Console.WriteLine(!HotelEventManager.Running);
 
             //Calling function to fill RichTextboxes
-            _fillHotelSimulation();
-
+            _fillRichTextBox();
+            //_drawHotel();
             HotelEventManager.HTE_Factor = 0.5f;
 
             System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
@@ -66,18 +66,29 @@ namespace HotelSimulationTheLock
             //maid overview
             _maidStatus.Text = string.Empty;
 
-            foreach (IMovable g in HotelArea.IMovableList)
+            List<IMovable> a = HotelArea.IMovableList;
+
+            foreach (IMovable g in a)
             {
-                if (g is Guest)
+                if (g is Guest t)
                 {
-                    Guest t = (Guest)g;
-                    _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest;
+                    _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
                     _guestStatus.Text += "\n";
+
+                    Controls.Add(t.bobsname);
                     
+
+                    if (t.Position.X < 800)
+                    {
+                        t.MoveCustomer(t);
+                    }
+
+                  
+                    //t.bobsname.BringToFront();
+
                 }
-                if (g is Maid)
+                if (g is Maid m)
                 {
-                    Maid m = (Maid)g;
                     _maidStatus.Text += "Maid \t" + m.Status + "\t" + m.Position;
                     _maidStatus.Text += "\n";                    
                 }
@@ -85,7 +96,7 @@ namespace HotelSimulationTheLock
         }
 
         //Overview of hotel facilities
-        private void _fillHotelSimulation()
+        private void _fillRichTextBox()
         {
             foreach (IArea i in HotelArea.HotelAreaList)
             {
@@ -95,12 +106,12 @@ namespace HotelSimulationTheLock
                 {
 
                     case "Room":
-                        _roomsStatus.Text += type + " " + ((Room)i).Classification + " Star: " + i.AreaStatus;
+                        _roomsStatus.Text += ((Room)i).Classification + " Star " + type + "\t" +  i.AreaStatus + "\t " + ((Room)i).Position;
                         _roomsStatus.Text += "\n";
                         break;
                     case "Restaurant":
-                        _restaurantStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                        _restaurantStatus.Text += "\n";
+                        _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
+                        _fitnessStatus.Text += "\n";
                         break;
                     case "Fitness":
                         _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
@@ -109,20 +120,21 @@ namespace HotelSimulationTheLock
                     default:
                         break;
                 }
-
-                HotelBackground = new PictureBox
-                {
-                    Location = new Point(50, 100),
-                    Width = (Hotel.HotelWidth + 1) * 96,
-                    Height = (Hotel.HotelHeight) * 96,
-                    SizeMode = PictureBoxSizeMode.StretchImage,
-                    Image = HotelArea.Superimpose(HotelArea.DrawHotel(), HotelArea.DrawMovables())
-                };
-
-                Controls.Add(HotelBackground);
-                
+               
             }
+
+            HotelBackground = new PictureBox
+            {
+                Location = new Point(50, 100),
+                Width = (Hotel.HotelWidth + 1) * 96,
+                Height = (Hotel.HotelHeight) * 96,
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Image = HotelArea.Superimpose(HotelArea.DrawHotel(), HotelArea.DrawMovables())
+            };
+
+            Controls.Add(HotelBackground);
         }
+        
 
         public void Notify(HotelEvent evt)
         {
