@@ -71,14 +71,16 @@ namespace HotelSimulationTheLock
                     Guest t = (Guest)g;
                     _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
                     _guestStatus.Text += "\n";
-
-                    this.Controls.Add(g.Art);
+                    Controls.Add(t.bobsname);
+                    this.Controls.Add(t.Art);
                     if(t.Position.X < 800)
                     {
+                        
                         t.MoveCustomer(t);
                     }
                  
-                    g.Art.BringToFront();
+                    t.Art.BringToFront();
+                    t.bobsname.BringToFront();
                 }
                 if (g is Maid)
                 {
