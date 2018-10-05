@@ -13,51 +13,36 @@ using System.Windows.Forms;
 
 namespace HotelSimulationTheLock
 {
-    public partial class Simulation : Form, HotelEventListener
+    public partial class Simulation : Form
     {
-        public Hotel HotelArea { get; set; }
+        public Hotel Hotel { get; set; }
         public int UnitTestvalue { get; set; }
-        public List<JsonModel> test_model { get; set; }
+        public List<JsonModel> HotelLayout { get; set; }
         private PictureBox HotelBackground { get; set; }
-
-
-        public Simulation(List<JsonModel> layout,
-                                            int maid_amount,
-                                                int elevator_in_hte,
-                                                    int elevator_cap,
-                                                        int hte_per_sec,
-                                                            int staircase_in_hte,
-                                                                int cinema_dur,
-                                                                    int restaurant_cap,
-                                                                        int fitness_dur,
-                                                                            int fitness_cap)
-
+        
+        public Simulation(List<JsonModel> layout, List<dynamic> SettingsDataSet)
         {
-            InitializeComponent();
-
-            test_model = layout;
-
-            HotelEventManager.Register(this);
-
-            HotelArea = new Hotel(layout, 0.5f);
-
-            Reception test = new Reception();
-
-            HotelEventManager.Start();
-            Console.WriteLine(!HotelEventManager.Running);
-
+            // 0.5f should be a varible in the settings data set
+            Hotel = new Hotel(layout, SettingsDataSet);
+            HotelLayout = layout;
+            HotelEventManager.HTE_Factor = 0.5f;
+            
             //Calling function to fill RichTextboxes
             _fillRichTextBox();
-            //_drawHotel();
-            HotelEventManager.HTE_Factor = 0.5f;
-
-            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
-
-
-            t.Interval = 1000; // specify interval time as you want
+           
+            // Does this timer work corectly with the HTE factor? -marnix
+            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer
+            {
+                Interval = 1000 // specify interval time as you want
+            };
             t.Tick += new EventHandler(timer_Tick);
             t.Start();
 
+            
+
+            // Last methods
+            InitializeComponent();
+            HotelEventManager.Start();
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -67,7 +52,7 @@ namespace HotelSimulationTheLock
             //maid overview
             _maidStatus.Text = string.Empty;
 
-            List<IMovable> a = HotelArea.IMovableList;
+            List<IMovable> a = Hotel.HotelMovables;
 
             foreach (IMovable g in a)
             {
@@ -86,13 +71,13 @@ namespace HotelSimulationTheLock
                 
             }
 
-
+            HotelBackground.Image = Hotel.Superimpose(Hotel.DrawMovables());
         }
 
         //Overview of hotel facilities
         private void _fillRichTextBox()
         {
-            foreach (IArea i in HotelArea.HotelAreaList)
+            foreach (IArea i in Hotel.HotelAreas)
             {
                 string type = i.GetType().ToString().Replace("HotelSimulationTheLock.", "");
 
@@ -117,24 +102,19 @@ namespace HotelSimulationTheLock
                
             }
 
+            Hotel.SetHotelBitmap();
+
             HotelBackground = new PictureBox
             {
                 Location = new Point(50, 100),
                 Width = (Hotel.HotelWidth + 1) * 96,
                 Height = (Hotel.HotelHeight) * 96,
                 SizeMode = PictureBoxSizeMode.StretchImage,
-                Image = HotelArea.Superimpose(HotelArea.DrawHotel(), HotelArea.DrawMovables())
+                Image = Hotel.Superimpose(Hotel.DrawMovables())
             };
 
             Controls.Add(HotelBackground);
         }
         
-
-        public void Notify(HotelEvent evt)
-        {
-
-            HotelBackground.Image = HotelArea.Superimpose(HotelArea.DrawHotel(), HotelArea.DrawMovables());
-
-        }
     }
 }

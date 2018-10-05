@@ -42,7 +42,8 @@ namespace HotelSimulationTheLock
         private string _fitness_dur = "Duration of fitness in hte ";
         private string _fitness_cap = "Capicity for a fitness facility ";
 
-
+        private List<dynamic> SettingsDataSet { get; set; } = new List<dynamic>();
+       
         public StartupScreen()
         {
             InitializeComponent();
@@ -71,23 +72,23 @@ namespace HotelSimulationTheLock
 
             }
 
+            SettingsDataSet.Add(maid_TB.Value);
+            SettingsDataSet.Add(elevator_hte_TB.Value);
+            SettingsDataSet.Add(elevator_cap_TB.Value);
+            SettingsDataSet.Add(hte_per_sec_TB.Value);
+            SettingsDataSet.Add(staircase_hte_TB.Value);
+            SettingsDataSet.Add(cinema_dur_TB.Value);
+            SettingsDataSet.Add(restaurant_cap_TB.Value);
+            SettingsDataSet.Add(fitness_dur_TB.Value);
+            SettingsDataSet.Add(fitness_cap_TB.Value);
+            
             //below the Simulation is linked to this form
-            Simulation hotelsimulation = new Simulation(layout,
-                                                            maid_TB.Value,
-                                                            elevator_hte_TB.Value,
-                                                            elevator_cap_TB.Value,
-                                                            hte_per_sec_TB.Value,
-                                                            staircase_hte_TB.Value,
-                                                            cinema_dur_TB.Value,
-                                                            restaurant_cap_TB.Value,
-                                                            fitness_dur_TB.Value,
-                                                            fitness_cap_TB.Value
-                                                        );
+            Simulation hotelsimulation = new Simulation(layout, SettingsDataSet);
+            
             hotelsimulation.Show();
             // this.Hide();
         }
-
-
+        
         // Json uitlezen en dan een list van maken voor layout
         public List<JsonModel> ReadLayoutJson(string path)
         {
@@ -106,51 +107,49 @@ namespace HotelSimulationTheLock
         }
 
 
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        private void TrackBar1_ValueChanged(object sender, EventArgs e)
         {
             maid_LB.Text = _maid_amount + maid_TB.Value.ToString();
         }
 
-        private void elevator_hte_TB_ValueChanged(object sender, EventArgs e)
+        private void Elevator_hte_TB_ValueChanged(object sender, EventArgs e)
         {
             elevator_hte_LB.Text = _elevator_dur + elevator_hte_TB.Value.ToString();
         }
 
-        private void elevator_cap_TB_ValueChanged(object sender, EventArgs e)
+        private void Elevator_cap_TB_ValueChanged(object sender, EventArgs e)
         {
             elevator_cap_LB.Text = _elevator_cap + elevator_cap_TB.Value.ToString();
         }
 
-        private void hte_per_sec_TB_ValueChanged(object sender, EventArgs e)
+        private void Hte_per_sec_TB_ValueChanged(object sender, EventArgs e)
         {
             hte_per_sec_LB.Text = _hte_per_sec + hte_per_sec_TB.Value.ToString();
         }
 
-        private void staircase_hte_TB_ValueChanged(object sender, EventArgs e)
+        private void Staircase_hte_TB_ValueChanged(object sender, EventArgs e)
         {
             staircase_hte_LB.Text = _staircase_hte + staircase_hte_TB.Value.ToString();
         }
 
-        private void cinema_dur_TB_ValueChanged(object sender, EventArgs e)
+        private void Cinema_dur_TB_ValueChanged(object sender, EventArgs e)
         {
             cinema_dur_LB.Text = _cinema_dur + cinema_dur_TB.Value.ToString();
         }
 
-        private void restaurant_cap_TB_ValueChanged(object sender, EventArgs e)
+        private void Restaurant_cap_TB_ValueChanged(object sender, EventArgs e)
         {
             restaurant_cap_LB.Text = restaurant_cap + restaurant_cap_TB.Value.ToString();
         }
 
-        private void fitness_dur_TB_ValueChanged(object sender, EventArgs e)
+        private void Fitness_dur_TB_ValueChanged(object sender, EventArgs e)
         {
             fitnes_dur_LB.Text = _fitness_dur + fitness_dur_TB.Value.ToString();
-
         }
 
-        private void fitness_cap_TB_ValueChanged(object sender, EventArgs e)
+        private void Fitness_cap_TB_ValueChanged(object sender, EventArgs e)
         {
             fitness_cap_LB.Text = _fitness_cap + fitness_cap_TB.Value.ToString();
-
         }
     }
 }

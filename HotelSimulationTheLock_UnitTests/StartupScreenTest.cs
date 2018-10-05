@@ -86,9 +86,9 @@ namespace HotelSimulationTheLock_UnitTests
             test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
 
             test_simulation = new Simulation(test_startupscreen.layout, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-            test_simulation.test_model = test_startupscreen.layout;
+            test_simulation.HotelLayout = test_startupscreen.layout;
             //assert
-            Assert.AreEqual(test_startupscreen.layout, test_simulation.test_model);
+            Assert.AreEqual(test_startupscreen.layout, test_simulation.HotelLayout);
         }
     }
 }

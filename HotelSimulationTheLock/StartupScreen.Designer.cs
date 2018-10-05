@@ -76,7 +76,7 @@
             this.maid_TB.Size = new System.Drawing.Size(161, 45);
             this.maid_TB.TabIndex = 3;
             this.maid_TB.Value = 2;
-            this.maid_TB.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
+            this.maid_TB.ValueChanged += new System.EventHandler(this.TrackBar1_ValueChanged);
             // 
             // maid_LB
             // 
@@ -104,7 +104,7 @@
             this.elevator_hte_TB.Size = new System.Drawing.Size(161, 45);
             this.elevator_hte_TB.TabIndex = 5;
             this.elevator_hte_TB.Value = 2;
-            this.elevator_hte_TB.ValueChanged += new System.EventHandler(this.elevator_hte_TB_ValueChanged);
+            this.elevator_hte_TB.ValueChanged += new System.EventHandler(this.Elevator_hte_TB_ValueChanged);
             // 
             // elevator_cap_LB
             // 
@@ -123,7 +123,7 @@
             this.elevator_cap_TB.Size = new System.Drawing.Size(161, 45);
             this.elevator_cap_TB.TabIndex = 7;
             this.elevator_cap_TB.Value = 2;
-            this.elevator_cap_TB.ValueChanged += new System.EventHandler(this.elevator_cap_TB_ValueChanged);
+            this.elevator_cap_TB.ValueChanged += new System.EventHandler(this.Elevator_cap_TB_ValueChanged);
             // 
             // hte_per_sec_LB
             // 
@@ -142,7 +142,7 @@
             this.hte_per_sec_TB.Size = new System.Drawing.Size(161, 45);
             this.hte_per_sec_TB.TabIndex = 9;
             this.hte_per_sec_TB.Value = 2;
-            this.hte_per_sec_TB.ValueChanged += new System.EventHandler(this.hte_per_sec_TB_ValueChanged);
+            this.hte_per_sec_TB.ValueChanged += new System.EventHandler(this.Hte_per_sec_TB_ValueChanged);
             // 
             // staircase_hte_LB
             // 
@@ -161,7 +161,7 @@
             this.staircase_hte_TB.Size = new System.Drawing.Size(161, 45);
             this.staircase_hte_TB.TabIndex = 11;
             this.staircase_hte_TB.Value = 2;
-            this.staircase_hte_TB.ValueChanged += new System.EventHandler(this.staircase_hte_TB_ValueChanged);
+            this.staircase_hte_TB.ValueChanged += new System.EventHandler(this.Staircase_hte_TB_ValueChanged);
             // 
             // cinema_dur_LB
             // 
@@ -180,7 +180,7 @@
             this.cinema_dur_TB.Size = new System.Drawing.Size(161, 45);
             this.cinema_dur_TB.TabIndex = 13;
             this.cinema_dur_TB.Value = 2;
-            this.cinema_dur_TB.ValueChanged += new System.EventHandler(this.cinema_dur_TB_ValueChanged);
+            this.cinema_dur_TB.ValueChanged += new System.EventHandler(this.Cinema_dur_TB_ValueChanged);
             // 
             // restaurant_cap_LB
             // 
@@ -199,7 +199,7 @@
             this.restaurant_cap_TB.Size = new System.Drawing.Size(161, 45);
             this.restaurant_cap_TB.TabIndex = 15;
             this.restaurant_cap_TB.Value = 2;
-            this.restaurant_cap_TB.ValueChanged += new System.EventHandler(this.restaurant_cap_TB_ValueChanged);
+            this.restaurant_cap_TB.ValueChanged += new System.EventHandler(this.Restaurant_cap_TB_ValueChanged);
             // 
             // fitness_cap_LB
             // 
@@ -218,7 +218,7 @@
             this.fitness_cap_TB.Size = new System.Drawing.Size(161, 45);
             this.fitness_cap_TB.TabIndex = 19;
             this.fitness_cap_TB.Value = 2;
-            this.fitness_cap_TB.ValueChanged += new System.EventHandler(this.fitness_cap_TB_ValueChanged);
+            this.fitness_cap_TB.ValueChanged += new System.EventHandler(this.Fitness_cap_TB_ValueChanged);
             // 
             // fitnes_dur_LB
             // 
@@ -237,7 +237,7 @@
             this.fitness_dur_TB.Size = new System.Drawing.Size(161, 45);
             this.fitness_dur_TB.TabIndex = 17;
             this.fitness_dur_TB.Value = 2;
-            this.fitness_dur_TB.ValueChanged += new System.EventHandler(this.fitness_dur_TB_ValueChanged);
+            this.fitness_dur_TB.ValueChanged += new System.EventHandler(this.Fitness_dur_TB_ValueChanged);
             // 
             // StartupScreen
             // 
