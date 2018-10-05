@@ -37,6 +37,7 @@ namespace HotelSimulationTheLock
 
             test_model = layout;
 
+            HotelEventManager.Register(this);
 
             HotelArea = new Hotel(layout, 0.5f);
 
@@ -82,9 +83,10 @@ namespace HotelSimulationTheLock
                     _maidStatus.Text += "\n";                    
                 }
 
-                HotelBackground.Image = HotelArea.Superimpose(HotelArea.DrawHotel(), HotelArea.DrawMovables());
-                HotelBackground.Refresh();
+                
             }
+
+
         }
 
         //Overview of hotel facilities
@@ -130,7 +132,9 @@ namespace HotelSimulationTheLock
 
         public void Notify(HotelEvent evt)
         {
-           
+
+            HotelBackground.Image = HotelArea.Superimpose(HotelArea.DrawHotel(), HotelArea.DrawMovables());
+
         }
     }
 }
