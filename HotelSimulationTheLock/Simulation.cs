@@ -19,18 +19,13 @@ namespace HotelSimulationTheLock
         public Hotel Hotel { get; set; }
         public int UnitTestvalue { get; set; }
         public List<JsonModel> HotelLayout { get; set; }
-
-
-
+        
         // Drawing properties
         private PictureBox HotelBackground { get; set; }       
         private Bitmap Movables { get; set; }
         private Bitmap Areas { get; set; }
         public static int RoomArtSize { get; } = 96;
-
-
-
-
+        
         public Simulation(List<JsonModel> layout, SettingsModel Settings)
         {
             // 0.5f should be a varible in the settings data set
@@ -45,7 +40,20 @@ namespace HotelSimulationTheLock
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
-            
+
+            Areas = Hotel.DrawHotel();
+
+            HotelBackground = new PictureBox
+            {
+                Location = new Point(50, 100),
+                Width = Hotel.HotelWidth * RoomArtSize,
+                Height = Hotel.HotelHeight * RoomArtSize,
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Image = Areas
+            };
+
+            Controls.Add(HotelBackground);
+
             // Last methods for setup
             InitializeComponent();
             _fillRichTextBox();           
@@ -132,18 +140,7 @@ namespace HotelSimulationTheLock
                
             }
 
-            Areas = Hotel.DrawHotel();
-
-            HotelBackground = new PictureBox
-            {
-                Location = new Point(50, 100),
-                Width = (Hotel.HotelWidth) * RoomArtSize,
-                Height = (Hotel.HotelHeight - 1) * RoomArtSize,
-                SizeMode = PictureBoxSizeMode.StretchImage,
-                Image = Areas
-            };
-
-            Controls.Add(HotelBackground);
+            
         }
         
     }

@@ -8,7 +8,7 @@ namespace HotelSimulationTheLock
 {
     public class SettingsModel
     {
-        public int HTEPerSeconds { get; set; }
+        public int HTEPerSeconds { get; set; } = 1;
         public int AmountOfMaids { get; set; }       
         public int ElevatorDuration { get; set; }
         public int ElevatorCapicity { get; set; }

@@ -23,6 +23,8 @@ namespace HotelSimulationTheLock
         // Make private 
         public List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
 
+        private SettingsModel Setting { get; set; }
+
         // Hotel dimension for calcuations
         public static int HotelHeight { get; set; }
         public static int HotelWidth { get; set; }        
@@ -32,6 +34,9 @@ namespace HotelSimulationTheLock
             // Hotel will handle the ChekIn_events so it can add them to its list
             // making it posible to keep the list private
             HotelEventManager.Register(this);
+
+            // set settings file
+            Setting = settings;
 
             // Create a factory to make the rooms (factory actualy singelton?)
             AreaFactory Factory = new AreaFactory();
@@ -61,9 +66,9 @@ namespace HotelSimulationTheLock
                 IArea elevator = Factory.GetArea("Elevator");
                 IArea staircase = Factory.GetArea("Staircase");
 
-                elevator.SetJsonValues(new Point(0, i), 5, new Size(1, 1), i);
+                elevator.SetJsonValues(new Point(0, i), Setting.ElevatorCapicity, new Size(1, 1), i);
                 staircase.SetJsonValues(new Point(HotelWidth, i), 5, new Size(1, 1), 0);
-
+                
                 HotelAreas.Add(elevator);
                 HotelAreas.Add(staircase);
             }
@@ -90,11 +95,35 @@ namespace HotelSimulationTheLock
             }
 
             // Set Amount of maids
-            for (int i = 0; i < settings.AmountOfMaids; i++)
+            for (int i = 0; i < Setting.AmountOfMaids; i++)
             {
                 HotelMovables.Add(new Maid(new Point(4, HotelHeight)));
             }
+
+            // Set settings for cinema
+            foreach (Cinema cinema in HotelAreas.Where(X => X is Cinema))
+            {
+                cinema.Duration = Setting.CinemaDuration;
+            }
+
+            // set settigns for fitness
+            foreach (Fitness fitness in HotelAreas.Where(X => X is Fitness))
+            {
+                fitness.Capacity = Setting.FitnessCapicity;
+                fitness.Duration = Setting.FitnessDuration;
+            }
+
+            //set settings for restaurant
+            foreach (Restaurant restaurant in HotelAreas.Where(X => X is Restaurant))
+            {
+                restaurant.Capacity = Setting.RestaurantCapicity;
+            }
             
+            // Right?
+            HotelEventManager.HTE_Factor = 1 / Setting.HTEPerSeconds;
+
+
+
             // Methods for final inilization
             RemoveNullValues();
             SetNeighbor();
@@ -177,10 +206,18 @@ namespace HotelSimulationTheLock
                 }
                 if (area.Position.X == 0 || area.Position.X == HotelWidth)
                 {
+                    // keep lift weight in mind needs a rework
+                    int weight = 1;
+
+                    if (area is Staircase)
+                    {
+                        weight = Setting.StairsDuration;
+                    }
+
                     // add top neighbor
-                    AddNeihgbor(area, 0, 1, 1);
+                    AddNeihgbor(area, 0, 1, weight);
                     // add bothem neighbor
-                    AddNeihgbor(area, 0, -1, 1);
+                    AddNeihgbor(area, 0, -1, weight);
                 }
             }
         }

@@ -19,6 +19,7 @@ namespace HotelSimulationTheLock
         public Size Dimension { get; set; }
         public int Capacity { get; set; }
         public Bitmap Art { get; set; } = Properties.Resources.cinema;
+        public int Duration { get; set; }
         public AreaStatus AreaStatus { get; set; }
 
         // Dijkstra search varibles
