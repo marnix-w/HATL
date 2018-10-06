@@ -51,6 +51,9 @@ namespace HotelSimulationTheLock
 
                 try
                 {
+                    // Forcing faulty DLL's to crash
+                    // No idea why this causes them to crash this way
+                    // would like to know
                     newArea.Parts.ToArray();
                 }
                 catch (System.Reflection.ReflectionTypeLoadException) // catching faulty DLL's
@@ -84,8 +87,8 @@ namespace HotelSimulationTheLock
                 if (i.Metadata.AreaType.Equals(typeOfArea)) return i.Value.CreateArea();
             }
 
-            //Error handeling
-            Debug.WriteLine("Error there was no requested ruum");
+            //Error handeling TO DO
+            Debug.WriteLine("Error there was no requested room");
 
             return null;
 

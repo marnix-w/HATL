@@ -23,16 +23,18 @@ namespace HotelSimulationTheLock
 
 
         // Drawing properties
-        private PictureBox HotelBackground { get; set; }
-        
+        private PictureBox HotelBackground { get; set; }       
         private Bitmap Movables { get; set; }
-
         private Bitmap Areas { get; set; }
-        
-        public Simulation(List<JsonModel> layout, List<dynamic> SettingsDataSet)
+        public static int RoomArtSize { get; } = 96;
+
+
+
+
+        public Simulation(List<JsonModel> layout, SettingsModel Settings)
         {
             // 0.5f should be a varible in the settings data set
-            Hotel = new Hotel(layout, SettingsDataSet);
+            Hotel = new Hotel(layout, Settings);
             HotelLayout = layout;
             HotelEventManager.HTE_Factor = 0.5f;
             
@@ -46,8 +48,7 @@ namespace HotelSimulationTheLock
             
             // Last methods for setup
             InitializeComponent();
-            _fillRichTextBox();
-            HotelEventManager.Start();
+            _fillRichTextBox();           
         }
 
         void Timer_Tick(object sender, EventArgs e)
@@ -57,25 +58,30 @@ namespace HotelSimulationTheLock
             //maid overview
             _maidStatus.Text = string.Empty;
 
-            List<IMovable> a = Hotel.HotelMovables;
+            // Fix this!
+            #region
 
-            foreach (IMovable g in a)
-            {
-                if (g is Guest t)
-                {
-                    _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
-                    _guestStatus.Text += "\n";                         
-                    
-                }
-                if (g is Maid m)
-                {
-                    _maidStatus.Text += "Maid \t" + m.Status + "\t" + m.Position;
-                    _maidStatus.Text += "\n";                    
-                }
+            // Causes errors with current version
+            // list is not lockeable 
+            // status handle should not be done here
 
-                
-            }
+            //foreach (IMovable g in Hotel.HotelMovables)
+            //{
+            //    if (g is Guest t)
+            //    {
+            //        _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
+            //        _guestStatus.Text += "\n";
 
+            //    }
+            //    if (g is Maid m)
+            //    {
+            //        _maidStatus.Text += "Maid \t" + m.Status + "\t" + m.Position;
+            //        _maidStatus.Text += "\n";
+            //    }
+            //}
+
+            #endregion
+            
             Movables = Hotel.DrawMovables();
 
             HotelBackground.Image = GetHotelMap();
@@ -131,8 +137,8 @@ namespace HotelSimulationTheLock
             HotelBackground = new PictureBox
             {
                 Location = new Point(50, 100),
-                Width = (Hotel.HotelWidth + 1) * 96,
-                Height = (Hotel.HotelHeight) * 96,
+                Width = (Hotel.HotelWidth) * RoomArtSize,
+                Height = (Hotel.HotelHeight - 1) * RoomArtSize,
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 Image = Areas
             };

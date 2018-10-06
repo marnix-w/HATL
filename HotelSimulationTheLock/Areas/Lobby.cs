@@ -39,6 +39,12 @@ namespace HotelSimulationTheLock
         public void SetJsonValues(Point position, int capacity, Size dimension, int classification)
         {
             Position = position;
+
+            if (classification % 2 == 0)
+            {
+                Art = Properties.Resources.lobby_couch;
+            }
+
         }
 
         public bool AddMovable(IMovable movable)

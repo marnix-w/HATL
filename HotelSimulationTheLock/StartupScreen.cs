@@ -42,7 +42,7 @@ namespace HotelSimulationTheLock
         private string _fitness_dur = "Duration of fitness in hte ";
         private string _fitness_cap = "Capicity for a fitness facility ";
 
-        private List<dynamic> SettingsDataSet { get; set; } = new List<dynamic>();
+        
        
         public StartupScreen()
         {
@@ -64,26 +64,26 @@ namespace HotelSimulationTheLock
 
         public void _runSimulation_Click(object sender, EventArgs e)
         {
-
-
             if (layout == null)
             {
                 layout = ReadLayoutJson(_path);
-
             }
 
-            SettingsDataSet.Add(maid_TB.Value);
-            SettingsDataSet.Add(elevator_hte_TB.Value);
-            SettingsDataSet.Add(elevator_cap_TB.Value);
-            SettingsDataSet.Add(hte_per_sec_TB.Value);
-            SettingsDataSet.Add(staircase_hte_TB.Value);
-            SettingsDataSet.Add(cinema_dur_TB.Value);
-            SettingsDataSet.Add(restaurant_cap_TB.Value);
-            SettingsDataSet.Add(fitness_dur_TB.Value);
-            SettingsDataSet.Add(fitness_cap_TB.Value);
-            
+            SettingsModel settings = new SettingsModel
+            {
+                AmountOfMaids = maid_TB.Value,
+                ElevatorDuration = elevator_hte_TB.Value,
+                ElevatorCapicity = elevator_cap_TB.Value,
+                HTEPerSeconds = hte_per_sec_TB.Value,
+                StairsDuration = staircase_hte_TB.Value,
+                CinemaDuration = cinema_dur_TB.Value,
+                RestaurantCapicity = restaurant_cap_TB.Value,
+                FitnessDuration = fitness_dur_TB.Value,
+                FitnessCapicity = fitness_cap_TB.Value
+            };
+
             //below the Simulation is linked to this form
-            Simulation hotelsimulation = new Simulation(layout, SettingsDataSet);
+            Simulation hotelsimulation = new Simulation(layout, settings);
             
             hotelsimulation.Show();
             // this.Hide();
