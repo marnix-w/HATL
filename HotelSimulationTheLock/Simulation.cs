@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -18,7 +19,15 @@ namespace HotelSimulationTheLock
         public Hotel Hotel { get; set; }
         public int UnitTestvalue { get; set; }
         public List<JsonModel> HotelLayout { get; set; }
+
+
+
+        // Drawing properties
         private PictureBox HotelBackground { get; set; }
+        
+        private Bitmap Movables { get; set; }
+
+        private Bitmap Areas { get; set; }
         
         public Simulation(List<JsonModel> layout, List<dynamic> SettingsDataSet)
         {
@@ -32,7 +41,7 @@ namespace HotelSimulationTheLock
             {
                 Interval = 1000 // specify interval time as you want
             };
-            t.Tick += new EventHandler(timer_Tick);
+            t.Tick += new EventHandler(Timer_Tick);
             t.Start();
             
             // Last methods for setup
@@ -41,7 +50,7 @@ namespace HotelSimulationTheLock
             HotelEventManager.Start();
         }
 
-        void timer_Tick(object sender, EventArgs e)
+        void Timer_Tick(object sender, EventArgs e)
         {
             //guest overview
             _guestStatus.Text = string.Empty;
@@ -67,7 +76,23 @@ namespace HotelSimulationTheLock
                 
             }
 
-            HotelBackground.Image = Hotel.Superimpose(Hotel.DrawMovables());
+            Movables = Hotel.DrawMovables();
+
+            HotelBackground.Image = GetHotelMap();           
+            Movables.Dispose();
+            
+        }
+
+
+        public Bitmap GetHotelMap()
+        {
+            Bitmap imposedBitmap = Areas;
+
+            Graphics g = Graphics.FromImage(imposedBitmap);
+            g.CompositingMode = CompositingMode.SourceOver;
+
+            g.DrawImage(Movables, new Point(0, 0));
+            return imposedBitmap;
         }
 
         //Overview of hotel facilities
@@ -98,7 +123,7 @@ namespace HotelSimulationTheLock
                
             }
 
-            Hotel.SetHotelBitmap();
+            Areas = Hotel.DrawHotel();
 
             HotelBackground = new PictureBox
             {
@@ -106,7 +131,7 @@ namespace HotelSimulationTheLock
                 Width = (Hotel.HotelWidth + 1) * 96,
                 Height = (Hotel.HotelHeight) * 96,
                 SizeMode = PictureBoxSizeMode.StretchImage,
-                Image = Hotel.Superimpose(Hotel.DrawMovables())
+                Image = Areas
             };
 
             Controls.Add(HotelBackground);

@@ -26,10 +26,7 @@ namespace HotelSimulationTheLock
 
         public static int HotelHeight { get; set; }
         public static int HotelWidth { get; set; }        
-        public Bitmap HotelBackground { get; set; } 
-
-
-
+        
         public Hotel(List<JsonModel> layout, List<dynamic> SettingsDataSet)
         {
             // Hotel Will handle the checkins (might move this to reception?)
@@ -96,23 +93,8 @@ namespace HotelSimulationTheLock
             SetNeighbor();
         }
 
-        public Bitmap Superimpose(Bitmap smallBmp)
-        {
-            Bitmap imposedBitmap = HotelBackground; 
-
-            Graphics g = Graphics.FromImage(imposedBitmap);
-            g.CompositingMode = CompositingMode.SourceOver;
-
-            g.DrawImage(smallBmp, new Point(0, 0));
-            return imposedBitmap;
-        }
-
-
-        public void SetHotelBitmap()
-        {
-            HotelBackground = DrawHotel();
-        }
-
+        
+        
         public Bitmap DrawHotel()
         {
             // all art is 96 * 96 pixels
@@ -120,7 +102,9 @@ namespace HotelSimulationTheLock
 
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
-                foreach (IArea area in HotelAreas)
+                List<IArea> lockedAreas = HotelAreas;
+
+                foreach (IArea area in lockedAreas)
                 {
                     graphics.DrawImage(area.Art, area.Position.X * 96, (area.Position.Y - 1) * 96, area.Dimension.Width * 96, area.Dimension.Height * 96);
                 }
@@ -134,9 +118,9 @@ namespace HotelSimulationTheLock
 
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
-                List<IMovable> t = HotelMovables;
+                List<IMovable> lockedMovables = HotelMovables;
 
-                foreach (IMovable movable in t)
+                foreach (IMovable movable in lockedMovables)
                 {
                     graphics.DrawImage(movable.Art, movable.Position.X * 96 * 1.05f, (movable.Position.Y - 1) * 96 * 1.05f, movable.Art.Width, movable.Art.Height);
 
