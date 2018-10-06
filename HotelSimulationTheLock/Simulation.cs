@@ -27,9 +27,6 @@ namespace HotelSimulationTheLock
             HotelLayout = layout;
             HotelEventManager.HTE_Factor = 0.5f;
             
-            //Calling function to fill RichTextboxes
-            _fillRichTextBox();
-           
             // Does this timer work corectly with the HTE factor? -marnix
             System.Windows.Forms.Timer t = new System.Windows.Forms.Timer
             {
@@ -37,11 +34,10 @@ namespace HotelSimulationTheLock
             };
             t.Tick += new EventHandler(timer_Tick);
             t.Start();
-
             
-
-            // Last methods
+            // Last methods for setup
             InitializeComponent();
+            _fillRichTextBox();
             HotelEventManager.Start();
         }
 
