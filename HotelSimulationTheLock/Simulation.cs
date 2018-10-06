@@ -78,7 +78,10 @@ namespace HotelSimulationTheLock
 
             Movables = Hotel.DrawMovables();
 
-            HotelBackground.Image = GetHotelMap();           
+            HotelBackground.Image = GetHotelMap();
+
+            // Disposing the movable bitmap to prevent memory leaking
+            // https://blogs.msdn.microsoft.com/davidklinems/2005/11/16/three-common-causes-of-memory-leaks-in-managed-applications/
             Movables.Dispose();
             
         }
