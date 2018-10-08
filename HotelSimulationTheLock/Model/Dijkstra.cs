@@ -8,11 +8,11 @@ namespace HotelSimulationTheLock
 {
     public class Dijkstra
     {
-        public List<IArea> Graph { get; set; }
+        private List<IArea> Areas { get; set; }
 
         public Dijkstra(List<IArea> graph)
         {
-            Graph = graph;
+            Areas = graph;
         }
 
         public List<IArea> GetShortestPathDijikstra(IArea from, IArea to)
