@@ -15,7 +15,7 @@ namespace HotelSimulationTheLock
         public Bitmap Art { get; set; } = Properties.Resources.maid;
         public MovableStatus Status { get; set; }
         Queue<HotelEvent> CleaningEmergencies { get; set; }
-        public IArea area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IArea Area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Maid(Point startLocation)
         {

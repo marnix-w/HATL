@@ -15,12 +15,12 @@ namespace HotelSimulationTheLock
         public Point Position { get; set; }
         public Bitmap Art { get; set; } = Properties.Resources.customer;
         public MovableStatus Status { get; set; }
-        public Label bobsname { get; set; }
       
         public string Name { get; set; }
         public int RoomRequest { get; set; }
-        public IArea area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IArea Area { get; set; }
 
+        public Queue<IArea> Path { get; set; }
 
         public Guest(string name, int roomRequest, Point point)
         {
@@ -29,12 +29,22 @@ namespace HotelSimulationTheLock
             Position = point;
         }
 
-        public void MoveCustomer(Guest guest)
+        public void SetPath(IArea destination)
         {
-            //Position = new Point(guest.Position.X + rng.Next(1,100), guest.Position.Y);
-            //Art.Location = Position;
-            //bobsname.Location = new Point(Position.X - 10 , Position.Y - 25);
+            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijikstra(Area, destination));           
+        }
 
+        public void MoveFromPath()
+        {
+            if (Path.Any() && Status == MovableStatus.GOING_TO_ROOM)
+            {
+                IArea areaToGo = Path.Dequeue();
+
+                Area = areaToGo;
+
+                Position = Area.Position;
+              
+            }   
         }
 
         public void Notify(HotelEvent evt)

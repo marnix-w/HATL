@@ -15,13 +15,14 @@ namespace HotelSimulationTheLock
         EATING,
         WORKING_OUT,
         WATCHING_MOVIE,
-        EVACUATING
+        EVACUATING,
+        GOING_TO_ROOM
         //Etc
     }
     public interface IMovable
     {
         // area status
-        IArea area { get; set; }
+        IArea Area { get; set; }
 
         // properties
         Point Position { get; set; }
