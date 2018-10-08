@@ -12,10 +12,10 @@ namespace HotelSimulationTheLock
 
         private static Hotel Hotel { get; set; }
 
-        public static void IntilazeDijkstra(List<IArea> areas, Hotel hotel)
+        public static void IntilazeDijkstra(Hotel hotel)
         {
             Hotel = hotel;
-            Areas = areas;
+            Areas = hotel.HotelAreas;
         }
 
         public static List<IArea> GetShortestPathDijikstra(IArea from, IArea to)

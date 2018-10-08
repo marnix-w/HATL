@@ -14,7 +14,7 @@ namespace HotelSimulationTheLock
         public List<IArea> HotelAreas { get; set; } = new List<IArea>();
         // Make private 
         public List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
-        public IHotelBuilder HotelBuilder { get; set; }
+        public IHotelBuilder HotelBuilder { get; set; } = new JsonHotelBuilder();
         private SettingsModel Setting { get; set; }
 
         // Hotel dimensions for calcuations
@@ -26,9 +26,7 @@ namespace HotelSimulationTheLock
             // Hotel will handle the ChekIn_events so it can add them to its list
             // making it posible to keep the list private
             HotelEventManager.Register(this);
-
-            HotelBuilder = new JsonHotelBuilder();
-
+            
             // Set settings file
             Setting = settings;
 
@@ -50,7 +48,7 @@ namespace HotelSimulationTheLock
             // Methods for final initialization
             RemoveNullValues();
             SetNeighbour();
-            Dijkstra.IntilazeDijkstra(HotelAreas, this);
+            Dijkstra.IntilazeDijkstra(this);
             HotelEventManager.Start();
         }
 
@@ -127,8 +125,7 @@ namespace HotelSimulationTheLock
                 item.PerformAction();
             }
         }
-
-
+        
         /// <summary>
         /// Mehtod must be called when initilizing a hotel
         /// This makes sure Dijkstra can provide a path
@@ -190,7 +187,7 @@ namespace HotelSimulationTheLock
             {
                 string name = string.Empty;
                 string request = string.Empty;
-                int requestInt = 0;
+                int requestInt;
 
                 if (!(evt.Data is null))
                 {

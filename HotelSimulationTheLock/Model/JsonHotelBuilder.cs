@@ -109,6 +109,8 @@ namespace HotelSimulationTheLock
                 }
             }
 
+
+
             return hotelAreas;
 
         }
