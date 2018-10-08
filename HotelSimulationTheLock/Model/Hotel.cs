@@ -117,11 +117,11 @@ namespace HotelSimulationTheLock
             // Methods for final inilization
             RemoveNullValues();
             SetNeighbor();
-            Dijkstra.IntilazeDijkstra(HotelAreas);
+            Dijkstra.IntilazeDijkstra(HotelAreas, this);
             HotelEventManager.Start();
         }
-
-        public static void RemoveSearchProperties()
+        
+        public void RemoveSearchProperties()
         {
             foreach (IArea area in HotelAreas)
             {
