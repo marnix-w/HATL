@@ -1,6 +1,7 @@
 ﻿using HotelEvents;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -29,7 +30,7 @@ namespace HotelSimulationTheLock
             // Does this timer work corectly with the HTE factor? -marnix
             System.Windows.Forms.Timer t = new System.Windows.Forms.Timer
             {
-                Interval = 1000 // specify interval time as you want
+                Interval = 500 // specify interval time as you want
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
@@ -54,10 +55,12 @@ namespace HotelSimulationTheLock
 
         void Timer_Tick(object sender, EventArgs e)
         {
+            Hotel.PerformAllActions();
+
             //guest overview
-            _guestStatus.Text = string.Empty;
+            _guestStatus.Text = "";
             //maid overview
-            _maidStatus.Text = string.Empty;
+            _maidStatus.Text = "";
 
             // Fix this!
             #region
@@ -66,23 +69,34 @@ namespace HotelSimulationTheLock
             // list is not lockeable 
             // status handle should not be done here
 
-            //foreach (IMovable g in Hotel.HotelMovables)
-            //{
-            //    if (g is Guest t)
-            //    {
-            //        _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
-            //        _guestStatus.Text += "\n";
+            try
+            {
+                foreach (IMovable g in Hotel.HotelMovables)
+                {
+                    if (g is Guest t)
+                    {
+                        _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
+                        _guestStatus.Text += "\n";
 
-            //    }
-            //    if (g is Maid m)
-            //    {
-            //        _maidStatus.Text += "Maid \t" + m.Status + "\t" + m.Position;
-            //        _maidStatus.Text += "\n";
-            //    }
-            //}
+                    }
+                    if (g is Maid m)
+                    {
+                        _maidStatus.Text += "Maid \t" + m.Status + "\t" + m.Position;
+                        _maidStatus.Text += "\n";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                Debug.WriteLine("Jasper fix je stats shit");
+            }
+
+
 
             #endregion
-            
+
+            Areas = Hotel.DrawHotel();
             Movables = Hotel.DrawMovables();
 
             HotelBackground.Image = GetHotelMap();

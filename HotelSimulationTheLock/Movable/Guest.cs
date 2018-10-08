@@ -36,7 +36,7 @@ namespace HotelSimulationTheLock
 
         public void MoveFromPath()
         {
-            if (Path.Any() && Status == MovableStatus.GOING_TO_ROOM)
+            if (Path.Any())
             {
                 IArea areaToGo = Path.Dequeue();
 
@@ -72,6 +72,11 @@ namespace HotelSimulationTheLock
                 default:
                     break;
             }
+        }
+
+        public void PerformAction()
+        {
+            MoveFromPath();
         }
     }
 }

@@ -28,5 +28,13 @@ namespace HotelSimulationTheLock
 
             }
         }
+
+        public void PerformAction()
+        {
+        }
+
+        public void SetPath(IArea destination)
+        {
+        }
     }
 }
