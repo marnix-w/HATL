@@ -85,15 +85,22 @@ namespace HotelSimulationTheLock
 
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
-                // Prevent opperation from cloding with eachother
+                // Prevent opperation from coliding with eachother
                 lock (HotelMovables)
                 {
-                    foreach (IMovable movable in HotelMovables)
+                    try
                     {
-                        graphics.DrawImage(movable.Art,
-                                            movable.Position.X * artSize * 1.05f,
-                                            (movable.Position.Y - 1) * artSize * 1.05f,
-                                            movable.Art.Width, movable.Art.Height);
+                        foreach (IMovable movable in HotelMovables)
+                        {
+                            graphics.DrawImage(movable.Art,
+                                                movable.Position.X * artSize * 1.05f,
+                                                (movable.Position.Y - 1) * artSize * 1.05f,
+                                                movable.Art.Width, movable.Art.Height);
+                        }
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        return buffer;
                     }
                 }
             }
