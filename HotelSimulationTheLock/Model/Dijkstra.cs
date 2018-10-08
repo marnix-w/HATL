@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace HotelSimulationTheLock
 {
-    public class Dijkstra
+    public static class Dijkstra
     {
-        private List<IArea> Areas { get; set; }
+        private static List<IArea> Areas { get; set; }
 
-        public Dijkstra(List<IArea> graph)
+        public static void IntilazeDijkstra(List<IArea> areas)
         {
-            Areas = graph;
+            Areas = areas;
         }
 
-        public List<IArea> GetShortestPathDijikstra(IArea from, IArea to)
+        public static List<IArea> GetShortestPathDijikstra(IArea from, IArea to)
         {
 
             SetDijkstraSearchValues(from, to);
@@ -31,7 +31,7 @@ namespace HotelSimulationTheLock
             return shortestPath;
         }
 
-        private void BuildShortestPath(List<IArea> list, IArea node)
+        private static void BuildShortestPath(List<IArea> list, IArea node)
         {
             if (node.NearestToStart == null)
             {
@@ -42,7 +42,7 @@ namespace HotelSimulationTheLock
             BuildShortestPath(list, node.NearestToStart);
         }
 
-        private void SetDijkstraSearchValues(IArea from, IArea to)
+        private static void SetDijkstraSearchValues(IArea from, IArea to)
         {
             from.BackTrackCost = 0;
 
@@ -90,7 +90,7 @@ namespace HotelSimulationTheLock
             } while (toVisit.Any());
         }
 
-        public bool DoesPathExistFunction(IArea from, IArea to)
+        public static bool DoesPathExistFunction(IArea from, IArea to)
         {
 
             List<IArea> visited = new List<IArea>();
