@@ -15,6 +15,7 @@ namespace HotelSimulationTheLock
         public Point Position { get; set; }
         public Bitmap Art { get; set; } = Properties.Resources.customer;
         public MovableStatus Status { get; set; }
+        public int FitnessDuration { get; set; }
       
         public string Name { get; set; }
         public int RoomRequest { get; set; }
@@ -27,6 +28,10 @@ namespace HotelSimulationTheLock
             Name = name;
             RoomRequest = roomRequest;
             Position = point;
+
+            // Generates random number for the duration of this guests fitness event
+            Random rnd = new Random();
+            FitnessDuration = rnd.Next(1, 11);
         }
 
         public void SetPath(IArea destination)
