@@ -29,5 +29,9 @@ namespace HotelSimulationTheLock
         Bitmap Art { get; set; }
         MovableStatus Status { get; set; }
 
+        void PerformAction();
+
+        void SetPath(IArea destination);
+
     }
 }

@@ -38,5 +38,13 @@ namespace HotelSimulationTheLock
                 // clean the room
             }
         }
+
+        public void PerformAction()
+        {
+        }
+
+        public void SetPath(IArea destination)
+        {
+        }
     }
 }

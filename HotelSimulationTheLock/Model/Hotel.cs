@@ -89,6 +89,24 @@ namespace HotelSimulationTheLock
                 lock (HotelMovables)
                 {
                     try
+<<<<<<< HEAD
+                    {
+                        foreach (IMovable movable in HotelMovables)
+                        {
+                            graphics.DrawImage(movable.Art,
+                                                movable.Position.X * artSize * 1.05f,
+                                                (movable.Position.Y - 1) * artSize * 1.05f,
+                                                movable.Art.Width, movable.Art.Height);
+                        }
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        return buffer;
+                    }
+
+                    
+                }            
+=======
                     {
                         foreach (IMovable movable in HotelMovables)
                         {
@@ -103,9 +121,19 @@ namespace HotelSimulationTheLock
                         return buffer;
                     }
                 }
+>>>>>>> hotel-dev
             }
             return buffer;
         }
+
+        public void PerformAllActions()
+        {
+            foreach (var item in HotelMovables)
+            {
+                item.PerformAction();
+            }
+        }
+
 
         /// <summary>
         /// Mehtod must be called when initilizing a hotel
@@ -122,15 +150,20 @@ namespace HotelSimulationTheLock
                 {
                     if (AddNeighbour(area, i, 0, i))
                     {
+<<<<<<< HEAD
+                        break;
+                    }                 
+=======
                         continue;
                     }
+>>>>>>> hotel-dev
                 }
                 // Add left neighbour
                 for (int i = 0; i < HotelWidth - 1; i++)
                 {
                     if (AddNeighbour(area, -i, 0, i))
                     {
-                        continue;
+                        break;
                     }
                 }
                 if (area.Position.X == 0 || area.Position.X == HotelWidth)
@@ -179,17 +212,16 @@ namespace HotelSimulationTheLock
                 }
                 else
                 {
-                    name = "test guest";
-                    request = "no request";
+                    return;
                 }
 
-                HotelMovables.Add(new Guest(name, requestInt, new Point(0, HotelHeight)));
-                //Guest guest = new Guest(name, requestInt, new Point(0, HotelHeight + 1));
+                Guest guest = new Guest(name, requestInt, new Point(0, HotelHeight));
 
+                guest.Area = HotelAreas.Find(X => X.Position == new Point(0, HotelHeight));
+                guest.SetPath(HotelAreas.Find(X => X.Position == new Point(7,HotelHeight)));
 
-                //IMovableList.Add(guest);
-
-                Console.WriteLine($"new guest = name: {name}, request: {request} ");
+                HotelMovables.Add(guest);
+               
             }
         }
 

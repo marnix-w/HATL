@@ -41,14 +41,21 @@ namespace HotelSimulationTheLock
 
         public void MoveFromPath()
         {
-            if (Path.Any() && Status == MovableStatus.GOING_TO_ROOM)
+            if (Path.Any())
             {
-                IArea areaToGo = Path.Dequeue();
+                IArea destanation = Path.Dequeue();
 
-                Area = areaToGo;
+                if (destanation.MoveToArea())
+                {
+                    // remove old position
+                    Area.Movables.Remove(this);
 
-                Position = Area.Position;
-              
+                    // add to new position
+                    Area = destanation;
+                    Position = destanation.Position;
+                    Area.Movables.Add(this);
+                }
+   
             }   
         }
 
@@ -77,6 +84,11 @@ namespace HotelSimulationTheLock
                 default:
                     break;
             }
+        }
+
+        public void PerformAction()
+        {
+            MoveFromPath();
         }
     }
 }

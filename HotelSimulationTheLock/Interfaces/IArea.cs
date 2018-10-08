@@ -55,7 +55,8 @@ namespace HotelSimulationTheLock
 
         void SetJsonValues(Point position, int capacity, Size dimension, int classification);
 
-        bool AddMovable(IMovable movable);
+        bool MoveToArea();
+
 
     }
 }
