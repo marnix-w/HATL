@@ -1,17 +1,9 @@
 ﻿using HotelEvents;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Timers;
-using System.Windows.Forms;
 
 namespace HotelSimulationTheLock
 {
@@ -129,6 +121,15 @@ namespace HotelSimulationTheLock
             HotelEventManager.Start();
         }
 
+        public static void RemoveSearchProperties()
+        {
+            foreach (IArea area in HotelAreas)
+            {
+                area.BackTrackCost = null;
+                area.NearestToStart = null;
+                area.Visited = false;
+            }
+        }
 
         // Fix code duplication
         public Bitmap DrawHotel()

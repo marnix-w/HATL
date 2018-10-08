@@ -27,6 +27,7 @@ namespace HotelSimulationTheLock
 
             BuildShortestPath(shortestPath, to);
             shortestPath.Reverse();
+            Hotel.RemoveSearchProperties();
 
             return shortestPath;
         }
