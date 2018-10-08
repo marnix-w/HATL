@@ -121,12 +121,11 @@ namespace HotelSimulationTheLock
             
             // Right?
             HotelEventManager.HTE_Factor = 1 / Setting.HTEPerSeconds;
-
-
-
+            
             // Methods for final inilization
             RemoveNullValues();
             SetNeighbor();
+            Dijkstra.IntilazeDijkstra(HotelAreas);
             HotelEventManager.Start();
         }
 
