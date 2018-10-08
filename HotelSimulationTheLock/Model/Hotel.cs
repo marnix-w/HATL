@@ -289,7 +289,6 @@ namespace HotelSimulationTheLock
             foreach (Fitness fitness in HotelAreas.Where(X => X is Fitness))
             {
                 fitness.Capacity = Setting.FitnessCapicity;
-                fitness.Duration = Setting.FitnessDuration;
             }
 
             // Set settings for restaurant
