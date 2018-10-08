@@ -89,7 +89,6 @@ namespace HotelSimulationTheLock
                 lock (HotelMovables)
                 {
                     try
-<<<<<<< HEAD
                     {
                         foreach (IMovable movable in HotelMovables)
                         {
@@ -106,22 +105,6 @@ namespace HotelSimulationTheLock
 
                     
                 }            
-=======
-                    {
-                        foreach (IMovable movable in HotelMovables)
-                        {
-                            graphics.DrawImage(movable.Art,
-                                                movable.Position.X * artSize * 1.05f,
-                                                (movable.Position.Y - 1) * artSize * 1.05f,
-                                                movable.Art.Width, movable.Art.Height);
-                        }
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        return buffer;
-                    }
-                }
->>>>>>> hotel-dev
             }
             return buffer;
         }
@@ -150,13 +133,8 @@ namespace HotelSimulationTheLock
                 {
                     if (AddNeighbour(area, i, 0, i))
                     {
-<<<<<<< HEAD
                         break;
                     }                 
-=======
-                        continue;
-                    }
->>>>>>> hotel-dev
                 }
                 // Add left neighbour
                 for (int i = 0; i < HotelWidth - 1; i++)
