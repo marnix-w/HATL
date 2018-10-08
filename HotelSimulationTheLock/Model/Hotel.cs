@@ -17,164 +17,216 @@ namespace HotelSimulationTheLock
 {
     public class Hotel : HotelEventListener
     {
-        //this list will be filled with IAreas objects
-        public List<IArea> HotelAreaList = new List<IArea>();
+        // Change the live stats function so these list can be private
+        // Make private
+        public List<IArea> HotelAreas { get; set; } = new List<IArea>();        
+        // Make private 
+        public List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
 
+        private SettingsModel Setting { get; set; }
 
-        //a hotel needs to have a list of current guests 
-        public List<IMovable> IMovableList = new List<IMovable>();
-
+        // Hotel dimension for calcuations
         public static int HotelHeight { get; set; }
-        public static int HotelWidth { get; set; }
-
-        public Hotel(List<JsonModel> layout, float HTESeconds)
+        public static int HotelWidth { get; set; }        
+        
+        public Hotel(List<JsonModel> layout, SettingsModel settings)
         {
-            HotelEventManager.HTE_Factor = HTESeconds;
-
+            // Hotel will handle the ChekIn_events so it can add them to its list
+            // making it posible to keep the list private
             HotelEventManager.Register(this);
 
+            // set settings file
+            Setting = settings;
+
+            // Create a factory to make the rooms (factory actualy singelton?)
             AreaFactory Factory = new AreaFactory();
-
-
-
+            
+            // read out the json and add rooms to the layout
             foreach (JsonModel i in layout)
             {
-                int temp = 0;
+                int clasifactionNum = 0;
 
                 if (i.Classification != null)
                 {
-                    temp = int.Parse(Regex.Match(i.Classification, @"\d+").Value);
+                    clasifactionNum = int.Parse(Regex.Match(i.Classification, @"\d+").Value);
                 }
 
                 IArea area = Factory.GetArea(i.AreaType);
-                area.SetJsonValues(i.Position, i.Capacity, i.Dimension, temp);
-                HotelAreaList.Add(area);
+                area.SetJsonValues(i.Position, i.Capacity, i.Dimension, clasifactionNum);
+                HotelAreas.Add(area);
             }
 
-            HotelWidth = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X;
-            HotelHeight = HotelAreaList.OrderBy(Y => Y.Position.Y).Last().Position.Y;
-
-
-            for (int i = 1; i < HotelHeight + 2; i++)
+            HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X + 1;
+            HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y + 1;
+            
+            // Set elevator and staircase
+            for (int i = 1; i < HotelHeight + 1; i++)
             {
                 // 5 is the capacity get from setting screen
                 IArea elevator = Factory.GetArea("Elevator");
                 IArea staircase = Factory.GetArea("Staircase");
 
-                elevator.SetJsonValues(new Point(0, i), 5, new Size(1, 1), i);
-                staircase.SetJsonValues(new Point(HotelWidth + 1, i), 5, new Size(1, 1), 0);
-
-                HotelAreaList.Add(elevator);
-                HotelAreaList.Add(staircase);
+                elevator.SetJsonValues(new Point(0, i), Setting.ElevatorCapicity, new Size(1, 1), i);
+                staircase.SetJsonValues(new Point(HotelWidth, i), 5, new Size(1, 1), 0);
+                
+                HotelAreas.Add(elevator);
+                HotelAreas.Add(staircase);
             }
-            for (int i = 1; i < HotelWidth + 1; i++)
+
+            // set reception and lobby
+            for (int i = 1; i < HotelWidth; i++)
             {
                 if (i == 1)
                 {
                     IArea reception = Factory.GetArea("Reception");
 
-                    reception.SetJsonValues(new Point(1, HotelHeight + 1), 5, new Size(1, 1), 1);
+                    reception.SetJsonValues(new Point(1, HotelHeight), 5, new Size(1, 1), 1);
 
-                    HotelAreaList.Add(reception);
+                    HotelAreas.Add(reception);
                 }
                 else
                 {
                     IArea Lobby = Factory.GetArea("Lobby");
 
-                    Lobby.SetJsonValues(new Point(i, HotelHeight + 1), 5, new Size(1, 1), i);
+                    Lobby.SetJsonValues(new Point(i, HotelHeight), 5, new Size(1, 1), i);
 
-                    HotelAreaList.Add(Lobby);
+                    HotelAreas.Add(Lobby);
                 }
             }
 
-            IMovableList.Add(new Maid(new Point(4, HotelHeight + 1)));
-            IMovableList.Add(new Maid(new Point(6, HotelHeight + 1)));
+            // Set Amount of maids
+            for (int i = 0; i < Setting.AmountOfMaids; i++)
+            {
+                HotelMovables.Add(new Maid(new Point(4, HotelHeight)));
+            }
+
+            // Set settings for cinema
+            foreach (Cinema cinema in HotelAreas.Where(X => X is Cinema))
+            {
+                cinema.Duration = Setting.CinemaDuration;
+            }
+
+            // set settigns for fitness
+            foreach (Fitness fitness in HotelAreas.Where(X => X is Fitness))
+            {
+                fitness.Capacity = Setting.FitnessCapicity;
+                fitness.Duration = Setting.FitnessDuration;
+            }
+
+            //set settings for restaurant
+            foreach (Restaurant restaurant in HotelAreas.Where(X => X is Restaurant))
+            {
+                restaurant.Capacity = Setting.RestaurantCapicity;
+            }
+            
+            // Right?
+            HotelEventManager.HTE_Factor = 1 / Setting.HTEPerSeconds;
 
 
+
+            // Methods for final inilization
+            RemoveNullValues();
             SetNeighbor();
+            HotelEventManager.Start();
         }
 
-        public Bitmap Superimpose(Bitmap largeBmp, Bitmap smallBmp)
-        {
-            Graphics g = Graphics.FromImage(largeBmp);
-            g.CompositingMode = CompositingMode.SourceOver;
 
-            g.DrawImage(smallBmp, new Point(0, 0));
-            return largeBmp;
-        }
-
+        // Fix code duplication
         public Bitmap DrawHotel()
         {
-            // all art is 96 * 96 pixels
-            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHeight + 1) * 96);
+            int artSize = Simulation.RoomArtSize;
+
+            Bitmap buffer = new Bitmap((HotelWidth + 1) * artSize, (HotelHeight) * artSize);
 
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
-                foreach (IArea area in HotelAreaList)
+                lock (HotelAreas)
                 {
-                    graphics.DrawImage(area.Art, area.Position.X * 96, (area.Position.Y - 1) * 96, area.Dimension.Width * 96, area.Dimension.Height * 96);
-                }
+                    foreach (IArea area in HotelAreas)
+                    {
+                        graphics.DrawImage(area.Art,
+                                            area.Position.X * artSize,
+                                            (area.Position.Y - 1) * artSize,
+                                            area.Dimension.Width * artSize,
+                                            area.Dimension.Height * artSize);
+                    }
+                }        
             }
             return buffer;
         }
 
         public Bitmap DrawMovables()
         {
-            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHeight + 1) * 96);
+            int artSize = Simulation.RoomArtSize;
+
+            Bitmap buffer = new Bitmap((HotelWidth + 1) * artSize, (HotelHeight) * artSize);
 
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
-                List<IMovable> t = IMovableList;
-
-                foreach (IMovable movable in t)
+                // Prevent opperation from cloding with eachother
+                lock (HotelMovables)
                 {
-                    graphics.DrawImage(movable.Art, movable.Position.X * 96 * 1.05f, (movable.Position.Y - 1) * 96 * 1.05f, movable.Art.Width, movable.Art.Height);
-
-                }
+                    foreach (IMovable movable in HotelMovables)
+                    {
+                        graphics.DrawImage(movable.Art,
+                                            movable.Position.X * artSize * 1.05f,
+                                            (movable.Position.Y - 1) * artSize * 1.05f,
+                                            movable.Art.Width, movable.Art.Height);
+                    }
+                }            
             }
-
             return buffer;
         }
 
+        /// <summary>
+        /// Mehtod must be called when initilizing a hotel
+        /// this makes sure Dijkstra can provide a path
+        /// </summary>
         private void SetNeighbor()
         {
+            // exclude lift when lift is done
 
-            foreach (IArea area in HotelAreaList)
+            foreach (IArea area in HotelAreas)
             {
-
-                bool rightSet = false;
-                bool leftSet = false;
-
-                for (int i = 1; i < HotelWidth + 1; i++)
+                // right nieigbor
+                for (int i = 1; i < HotelWidth; i++)
                 {
-                    // right edge
-                    if (!rightSet && AddNeihgbor(area, i, 0, i))
+                    if (AddNeihgbor(area, i, 0, i))
                     {
-                        rightSet = true;
                         continue;
-                    }
-                    //left edge
-                    if (!leftSet && AddNeihgbor(area, -i, 0, i))
+                    }                 
+                }
+                // left neighbor
+                for (int i = 0; i < HotelWidth - 1; i++)
+                {
+                    if (AddNeihgbor(area, -i, 0, i))
                     {
-                        leftSet = true;
                         continue;
                     }
                 }
-                if (area.Position.X == 0 || area.Position.X == HotelWidth + 1)
+                if (area.Position.X == 0 || area.Position.X == HotelWidth)
                 {
+                    // keep lift weight in mind needs a rework
+                    int weight = 1;
+
+                    if (area is Staircase)
+                    {
+                        weight = Setting.StairsDuration;
+                    }
+
                     // add top neighbor
-                    AddNeihgbor(area, 0, 1, 1);
+                    AddNeihgbor(area, 0, 1, weight);
                     // add bothem neighbor
-                    AddNeihgbor(area, 0, -1, 1);
+                    AddNeihgbor(area, 0, -1, weight);
                 }
             }
         }
 
         private bool AddNeihgbor(IArea area, int xOffset, int yOffset, int wieght)
         {
-            if (!(HotelAreaList.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)) is null))
+            if (!(HotelAreas.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)) is null))
             {
-                area.Edge.Add(HotelAreaList.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)), wieght);
+                area.Edge.Add(HotelAreas.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)), wieght);
                 return true;
             }
             return false;
@@ -182,6 +234,8 @@ namespace HotelSimulationTheLock
 
         public void Notify(HotelEvent evt)
         {
+
+            // redo event handler
             if (evt.EventType.Equals(HotelEventType.CHECK_IN))
             {
 
@@ -202,7 +256,7 @@ namespace HotelSimulationTheLock
                     request = "no request";
                 }
 
-                IMovableList.Add(new Guest(name, requestInt, new Point(0, HotelHeight + 1)));
+                HotelMovables.Add(new Guest(name, requestInt, new Point(0, HotelHeight)));
                 //Guest guest = new Guest(name, requestInt, new Point(0, HotelHeight + 1));
 
 
@@ -210,9 +264,30 @@ namespace HotelSimulationTheLock
 
                 Console.WriteLine($"new guest = name: {name}, request: {request} ");
             }
-
         }
+        
+        /// <summary>
+        /// Removes all null values from the hotelarea/hotelmovable list
+        /// </summary>
+        private void RemoveNullValues()
+        {
+            // Preventing null reference errors
 
+            foreach (var area in HotelAreas)
+            {
+                if (area is null)
+                {
+                    HotelAreas.Remove(area);
+                }
+            }
+            foreach (var movable in HotelMovables)
+            {
+                if (movable is null)
+                {
+                    HotelMovables.Remove(movable);
+                }
+            }
+        }
 
     }
 }
