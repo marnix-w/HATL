@@ -36,6 +36,7 @@ namespace HotelSimulationTheLock
             t.Start();
 
             Areas = Hotel.DrawHotel();
+            Movables = Hotel.DrawMovables();
 
             HotelBackground = new PictureBox
             {
@@ -61,9 +62,6 @@ namespace HotelSimulationTheLock
             _guestStatus.Text = "";
             //maid overview
             _maidStatus.Text = "";
-
-            // Fix this!
-            #region
 
             // Causes errors with current version
             // list is not lockeable 
@@ -92,17 +90,16 @@ namespace HotelSimulationTheLock
                 Debug.WriteLine("Jasper fix je stats shit");
             }
 
+            // Disposing the movable bitmap to prevent memory leaking
+            // https://blogs.msdn.microsoft.com/davidklinems/2005/11/16/three-common-causes-of-memory-leaks-in-managed-applications/
+            Areas.Dispose();
 
-
-            #endregion
 
             Areas = Hotel.DrawHotel();
             Movables = Hotel.DrawMovables();
 
             HotelBackground.Image = GetHotelMap();
 
-            // Disposing the movable bitmap to prevent memory leaking
-            // https://blogs.msdn.microsoft.com/davidklinems/2005/11/16/three-common-causes-of-memory-leaks-in-managed-applications/
             Movables.Dispose();
             
         }

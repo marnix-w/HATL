@@ -270,14 +270,13 @@ namespace HotelSimulationTheLock
                 }
                 else
                 {
-                    name = "test guest";
-                    request = "no request";
+                    return;
                 }
 
                 Guest guest = new Guest(name, requestInt, new Point(0, HotelHeight));
 
                 guest.Area = HotelAreas.Find(X => X.Position == new Point(0, HotelHeight));
-                guest.SetPath(HotelAreas.Find(X => X is Reception));
+                guest.SetPath(HotelAreas.Find(X => X.Position == new Point(7,HotelHeight)));
 
                 HotelMovables.Add(guest);
                
