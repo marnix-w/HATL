@@ -61,9 +61,11 @@
     <Compile Include="Areas\Room.cs" />
     <Compile Include="Areas\Staircase.cs" />
     <Compile Include="Factories\AreaFactory.cs" />
+    <Compile Include="Interfaces\IHotelBuilder.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Model\Dijkstra.cs" />
     <Compile Include="Model\Hotel.cs" />
+    <Compile Include="Model\JsonHotelBuilder.cs" />
     <Compile Include="Model\JsonModel.cs" />
     <Compile Include="Model\SettingsModel.cs" />
     <Compile Include="Movable\Guest.cs" />

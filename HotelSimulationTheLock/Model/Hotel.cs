@@ -14,7 +14,7 @@ namespace HotelSimulationTheLock
         public List<IArea> HotelAreas { get; set; } = new List<IArea>();
         // Make private 
         public List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
-
+        public IHotelBuilder HotelBuilder { get; set; }
         private SettingsModel Setting { get; set; }
 
         // Hotel dimensions for calcuations
@@ -27,14 +27,25 @@ namespace HotelSimulationTheLock
             // making it posible to keep the list private
             HotelEventManager.Register(this);
 
+            HotelBuilder = new JsonHotelBuilder();
+
             // Set settings file
             Setting = settings;
 
             // Build the hotel
-            BuildHotel(layout);
+            HotelAreas = HotelBuilder.BuildHotel(layout, settings);
 
+            HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
+            HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
+            
             // Right?
             HotelEventManager.HTE_Factor = 1 / Setting.HTEPerSeconds;
+
+            // Set Amount of maids
+            for (int i = 0; i < Setting.AmountOfMaids; i++)
+            {
+                HotelMovables.Add(new Maid(new Point(4, HotelHeight)));
+            }
 
             // Methods for final initialization
             RemoveNullValues();
@@ -193,10 +204,12 @@ namespace HotelSimulationTheLock
                     return;
                 }
 
-                Guest guest = new Guest(name, requestInt, new Point(0, HotelHeight));
+                Guest guest = new Guest(name, requestInt, new Point(0, HotelHeight))
+                {
+                    Area = HotelAreas.Find(X => X.Position == new Point(0, HotelHeight))
+                };
 
-                guest.Area = HotelAreas.Find(X => X.Position == new Point(0, HotelHeight));
-                guest.SetPath(HotelAreas.Find(X => X.Position == new Point(7,HotelHeight)));
+                guest.SetPath(HotelAreas.Find(X => X is Reception));
 
                 HotelMovables.Add(guest);
                
@@ -208,14 +221,7 @@ namespace HotelSimulationTheLock
         /// </summary>
         private void RemoveNullValues()
         {
-            // Preventing null reference errors
-            foreach (var area in HotelAreas)
-            {
-                if (area is null)
-                {
-                    HotelAreas.Remove(area);
-                }
-            }
+            // Preventing null reference errors            
             foreach (var movable in HotelMovables)
             {
                 if (movable is null)
@@ -224,89 +230,5 @@ namespace HotelSimulationTheLock
                 }
             }
         }
-
-        private void BuildHotel(List<JsonModel> layout)
-        {
-            // Create a factory to make the rooms
-            AreaFactory Factory = new AreaFactory();
-
-            // Read out the json and add rooms to the layout
-            foreach (JsonModel i in layout)
-            {
-                int clasifactionNum = 0;
-
-                if (i.Classification != null)
-                {
-                    clasifactionNum = int.Parse(Regex.Match(i.Classification, @"\d+").Value);
-                }
-
-                IArea area = Factory.GetArea(i.AreaType);
-                area.SetJsonValues(i.Position, i.Capacity, i.Dimension, clasifactionNum);
-                HotelAreas.Add(area);
-            }
-
-            HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X + 1;
-            HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y + 1;
-
-            // Set elevator and staircase
-            for (int i = 1; i < HotelHeight + 1; i++)
-            {
-                // 5 is the capacity get from setting screen
-                IArea elevator = Factory.GetArea("Elevator");
-                IArea staircase = Factory.GetArea("Staircase");
-
-                elevator.SetJsonValues(new Point(0, i), Setting.ElevatorCapicity, new Size(1, 1), i);
-                staircase.SetJsonValues(new Point(HotelWidth, i), 5, new Size(1, 1), 0);
-
-                HotelAreas.Add(elevator);
-                HotelAreas.Add(staircase);
-            }
-
-            // Set reception and lobby
-            for (int i = 1; i < HotelWidth; i++)
-            {
-                if (i == 1)
-                {
-                    IArea reception = Factory.GetArea("Reception");
-
-                    reception.SetJsonValues(new Point(1, HotelHeight), 5, new Size(1, 1), 1);
-
-                    HotelAreas.Add(reception);
-                }
-                else
-                {
-                    IArea Lobby = Factory.GetArea("Lobby");
-
-                    Lobby.SetJsonValues(new Point(i, HotelHeight), 5, new Size(1, 1), i);
-
-                    HotelAreas.Add(Lobby);
-                }
-            }
-
-            // Set Amount of maids
-            for (int i = 0; i < Setting.AmountOfMaids; i++)
-            {
-                HotelMovables.Add(new Maid(new Point(4, HotelHeight)));
-            }
-
-            // Set settings for cinema
-            foreach (Cinema cinema in HotelAreas.Where(X => X is Cinema))
-            {
-                cinema.Duration = Setting.CinemaDuration;
-            }
-
-            // Set settigns for fitness
-            foreach (Fitness fitness in HotelAreas.Where(X => X is Fitness))
-            {
-                fitness.Capacity = Setting.FitnessCapicity;
-            }
-
-            // Set settings for restaurant
-            foreach (Restaurant restaurant in HotelAreas.Where(X => X is Restaurant))
-            {
-                restaurant.Capacity = Setting.RestaurantCapicity;
-            }
-        }
-
     }
 }
