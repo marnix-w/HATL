@@ -13,20 +13,20 @@ namespace HotelSimulationTheLock
         public Hotel Hotel { get; set; }
         public int UnitTestvalue { get; set; }
         public List<JsonModel> HotelLayout { get; set; }
-        
+
         // Drawing properties
-        private PictureBox HotelBackground { get; set; }       
+        private PictureBox HotelBackground { get; set; }
         private Bitmap Movables { get; set; }
         private Bitmap Areas { get; set; }
         public static int RoomArtSize { get; } = 96;
-        
+
         public Simulation(List<JsonModel> layout, SettingsModel Settings)
         {
             // 0.5f should be a varible in the settings data set
             Hotel = new Hotel(layout, Settings);
             HotelLayout = layout;
             HotelEventManager.HTE_Factor = 0.5f;
-            
+
             // Does this timer work corectly with the HTE factor? -marnix
             System.Windows.Forms.Timer t = new System.Windows.Forms.Timer
             {
@@ -51,7 +51,9 @@ namespace HotelSimulationTheLock
 
             // Last methods for setup
             InitializeComponent();
-            _fillRichTextBox();           
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
+
+            _fillRichTextBox();
         }
 
         void Timer_Tick(object sender, EventArgs e)
@@ -59,9 +61,10 @@ namespace HotelSimulationTheLock
             Hotel.PerformAllActions();
 
             //guest overview
-            _guestStatus.Text = "";
+            guestTB.Clear();
+
             //maid overview
-            _maidStatus.Text = "";
+            maidTB.Clear();
 
             // Causes errors with current version
             // list is not lockeable 
@@ -73,14 +76,13 @@ namespace HotelSimulationTheLock
                 {
                     if (g is Guest t)
                     {
-                        _guestStatus.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
-                        _guestStatus.Text += "\n";
-
+                        guestTB.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
+                        guestTB.Text += Environment.NewLine;
                     }
                     if (g is Maid m)
                     {
-                        _maidStatus.Text += "Maid \t" + m.Status + "\t" + m.Position;
-                        _maidStatus.Text += "\n";
+                        maidTB.Text += "Maid \t" + m.Status + "\t" + m.Position;
+                        maidTB.Text += Environment.NewLine;
                     }
                 }
             }
@@ -88,7 +90,7 @@ namespace HotelSimulationTheLock
             {
 
                 Debug.WriteLine("Jasper fix je stats shit");
-            }
+            }  
 
             // Disposing the movable bitmap to prevent memory leaking
             // https://blogs.msdn.microsoft.com/davidklinems/2005/11/16/three-common-causes-of-memory-leaks-in-managed-applications/
@@ -101,7 +103,6 @@ namespace HotelSimulationTheLock
             HotelBackground.Image = GetHotelMap();
 
             Movables.Dispose();
-            
         }
 
 
@@ -127,25 +128,26 @@ namespace HotelSimulationTheLock
                 {
 
                     case "Room":
-                        _roomsStatus.Text += ((Room)i).Classification + " Star " + type + "\t" +  i.AreaStatus + "\t " + ((Room)i).Position;
-                        _roomsStatus.Text += "\n";
-                        break;
-                    case "Restaurant":
-                        _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                        _fitnessStatus.Text += "\n";
+                        roomTB.Text += ((Room)i).Classification + " Star " + type + "\t" + i.AreaStatus + "\t " + ((Room)i).Position;
+                        roomTB.Text += Environment.NewLine;                      
                         break;
                     case "Fitness":
-                        _fitnessStatus.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                        _fitnessStatus.Text += "\n";
+                        fitnessTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
+                        fitnessTB.Text += Environment.NewLine;
+                        break;
+                    case "Restaurant":
+                        restaurantTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
+                        restaurantTB.Text += Environment.NewLine;
                         break;
                     default:
                         break;
                 }
-               
+
+
             }
 
-            
+
         }
-        
+
     }
 }

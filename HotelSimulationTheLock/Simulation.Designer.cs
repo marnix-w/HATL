@@ -28,65 +28,81 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this._roomsStatus = new System.Windows.Forms.RichTextBox();
-            this._maidStatus = new System.Windows.Forms.RichTextBox();
-            this._guestStatus = new System.Windows.Forms.RichTextBox();
-            this._fitnessStatus = new System.Windows.Forms.RichTextBox();
+            this.restaurantTB = new System.Windows.Forms.TextBox();
+            this.roomTB = new System.Windows.Forms.TextBox();
+            this.fitnessTB = new System.Windows.Forms.TextBox();
+            this.guestTB = new System.Windows.Forms.TextBox();
+            this.maidTB = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // _roomsStatus
+            // restaurantTB
             // 
-            this._roomsStatus.Location = new System.Drawing.Point(1233, 98);
-            this._roomsStatus.Name = "_roomsStatus";
-            this._roomsStatus.Size = new System.Drawing.Size(224, 399);
-            this._roomsStatus.TabIndex = 0;
-            this._roomsStatus.Text = "";
+            this.restaurantTB.Location = new System.Drawing.Point(1324, 293);
+            this.restaurantTB.Multiline = true;
+            this.restaurantTB.Name = "restaurantTB";
+            this.restaurantTB.ReadOnly = true;
+            this.restaurantTB.Size = new System.Drawing.Size(194, 275);
+            this.restaurantTB.TabIndex = 5;
             // 
-            // _maidStatus
+            // roomTB
             // 
-            this._maidStatus.Location = new System.Drawing.Point(951, 523);
-            this._maidStatus.Name = "_maidStatus";
-            this._maidStatus.Size = new System.Drawing.Size(184, 245);
-            this._maidStatus.TabIndex = 1;
-            this._maidStatus.Text = "";
+            this.roomTB.Location = new System.Drawing.Point(1301, 12);
+            this.roomTB.Multiline = true;
+            this.roomTB.Name = "roomTB";
+            this.roomTB.ReadOnly = true;
+            this.roomTB.Size = new System.Drawing.Size(217, 275);
+            this.roomTB.TabIndex = 6;
             // 
-            // _guestStatus
+            // fitnessTB
             // 
-            this._guestStatus.Location = new System.Drawing.Point(950, 98);
-            this._guestStatus.Name = "_guestStatus";
-            this._guestStatus.Size = new System.Drawing.Size(242, 399);
-            this._guestStatus.TabIndex = 2;
-            this._guestStatus.Text = "";
+            this.fitnessTB.Location = new System.Drawing.Point(924, 293);
+            this.fitnessTB.Multiline = true;
+            this.fitnessTB.Name = "fitnessTB";
+            this.fitnessTB.ReadOnly = true;
+            this.fitnessTB.Size = new System.Drawing.Size(194, 275);
+            this.fitnessTB.TabIndex = 7;
             // 
-            // _fitnessStatus
+            // guestTB
             // 
-            this._fitnessStatus.Location = new System.Drawing.Point(1150, 523);
-            this._fitnessStatus.Name = "_fitnessStatus";
-            this._fitnessStatus.Size = new System.Drawing.Size(183, 245);
-            this._fitnessStatus.TabIndex = 4;
-            this._fitnessStatus.Text = "";
+            this.guestTB.Location = new System.Drawing.Point(1063, 12);
+            this.guestTB.Multiline = true;
+            this.guestTB.Name = "guestTB";
+            this.guestTB.ReadOnly = true;
+            this.guestTB.Size = new System.Drawing.Size(232, 275);
+            this.guestTB.TabIndex = 8;
+            // 
+            // maidTB
+            // 
+            this.maidTB.Location = new System.Drawing.Point(1124, 293);
+            this.maidTB.Multiline = true;
+            this.maidTB.Name = "maidTB";
+            this.maidTB.ReadOnly = true;
+            this.maidTB.Size = new System.Drawing.Size(194, 275);
+            this.maidTB.TabIndex = 9;
             // 
             // Simulation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1530, 845);
-            this.Controls.Add(this._fitnessStatus);
-            this.Controls.Add(this._guestStatus);
-            this.Controls.Add(this._maidStatus);
-            this.Controls.Add(this._roomsStatus);
+            this.Controls.Add(this.maidTB);
+            this.Controls.Add(this.guestTB);
+            this.Controls.Add(this.fitnessTB);
+            this.Controls.Add(this.roomTB);
+            this.Controls.Add(this.restaurantTB);
             this.Name = "Simulation";
             this.Text = "Simulation";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.RichTextBox _roomsStatus;
-        private System.Windows.Forms.RichTextBox _maidStatus;
-        private System.Windows.Forms.RichTextBox _guestStatus;
-        private System.Windows.Forms.RichTextBox _fitnessStatus;
+        private System.Windows.Forms.TextBox restaurantTB;
+        private System.Windows.Forms.TextBox roomTB;
+        private System.Windows.Forms.TextBox fitnessTB;
+        private System.Windows.Forms.TextBox guestTB;
+        private System.Windows.Forms.TextBox maidTB;
     }
 }
