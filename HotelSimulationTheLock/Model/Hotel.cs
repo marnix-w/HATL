@@ -30,7 +30,7 @@ namespace HotelSimulationTheLock
 
             // Build the hotel
             HotelAreas = HotelBuilder.BuildHotel(layout, settings);
-            HotelMovables = HotelBuilder.BuildMovable(settings);
+            HotelMovables = HotelBuilder.BuildMovable(settings, this);
 
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
@@ -68,7 +68,7 @@ namespace HotelSimulationTheLock
 
             IArea guestRoom = null;
 
-            foreach (Room area in HotelAreas)
+            foreach (Room area in HotelAreas.Where(X => X is Room))
             {
                 if (area.AreaStatus == AreaStatus.EMPTY && area.Classification == request)
                 {

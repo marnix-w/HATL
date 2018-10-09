@@ -156,7 +156,7 @@ namespace HotelSimulationTheLock
 
         }
         
-        public List<IMovable> BuildMovable(SettingsModel settings)
+        public List<IMovable> BuildMovable(SettingsModel settings, Hotel hotel)
         {
             List<IMovable> movables = new List<IMovable>();
 
@@ -165,7 +165,7 @@ namespace HotelSimulationTheLock
                 movables.Add(new Maid(new Point(4, HotelHeight)));
             }
 
-            movables.Add(new Receptionist(new Point(1, HotelHeight)));
+            movables.Add(new Receptionist(new Point(1, HotelHeight), hotel));
 
             foreach (var movable in movables)
             {
