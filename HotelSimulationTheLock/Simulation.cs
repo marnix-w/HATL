@@ -27,7 +27,7 @@ namespace HotelSimulationTheLock
             HotelEventManager.HTE_Factor = 0.5f;
 
             // Does this timer work corectly with the HTE factor? -marnix
-            t = new Timer
+            Timer t = new Timer
             {
                 Interval = 500 // specify interval time as you want
             };
