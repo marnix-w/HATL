@@ -195,7 +195,7 @@ namespace HotelSimulationTheLock
 
                 Guest guest = new Guest(name, requestInt, new Point(0, HotelHeight));
 
-                guest.Area = HotelAreas.Find(X => X.Position == new Point(0, HotelHeight));
+                guest.Area = HotelAreas.Find(X => X.Position == new Point(5, HotelHeight));
                 guest.SetPath(HotelAreas.Find(X => X.Position == new Point(7,HotelHeight)));
 
                 HotelMovables.Add(guest);
