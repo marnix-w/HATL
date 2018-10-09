@@ -22,6 +22,7 @@ namespace HotelSimulationTheLock
         public IArea Area { get; set; }
 
         public Queue<IArea> Path { get; set; }
+        public Dictionary<MovableStatus, Action> Actions { get; set; } = new Dictionary<MovableStatus, Action>();
 
         Random rnd = new Random();
 
@@ -31,13 +32,16 @@ namespace HotelSimulationTheLock
             RoomRequest = roomRequest;
             Position = point;          
             FitnessDuration = rnd.Next(0, 11);
+
+            Actions.Add(MovableStatus.IN_HOTEL, MoveFromPath);
+            Actions.Add(MovableStatus.IN_ROOM, null);
         }
 
         public void SetPath(IArea destination)
         {
-            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijikstra(Area, destination));           
+            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijikstra(Area, destination));    
         }
-
+        
         public void MoveFromPath()
         {           
             if (Path.Any())
@@ -59,13 +63,18 @@ namespace HotelSimulationTheLock
 
                 }
                 // else kill the person after 20 itterations or so
-            }
+            }            
             else if (Area is Reception)
             {
                 SetPath(((Receptionist)Area.Movables.First()).GiveThisGuestHesRoom(RoomRequest));
                 Path.Last().AreaStatus = AreaStatus.OCCUPIED;
                 IArea error = Path.Dequeue();
             }
+            else
+            {
+                Status = MovableStatus.IN_ROOM;
+            }
+            
         }
 
         public void Notify(HotelEvent evt)
@@ -97,7 +106,10 @@ namespace HotelSimulationTheLock
 
         public void PerformAction()
         {
-            MoveFromPath();
+            if (!(Actions[Status] == null))
+            {
+                Actions[Status]();
+            }            
         }
     }
 }

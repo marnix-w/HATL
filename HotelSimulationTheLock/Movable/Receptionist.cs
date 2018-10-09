@@ -17,6 +17,7 @@ namespace HotelSimulationTheLock
         public IArea Area { get; set; }
 
         private Hotel Hotel { get; set; }
+        public Dictionary<MovableStatus, Action> Actions { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Receptionist(Point position, Hotel hotel)
         {

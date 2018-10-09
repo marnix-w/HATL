@@ -8,9 +8,10 @@ using System.Windows.Forms;
 
 namespace HotelSimulationTheLock
 {
+   
     public enum MovableStatus
     {
-        LOBBY,
+        IN_HOTEL,
         IN_ROOM,
         EATING,
         WORKING_OUT,
@@ -28,6 +29,7 @@ namespace HotelSimulationTheLock
         Point Position { get; set; }
         Bitmap Art { get; set; }
         MovableStatus Status { get; set; }
+        Dictionary<MovableStatus, Action> Actions { get; set; }
 
         void PerformAction();
 
