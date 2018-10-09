@@ -79,13 +79,15 @@ namespace HotelSimulationTheLock_UnitTests
             StartupScreen test_startupscreen;           
             string test_path;
             Simulation test_simulation;
+            SettingsModel test_settings;
 
             //act       
             test_startupscreen = new StartupScreen();
+            test_settings = new SettingsModel();
             test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout");
             test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
 
-            test_simulation = new Simulation(test_startupscreen.layout, null);
+            test_simulation = new Simulation(test_startupscreen.layout, test_settings);
             test_simulation.HotelLayout = test_startupscreen.layout;
             //assert
             Assert.AreEqual(test_startupscreen.layout, test_simulation.HotelLayout);

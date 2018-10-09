@@ -18,7 +18,8 @@ namespace HotelSimulationTheLock
 
         // private string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel.layout");
         public string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel_reparatie.layout");
-        public List<JsonModel> layout;
+        public List<JsonModel> layout { get; set; }
+        public SettingsModel settings { get; set; }
         //global hte settings
         private string _hte_per_sec = "Amount HTE ticks per second ";
 
@@ -69,7 +70,7 @@ namespace HotelSimulationTheLock
                 layout = ReadLayoutJson(_path);
             }
 
-            SettingsModel settings = new SettingsModel
+            settings = new SettingsModel
             {
                 AmountOfMaids = maid_TB.Value,
                 ElevatorDuration = elevator_hte_TB.Value,
