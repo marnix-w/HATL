@@ -42,11 +42,11 @@ namespace HotelSimulationTheLock
         public void MoveFromPath()
         {
             if (Path.Any())
-            {
-                IArea destanation = Path.Dequeue();
-
-                if (destanation.MoveToArea())
+            {              
+                if (Path.First().MoveToArea())
                 {
+                    IArea destanation = Path.Dequeue();
+
                     // remove old position
                     Area.Movables.Remove(this);
 
