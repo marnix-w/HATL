@@ -11,7 +11,7 @@ namespace HotelSimulationTheLock
 {
     public class Guest : IMovable, HotelEventListener
     {
-        public Random rng = new Random();
+        
         public Point Position { get; set; }
         public Bitmap Art { get; set; } = Properties.Resources.customer;
         public MovableStatus Status { get; set; }

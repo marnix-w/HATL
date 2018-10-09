@@ -12,13 +12,13 @@ namespace HotelSimulationTheLock
     public class Receptionist : IMovable, HotelEventListener
     {
         public Point Position { get; set; }
-        public Bitmap Art { get; set; }
+        public Bitmap Art { get; set; } = Properties.Resources.receptionist;
         public MovableStatus Status { get; set; }
         public IArea Area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public Receptionist()
+        public Receptionist(Point position)
         {
-            
+            Position = position;
         }
 
         public void Notify(HotelEvent evt)
