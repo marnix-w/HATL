@@ -72,7 +72,7 @@ namespace HotelSimulationTheLock
 
             foreach (Room area in HotelAreas.Where(X => X is Room))
             {
-                if (area.AreaStatus == AreaStatus.EMPTY && area.Classification == request)
+                if (area.AreaStatus.Equals(AreaStatus.EMPTY) && area.Classification == request)
                 {
                     if (Dijkstra.GetShortestPathDijikstra(HotelAreas.Find(X => X is Reception), area).Count < CurretnShortest.Count)
                     {                       
@@ -80,8 +80,16 @@ namespace HotelSimulationTheLock
                     }
                 }
             }
+            try
+            {
+                HotelAreas.Find(X => X == guestRoom).AreaStatus = AreaStatus.OCCUPIED;
+            }
+            catch
+            {
+                Console.WriteLine("Room couldnt be found or set to occupied");
+            }
+           
 
-            
             //this room needs to be casted to the guest
             return guestRoom;
         }

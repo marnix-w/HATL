@@ -46,11 +46,11 @@
             // 
             // roomTB
             // 
-            this.roomTB.Location = new System.Drawing.Point(1301, 12);
+            this.roomTB.Location = new System.Drawing.Point(1177, 12);
             this.roomTB.Multiline = true;
             this.roomTB.Name = "roomTB";
             this.roomTB.ReadOnly = true;
-            this.roomTB.Size = new System.Drawing.Size(217, 275);
+            this.roomTB.Size = new System.Drawing.Size(341, 275);
             this.roomTB.TabIndex = 6;
             // 
             // fitnessTB
@@ -64,7 +64,7 @@
             // 
             // guestTB
             // 
-            this.guestTB.Location = new System.Drawing.Point(1063, 12);
+            this.guestTB.Location = new System.Drawing.Point(924, 12);
             this.guestTB.Multiline = true;
             this.guestTB.Name = "guestTB";
             this.guestTB.ReadOnly = true;

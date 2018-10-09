@@ -51,13 +51,74 @@ namespace HotelSimulationTheLock
             InitializeComponent();
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
 
-            _fillRichTextBox();
+         
         }
 
         void Timer_Tick(object sender, EventArgs e)
         {
-            Hotel.PerformAllActions();
+            Hotel.PerformAllActions();      
 
+            //every timer tick we refresh the facillity layout
+            _fillFacillityTB();
+
+            //every timer tick we refresh the moveable layout
+            _fillMoveAbleTB();
+
+            // Disposing the movable bitmap to prevent memory leaking
+            // https://blogs.msdn.microsoft.com/davidklinems/2005/11/16/three-common-causes-of-memory-leaks-in-managed-applications/
+            HotelImage.Dispose();
+            HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
+            HotelBackground.Image = HotelImage;
+
+            
+        }
+        
+
+        //Overview of hotel facilities
+        private void _fillFacillityTB()
+        {
+            //room overview
+            roomTB.Clear();
+            //fintess overview
+            fitnessTB.Clear();
+            //restaurant
+            restaurantTB.Clear();
+
+            try
+            {
+                foreach (IArea i in Hotel.HotelAreas)
+                {
+                    string type = i.GetType().ToString().Replace("HotelSimulationTheLock.", "");
+
+                    switch (type)
+                    {
+
+                        case "Room":
+                            roomTB.Text += ((Room)i).Classification + " Star " + type + "\t" + i.AreaStatus + "\t" + ((Room)i).Position;
+                            roomTB.Text += Environment.NewLine;
+                            break;
+                        case "Fitness":
+                            fitnessTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
+                            fitnessTB.Text += Environment.NewLine;
+                            break;
+                        case "Restaurant":
+                            restaurantTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
+                            restaurantTB.Text += Environment.NewLine;
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Marnix fix je stats shit");
+            }
+        }
+
+        private void _fillMoveAbleTB()
+        {
             //guest overview
             guestTB.Clear();
 
@@ -89,49 +150,6 @@ namespace HotelSimulationTheLock
 
                 Debug.WriteLine("Jasper fix je stats shit");
             }
-
-            // Disposing the movable bitmap to prevent memory leaking
-            // https://blogs.msdn.microsoft.com/davidklinems/2005/11/16/three-common-causes-of-memory-leaks-in-managed-applications/
-            HotelImage.Dispose();
-            HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
-            HotelBackground.Image = HotelImage;
-
-            
-        }
-
-
-        
-
-        //Overview of hotel facilities
-        private void _fillRichTextBox()
-        {
-            foreach (IArea i in Hotel.HotelAreas)
-            {
-                string type = i.GetType().ToString().Replace("HotelSimulationTheLock.", "");
-
-                switch (type)
-                {
-
-                    case "Room":
-                        roomTB.Text += ((Room)i).Classification + " Star " + type + "\t" + i.AreaStatus + "\t " + ((Room)i).Position;
-                        roomTB.Text += Environment.NewLine;                      
-                        break;
-                    case "Fitness":
-                        fitnessTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                        fitnessTB.Text += Environment.NewLine;
-                        break;
-                    case "Restaurant":
-                        restaurantTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                        restaurantTB.Text += Environment.NewLine;
-                        break;
-                    default:
-                        break;
-                }
-
-
-            }
-
-
         }
 
     }
