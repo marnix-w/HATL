@@ -39,11 +39,7 @@ namespace HotelSimulationTheLock
         }
 
         public void MoveFromPath()
-        {
-            if(Area is Reception)
-            {              
-                SetPath(((Receptionist)Area.Movables.First()).GiveThisGuestHesRoom(RoomRequest));
-            }
+        {           
             if (Path.Any())
             {              
                 if (Path.First().MoveToArea())
@@ -63,7 +59,13 @@ namespace HotelSimulationTheLock
 
                 }
                 // else kill the person after 20 itterations or so
-            }   
+            }
+            else if (Area is Reception)
+            {
+                SetPath(((Receptionist)Area.Movables.First()).GiveThisGuestHesRoom(RoomRequest));
+                Path.Last().AreaStatus = AreaStatus.OCCUPIED;
+                IArea error = Path.Dequeue();
+            }
         }
 
         public void Notify(HotelEvent evt)

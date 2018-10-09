@@ -55,33 +55,33 @@ namespace HotelSimulationTheLock
         
         public void PerformAllActions()
         {
-            foreach (var item in HotelMovables)
+            lock (HotelMovables)
             {
-                item.PerformAction();
+                foreach (var item in HotelMovables)
+                {
+                    item.PerformAction();
+                }
             }
-
         }
 
         public IArea GetRoom(int request)
         {
             List<IArea> CurretnShortest = HotelAreas;
 
-            IArea guestRoom = null;
+            IArea guestRoom = new Lobby();
 
             foreach (Room area in HotelAreas.Where(X => X is Room))
             {
                 if (area.AreaStatus == AreaStatus.EMPTY && area.Classification == request)
                 {
                     if (Dijkstra.GetShortestPathDijikstra(HotelAreas.Find(X => X is Reception), area).Count < CurretnShortest.Count)
-                    {
-                        guestRoom = area;
+                    {                       
+                        guestRoom = area;                       
                     }
                 }
             }
 
-            //if the room has been found we set the Status to occupied
-          //  HotelAreas.Find(X => X == guestRoom).AreaStatus = AreaStatus.OCCUPIED;
-
+            
             //this room needs to be casted to the guest
             return guestRoom;
         }
@@ -114,7 +114,7 @@ namespace HotelSimulationTheLock
 
 
                 guest.Area = HotelAreas.Find(X => X.Position == guest.Position);
-                guest.SetPath(HotelAreas.Find(X => X.Position == new Point(7,HotelHeight)));
+                guest.SetPath(HotelAreas.Find(X => X.Position == new Point(1,HotelHeight)));
 
                 guest.SetPath(HotelAreas.Find(X => X is Reception));
 

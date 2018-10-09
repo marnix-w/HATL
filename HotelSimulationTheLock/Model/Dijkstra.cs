@@ -20,7 +20,7 @@ namespace HotelSimulationTheLock
 
         public static List<IArea> GetShortestPathDijikstra(IArea from, IArea to)
         {
-
+            
             SetDijkstraSearchValues(from, to);
 
             var shortestPath = new List<IArea>
@@ -31,7 +31,6 @@ namespace HotelSimulationTheLock
             BuildShortestPath(shortestPath, to);
             shortestPath.Reverse();
             Hotel.RemoveSearchProperties();
-
             return shortestPath;
         }
 
