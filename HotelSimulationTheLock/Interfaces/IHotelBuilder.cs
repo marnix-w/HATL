@@ -10,6 +10,6 @@ namespace HotelSimulationTheLock
     {
         List<IArea> BuildHotel<T>(T file, SettingsModel settings);
 
-        List<IMovable> BuildMovable(SettingsModel settings);
+        List<IMovable> BuildMovable(SettingsModel settings, Hotel hotel);
     }
 }

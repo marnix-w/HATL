@@ -23,15 +23,14 @@ namespace HotelSimulationTheLock
 
         public Queue<IArea> Path { get; set; }
 
+        Random rnd = new Random();
+
         public Guest(string name, int roomRequest, Point point)
         {
             Name = name;
             RoomRequest = roomRequest;
-            Position = point;
-
-            // Generates random number for the duration of this guests fitness event
-            Random rnd = new Random();
-            FitnessDuration = rnd.Next(1, 11);
+            Position = point;          
+            FitnessDuration = rnd.Next(0, 11);
         }
 
         public void SetPath(IArea destination)
@@ -40,23 +39,33 @@ namespace HotelSimulationTheLock
         }
 
         public void MoveFromPath()
-        {
+        {           
             if (Path.Any())
             {              
                 if (Path.First().MoveToArea())
                 {
-                    IArea destanation = Path.Dequeue();
+                    IArea destination = Path.Dequeue();
 
                     // remove old position
                     Area.Movables.Remove(this);
 
                     // add to new position
-                    Area = destanation;
-                    Position = destanation.Position;
+                    Area = destination;
+                    Position = destination.Position;
                     Area.Movables.Add(this);
                 }
+                else
+                {
+
+                }
                 // else kill the person after 20 itterations or so
-            }   
+            }
+            else if (Area is Reception)
+            {
+                SetPath(((Receptionist)Area.Movables.First()).GiveThisGuestHesRoom(RoomRequest));
+                Path.Last().AreaStatus = AreaStatus.OCCUPIED;
+                IArea error = Path.Dequeue();
+            }
         }
 
         public void Notify(HotelEvent evt)
