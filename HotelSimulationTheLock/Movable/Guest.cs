@@ -20,6 +20,7 @@ namespace HotelSimulationTheLock
         public string Name { get; set; }
         public int RoomRequest { get; set; }
         public IArea Area { get; set; }
+        public IArea MyRoom { get; set; }
 
         public Queue<IArea> Path { get; set; }
         public Dictionary<MovableStatus, Action> Actions { get; set; } = new Dictionary<MovableStatus, Action>();
@@ -33,17 +34,22 @@ namespace HotelSimulationTheLock
             Position = point;
             FitnessDuration = rnd.Next(0, 11);
 
-            Actions.Add(MovableStatus.IN_HOTEL, MoveFromPath);
+            Actions.Add(MovableStatus.CHEKING_IN, MoveFromPath);
+            Actions.Add(MovableStatus.GOING_TO_ROOM, GoingToRoom);
+
             Actions.Add(MovableStatus.IN_ROOM, null);
         }
+
 
         public void SetPath(IArea destination)
         {
             Path = new Queue<IArea>(Dijkstra.GetShortestPathDijikstra(Area, destination));
         }
 
-        public void MoveFromPath()
-        {
+        // Actions list
+        private void MoveFromPath()
+        {          
+
             if (Path.Any())
             {
                 if (Path.First().MoveToArea())
@@ -76,8 +82,40 @@ namespace HotelSimulationTheLock
                     SetPath(((Receptionist)Area.Movables.First()).GiveThisGuestHesRoom(RoomRequest));
                     Path.Last().AreaStatus = AreaStatus.OCCUPIED;
                     IArea error = Path.Dequeue();
+                    MyRoom = Path.Last();
+                    Status = MovableStatus.GOING_TO_ROOM;
+                }      
+                
+            }
+            
+        }
+
+        private void GoingToRoom()
+        {
+           
+            if (Path.Any())
+            {
+                if (Path.First().MoveToArea())
+                {
+                    IArea destination = Path.Dequeue();
+
+                    // remove old position
+                    Area.Movables.Remove(this);
+
+                    // add to new position
+                    Area = destination;
+                    Position = destination.Position;
+                    Area.Movables.Add(this);
                 }
-             
+                else
+                {
+
+                }
+                // else kill the person after 20 itterations or so
+            }
+            else if (!(Area == MyRoom))
+            {
+                SetPath(MyRoom);
             }
             else
             {
@@ -120,5 +158,7 @@ namespace HotelSimulationTheLock
                 Actions[Status]();
             }
         }
+      
+ 
     }
 }

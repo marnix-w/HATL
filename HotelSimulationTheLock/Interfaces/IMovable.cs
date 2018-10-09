@@ -11,6 +11,7 @@ namespace HotelSimulationTheLock
    
     public enum MovableStatus
     {
+        CHEKING_IN,
         IN_HOTEL,
         IN_ROOM,
         EATING,
