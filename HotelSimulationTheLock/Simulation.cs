@@ -27,7 +27,7 @@ namespace HotelSimulationTheLock
             HotelEventManager.HTE_Factor = 0.5f;
 
             // Does this timer work corectly with the HTE factor? -marnix
-            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer
+            Timer t = new Timer
             {
                 Interval = 500 // specify interval time as you want
             };

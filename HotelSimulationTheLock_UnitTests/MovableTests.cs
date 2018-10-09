@@ -19,7 +19,7 @@ namespace HotelSimulationTheLock_UnitTests
             IMovable CoolBob;
 
             //act
-            CoolBob = new Receptionist(new System.Drawing.Point(0,0));
+            CoolBob = new Receptionist(new System.Drawing.Point(0,0), null);
 
             //assert
             Assert.IsInstanceOfType(CoolBob, typeof(Receptionist));
