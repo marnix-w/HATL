@@ -88,19 +88,19 @@ namespace HotelSimulationTheLock
             }
             
             // Set settings for cinema
-            foreach (Cinema cinema in hotelAreas)
+            foreach (Cinema cinema in hotelAreas.Where(X => X is Cinema))
             {
                 cinema.Duration = settings.CinemaDuration;
             }
 
             // Set settigns for fitness
-            foreach (Fitness fitness in hotelAreas)
+            foreach (Fitness fitness in hotelAreas.Where(X => X is Fitness))
             {
                 fitness.Capacity = settings.FitnessCapicity;
             }
 
             // Set settings for restaurant
-            foreach (Restaurant restaurant in hotelAreas)
+            foreach (Restaurant restaurant in hotelAreas.Where(X => X is Restaurant))
             {
                 restaurant.Capacity = settings.RestaurantCapicity;
             }

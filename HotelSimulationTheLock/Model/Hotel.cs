@@ -68,7 +68,7 @@ namespace HotelSimulationTheLock
 
             IArea guestRoom = null;
 
-            foreach (Room area in HotelAreas)
+            foreach (Room area in HotelAreas.Where(X => X is Room))
             {
                 if (area.AreaStatus == AreaStatus.EMPTY && area.Classification == request)
                 {
