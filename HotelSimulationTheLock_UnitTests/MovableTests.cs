@@ -12,7 +12,8 @@ namespace HotelSimulationTheLock_UnitTests
 {
     [TestClass]
     public class MovableTests
-    {
+    {       
+
         [TestMethod]
         public void TestIfMaidLivesAfterCreation()
         {

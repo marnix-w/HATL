@@ -16,6 +16,7 @@ namespace HotelSimulationTheLock
         public MovableStatus Status { get; set; }
         Queue<HotelEvent> CleaningEmergencies { get; set; }
         public IArea Area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Dictionary<MovableStatus, Action> Actions { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Maid(Point startLocation)
         {

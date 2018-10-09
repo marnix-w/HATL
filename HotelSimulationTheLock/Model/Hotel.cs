@@ -14,6 +14,7 @@ namespace HotelSimulationTheLock
         public List<IArea> HotelAreas { get; set; } = new List<IArea>();
         // Make private 
         public List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
+        private List<int> LeavingGuests { get; set; } = new List<int>();
         public IHotelBuilder HotelBuilder { get; set; } = new JsonHotelBuilder();
         public IHotelDrawer HotelDrawer { get; set; } = new BitmapHotelDrawer();
 
@@ -23,7 +24,7 @@ namespace HotelSimulationTheLock
 
         public Hotel(List<JsonModel> layout, SettingsModel settings)
         {
-            // Hotel will handle the ChekIn_events so it can add them to its list
+            // Hotel will handle the CheckIn_events so it can add them to its list
             // making it posible to keep the list private
             HotelEventManager.Register(this);
             
@@ -59,23 +60,38 @@ namespace HotelSimulationTheLock
             {
                 foreach (var item in HotelMovables)
                 {
-                    item.PerformAction();
+                    if (!(item is null))
+                    {
+                        item.PerformAction();
+                    }
+                    
                 }
             }
-        }
 
+            for (int i = 0; i < LeavingGuests.Count; i++)
+            {
+                HotelMovables.RemoveAt(LeavingGuests[i]);
+            }
+
+            LeavingGuests = new List<int>();   
+            
+
+        }
+        
         public IArea GetRoom(int request)
         {
-            List<IArea> CurretnShortest = HotelAreas;
+            List<IArea> CurrentShortest = HotelAreas;
 
-            IArea guestRoom = new Lobby();
+            IArea guestRoom = null;
 
             foreach (Room area in HotelAreas.Where(X => X is Room))
             {
                 if (area.AreaStatus.Equals(AreaStatus.EMPTY) && area.Classification == request)
                 {
-                    if (Dijkstra.GetShortestPathDijikstra(HotelAreas.Find(X => X is Reception), area).Count < CurretnShortest.Count)
-                    {                       
+                    if (Dijkstra.GetShortestPathDijkstra(HotelAreas.Find(X => X is Reception), area).Count < CurrentShortest.Count)
+                    {                     
+                    
+                        CurrentShortest = Dijkstra.GetShortestPathDijkstra(HotelAreas.Find(X => X is Reception), area);
                         guestRoom = area;                       
                     }
                 }
@@ -84,6 +100,11 @@ namespace HotelSimulationTheLock
 
             //this room needs to be casted to the guest
             return guestRoom;
+        }
+
+        public void RemoveGuest(Guest guest)
+        {
+            LeavingGuests.Add(HotelMovables.FindIndex(X => X == guest));   
         }
 
         public void Notify(HotelEvent evt)
