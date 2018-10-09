@@ -24,7 +24,7 @@ namespace HotelSimulationTheLock
             Hotel = hotel;
             Area = hotel.HotelAreas.Find(X => X is Reception);
             Area.Movables.Add(this);
-            
+
         }
 
         public void Notify(HotelEvent evt)
@@ -35,9 +35,21 @@ namespace HotelSimulationTheLock
             }
         }
 
-        public IArea GiveThisGuestHesRoom(int classification)
-        {            
-            return Hotel.GetRoom(classification);
+        public IArea GiveThisGuestHisRoom(int classification)
+        {
+            IArea result = null;
+
+            // upgrade guests room if request is not available
+            for (int i = classification; i <= 5; i++)
+            {
+                if (!(Hotel.GetRoom(i) is null))
+                {
+                    result = Hotel.GetRoom(i);
+                    break;
+                }
+            }
+
+            return result;
         }
 
         public void PerformAction()

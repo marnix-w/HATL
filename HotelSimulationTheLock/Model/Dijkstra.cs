@@ -18,7 +18,7 @@ namespace HotelSimulationTheLock
             Areas = hotel.HotelAreas;
         }
 
-        public static List<IArea> GetShortestPathDijikstra(IArea from, IArea to)
+        public static List<IArea> GetShortestPathDijkstra(IArea from, IArea to)
         {
             
             SetDijkstraSearchValues(from, to);

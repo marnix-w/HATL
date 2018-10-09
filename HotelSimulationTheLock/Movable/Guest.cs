@@ -35,7 +35,7 @@ namespace HotelSimulationTheLock
 
         public void SetPath(IArea destination)
         {
-            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijikstra(Area, destination));           
+            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));           
         }
 
         public void MoveFromPath()
@@ -62,7 +62,7 @@ namespace HotelSimulationTheLock
             }
             else if (Area is Reception)
             {
-                SetPath(((Receptionist)Area.Movables.First()).GiveThisGuestHesRoom(RoomRequest));
+                SetPath(((Receptionist)Area.Movables.First()).GiveThisGuestHisRoom(RoomRequest));
                 Path.Last().AreaStatus = AreaStatus.OCCUPIED;
                 IArea error = Path.Dequeue();
             }
