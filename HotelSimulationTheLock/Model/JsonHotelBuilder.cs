@@ -125,7 +125,7 @@ namespace HotelSimulationTheLock
 
             HotelAreas = hotelAreas;
 
-            foreach (IArea area in hotelAreas)
+            foreach (IArea area in HotelAreas)
             {
                 // Add right neighbour
                 for (int i = 1; i < HotelWidth; i++)
@@ -136,7 +136,7 @@ namespace HotelSimulationTheLock
                     }
                 }
                 // Add left neighbour
-                for (int i = 0; i < HotelWidth - 1; i++)
+                for (int i = 1; i < HotelWidth - 1; i++)
                 {
                     if (AddNeighbour(area, -i, 0, i))
                     {
@@ -162,11 +162,11 @@ namespace HotelSimulationTheLock
 
 
 
-            return hotelAreas;
+            return HotelAreas;
 
         }
         
-        public List<IMovable> BuildMovable(SettingsModel settings)
+        public List<IMovable> BuildMovable(SettingsModel settings, Hotel hotel)
         {
             List<IMovable> movables = new List<IMovable>();
 
@@ -175,7 +175,7 @@ namespace HotelSimulationTheLock
                 movables.Add(new Maid(new Point(4, HotelHeight)));
             }
 
-            movables.Add(new Receptionist(new Point(1, HotelHeight)));
+            movables.Add(new Receptionist(new Point(1, HotelHeight), hotel));
 
             foreach (var movable in movables)
             {

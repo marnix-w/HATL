@@ -30,7 +30,7 @@ namespace HotelSimulationTheLock
 
             // Build the hotel
             HotelAreas = HotelBuilder.BuildHotel(layout, settings);
-            HotelMovables = HotelBuilder.BuildMovable(settings);
+            HotelMovables = HotelBuilder.BuildMovable(settings, this);
 
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
@@ -55,30 +55,34 @@ namespace HotelSimulationTheLock
         
         public void PerformAllActions()
         {
-            foreach (var item in HotelMovables)
+            lock (HotelMovables)
             {
-                item.PerformAction();
+                foreach (var item in HotelMovables)
+                {
+                    item.PerformAction();
+                }
             }
-
         }
 
         public IArea GetRoom(int request)
         {
             List<IArea> CurretnShortest = HotelAreas;
 
-            IArea guestRoom = null;
+            IArea guestRoom = new Lobby();
 
-            foreach (Room area in HotelAreas)
+            foreach (Room area in HotelAreas.Where(X => X is Room))
             {
                 if (area.AreaStatus == AreaStatus.EMPTY && area.Classification == request)
                 {
                     if (Dijkstra.GetShortestPathDijikstra(HotelAreas.Find(X => X is Reception), area).Count < CurretnShortest.Count)
-                    {
-                        guestRoom = area;
+                    {                       
+                        guestRoom = area;                       
                     }
                 }
             }
 
+            
+            //this room needs to be casted to the guest
             return guestRoom;
         }
 
@@ -107,6 +111,10 @@ namespace HotelSimulationTheLock
                 {
                     Area = HotelAreas.Find(X => X.Position == new Point(0, HotelHeight))
                 };
+
+
+                guest.Area = HotelAreas.Find(X => X.Position == guest.Position);
+                guest.SetPath(HotelAreas.Find(X => X.Position == new Point(1,HotelHeight)));
 
                 guest.SetPath(HotelAreas.Find(X => X is Reception));
 

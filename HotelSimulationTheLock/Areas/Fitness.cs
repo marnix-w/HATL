@@ -15,7 +15,7 @@ namespace HotelSimulationTheLock
     {
         public Point Position { get; set; }
         public Size Dimension { get; set; }
-        public int Capacity { get; set; }
+        public int Capacity { get; set; } = int.MaxValue;
         public Bitmap Art { get; set; } = Properties.Resources.fitness;
         public AreaStatus AreaStatus { get; set; }
 
