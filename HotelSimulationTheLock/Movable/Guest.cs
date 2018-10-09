@@ -60,13 +60,21 @@ namespace HotelSimulationTheLock
                 }
                 else
                 {
-
+                  
                 }
                 // else kill the person after 20 itterations or so
             }            
             else if (Area is Reception)
             {
-                SetPath(((Receptionist)Area.Movables.First()).GiveThisGuestHesRoom(RoomRequest));
+                
+                if (((Receptionist)Area.Movables.First()).GiveThisGuestHesRoom(RoomRequest) == null)
+                {
+                    Console.WriteLine("ik ben dood ignore mij");
+                }
+                else
+                {
+                    SetPath(((Receptionist)Area.Movables.First()).GiveThisGuestHesRoom(RoomRequest));
+                }
                 Path.Last().AreaStatus = AreaStatus.OCCUPIED;
                 IArea error = Path.Dequeue();
             }
