@@ -36,7 +36,7 @@ namespace HotelSimulationTheLock
 
             Actions.Add(MovableStatus.CHEKING_IN, MoveFromPath);
             Actions.Add(MovableStatus.GOING_TO_ROOM, GoingToRoom);
-
+            Actions.Add(MovableStatus.LEAVING, RemoveMe);
             Actions.Add(MovableStatus.IN_ROOM, null);
         }
         public void Notify(HotelEvent evt)
@@ -70,6 +70,7 @@ namespace HotelSimulationTheLock
         {
             Path = new Queue<IArea>(Dijkstra.GetShortestPathDijikstra(Area, destination));    
         }
+
         public void PerformAction()
         {
             if (!(Actions[Status] == null))
@@ -150,6 +151,10 @@ namespace HotelSimulationTheLock
             }
         }
 
+        private void RemoveMe()
+        {
+
+        }
                 
     }
 }

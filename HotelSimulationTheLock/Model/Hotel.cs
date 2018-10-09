@@ -75,7 +75,8 @@ namespace HotelSimulationTheLock
                 if (area.AreaStatus.Equals(AreaStatus.EMPTY) && area.Classification == request)
                 {
                     if (Dijkstra.GetShortestPathDijikstra(HotelAreas.Find(X => X is Reception), area).Count < CurretnShortest.Count)
-                    {                       
+                    {
+                        CurretnShortest = Dijkstra.GetShortestPathDijikstra(HotelAreas.Find(X => X is Reception), area);
                         guestRoom = area;                       
                     }
                 }

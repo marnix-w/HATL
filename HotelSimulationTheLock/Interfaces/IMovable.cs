@@ -14,6 +14,7 @@ namespace HotelSimulationTheLock
         CHEKING_IN,
         IN_HOTEL,
         IN_ROOM,
+        LEAVING,
         EATING,
         WORKING_OUT,
         WATCHING_MOVIE,
