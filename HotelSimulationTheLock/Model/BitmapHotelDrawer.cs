@@ -41,21 +41,13 @@ namespace HotelSimulationTheLock
                     {
                         foreach (IMovable movable in movables)
                         {
-                            if (movable.Position.Y > 6)
-                            {
-                                graphics.DrawImage(movable.Art,
-                                             movable.Position.X * artSize * 1.05f,
-                                             (movable.Position.Y - 1) * artSize * 1.06f,
-                                             movable.Art.Width, movable.Art.Height);
-                            }
-                            else
-                            {
-                                graphics.DrawImage(movable.Art,
-                                            movable.Position.X * artSize * 1.05f,
-                                            (movable.Position.Y - 1) * artSize * 1.10f,
-                                            movable.Art.Width, movable.Art.Height);
-                            }
-                         
+
+                            graphics.DrawImage(movable.Art,
+                                         movable.Position.X * artSize,
+                                         (movable.Position.Y - 1) * artSize,
+                                         movable.Art.Width, movable.Art.Height);
+
+
                         }
                     }
                     catch (InvalidOperationException)
