@@ -37,7 +37,7 @@
             // 
             // restaurantTB
             // 
-            this.restaurantTB.Location = new System.Drawing.Point(1470, 293);
+            this.restaurantTB.Location = new System.Drawing.Point(1470, 379);
             this.restaurantTB.Multiline = true;
             this.restaurantTB.Name = "restaurantTB";
             this.restaurantTB.ReadOnly = true;
@@ -50,12 +50,12 @@
             this.roomTB.Multiline = true;
             this.roomTB.Name = "roomTB";
             this.roomTB.ReadOnly = true;
-            this.roomTB.Size = new System.Drawing.Size(364, 275);
+            this.roomTB.Size = new System.Drawing.Size(364, 361);
             this.roomTB.TabIndex = 6;
             // 
             // fitnessTB
             // 
-            this.fitnessTB.Location = new System.Drawing.Point(1070, 293);
+            this.fitnessTB.Location = new System.Drawing.Point(924, 379);
             this.fitnessTB.Multiline = true;
             this.fitnessTB.Name = "fitnessTB";
             this.fitnessTB.ReadOnly = true;
@@ -68,16 +68,16 @@
             this.guestTB.Multiline = true;
             this.guestTB.Name = "guestTB";
             this.guestTB.ReadOnly = true;
-            this.guestTB.Size = new System.Drawing.Size(364, 275);
+            this.guestTB.Size = new System.Drawing.Size(364, 361);
             this.guestTB.TabIndex = 8;
             // 
             // maidTB
             // 
-            this.maidTB.Location = new System.Drawing.Point(1270, 293);
+            this.maidTB.Location = new System.Drawing.Point(1124, 379);
             this.maidTB.Multiline = true;
             this.maidTB.Name = "maidTB";
             this.maidTB.ReadOnly = true;
-            this.maidTB.Size = new System.Drawing.Size(194, 275);
+            this.maidTB.Size = new System.Drawing.Size(340, 275);
             this.maidTB.TabIndex = 9;
             // 
             // Simulation
