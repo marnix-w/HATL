@@ -37,7 +37,7 @@
             // 
             // restaurantTB
             // 
-            this.restaurantTB.Location = new System.Drawing.Point(1470, 379);
+            this.restaurantTB.Location = new System.Drawing.Point(1474, 460);
             this.restaurantTB.Multiline = true;
             this.restaurantTB.Name = "restaurantTB";
             this.restaurantTB.ReadOnly = true;
@@ -46,7 +46,7 @@
             // 
             // roomTB
             // 
-            this.roomTB.Location = new System.Drawing.Point(1300, 12);
+            this.roomTB.Location = new System.Drawing.Point(1304, 93);
             this.roomTB.Multiline = true;
             this.roomTB.Name = "roomTB";
             this.roomTB.ReadOnly = true;
@@ -55,7 +55,7 @@
             // 
             // fitnessTB
             // 
-            this.fitnessTB.Location = new System.Drawing.Point(924, 379);
+            this.fitnessTB.Location = new System.Drawing.Point(928, 460);
             this.fitnessTB.Multiline = true;
             this.fitnessTB.Name = "fitnessTB";
             this.fitnessTB.ReadOnly = true;
@@ -64,7 +64,7 @@
             // 
             // guestTB
             // 
-            this.guestTB.Location = new System.Drawing.Point(924, 12);
+            this.guestTB.Location = new System.Drawing.Point(928, 93);
             this.guestTB.Multiline = true;
             this.guestTB.Name = "guestTB";
             this.guestTB.ReadOnly = true;
@@ -73,7 +73,7 @@
             // 
             // maidTB
             // 
-            this.maidTB.Location = new System.Drawing.Point(1124, 379);
+            this.maidTB.Location = new System.Drawing.Point(1128, 460);
             this.maidTB.Multiline = true;
             this.maidTB.Name = "maidTB";
             this.maidTB.ReadOnly = true;
@@ -84,7 +84,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1676, 845);
+            this.ClientSize = new System.Drawing.Size(1676, 976);
             this.Controls.Add(this.maidTB);
             this.Controls.Add(this.guestTB);
             this.Controls.Add(this.fitnessTB);

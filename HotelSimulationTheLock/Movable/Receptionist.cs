@@ -37,9 +37,8 @@ namespace HotelSimulationTheLock
         }
 
         public IArea GiveThisGuestHesRoom(int classification)
-        {   
-           
-            return Hotel.GetRoom(classification);
+        {
+            return Hotel.GetRoom(classification);           
         }
 
         public void PerformAction()
