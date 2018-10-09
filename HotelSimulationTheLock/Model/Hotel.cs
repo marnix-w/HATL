@@ -80,7 +80,7 @@ namespace HotelSimulationTheLock
             }
 
             //if the room has been found we set the Status to occupied
-            HotelAreas.Find(X => X == guestRoom).AreaStatus = AreaStatus.OCCUPIED;
+          //  HotelAreas.Find(X => X == guestRoom).AreaStatus = AreaStatus.OCCUPIED;
 
             //this room needs to be casted to the guest
             return guestRoom;

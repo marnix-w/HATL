@@ -14,7 +14,7 @@ namespace HotelSimulationTheLock
         public Point Position { get; set; }
         public Bitmap Art { get; set; } = Properties.Resources.receptionist;
         public MovableStatus Status { get; set; }
-        public IArea Area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IArea Area { get; set; }
 
         private Hotel Hotel { get; set; }
 
@@ -22,6 +22,9 @@ namespace HotelSimulationTheLock
         {
             Position = position;
             Hotel = hotel;
+            Area = hotel.HotelAreas.Find(X => X is Reception);
+            Area.Movables.Add(this);
+            
         }
 
         public void Notify(HotelEvent evt)
@@ -30,6 +33,11 @@ namespace HotelSimulationTheLock
             {
 
             }
+        }
+
+        public IArea GiveThisGuestHesRoom(int classification)
+        {            
+            return Hotel.GetRoom(classification);
         }
 
         public void PerformAction()
