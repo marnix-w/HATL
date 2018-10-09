@@ -16,8 +16,7 @@ namespace HotelSimulationTheLock
 
         // Drawing properties
         private PictureBox HotelBackground { get; set; }
-        private Bitmap Movables { get; set; }
-        private Bitmap Areas { get; set; }
+        private Bitmap HotelImage { get; set; }
         public static int RoomArtSize { get; } = 96;
 
         public Simulation(List<JsonModel> layout, SettingsModel Settings)
@@ -35,8 +34,7 @@ namespace HotelSimulationTheLock
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
 
-            Areas = Hotel.DrawHotel();
-            Movables = Hotel.DrawMovables();
+            HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
 
             HotelBackground = new PictureBox
             {
@@ -44,9 +42,9 @@ namespace HotelSimulationTheLock
                 Width = Hotel.HotelWidth * RoomArtSize,
                 Height = Hotel.HotelHeight * RoomArtSize,
                 SizeMode = PictureBoxSizeMode.StretchImage,
-                Image = Areas
+                Image = HotelImage
             };
-
+            
             Controls.Add(HotelBackground);
 
             // Last methods for setup
@@ -90,32 +88,19 @@ namespace HotelSimulationTheLock
             {
 
                 Debug.WriteLine("Jasper fix je stats shit");
-            }  
+            }
 
             // Disposing the movable bitmap to prevent memory leaking
             // https://blogs.msdn.microsoft.com/davidklinems/2005/11/16/three-common-causes-of-memory-leaks-in-managed-applications/
-            Areas.Dispose();
+            HotelImage.Dispose();
+            HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
+            HotelBackground.Image = HotelImage;
 
-
-            Areas = Hotel.DrawHotel();
-            Movables = Hotel.DrawMovables();
-
-            HotelBackground.Image = GetHotelMap();
-
-            Movables.Dispose();
+            
         }
 
 
-        public Bitmap GetHotelMap()
-        {
-            Bitmap imposedBitmap = Areas;
-
-            Graphics g = Graphics.FromImage(imposedBitmap);
-            g.CompositingMode = CompositingMode.SourceOver;
-
-            g.DrawImage(Movables, new Point(0, 0));
-            return imposedBitmap;
-        }
+        
 
         //Overview of hotel facilities
         private void _fillRichTextBox()
