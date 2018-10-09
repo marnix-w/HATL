@@ -68,7 +68,7 @@ namespace HotelSimulationTheLock
         {
             List<IArea> CurretnShortest = HotelAreas;
 
-            IArea guestRoom = new Lobby();
+            IArea guestRoom = null;
 
             foreach (Room area in HotelAreas.Where(X => X is Room))
             {
