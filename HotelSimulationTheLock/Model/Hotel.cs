@@ -80,15 +80,7 @@ namespace HotelSimulationTheLock
                     }
                 }
             }
-            try
-            {
-                HotelAreas.Find(X => X == guestRoom).AreaStatus = AreaStatus.OCCUPIED;
-            }
-            catch
-            {
-                Console.WriteLine("Room couldnt be found or set to occupied");
-            }
-           
+        
 
             //this room needs to be casted to the guest
             return guestRoom;
