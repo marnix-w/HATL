@@ -24,7 +24,7 @@ namespace HotelSimulationTheLock
 
         public Hotel(List<JsonModel> layout, SettingsModel settings)
         {
-            // Hotel will handle the ChekIn_events so it can add them to its list
+            // Hotel will handle the CheckIn_events so it can add them to its list
             // making it posible to keep the list private
             HotelEventManager.Register(this);
             
@@ -80,7 +80,7 @@ namespace HotelSimulationTheLock
         
         public IArea GetRoom(int request)
         {
-            List<IArea> CurretnShortest = HotelAreas;
+            List<IArea> CurrentShortest = HotelAreas;
 
             IArea guestRoom = null;
 
@@ -88,9 +88,10 @@ namespace HotelSimulationTheLock
             {
                 if (area.AreaStatus.Equals(AreaStatus.EMPTY) && area.Classification == request)
                 {
-                    if (Dijkstra.GetShortestPathDijikstra(HotelAreas.Find(X => X is Reception), area).Count < CurretnShortest.Count)
-                    {
-                        CurretnShortest = Dijkstra.GetShortestPathDijikstra(HotelAreas.Find(X => X is Reception), area);
+                    if (Dijkstra.GetShortestPathDijkstra(HotelAreas.Find(X => X is Reception), area).Count < CurrentShortest.Count)
+                    {                     
+                    
+                        CurrentShortest = Dijkstra.GetShortestPathDijkstra(HotelAreas.Find(X => X is Reception), area);
                         guestRoom = area;                       
                     }
                 }

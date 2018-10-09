@@ -6,24 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using HotelSimulationTheLock;
 using HotelEvents;
+using System.Drawing;
 
 namespace HotelSimulationTheLock_UnitTests
 {
     [TestClass]
     public class MovableTests
-    {
-        [TestMethod]
-        public void TestIfReceptionistLivesAfterCreation()
-        {
-            //arrange
-            IMovable CoolBob;
-
-            //act
-            CoolBob = new Receptionist(new System.Drawing.Point(0,0), null);
-
-            //assert
-            Assert.IsInstanceOfType(CoolBob, typeof(Receptionist));
-        }
+    {       
 
         [TestMethod]
         public void TestIfMaidLivesAfterCreation()
