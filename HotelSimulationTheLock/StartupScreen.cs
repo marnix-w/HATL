@@ -40,7 +40,7 @@ namespace HotelSimulationTheLock
         private string restaurant_cap = "Capicity of the restaurant ";
 
         //fitness settings
-        private string _fitness_dur = "Duration of fitness in hte ";
+        private string _eating_dur = "Eating in hte ";
         private string _fitness_cap = "Capicity for a fitness facility ";
 
         
@@ -59,7 +59,7 @@ namespace HotelSimulationTheLock
             staircase_hte_LB.Text = _staircase_hte;
             cinema_dur_LB.Text = _cinema_dur;
             restaurant_cap_LB.Text = restaurant_cap;
-            fitnes_dur_LB.Text = _fitness_dur;
+            eating_dur_LB.Text = _eating_dur;
             fitness_cap_LB.Text = _fitness_cap;
         }
 
@@ -78,8 +78,8 @@ namespace HotelSimulationTheLock
                 HTEPerSeconds = hte_per_sec_TB.Value,
                 StairsDuration = staircase_hte_TB.Value,
                 CinemaDuration = cinema_dur_TB.Value,
-                RestaurantCapicity = restaurant_cap_TB.Value,
-                FitnessDuration = fitness_dur_TB.Value,
+                RestaurantCapicity = restaurant_cap_TB.Value,              
+                EatingDuration = eating_dur_TB.Value,
                 FitnessCapicity = fitness_cap_TB.Value
             };
 
@@ -145,7 +145,7 @@ namespace HotelSimulationTheLock
 
         private void Fitness_dur_TB_ValueChanged(object sender, EventArgs e)
         {
-            fitnes_dur_LB.Text = _fitness_dur + fitness_dur_TB.Value.ToString();
+            eating_dur_LB.Text = _eating_dur + eating_dur_TB.Value.ToString();        
         }
 
         private void Fitness_cap_TB_ValueChanged(object sender, EventArgs e)

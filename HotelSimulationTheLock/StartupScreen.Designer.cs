@@ -45,8 +45,8 @@
             this.restaurant_cap_TB = new System.Windows.Forms.TrackBar();
             this.fitness_cap_LB = new System.Windows.Forms.Label();
             this.fitness_cap_TB = new System.Windows.Forms.TrackBar();
-            this.fitnes_dur_LB = new System.Windows.Forms.Label();
-            this.fitness_dur_TB = new System.Windows.Forms.TrackBar();
+            this.eating_dur_LB = new System.Windows.Forms.Label();
+            this.eating_dur_TB = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.maid_TB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.elevator_hte_TB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.elevator_cap_TB)).BeginInit();
@@ -55,7 +55,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cinema_dur_TB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.restaurant_cap_TB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fitness_cap_TB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fitness_dur_TB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eating_dur_TB)).BeginInit();
             this.SuspendLayout();
             // 
             // _runSimulation
@@ -220,24 +220,24 @@
             this.fitness_cap_TB.Value = 2;
             this.fitness_cap_TB.ValueChanged += new System.EventHandler(this.Fitness_cap_TB_ValueChanged);
             // 
-            // fitnes_dur_LB
+            // eating_dur_LB
             // 
-            this.fitnes_dur_LB.AutoSize = true;
-            this.fitnes_dur_LB.Location = new System.Drawing.Point(36, 393);
-            this.fitnes_dur_LB.Name = "fitnes_dur_LB";
-            this.fitnes_dur_LB.Size = new System.Drawing.Size(35, 13);
-            this.fitnes_dur_LB.TabIndex = 18;
-            this.fitnes_dur_LB.Text = "label1";
+            this.eating_dur_LB.AutoSize = true;
+            this.eating_dur_LB.Location = new System.Drawing.Point(36, 393);
+            this.eating_dur_LB.Name = "eating_dur_LB";
+            this.eating_dur_LB.Size = new System.Drawing.Size(35, 13);
+            this.eating_dur_LB.TabIndex = 18;
+            this.eating_dur_LB.Text = "label1";
             // 
-            // fitness_dur_TB
+            // eating_dur_TB
             // 
-            this.fitness_dur_TB.Location = new System.Drawing.Point(260, 393);
-            this.fitness_dur_TB.Maximum = 20;
-            this.fitness_dur_TB.Name = "fitness_dur_TB";
-            this.fitness_dur_TB.Size = new System.Drawing.Size(161, 45);
-            this.fitness_dur_TB.TabIndex = 17;
-            this.fitness_dur_TB.Value = 2;
-            this.fitness_dur_TB.ValueChanged += new System.EventHandler(this.Fitness_dur_TB_ValueChanged);
+            this.eating_dur_TB.Location = new System.Drawing.Point(260, 393);
+            this.eating_dur_TB.Maximum = 20;
+            this.eating_dur_TB.Name = "eating_dur_TB";
+            this.eating_dur_TB.Size = new System.Drawing.Size(161, 45);
+            this.eating_dur_TB.TabIndex = 17;
+            this.eating_dur_TB.Value = 2;
+            this.eating_dur_TB.ValueChanged += new System.EventHandler(this.Fitness_dur_TB_ValueChanged);
             // 
             // StartupScreen
             // 
@@ -246,8 +246,8 @@
             this.ClientSize = new System.Drawing.Size(473, 590);
             this.Controls.Add(this.fitness_cap_LB);
             this.Controls.Add(this.fitness_cap_TB);
-            this.Controls.Add(this.fitnes_dur_LB);
-            this.Controls.Add(this.fitness_dur_TB);
+            this.Controls.Add(this.eating_dur_LB);
+            this.Controls.Add(this.eating_dur_TB);
             this.Controls.Add(this.restaurant_cap_LB);
             this.Controls.Add(this.restaurant_cap_TB);
             this.Controls.Add(this.cinema_dur_LB);
@@ -273,7 +273,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cinema_dur_TB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.restaurant_cap_TB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fitness_cap_TB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fitness_dur_TB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eating_dur_TB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -297,8 +297,8 @@
         protected System.Windows.Forms.TrackBar restaurant_cap_TB;
         protected System.Windows.Forms.Label fitness_cap_LB;
         protected System.Windows.Forms.TrackBar fitness_cap_TB;
-        protected System.Windows.Forms.Label fitnes_dur_LB;
-        protected System.Windows.Forms.TrackBar fitness_dur_TB;
+        protected System.Windows.Forms.Label eating_dur_LB;
+        protected System.Windows.Forms.TrackBar eating_dur_TB;
         public System.Windows.Forms.Label maid_LB;
     }
 }

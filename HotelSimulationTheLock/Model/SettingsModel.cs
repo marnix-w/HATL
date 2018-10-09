@@ -15,7 +15,7 @@ namespace HotelSimulationTheLock
         public int StairsDuration { get; set; }
         public int CinemaDuration { get; set; }
         public int RestaurantCapicity { get; set; }
-        public int FitnessDuration { get; set; }
+        public int EatingDuration { get; set; }
         public int FitnessCapicity { get; set; }
     }
 }
