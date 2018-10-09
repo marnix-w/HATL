@@ -15,8 +15,7 @@ namespace HotelSimulationTheLock
         // Make private 
         public List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
         public IHotelBuilder HotelBuilder { get; set; } = new JsonHotelBuilder();
-        private SettingsModel Setting { get; set; }
-
+       
         // Hotel dimensions for calcuations
         public static int HotelHeight { get; set; }
         public static int HotelWidth { get; set; }
@@ -27,8 +26,6 @@ namespace HotelSimulationTheLock
             // making it posible to keep the list private
             HotelEventManager.Register(this);
             
-            // Set settings file
-            Setting = settings;
 
             // Build the hotel
             HotelAreas = HotelBuilder.BuildHotel(layout, settings);
@@ -38,13 +35,9 @@ namespace HotelSimulationTheLock
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
             
             // Right?
-            HotelEventManager.HTE_Factor = 1 / Setting.HTEPerSeconds;
-
-            // Set Amount of maids
+            HotelEventManager.HTE_Factor = 1 / settings.HTEPerSeconds;
             
-
-            // Methods for final initialization
-            
+            // Methods for final initialization           
             Dijkstra.IntilazeDijkstra(this);
             HotelEventManager.Start();
         }
