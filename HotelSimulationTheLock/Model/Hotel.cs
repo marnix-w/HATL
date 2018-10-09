@@ -32,6 +32,7 @@ namespace HotelSimulationTheLock
 
             // Build the hotel
             HotelAreas = HotelBuilder.BuildHotel(layout, settings);
+            HotelMovables = HotelBuilder.BuildMovable(settings);
 
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
@@ -40,14 +41,10 @@ namespace HotelSimulationTheLock
             HotelEventManager.HTE_Factor = 1 / Setting.HTEPerSeconds;
 
             // Set Amount of maids
-            for (int i = 0; i < Setting.AmountOfMaids; i++)
-            {
-                HotelMovables.Add(new Maid(new Point(4, HotelHeight)));
-            }
+            
 
             // Methods for final initialization
-            RemoveNullValues();
-            SetNeighbour();
+            
             Dijkstra.IntilazeDijkstra(this);
             HotelEventManager.Start();
         }
@@ -126,59 +123,6 @@ namespace HotelSimulationTheLock
             }
         }
         
-        /// <summary>
-        /// Mehtod must be called when initilizing a hotel
-        /// This makes sure Dijkstra can provide a path
-        /// </summary>
-        private void SetNeighbour()
-        {
-            // Exclude lift when lift is done
-
-            foreach (IArea area in HotelAreas)
-            {
-                // Add right neighbour
-                for (int i = 1; i < HotelWidth; i++)
-                {
-                    if (AddNeighbour(area, i, 0, i))
-                    {
-                        break;
-                    }                 
-                }
-                // Add left neighbour
-                for (int i = 0; i < HotelWidth - 1; i++)
-                {
-                    if (AddNeighbour(area, -i, 0, i))
-                    {
-                        break;
-                    }
-                }
-                if (area.Position.X == 0 || area.Position.X == HotelWidth)
-                {
-                    // Keep lift weight in mind needs a rework
-                    int weight = 1;
-
-                    if (area is Staircase)
-                    {
-                        weight = Setting.StairsDuration;
-                    }
-
-                    // Add top neighbour
-                    AddNeighbour(area, 0, 1, weight);
-                    // Add bottom neighbour
-                    AddNeighbour(area, 0, -1, weight);
-                }
-            }
-        }
-
-        private bool AddNeighbour(IArea area, int xOffset, int yOffset, int wieght)
-        {
-            if (!(HotelAreas.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)) is null))
-            {
-                area.Edge.Add(HotelAreas.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)), wieght);
-                return true;
-            }
-            return false;
-        }
 
         public void Notify(HotelEvent evt)
         {
@@ -213,19 +157,6 @@ namespace HotelSimulationTheLock
             }
         }
 
-        /// <summary>
-        /// Removes all null values from the hotelarea and hotelmovable lists
-        /// </summary>
-        private void RemoveNullValues()
-        {
-            // Preventing null reference errors            
-            foreach (var movable in HotelMovables)
-            {
-                if (movable is null)
-                {
-                    HotelMovables.Remove(movable);
-                }
-            }
-        }
+        
     }
 }

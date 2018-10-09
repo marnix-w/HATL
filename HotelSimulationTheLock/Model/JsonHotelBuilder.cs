@@ -10,8 +10,12 @@ namespace HotelSimulationTheLock
 {
     class JsonHotelBuilder : IHotelBuilder
     {
-        
-        public List<IArea> BuildHotel<T>(List<T> file, SettingsModel settings)
+        private List<IArea> HotelAreas { get; set; }
+
+        private int HotelWidth { get; set; }
+        private int HotelHeight { get; set; }
+
+        public List<IArea> BuildHotel<T>(T file, SettingsModel settings)
         {
             List<IArea> hotelAreas = new List<IArea>();
 
@@ -45,8 +49,8 @@ namespace HotelSimulationTheLock
                 hotelAreas.Add(area);
             }
 
-            int HotelWidth = hotelAreas.OrderBy(X => X.Position.X).Last().Position.X + 1;
-            int HotelHeight = hotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y + 1;
+            HotelWidth = hotelAreas.OrderBy(X => X.Position.X).Last().Position.X + 1;
+            HotelHeight = hotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y + 1;
 
             // Set elevator and staircase
             for (int i = 1; i < HotelHeight + 1; i++)
@@ -109,10 +113,79 @@ namespace HotelSimulationTheLock
                 }
             }
 
+            HotelAreas = hotelAreas;
+
+            foreach (IArea area in hotelAreas)
+            {
+                // Add right neighbour
+                for (int i = 1; i < HotelWidth; i++)
+                {
+                    if (AddNeighbour(area, i, 0, i))
+                    {
+                        break;
+                    }
+                }
+                // Add left neighbour
+                for (int i = 0; i < HotelWidth - 1; i++)
+                {
+                    if (AddNeighbour(area, -i, 0, i))
+                    {
+                        break;
+                    }
+                }
+                if (area.Position.X == 0 || area.Position.X == HotelWidth)
+                {
+                    // Keep lift weight in mind needs a rework
+                    int weight = 1;
+
+                    if (area is Staircase)
+                    {
+                        weight = settings.StairsDuration;
+                    }
+
+                    // Add top neighbour
+                    AddNeighbour(area, 0, 1, weight);
+                    // Add bottom neighbour
+                    AddNeighbour(area, 0, -1, weight);
+                }
+            }
+
 
 
             return hotelAreas;
 
+        }
+        
+        public List<IMovable> BuildMovable(SettingsModel settings)
+        {
+            List<IMovable> movables = new List<IMovable>();
+
+            for (int i = 0; i < settings.AmountOfMaids; i++)
+            {
+                movables.Add(new Maid(new Point(4, HotelHeight)));
+            }
+
+            movables.Add(new Receptionist(new Point(1, HotelHeight)));
+
+            foreach (var movable in movables)
+            {
+                if (movable is null)
+                {
+                    movables.Remove(movable);
+                }
+            }
+
+            return movables;
+        }
+
+        private bool AddNeighbour(IArea area, int xOffset, int yOffset, int wieght)
+        {
+            if (!(HotelAreas.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)) is null))
+            {
+                area.Edge.Add(HotelAreas.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)), wieght);
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -8,6 +8,8 @@ namespace HotelSimulationTheLock
 {
     public interface IHotelBuilder
     {
-        List<IArea> BuildHotel<T>(List<T> file, SettingsModel settings);  
+        List<IArea> BuildHotel<T>(T file, SettingsModel settings);
+
+        List<IMovable> BuildMovable(SettingsModel settings);
     }
 }
