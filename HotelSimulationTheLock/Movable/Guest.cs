@@ -56,7 +56,7 @@ namespace HotelSimulationTheLock
                 }
                 else
                 {
-
+                    Console.WriteLine("ik ben dood ignore mij");
                 }
                 // else kill the person after 20 itterations or so
             }
@@ -65,7 +65,7 @@ namespace HotelSimulationTheLock
                 
                 if (((Receptionist)Area.Movables.First()).GiveThisGuestHesRoom(RoomRequest) == null)
                 {
-                    Console.WriteLine("ik ben dood ignore mij");
+                  
                 }
                 else
                 {
