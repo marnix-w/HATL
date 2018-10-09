@@ -59,8 +59,28 @@ namespace HotelSimulationTheLock
             {
                 item.PerformAction();
             }
+
         }
-        
+
+        public IArea GetRoom(int request)
+        {
+            List<IArea> CurretnShortest = HotelAreas;
+
+            IArea guestRoom = null;
+
+            foreach (Room area in HotelAreas)
+            {
+                if (area.AreaStatus == AreaStatus.EMPTY && area.Classification == request)
+                {
+                    if (Dijkstra.GetShortestPathDijikstra(HotelAreas.Find(X => X is Reception), area).Count < CurretnShortest.Count)
+                    {
+                        guestRoom = area;
+                    }
+                }
+            }
+
+            return guestRoom;
+        }
 
         public void Notify(HotelEvent evt)
         {
