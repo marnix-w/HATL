@@ -92,5 +92,19 @@ namespace HotelSimulationTheLock_UnitTests
             //assert
             Assert.AreEqual(test_startupscreen.layout, test_simulation.HotelLayout);
         }
+
+        [TestMethod]
+        public void TestIfJsonFileIsEmptyOrNot()
+        {
+            //arrange         
+            StartupScreen test_startupscreen;
+
+            //act       
+            test_startupscreen = new StartupScreen();
+
+            //assert
+            Assert.IsNotNull(test_startupscreen.ReadLayoutJson(Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout")));
+           
+        }
     }
 }
