@@ -15,7 +15,8 @@ namespace HotelSimulationTheLock
         // Make private 
         public List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
         public IHotelBuilder HotelBuilder { get; set; } = new JsonHotelBuilder();
-       
+        public IHotelDrawer HotelDrawer { get; set; } = new BitmapHotelDrawer();
+
         // Hotel dimensions for calcuations
         public static int HotelHeight { get; set; }
         public static int HotelWidth { get; set; }
@@ -51,63 +52,7 @@ namespace HotelSimulationTheLock
                 area.Visited = false;
             }
         }
-
-        // Fix code duplication
-        public Bitmap DrawHotel()
-        {
-            int artSize = Simulation.RoomArtSize;
-
-            Bitmap buffer = new Bitmap((HotelWidth + 1) * artSize, (HotelHeight) * artSize);
-
-            using (Graphics graphics = Graphics.FromImage(buffer))
-            {
-                lock (HotelAreas)
-                {
-                    foreach (IArea area in HotelAreas)
-                    {
-                        graphics.DrawImage(area.Art,
-                                            area.Position.X * artSize,
-                                            (area.Position.Y - 1) * artSize,
-                                            area.Dimension.Width * artSize,
-                                            area.Dimension.Height * artSize);
-                    }
-                }
-            }
-            return buffer;
-        }
-
-        public Bitmap DrawMovables()
-        {
-            int artSize = Simulation.RoomArtSize;
-
-            Bitmap buffer = new Bitmap((HotelWidth + 1) * artSize, (HotelHeight) * artSize);
-
-            using (Graphics graphics = Graphics.FromImage(buffer))
-            {
-                // Prevent opperation from coliding with eachother
-                lock (HotelMovables)
-                {
-                    try
-                    {
-                        foreach (IMovable movable in HotelMovables)
-                        {
-                            graphics.DrawImage(movable.Art,
-                                                movable.Position.X * artSize * 1.05f,
-                                                (movable.Position.Y - 1) * artSize * 1.05f,
-                                                movable.Art.Width, movable.Art.Height);
-                        }
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        return buffer;
-                    }
-
-                    
-                }            
-            }
-            return buffer;
-        }
-
+        
         public void PerformAllActions()
         {
             foreach (var item in HotelMovables)
