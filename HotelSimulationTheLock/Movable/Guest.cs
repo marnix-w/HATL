@@ -75,7 +75,7 @@ namespace HotelSimulationTheLock
              
                 if (((Receptionist)Area.Movables.First()).GiveThisGuestHesRoom(RoomRequest) is null)
                 {
-                    Console.WriteLine("IK BEN DOOD");
+                    Status = MovableStatus.LEAVING;
                 }
                 else
                 {
@@ -126,7 +126,7 @@ namespace HotelSimulationTheLock
 
         private void RemoveMe()
         {
-
+            ((Receptionist)Area.Movables.First()).RemoveGuest(this);
         }
                 
 

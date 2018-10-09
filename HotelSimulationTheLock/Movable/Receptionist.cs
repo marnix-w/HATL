@@ -41,6 +41,11 @@ namespace HotelSimulationTheLock
             return Hotel.GetRoom(classification);           
         }
 
+        public void RemoveGuest(Guest guest)
+        {
+            Hotel.RemoveGuest(guest);
+        }
+
         public void PerformAction()
         {
         }
