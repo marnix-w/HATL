@@ -61,9 +61,7 @@ namespace HotelSimulationTheLock
                     // The given DLL does not implement IArea correctly please notify the creator
                     continue;
                 }
-
                 catalog.Catalogs.Add(newArea);
-
             }
 
             //Create the CompositionContainer with the parts in the catalog
@@ -71,8 +69,6 @@ namespace HotelSimulationTheLock
 
             //Fill the imports of this object                     
             _container.ComposeParts(this);
-
-
         }
 
         /// <summary>

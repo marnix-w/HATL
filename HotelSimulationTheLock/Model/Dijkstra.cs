@@ -133,8 +133,5 @@ namespace HotelSimulationTheLock
 
             return false;
         }
-
     }
-
-
 }

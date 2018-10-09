@@ -55,7 +55,7 @@ namespace HotelSimulationTheLock
                     Position = destanation.Position;
                     Area.Movables.Add(this);
                 }
-   
+                // else kill the person after 20 itterations or so
             }   
         }
 
