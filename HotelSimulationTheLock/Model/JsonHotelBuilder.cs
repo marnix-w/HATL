@@ -34,18 +34,18 @@ namespace HotelSimulationTheLock
             // Create a factory to make the rooms
             AreaFactory Factory = new AreaFactory();
 
-            // Read out the json and add rooms to the layout
+            // Read out the json file and add rooms to the layout
             foreach (JsonModel i in jsonModel)
             {
-                int clasifactionNum = 0;
+                int classificationNum = 0;
 
                 if (i.Classification != null)
                 {
-                    clasifactionNum = int.Parse(Regex.Match(i.Classification, @"\d+").Value);
+                    classificationNum = int.Parse(Regex.Match(i.Classification, @"\d+").Value);
                 }
 
                 IArea area = Factory.GetArea(i.AreaType);
-                area.SetJsonValues(i.Position, i.Capacity, i.Dimension, clasifactionNum);
+                area.SetJsonValues(i.Position, i.Capacity, i.Dimension, classificationNum);
                 hotelAreas.Add(area);
             }
 
@@ -86,32 +86,42 @@ namespace HotelSimulationTheLock
                     hotelAreas.Add(Lobby);
                 }
             }
-            
-            // Set settings for cinema
-            foreach (Cinema cinema in hotelAreas.Where(X => X is Cinema))
-            {
-                cinema.Duration = settings.CinemaDuration;
-            }
 
-            // Set settigns for fitness
-            foreach (Fitness fitness in hotelAreas.Where(X => X is Fitness))
+            foreach (IArea area in hotelAreas)
             {
-                fitness.Capacity = settings.FitnessCapicity;
-            }
+                // Set settings for cinema
+                if (area is Cinema)
+                {
+                    ((Cinema)area).Duration = settings.CinemaDuration;
+                }
 
-            // Set settings for restaurant
-            foreach (Restaurant restaurant in hotelAreas.Where(X => X is Restaurant))
-            {
-                restaurant.Capacity = settings.RestaurantCapicity;
-            }
+                // Set settings for fitness
+                else if (area is Fitness)
+                {
+                    ((Fitness)area).Capacity = settings.FitnessCapicity;
+                }
 
-            foreach (var area in hotelAreas)
-            {
-                if (area is null)
+                // Set settings for restaurant
+                else if (area is Restaurant)
+                {
+                    ((Restaurant)area).Capacity = settings.RestaurantCapicity;
+                }
+
+                else if (area is null)
                 {
                     hotelAreas.Remove(area);
                 }
             }
+
+
+            //// Zit nu in de foreach loop met settings enzo hierboven
+            //foreach (IArea area in hotelAreas)
+            //{
+            //    if (area is null)
+            //    {
+            //        hotelAreas.Remove(area);
+            //    }
+            //}
 
             HotelAreas = hotelAreas;
 
@@ -178,11 +188,11 @@ namespace HotelSimulationTheLock
             return movables;
         }
 
-        private bool AddNeighbour(IArea area, int xOffset, int yOffset, int wieght)
+        private bool AddNeighbour(IArea area, int xOffset, int yOffset, int weight)
         {
             if (!(HotelAreas.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)) is null))
             {
-                area.Edge.Add(HotelAreas.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)), wieght);
+                area.Edge.Add(HotelAreas.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)), weight);
                 return true;
             }
             return false;
