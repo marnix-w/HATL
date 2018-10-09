@@ -30,7 +30,7 @@ namespace HotelSimulationTheLock
 
             // Build the hotel
             HotelAreas = HotelBuilder.BuildHotel(layout, settings);
-            HotelMovables = HotelBuilder.BuildMovable(settings);
+            HotelMovables = HotelBuilder.BuildMovable(settings, this);
 
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;

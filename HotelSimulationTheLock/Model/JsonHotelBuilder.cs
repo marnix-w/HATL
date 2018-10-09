@@ -88,19 +88,19 @@ namespace HotelSimulationTheLock
             }
             
             // Set settings for cinema
-            foreach (Cinema cinema in hotelAreas.Where(X => X is Cinema))
+            foreach (Cinema cinema in hotelAreas)
             {
                 cinema.Duration = settings.CinemaDuration;
             }
 
             // Set settigns for fitness
-            foreach (Fitness fitness in hotelAreas.Where(X => X is Fitness))
+            foreach (Fitness fitness in hotelAreas)
             {
                 fitness.Capacity = settings.FitnessCapicity;
             }
 
             // Set settings for restaurant
-            foreach (Restaurant restaurant in hotelAreas.Where(X => X is Restaurant))
+            foreach (Restaurant restaurant in hotelAreas)
             {
                 restaurant.Capacity = settings.RestaurantCapicity;
             }
@@ -156,7 +156,7 @@ namespace HotelSimulationTheLock
 
         }
         
-        public List<IMovable> BuildMovable(SettingsModel settings)
+        public List<IMovable> BuildMovable(SettingsModel settings, Hotel hotel)
         {
             List<IMovable> movables = new List<IMovable>();
 
@@ -165,7 +165,7 @@ namespace HotelSimulationTheLock
                 movables.Add(new Maid(new Point(4, HotelHeight)));
             }
 
-            movables.Add(new Receptionist(new Point(1, HotelHeight)));
+            movables.Add(new Receptionist(new Point(1, HotelHeight), hotel));
 
             foreach (var movable in movables)
             {
