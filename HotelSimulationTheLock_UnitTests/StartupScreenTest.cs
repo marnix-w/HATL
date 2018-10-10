@@ -71,7 +71,7 @@ namespace HotelSimulationTheLock_UnitTests
             Assert.IsNotNull(test_startupscreen.maid_LB.Text);
         }
 
-
+        // rework this test its with the new settings object
         [TestMethod]
         public void TetstIfOnClickPassingDataThroughIsWorking()
         {
@@ -79,16 +79,32 @@ namespace HotelSimulationTheLock_UnitTests
             StartupScreen test_startupscreen;           
             string test_path;
             Simulation test_simulation;
+            SettingsModel test_settings;
 
             //act       
             test_startupscreen = new StartupScreen();
+            test_settings = new SettingsModel();
             test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout");
             test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
 
-            test_simulation = new Simulation(test_startupscreen.layout, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-            test_simulation.test_model = test_startupscreen.layout;
+            test_simulation = new Simulation(test_startupscreen.layout, test_settings);
+            test_simulation.HotelLayout = test_startupscreen.layout;
             //assert
-            Assert.AreEqual(test_startupscreen.layout, test_simulation.test_model);
+            Assert.AreEqual(test_startupscreen.layout, test_simulation.HotelLayout);
+        }
+
+        [TestMethod]
+        public void TestIfJsonFileIsEmptyOrNot()
+        {
+            //arrange         
+            StartupScreen test_startupscreen;
+
+            //act       
+            test_startupscreen = new StartupScreen();
+
+            //assert
+            Assert.IsNotNull(test_startupscreen.ReadLayoutJson(Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout")));
+           
         }
     }
 }

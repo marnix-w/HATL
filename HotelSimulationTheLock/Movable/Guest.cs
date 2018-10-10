@@ -11,35 +11,120 @@ namespace HotelSimulationTheLock
 {
     public class Guest : IMovable, HotelEventListener
     {
+
         public Point Position { get; set; }
-        public PictureBox Art { get; set; }
+        public Bitmap Art { get; set; } = Properties.Resources.customer;
         public MovableStatus Status { get; set; }
+        public int FitnessDuration { get; set; }
 
         public string Name { get; set; }
         public int RoomRequest { get; set; }
-        public IArea area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IArea Area { get; set; }
+        public IArea MyRoom { get; set; }
 
-        public Guest(string name, int roomRequest)
+        public Queue<IArea> Path { get; set; }
+        public Dictionary<MovableStatus, Action> Actions { get; set; } = new Dictionary<MovableStatus, Action>();
+
+        Random rnd = new Random();
+
+        public Guest(string name, int roomRequest, Point point)
+        {
+            Name = name;
+            RoomRequest = roomRequest;
+            Position = point;
+            FitnessDuration = rnd.Next(0, 11);
+
+            Actions.Add(MovableStatus.CHEKING_IN, MoveFromPath);
+            Actions.Add(MovableStatus.GOING_TO_ROOM, GoingToRoom);
+            Actions.Add(MovableStatus.LEAVING, RemoveMe);
+            Actions.Add(MovableStatus.IN_ROOM, null);
+        }
+
+
+        public void SetPath(IArea destination)
+        {
+            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));           
+        }
+
+        public void Move()
+        {
+            if (Path.First().MoveToArea())
+            {
+                IArea destination = Path.Dequeue();
+
+                // remove old position
+                Area.Movables.Remove(this);
+
+                // add to new position
+                Area = destination;
+                Position = destination.Position;
+                Area.Movables.Add(this);
+            }
+            else
+            {
+
+            }
+            // else kill the person after 20 itterations or so
+            
+        }
+
+        // Actions list
+        private void MoveFromPath()
+        {          
+
+            if (Path.Any())
+            {
+                Move();
+            }
+            else if (Area is Reception)
+            {
+                if (((Receptionist)Area.Movables.First()).GiveThisGuestHisRoom(RoomRequest) is null)
+                {
+                    Status = MovableStatus.LEAVING;
+                }
+                else
+                {
+                    SetPath(((Receptionist)Area.Movables.First()).GiveThisGuestHisRoom(RoomRequest));
+                    Path.Last().AreaStatus = AreaStatus.OCCUPIED;
+                    IArea error = Path.Dequeue();
+                    MyRoom = Path.Last();
+                    Status = MovableStatus.GOING_TO_ROOM;
+                }      
+                
+            }
+            
+        }
+
+        private void GoingToRoom()
         {
            
+            if (Path.Any())
+            {
+                Move();
+            }
+            else if (!(Area == MyRoom))
+            {
+                SetPath(MyRoom);
+            }
+            else
+            {
+                Status = MovableStatus.IN_ROOM;
+            }
 
-
-            // TO BE CHANGED NO PIXTURE BOX SPAM
-            Art = new PictureBox();
-            RoomRequest = roomRequest;
-            Name = name;
-            Art.Image = Properties.Resources.customer;
-            Art.SizeMode = PictureBoxSizeMode.AutoSize;
-    
-            Art.BackColor = Color.Transparent;
-            Art.Location = new Point(50 ,Hotel.HotelHeight  * 96 + 42);
         }
+
+        private void RemoveMe()
+        {
+            // remove from are list
+            ((Receptionist)Area.Movables.First()).RemoveGuest(this);
+        }
+                
 
         public void Notify(HotelEvent evt)
         {
             switch (evt.EventType)
-            {         
-                
+            {
+
                 // find requested guest
 
                 case HotelEventType.CHECK_OUT:
@@ -61,5 +146,14 @@ namespace HotelSimulationTheLock
                     break;
             }
         }
+
+        public void PerformAction()
+        {
+            if (!(Actions[Status] == null))
+            {
+                Actions[Status]();
+            }
+        }
+      
     }
 }

@@ -1,169 +1,120 @@
 ﻿using HotelEvents;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Timers;
-using System.Windows.Forms;
 
 namespace HotelSimulationTheLock
 {
     public class Hotel : HotelEventListener
     {
-        //this list will be filled with IAreas objects
-        public List<IArea> HotelAreaList = new List<IArea>();
+        // Change the live stats function so these list can be private
+        // Make private
+        public List<IArea> HotelAreas { get; set; } = new List<IArea>();
+        // Make private 
+        public List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
+        private List<int> LeavingGuests { get; set; } = new List<int>();
+        public IHotelBuilder HotelBuilder { get; set; } = new JsonHotelBuilder();
+        public IHotelDrawer HotelDrawer { get; set; } = new BitmapHotelDrawer();
 
-
-        //a hotel needs to have a list of current guests 
-        public List<IMovable> IMovableList = new List<IMovable>();
-
+        // Hotel dimensions for calcuations
         public static int HotelHeight { get; set; }
         public static int HotelWidth { get; set; }
 
-        public Hotel(List<JsonModel> layout, float HTESeconds)
+        public Hotel(List<JsonModel> layout, SettingsModel settings)
         {
-            HotelEventManager.HTE_Factor = HTESeconds;
-
+            // Hotel will handle the CheckIn_events so it can add them to its list
+            // making it posible to keep the list private
             HotelEventManager.Register(this);
+            
 
-            AreaFactory Factory = new AreaFactory();
+            // Build the hotel
+            HotelAreas = HotelBuilder.BuildHotel(layout, settings);
+            HotelMovables = HotelBuilder.BuildMovable(settings, this);
 
-
-
-            foreach (JsonModel i in layout)
-            {
-                int temp = 0;
-
-                if (i.Classification != null)
-                {
-                    temp = int.Parse(Regex.Match(i.Classification, @"\d+").Value);
-                }
-
-                IArea area = Factory.GetArea(i.AreaType);
-                area.SetJsonValues(i.Position, i.Capacity, i.Dimension, temp);
-                HotelAreaList.Add(area);
-            }
-
-            HotelWidth = HotelAreaList.OrderBy(X => X.Position.X).Last().Position.X;
-            HotelHeight = HotelAreaList.OrderBy(Y => Y.Position.Y).Last().Position.Y;
-
-
-            for (int i = 1; i < HotelHeight + 2; i++)
-            {
-                // 5 is the capacity get from setting screen
-                IArea elevator = Factory.GetArea("Elevator");
-                IArea staircase = Factory.GetArea("Staircase");
-
-                elevator.SetJsonValues(new Point(0, i), 5, new Size(1, 1), i);
-                staircase.SetJsonValues(new Point(HotelWidth + 1, i), 5, new Size(1, 1), 0);
-
-                HotelAreaList.Add(elevator);
-                HotelAreaList.Add(staircase);
-            }
-            for (int i = 1; i < HotelWidth + 1; i++)
-            {
-                if (i == 1)
-                {
-                    IArea reception = Factory.GetArea("Reception");
-
-                    reception.SetJsonValues(new Point(1, HotelHeight + 1), 5, new Size(1, 1), 1);
-
-                    HotelAreaList.Add(reception);
-                }
-                else
-                {
-                    IArea Lobby = Factory.GetArea("Lobby");
-
-                    Lobby.SetJsonValues(new Point(i, HotelHeight + 1), 5, new Size(1, 1), i);
-
-                    HotelAreaList.Add(Lobby);
-                }
-            }
-
-
-            IMovableList.Add(new Maid(HotelWidth * 96 - 182, HotelHeight * 96 + 42));
-            IMovableList.Add(new Maid(HotelWidth * 96 - 92, HotelHeight * 96 + 42));
-
-            SetNeighbor();
-
-
+            HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
+            HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
+            
+            // Right?
+            HotelEventManager.HTE_Factor = 1 / settings.HTEPerSeconds;
+            
+            // Methods for final initialization           
+            Dijkstra.IntilazeDijkstra(this);
+            HotelEventManager.Start();
         }
 
-        public Bitmap DrawHotel()
+        public void RemoveSearchProperties()
         {
-            // all art is 96 * 96 pixels
-            Bitmap buffer = new Bitmap((HotelWidth + 2) * 96, (HotelHeight + 1) * 96, PixelFormat.Format16bppRgb565);
-
-            using (Graphics graphics = Graphics.FromImage(buffer))
+            foreach (IArea area in HotelAreas)
             {
-                foreach (IArea area in HotelAreaList)
-                {
-                    graphics.DrawImage(area.Art, area.Position.X * 96, (area.Position.Y - 1) * 96, area.Dimension.Width * 96, area.Dimension.Height * 96);
-                }
+                area.BackTrackCost = null;
+                area.NearestToStart = null;
+                area.Visited = false;
             }
-
-            return buffer;
-
         }
-
-        private void SetNeighbor()
+        
+        public void PerformAllActions()
         {
-
-            foreach (IArea area in HotelAreaList)
+            lock (HotelMovables)
             {
-
-                bool rightSet = false;
-                bool leftSet = false;
-
-                for (int i = 1; i < HotelWidth + 1; i++)
+                foreach (var item in HotelMovables)
                 {
-                    // right edge
-                    if (!rightSet && AddNeihgbor(area, i, 0, i))
+                    if (!(item is null))
                     {
-                        rightSet = true;
-                        continue;
+                        item.PerformAction();
                     }
-                    //left edge
-                    if (!leftSet && AddNeihgbor(area, -i, 0, i))
-                    {
-                        leftSet = true;
-                        continue;
+                    
+                }
+            }
+
+            for (int i = 0; i < LeavingGuests.Count; i++)
+            {
+                HotelMovables.RemoveAt(LeavingGuests[i]);
+            }
+
+            LeavingGuests = new List<int>();   
+            
+
+        }
+        
+        public IArea GetRoom(int request)
+        {
+            List<IArea> CurrentShortest = HotelAreas;
+
+            IArea guestRoom = null;
+
+            foreach (Room area in HotelAreas.Where(X => X is Room))
+            {
+                if (area.AreaStatus.Equals(AreaStatus.EMPTY) && area.Classification == request)
+                {
+                    if (Dijkstra.GetShortestPathDijkstra(HotelAreas.Find(X => X is Reception), area).Count < CurrentShortest.Count)
+                    {                     
+                    
+                        CurrentShortest = Dijkstra.GetShortestPathDijkstra(HotelAreas.Find(X => X is Reception), area);
+                        guestRoom = area;                       
                     }
                 }
-                if (area.Position.X == 0 || area.Position.X == HotelWidth + 1)
-                {
-                    // add top neighbor
-                    AddNeihgbor(area, 0, 1, 1);
-                    // add bothem neighbor
-                    AddNeihgbor(area, 0, -1, 1);
-                }
             }
+        
+
+            //this room needs to be casted to the guest
+            return guestRoom;
         }
 
-        private bool AddNeihgbor(IArea area, int xOffset, int yOffset, int wieght)
+        public void RemoveGuest(Guest guest)
         {
-            if (!(HotelAreaList.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)) is null))
-            {
-                area.Edge.Add(HotelAreaList.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)), wieght);
-                return true;
-            }
-            return false;
+            LeavingGuests.Add(HotelMovables.FindIndex(X => X == guest));   
         }
 
         public void Notify(HotelEvent evt)
         {
+            // Redo event handler
             if (evt.EventType.Equals(HotelEventType.CHECK_IN))
             {
-
                 string name = string.Empty;
                 string request = string.Empty;
-                int requestInt = 0;
+                int requestInt;
 
                 if (!(evt.Data is null))
                 {
@@ -174,18 +125,25 @@ namespace HotelSimulationTheLock
                 }
                 else
                 {
-                    name = "test guest";
-                    request = "no request";
+                    return;
                 }
 
-                Guest guest = new Guest(name, requestInt);
+                Guest guest = new Guest(name, requestInt, new Point(0, HotelHeight))
+                {
+                    Area = HotelAreas.Find(X => X.Position == new Point(0, HotelHeight))
+                };
 
-                IMovableList.Add(guest);
 
-                Console.WriteLine($"new guest = name: {name}, request: {request} ");
+                guest.Area = HotelAreas.Find(X => X.Position == guest.Position);
+                guest.SetPath(HotelAreas.Find(X => X.Position == new Point(1,HotelHeight)));
+
+                guest.SetPath(HotelAreas.Find(X => X is Reception));
+
+                HotelMovables.Add(guest);
+               
             }
         }
 
-
+        
     }
 }

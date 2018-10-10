@@ -6,33 +6,22 @@ using System.Text;
 using System.Threading.Tasks;
 using HotelSimulationTheLock;
 using HotelEvents;
+using System.Drawing;
 
 namespace HotelSimulationTheLock_UnitTests
 {
     [TestClass]
     public class MovableTests
-    {
-        [TestMethod]
-        public void TestIfReceptionistLivesAfterCreation()
-        {
-            //arrange
-             Receptionist CoolBob;
-
-            //act
-            CoolBob = new Receptionist();
-
-            //assert
-            Assert.IsInstanceOfType(CoolBob, typeof(Receptionist));
-        }
+    {       
 
         [TestMethod]
         public void TestIfMaidLivesAfterCreation()
         {
             //arrange
-            Maid Barbra;
+            IMovable Barbra;
 
             //act
-            Barbra = new Maid(1, 1);
+            Barbra = new Maid(new System.Drawing.Point(0, 0));
 
             //assert
             Assert.IsInstanceOfType(Barbra, typeof(Maid));
@@ -42,10 +31,10 @@ namespace HotelSimulationTheLock_UnitTests
         public void TestIfGuestLivesAfterCreation()
         {
             //arrange
-            Guest Bob;
+            IMovable Bob;
 
             //act
-            Bob = new Guest("Bob", 1);
+            Bob = new Guest("Bob", 1, new System.Drawing.Point(0,0));
 
             //assert
             Assert.IsInstanceOfType(Bob, typeof(Guest));

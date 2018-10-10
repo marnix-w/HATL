@@ -16,8 +16,9 @@ namespace HotelSimulationTheLock
     {
         public Point Position { get; set; }
         public Size Dimension { get; set; } = new Size(1, 1);
-        public int Capacity { get; set; } = 1;
+        public int Capacity { get; set; } = 2;
         public Bitmap Art { get; set; } = Properties.Resources.reception;
+        public int Duration { get; set; }
         public AreaStatus AreaStatus { get; set; }
 
         // Dijkstra search varibles
@@ -25,7 +26,7 @@ namespace HotelSimulationTheLock
         public IArea NearestToStart { get; set; } = null;
         public bool Visited { get; set; } = false;
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
-        public List<IMovable> Movables { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public List<IMovable> Movables { get; set; } = new List<IMovable>();
 
         public Reception()
         {
@@ -42,9 +43,13 @@ namespace HotelSimulationTheLock
             Position = position;
         }
 
-        public bool AddMovable(IMovable movable)
+        public bool MoveToArea()
         {
-            throw new NotImplementedException();
+            if (Capacity == Movables.Count)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

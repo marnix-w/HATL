@@ -8,25 +8,34 @@ using System.Windows.Forms;
 
 namespace HotelSimulationTheLock
 {
+   
     public enum MovableStatus
     {
-        LOBBY,
+        CHEKING_IN,
+        IN_HOTEL,
         IN_ROOM,
+        LEAVING,
         EATING,
         WORKING_OUT,
         WATCHING_MOVIE,
-        EVACUATING
+        EVACUATING,
+        GOING_TO_ROOM
         //Etc
     }
     public interface IMovable
     {
         // area status
-        IArea area { get; set; }
+        IArea Area { get; set; }
 
         // properties
         Point Position { get; set; }
-        PictureBox Art { get; set; }
+        Bitmap Art { get; set; }
         MovableStatus Status { get; set; }
+        Dictionary<MovableStatus, Action> Actions { get; set; }
+
+        void PerformAction();
+
+        void SetPath(IArea destination);
 
     }
 }

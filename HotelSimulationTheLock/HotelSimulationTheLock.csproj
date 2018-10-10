@@ -37,9 +37,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Downloads\temp\HotelEvents.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -64,10 +61,15 @@
     <Compile Include="Areas\Room.cs" />
     <Compile Include="Areas\Staircase.cs" />
     <Compile Include="Factories\AreaFactory.cs" />
+    <Compile Include="Interfaces\IHotelBuilder.cs" />
+    <Compile Include="Interfaces\IHotelDrawer.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
+    <Compile Include="Model\BitmapHotelDrawer.cs" />
+    <Compile Include="Model\Dijkstra.cs" />
     <Compile Include="Model\Hotel.cs" />
+    <Compile Include="Model\JsonHotelBuilder.cs" />
     <Compile Include="Model\JsonModel.cs" />
-    <Compile Include="Model\showListener.cs" />
+    <Compile Include="Model\SettingsModel.cs" />
     <Compile Include="Movable\Guest.cs" />
     <Compile Include="Movable\Maid.cs" />
     <Compile Include="Movable\Receptionist.cs" />
@@ -150,6 +152,7 @@
     <None Include="Assets\Images\room_two_star_locked.png" />
     <None Include="Assets\Images\room_two_star_open.png" />
     <None Include="Assets\Images\staircase.png" />
+    <Content Include="Assets\Images\background_lich_king.gif" />
     <Content Include="Assets\Libraries\HotelEvents.dll" />
   </ItemGroup>
   <ItemGroup>

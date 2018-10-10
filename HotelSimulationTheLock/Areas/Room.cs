@@ -18,7 +18,7 @@ namespace HotelSimulationTheLock
     {
         public Point Position { get; set; }
         public Size Dimension { get; set; }
-        public int Capacity { get; set; } = 1;
+        public int Capacity { get; set; } = int.MaxValue;
         public int Classification { get; set; }
         public Bitmap Art { get; set; }
         public AreaStatus AreaStatus { get; set; }
@@ -28,7 +28,7 @@ namespace HotelSimulationTheLock
         public IArea NearestToStart { get; set; } = null;
         public bool Visited { get; set; } = false;
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
-        public List<IMovable> Movables { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public List<IMovable> Movables { get; set; } = new List<IMovable>();
 
         public Room()
         {
@@ -43,8 +43,7 @@ namespace HotelSimulationTheLock
 
         public void SetJsonValues(Point position, int capacity, Size dimension, int classification)
         {
-            Position = position;
-            Capacity = capacity;
+            Position = position;            
             Dimension = dimension;
             Classification = classification;
 
@@ -70,9 +69,13 @@ namespace HotelSimulationTheLock
             }
         }
 
-        public bool AddMovable(IMovable movable)
+        public bool MoveToArea()
         {
-            throw new NotImplementedException();
+            if (Capacity == Movables.Count)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
