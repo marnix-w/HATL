@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace HotelSimulationTheLock
 {
     public partial class StartupScreen : Form
@@ -18,6 +19,7 @@ namespace HotelSimulationTheLock
 
         // private string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel.layout");
         public string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel_reparatie.layout");
+
         public List<JsonModel> layout { get; set; }
         public SettingsModel settings { get; set; }
         //global hte settings
@@ -49,7 +51,8 @@ namespace HotelSimulationTheLock
         {
             InitializeComponent();
 
-            Console.WriteLine(_path);
+            //path for default layout
+            file_path_TB.Text = _path;
 
             //casting string to textbox
             maid_LB.Text = _maid_amount;
@@ -65,29 +68,31 @@ namespace HotelSimulationTheLock
 
         public void _runSimulation_Click(object sender, EventArgs e)
         {
+            string path = file_path_TB.Text;
+
             if (layout == null)
             {
-                layout = ReadLayoutJson(_path);
+                layout = ReadLayoutJson(path);
             }
 
             settings = new SettingsModel
             {
-                AmountOfMaids = maid_TB.Value,
-                ElevatorDuration = elevator_hte_TB.Value,
-                ElevatorCapicity = elevator_cap_TB.Value,
-                HTEPerSeconds = hte_per_sec_TB.Value,
-                StairsDuration = staircase_hte_TB.Value,
-                CinemaDuration = cinema_dur_TB.Value,
-                RestaurantCapicity = restaurant_cap_TB.Value,              
-                EatingDuration = eating_dur_TB.Value,
-                FitnessCapicity = fitness_cap_TB.Value
+                AmountOfMaids = Decimal.ToInt32(maid_TB.Value),
+                ElevatorDuration = Decimal.ToInt32(elevator_hte_TB.Value),
+                ElevatorCapicity = Decimal.ToInt32(elevator_cap_TB.Value),
+                HTEPerSeconds = Decimal.ToInt32(hte_per_sec_TB.Value),
+                StairsDuration = Decimal.ToInt32(staircase_hte_TB.Value),
+                CinemaDuration = Decimal.ToInt32(cinema_dur_TB.Value),
+                RestaurantCapicity = Decimal.ToInt32(restaurant_cap_TB.Value),
+                EatingDuration = Decimal.ToInt32(eating_dur_TB.Value),
+                FitnessCapicity = Decimal.ToInt32(fitness_cap_TB.Value)
             };
 
             //below the Simulation is linked to this form
             Simulation hotelsimulation = new Simulation(layout, settings);
             
             hotelsimulation.Show();
-            // this.Hide();
+            this.Hide();
         }
         
         // Json uitlezen en dan een list van maken voor layout
@@ -107,50 +112,14 @@ namespace HotelSimulationTheLock
             return null;
         }
 
-
-        private void TrackBar1_ValueChanged(object sender, EventArgs e)
+        private void find_file_Click(object sender, EventArgs e)
         {
-            maid_LB.Text = _maid_amount + maid_TB.Value.ToString();
-        }
-
-        private void Elevator_hte_TB_ValueChanged(object sender, EventArgs e)
-        {
-            elevator_hte_LB.Text = _elevator_dur + elevator_hte_TB.Value.ToString();
-        }
-
-        private void Elevator_cap_TB_ValueChanged(object sender, EventArgs e)
-        {
-            elevator_cap_LB.Text = _elevator_cap + elevator_cap_TB.Value.ToString();
-        }
-
-        private void Hte_per_sec_TB_ValueChanged(object sender, EventArgs e)
-        {
-            hte_per_sec_LB.Text = _hte_per_sec + hte_per_sec_TB.Value.ToString();
-        }
-
-        private void Staircase_hte_TB_ValueChanged(object sender, EventArgs e)
-        {
-            staircase_hte_LB.Text = _staircase_hte + staircase_hte_TB.Value.ToString();
-        }
-
-        private void Cinema_dur_TB_ValueChanged(object sender, EventArgs e)
-        {
-            cinema_dur_LB.Text = _cinema_dur + cinema_dur_TB.Value.ToString();
-        }
-
-        private void Restaurant_cap_TB_ValueChanged(object sender, EventArgs e)
-        {
-            restaurant_cap_LB.Text = restaurant_cap + restaurant_cap_TB.Value.ToString();
-        }
-
-        private void Fitness_dur_TB_ValueChanged(object sender, EventArgs e)
-        {
-            eating_dur_LB.Text = _eating_dur + eating_dur_TB.Value.ToString();        
-        }
-
-        private void Fitness_cap_TB_ValueChanged(object sender, EventArgs e)
-        {
-            fitness_cap_LB.Text = _fitness_cap + fitness_cap_TB.Value.ToString();
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                var path = openFileDialog1.FileName;
+                file_path_TB.Text = path;
+            }
         }
     }
 }
