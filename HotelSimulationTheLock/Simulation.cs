@@ -29,7 +29,7 @@ namespace HotelSimulationTheLock
             // Does this timer work corectly with the HTE factor? -marnix
             Timer t = new Timer
             {
-                Interval = 500 // specify interval time as you want
+                Interval = 100 // specify interval time as you want
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
@@ -57,6 +57,8 @@ namespace HotelSimulationTheLock
         void Timer_Tick(object sender, EventArgs e)
         {
             Hotel.PerformAllActions();      
+
+            // fix frequent GC calls
 
             //every timer tick we refresh the facillity layout
             _fillFacillityTB();
@@ -113,7 +115,7 @@ namespace HotelSimulationTheLock
             }
             catch
             {
-                Debug.WriteLine("Marnix fix je stats shit");
+                Debug.WriteLine("jasper fix je stats shit");
             }
         }
 
