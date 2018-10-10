@@ -46,29 +46,35 @@ namespace HotelSimulationTheLock
             Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));           
         }
 
+        public void Move()
+        {
+            if (Path.First().MoveToArea())
+            {
+                IArea destination = Path.Dequeue();
+
+                // remove old position
+                Area.Movables.Remove(this);
+
+                // add to new position
+                Area = destination;
+                Position = destination.Position;
+                Area.Movables.Add(this);
+            }
+            else
+            {
+
+            }
+            // else kill the person after 20 itterations or so
+            
+        }
+
         // Actions list
         private void MoveFromPath()
         {          
 
             if (Path.Any())
             {
-                if (Path.First().MoveToArea())
-                {
-                    IArea destination = Path.Dequeue();
-
-                    // remove old position
-                    Area.Movables.Remove(this);
-
-                    // add to new position
-                    Area = destination;
-                    Position = destination.Position;
-                    Area.Movables.Add(this);
-                }
-                else
-                {
-
-                }
-                // else kill the person after 20 itterations or so
+                Move();
             }
             else if (Area is Reception)
             {
@@ -94,23 +100,7 @@ namespace HotelSimulationTheLock
            
             if (Path.Any())
             {
-                if (Path.First().MoveToArea())
-                {
-                    IArea destination = Path.Dequeue();
-
-                    // remove old position
-                    Area.Movables.Remove(this);
-
-                    // add to new position
-                    Area = destination;
-                    Position = destination.Position;
-                    Area.Movables.Add(this);
-                }
-                else
-                {
-
-                }
-                // else kill the person after 20 itterations or so
+                Move();
             }
             else if (!(Area == MyRoom))
             {
@@ -125,6 +115,7 @@ namespace HotelSimulationTheLock
 
         private void RemoveMe()
         {
+            // remove from are list
             ((Receptionist)Area.Movables.First()).RemoveGuest(this);
         }
                 

@@ -133,9 +133,9 @@ namespace HotelSimulationTheLock
                     // Keep lift weight in mind needs a rework
                     int weight = 1;
 
-                    if (area is Staircase)
+                    if (area is Elevator)
                     {
-                        weight = settings.StairsDuration;
+                        weight = 100;
                     }
 
                     // Add top neighbour
