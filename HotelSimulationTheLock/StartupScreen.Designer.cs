@@ -78,6 +78,7 @@
             this._runSimulation.TabIndex = 103;
             this._runSimulation.Text = "Run Simulation";
             this._runSimulation.UseVisualStyleBackColor = false;
+            this._runSimulation.Click += new System.EventHandler(this._runSimulation_Click_1);
             // 
             // find_file
             // 
