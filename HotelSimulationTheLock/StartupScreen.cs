@@ -83,15 +83,7 @@ namespace HotelSimulationTheLock
             return null;
         }
 
-        private void find_file_Click(object sender, EventArgs e)
-        {
-            DialogResult result = openFileDialog1.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                var path = openFileDialog1.FileName;
-                file_path_TB.Text = path;
-            }
-        }
+     
 
         private void _runSimulation_Click_1(object sender, EventArgs e)
         {
@@ -121,5 +113,16 @@ namespace HotelSimulationTheLock
             hotelsimulation.Show();
             this.Hide();
         }
+
+        private void find_file_Click_1(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                var path = openFileDialog1.FileName;
+                file_path_TB.Text = path;
+            }
+        
+    }
     }
 }

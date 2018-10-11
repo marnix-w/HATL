@@ -96,6 +96,7 @@
             this.find_file.TabIndex = 122;
             this.find_file.Text = "Browse";
             this.find_file.UseVisualStyleBackColor = false;
+            this.find_file.Click += new System.EventHandler(this.find_file_Click_1);
             // 
             // restaurant_cap_TB
             // 
