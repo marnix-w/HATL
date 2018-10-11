@@ -16,6 +16,8 @@ namespace HotelSimulationTheLock
 
         private Timer t { get; set; }
 
+        private bool _pauseResume { get; set; }
+
         // Drawing properties
         private PictureBox HotelBackground { get; set; }
         private Bitmap HotelImage { get; set; }
@@ -51,9 +53,10 @@ namespace HotelSimulationTheLock
 
             // Last methods for setup
             InitializeComponent();
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
 
-         
+
+            _pauseResume = false;
+            button1.Text = "Pause";
         }
 
         void Timer_Tick(object sender, EventArgs e)
@@ -72,9 +75,7 @@ namespace HotelSimulationTheLock
             // https://blogs.msdn.microsoft.com/davidklinems/2005/11/16/three-common-causes-of-memory-leaks-in-managed-applications/
             HotelImage.Dispose();
             HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
-            HotelBackground.Image = HotelImage;
-
-            
+            HotelBackground.Image = HotelImage;            
         }
         
 
@@ -158,7 +159,21 @@ namespace HotelSimulationTheLock
 
         private void button1_Click(object sender, EventArgs e)
         {
-            t.Stop();
+            if (!_pauseResume)
+            {
+                _pauseResume = true;
+                button1.Text = "Resume";
+                t.Stop();
+                HotelEventManager.Stop();
+            }
+            else
+            {
+                _pauseResume = false;
+                button1.Text = "Pause";
+                t.Start();
+                HotelEventManager.Start();
+            }
+    
         }
     }
 }

@@ -15,8 +15,6 @@ namespace HotelSimulationTheLock
 {
     public partial class StartupScreen : Form
     {
-
-
         // private string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel.layout");
         public string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel_reparatie.layout");
 
@@ -121,8 +119,7 @@ namespace HotelSimulationTheLock
             {
                 var path = openFileDialog1.FileName;
                 file_path_TB.Text = path;
-            }
-        
+            }        
     }
     }
 }
