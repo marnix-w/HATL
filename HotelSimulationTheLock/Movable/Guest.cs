@@ -88,6 +88,28 @@ namespace HotelSimulationTheLock
                     Path.Last().AreaStatus = AreaStatus.OCCUPIED;
                     IArea error = Path.Dequeue();
                     MyRoom = Path.Last();
+
+                    switch (((Room)MyRoom).Classification)
+                    {
+                        case 1:
+                            MyRoom.Art = Properties.Resources.room_one_star_locked;
+                            break;
+                        case 2:
+                            MyRoom.Art = Properties.Resources.room_two_star_locked;
+                            break;
+                        case 3:
+                            MyRoom.Art = Properties.Resources.room_three_star_locked;
+                            break;
+                        case 4:
+                            MyRoom.Art = Properties.Resources.room_four_star_locked;
+                            break;
+                        case 5:
+                            MyRoom.Art = Properties.Resources.room_five_star_locked;
+                            break;
+                        default:
+                            break;
+                    }
+
                     Status = MovableStatus.GOING_TO_ROOM;
                 }      
                 
@@ -114,8 +136,7 @@ namespace HotelSimulationTheLock
         }
 
         private void RemoveMe()
-        {
-            // remove from are list
+        {           
             ((Receptionist)Area.Movables.First()).RemoveGuest(this);
         }
                 

@@ -14,7 +14,7 @@ namespace HotelSimulationTheLock
         public List<IArea> HotelAreas { get; set; } = new List<IArea>();
         // Make private 
         public List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
-        private List<int> LeavingGuests { get; set; } = new List<int>();
+        private List<IMovable> LeavingGuests { get; set; } = new List<IMovable>();
         public IHotelBuilder HotelBuilder { get; set; } = new JsonHotelBuilder();
         public IHotelDrawer HotelDrawer { get; set; } = new BitmapHotelDrawer();
 
@@ -68,14 +68,12 @@ namespace HotelSimulationTheLock
                 }
             }
 
-            for (int i = 0; i < LeavingGuests.Count; i++)
+            foreach (var item in LeavingGuests)
             {
-                HotelMovables.RemoveAt(LeavingGuests[i]);
+                item.Area.Movables.Remove(item);
+                HotelMovables.Remove(item);
             }
-
-            LeavingGuests = new List<int>();   
-            
-
+    
         }
         
         public IArea GetRoom(int request)
@@ -104,7 +102,7 @@ namespace HotelSimulationTheLock
 
         public void RemoveGuest(Guest guest)
         {
-            LeavingGuests.Add(HotelMovables.FindIndex(X => X == guest));   
+            LeavingGuests.Add(guest);   
         }
 
         public void Notify(HotelEvent evt)
