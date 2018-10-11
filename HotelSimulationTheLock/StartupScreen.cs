@@ -16,7 +16,7 @@ namespace HotelSimulationTheLock
     public partial class StartupScreen : Form
     {
         // private string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel.layout");
-        public string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel_reparatie.layout");
+        public string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel3.layout");
 
         public List<JsonModel> layout { get; set; }
         public SettingsModel settings { get; set; }

@@ -36,8 +36,9 @@ namespace HotelSimulationTheLock
 
         public IArea CreateArea()
         {
-            HotelEventManager.Register(this);
-            return new Cinema();
+            Cinema c = new Cinema();
+            HotelEventManager.Register(c);
+            return c;
         }
 
         public void Notify(HotelEvent evt)
