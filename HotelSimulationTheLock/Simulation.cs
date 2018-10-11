@@ -14,6 +14,8 @@ namespace HotelSimulationTheLock
         public int UnitTestvalue { get; set; }
         public List<JsonModel> HotelLayout { get; set; }
 
+        private Timer t { get; set; }
+
         // Drawing properties
         private PictureBox HotelBackground { get; set; }
         private Bitmap HotelImage { get; set; }
@@ -27,7 +29,7 @@ namespace HotelSimulationTheLock
             HotelEventManager.HTE_Factor = 0.5f;
 
             // Does this timer work corectly with the HTE factor? -marnix
-            Timer t = new Timer
+            t = new Timer
             {
                 Interval = 500 // specify interval time as you want
             };
@@ -154,5 +156,9 @@ namespace HotelSimulationTheLock
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            t.Stop();
+        }
     }
 }

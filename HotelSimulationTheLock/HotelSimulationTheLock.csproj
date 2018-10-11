@@ -106,7 +106,7 @@
     </EmbeddedResource>
     <None Include="Assets\Libraries\Hotel.layout" />
     <None Include="Assets\Libraries\Hotel_reparatie.layout" />
-    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagramExample.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
