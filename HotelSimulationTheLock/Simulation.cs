@@ -12,7 +12,7 @@ namespace HotelSimulationTheLock
     {
         public Hotel Hotel { get; set; }
         public int UnitTestvalue { get; set; }
-        public List<JsonModel> HotelLayout { get; set; }
+    //    public List<JsonModel> HotelLayout { get; set; }
 
         private Timer t { get; set; }
 
@@ -23,17 +23,20 @@ namespace HotelSimulationTheLock
         private Bitmap HotelImage { get; set; }
         public static int RoomArtSize { get; } = 96;
 
+        List<string> listBoxGuest = new List<string>();
+        List<string> listBoxMaid = new List<string>();
+
         public Simulation(List<JsonModel> layout, SettingsModel Settings)
         {
             // 0.5f should be a varible in the settings data set
             Hotel = new Hotel(layout, Settings);
-            HotelLayout = layout;
+         //   HotelLayout = layout;
             HotelEventManager.HTE_Factor = 0.5f;
 
             // Does this timer work corectly with the HTE factor? -marnix
             t = new Timer
             {
-                Interval = 500 // specify interval time as you want
+                Interval = 650 // specify interval time as you want
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
@@ -48,12 +51,11 @@ namespace HotelSimulationTheLock
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 Image = HotelImage
             };
-            
+
             Controls.Add(HotelBackground);
 
             // Last methods for setup
             InitializeComponent();
-
 
             _pauseResume = false;
             button1.Text = "Pause";
@@ -61,7 +63,7 @@ namespace HotelSimulationTheLock
 
         void Timer_Tick(object sender, EventArgs e)
         {
-            Hotel.PerformAllActions();      
+            Hotel.PerformAllActions();
 
             // fix frequent GC calls
 
@@ -75,9 +77,9 @@ namespace HotelSimulationTheLock
             // https://blogs.msdn.microsoft.com/davidklinems/2005/11/16/three-common-causes-of-memory-leaks-in-managed-applications/
             HotelImage.Dispose();
             HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
-            HotelBackground.Image = HotelImage;            
+            HotelBackground.Image = HotelImage;
         }
-        
+
 
         //Overview of hotel facilities
         private void _fillFacillityTB()
@@ -125,35 +127,58 @@ namespace HotelSimulationTheLock
         private void _fillMoveAbleTB()
         {
             //guest overview
-            guestTB.Clear();
+            listBoxGuest.Clear();
 
             //maid overview
-            maidTB.Clear();
+            listBoxMaid.Clear();
 
             // Causes errors with current version
             // list is not lockeable 
             // status handle should not be done here
 
-            try
+
+            foreach (IMovable g in Hotel.HotelMovables)
             {
-                foreach (IMovable g in Hotel.HotelMovables)
+                try
                 {
                     if (g is Guest t)
                     {
-                        guestTB.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
-                        guestTB.Text += Environment.NewLine;
+                        listBoxGuest.Add(t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position + "\n");
+
+                        // guestTB.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
+                        //  guestTB.Text += Environment.NewLine;
                     }
                     if (g is Maid m)
                     {
-                        maidTB.Text += "Maid \t" + m.Status + "\t" + m.Position;
-                        maidTB.Text += Environment.NewLine;
+                        listBoxMaid.Add("Maid \t" + m.Status + "\t" + m.Position + "\n");
+                        // maidTB.Text += "Maid \t" + m.Status + "\t" + m.Position;
+                        // maidTB.Text += Environment.NewLine;
                     }
                 }
-            }
-            catch (Exception)
-            {
+                catch (Exception)
+                {
 
-                Debug.WriteLine("Jasper fix je stats shit");
+                    Debug.WriteLine("Jasper fix je stats shit");
+                }
+            }
+
+
+            fillTextBoxPlease();
+        }
+
+        void fillTextBoxPlease()
+        {
+            guestTB.Text = "";
+            maidTB.Text = "";
+
+            foreach (string value in listBoxGuest)
+            {
+                guestTB.AppendText(value);
+            }
+
+            foreach (string v in listBoxMaid)
+            {
+                maidTB.AppendText(v);
             }
         }
 
@@ -173,7 +198,9 @@ namespace HotelSimulationTheLock
                 t.Start();
                 HotelEventManager.Start();
             }
-    
+
         }
+
+
     }
 }
