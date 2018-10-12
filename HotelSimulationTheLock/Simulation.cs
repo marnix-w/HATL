@@ -12,7 +12,7 @@ namespace HotelSimulationTheLock
     {
         public Hotel Hotel { get; set; }
         public int UnitTestvalue { get; set; }
-    //    public List<JsonModel> HotelLayout { get; set; }
+        //    public List<JsonModel> HotelLayout { get; set; }
 
         private Timer t { get; set; }
 
@@ -24,13 +24,13 @@ namespace HotelSimulationTheLock
         public static int RoomArtSize { get; } = 96;
 
         List<string> listBoxGuest = new List<string>();
-        List<string> listBoxMaid = new List<string>();
+    
 
         public Simulation(List<JsonModel> layout, SettingsModel Settings)
         {
             // 0.5f should be a varible in the settings data set
             Hotel = new Hotel(layout, Settings);
-         //   HotelLayout = layout;
+            //   HotelLayout = layout;
             HotelEventManager.HTE_Factor = 0.5f;
 
             // Does this timer work corectly with the HTE factor? -marnix
@@ -84,12 +84,11 @@ namespace HotelSimulationTheLock
         //Overview of hotel facilities
         private void _fillFacillityTB()
         {
-            //room overview
+            
             roomTB.Clear();
             //fintess overview
-            fitnessTB.Clear();
-            //restaurant
-            restaurantTB.Clear();
+            facillityTB.Clear();
+      
 
             try
             {
@@ -105,12 +104,16 @@ namespace HotelSimulationTheLock
                             roomTB.Text += Environment.NewLine;
                             break;
                         case "Fitness":
-                            fitnessTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                            fitnessTB.Text += Environment.NewLine;
+                            facillityTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus +"\t"+ i.Capacity;
+                            facillityTB.Text += Environment.NewLine;
                             break;
-                        case "Restaurant":
-                            restaurantTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                            restaurantTB.Text += Environment.NewLine;
+                        case "Restaurant":                         
+                            facillityTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus + "\t" + i.Capacity;
+                            facillityTB.Text += Environment.NewLine;
+                            break;
+                        case "Cinema":
+                            facillityTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus + "\t" + i.Capacity;
+                            facillityTB.Text += Environment.NewLine;
                             break;
                         default:
                             break;
@@ -118,69 +121,47 @@ namespace HotelSimulationTheLock
 
                 }
             }
-            catch
+            catch (Exception e)
             {
-                Debug.WriteLine("jasper fix je stats shit");
+                Debug.WriteLine("jasper fix je stats shit" + e.Message);
             }
+
+         
+
         }
 
         private void _fillMoveAbleTB()
         {
             //guest overview
-            listBoxGuest.Clear();
+            listBoxGuest.Clear();    
 
-            //maid overview
-            listBoxMaid.Clear();
+            listBoxGuest = Hotel.currentValue();
 
-            // Causes errors with current version
-            // list is not lockeable 
-            // status handle should not be done here
-
-
-            foreach (IMovable g in Hotel.HotelMovables)
-            {
-                try
-                {
-                    if (g is Guest t)
-                    {
-                        listBoxGuest.Add(t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position + "\n");
-
-                        // guestTB.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
-                        //  guestTB.Text += Environment.NewLine;
-                    }
-                    if (g is Maid m)
-                    {
-                        listBoxMaid.Add("Maid \t" + m.Status + "\t" + m.Position + "\n");
-                        // maidTB.Text += "Maid \t" + m.Status + "\t" + m.Position;
-                        // maidTB.Text += Environment.NewLine;
-                    }
-                }
-                catch (Exception)
-                {
-
-                    Debug.WriteLine("Jasper fix je stats shit");
-                }
-            }
-
-
-            fillTextBoxPlease();
-        }
-
-        void fillTextBoxPlease()
-        {
-            guestTB.Text = "";
-            maidTB.Text = "";
+            guestTB.Clear();      
 
             foreach (string value in listBoxGuest)
             {
-                guestTB.AppendText(value);
-            }
+                try
+                {
+                    if (value.Contains("Maid"))
+                    {
+                        guestTB.AppendText(value);
+             
 
-            foreach (string v in listBoxMaid)
-            {
-                maidTB.AppendText(v);
+                    }
+                    else
+                    {                   
+                        guestTB.AppendText(value);
+                    }
+                }
+                catch(Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+             
             }
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
