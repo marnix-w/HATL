@@ -37,29 +37,29 @@
             // 
             // roomTB
             // 
-            this.roomTB.Location = new System.Drawing.Point(1282, 93);
+            this.roomTB.Location = new System.Drawing.Point(993, 362);
             this.roomTB.Multiline = true;
             this.roomTB.Name = "roomTB";
             this.roomTB.ReadOnly = true;
-            this.roomTB.Size = new System.Drawing.Size(386, 361);
+            this.roomTB.Size = new System.Drawing.Size(348, 361);
             this.roomTB.TabIndex = 6;
             // 
             // facillityTB
             // 
-            this.facillityTB.Location = new System.Drawing.Point(928, 460);
+            this.facillityTB.Location = new System.Drawing.Point(993, 738);
             this.facillityTB.Multiline = true;
             this.facillityTB.Name = "facillityTB";
             this.facillityTB.ReadOnly = true;
-            this.facillityTB.Size = new System.Drawing.Size(348, 275);
+            this.facillityTB.Size = new System.Drawing.Size(348, 121);
             this.facillityTB.TabIndex = 7;
             // 
             // guestTB
             // 
-            this.guestTB.Location = new System.Drawing.Point(928, 93);
+            this.guestTB.Location = new System.Drawing.Point(993, 89);
             this.guestTB.Multiline = true;
             this.guestTB.Name = "guestTB";
             this.guestTB.ReadOnly = true;
-            this.guestTB.Size = new System.Drawing.Size(348, 361);
+            this.guestTB.Size = new System.Drawing.Size(348, 267);
             this.guestTB.TabIndex = 8;
             // 
             // button1

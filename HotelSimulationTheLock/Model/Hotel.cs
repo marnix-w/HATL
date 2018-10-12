@@ -60,12 +60,6 @@ namespace HotelSimulationTheLock
 
         public void PerformAllActions()
         {
-            foreach (var item in LeavingGuests)
-            {
-                item.Area.Movables.Remove(item);
-                HotelMovables.Remove(item);
-            }
-
             lock (HotelMovables)
             {
                 foreach (var item in HotelMovables)
@@ -82,6 +76,12 @@ namespace HotelSimulationTheLock
                         Debug.WriteLine("Could not find {0}", e.Message);
                     }  
                 }
+            }
+
+            foreach (var item in LeavingGuests)
+            {
+                item.Area.Movables.Remove(item);
+                HotelMovables.Remove(item);
             }
         }
 
@@ -110,9 +110,7 @@ namespace HotelSimulationTheLock
         }
 
         public void RemoveGuest(Guest guest)
-        {
-            //removing guest aswell form hotelmoveables list??
-            HotelMovables.Remove(guest);
+        {           
             LeavingGuests.Add(guest);
         }
 
