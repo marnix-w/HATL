@@ -14,6 +14,7 @@ namespace HotelSimulationTheLock
     [ExportMetadata("AreaType", "Cinema")]
     public class Cinema : IArea, HotelEventListener
     {
+        public int ID { get; set; }
         // Properties
         public Point Position { get; set; }
         public Size Dimension { get; set; }
@@ -49,8 +50,9 @@ namespace HotelSimulationTheLock
             }
         }
 
-        public void SetJsonValues(Point position, int capacity, Size dimension, int classification)
+        public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
+            ID = id;
             Position = position;
             Dimension = dimension;
         }

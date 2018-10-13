@@ -100,19 +100,19 @@ namespace HotelSimulationTheLock
                     {
 
                         case "Room":
-                            roomTB.Text += ((Room)i).Classification + " Star " + type + "\t" + i.AreaStatus + "\t" + ((Room)i).Position;
+                            roomTB.Text += "id: "+ i.ID + " " + type + " Star " + ((Room)i).Classification + "\t" + i.AreaStatus + "\t" + ((Room)i).Position;
                             roomTB.Text += Environment.NewLine;
                             break;
                         case "Fitness":
-                            facillityTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus +"\t"+ i.Capacity;
+                            facillityTB.Text += "id: " + i.ID + i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus +"\t"+ i.Capacity;
                             facillityTB.Text += Environment.NewLine;
                             break;
                         case "Restaurant":                         
-                            facillityTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus + "\t" + i.Capacity;
+                            facillityTB.Text += "id: " + i.ID + i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus + "\t" + i.Capacity;
                             facillityTB.Text += Environment.NewLine;
                             break;
                         case "Cinema":
-                            facillityTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus + "\t" + i.Capacity;
+                            facillityTB.Text += "id: " + i.ID + i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus + "\t" + i.Capacity;
                             facillityTB.Text += Environment.NewLine;
                             break;
                         default:

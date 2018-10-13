@@ -30,6 +30,7 @@ namespace HotelSimulationTheLock
     {
        
         // Properties
+        int ID { get; set; }
         Point Position { get; set; }
         Size Dimension { get; set; }
         int Capacity { get; set; }
@@ -50,7 +51,7 @@ namespace HotelSimulationTheLock
         // Functions
         IArea CreateArea();
 
-        void SetJsonValues(Point position, int capacity, Size dimension, int classification);
+        void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification);
         
     }
 }

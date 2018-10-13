@@ -45,7 +45,7 @@ namespace HotelSimulationTheLock
                 }
 
                 IArea area = Factory.GetArea(i.AreaType);
-                area.SetJsonValues(i.Position, i.Capacity, i.Dimension, classificationNum);
+                area.SetJsonValues(i.ID, i.Position, i.Capacity, i.Dimension, classificationNum);
                 HotelAreas.Add(area);
             }
 
@@ -59,8 +59,8 @@ namespace HotelSimulationTheLock
                 IArea elevator = Factory.GetArea("Elevator");
                 IArea staircase = Factory.GetArea("Staircase");
 
-                elevator.SetJsonValues(new Point(0, i), settings.ElevatorCapicity, new Size(1, 1), i);
-                staircase.SetJsonValues(new Point(HotelWidth, i), 5, new Size(1, 1), 0);
+                elevator.SetJsonValues(300, new Point(0, i), settings.ElevatorCapicity, new Size(1, 1), i);
+                staircase.SetJsonValues(400, new Point(HotelWidth, i), 5, new Size(1, 1), 0);
 
                 HotelAreas.Add(elevator);
                 HotelAreas.Add(staircase);
@@ -73,7 +73,7 @@ namespace HotelSimulationTheLock
                 {
                     IArea reception = Factory.GetArea("Reception");
 
-                    reception.SetJsonValues(new Point(1, HotelHeight), 5, new Size(1, 1), 1);
+                    reception.SetJsonValues(500, new Point(1, HotelHeight), 5, new Size(1, 1), 1);
 
                     HotelAreas.Add(reception);
                 }
@@ -81,7 +81,7 @@ namespace HotelSimulationTheLock
                 {
                     IArea Lobby = Factory.GetArea("Lobby");
 
-                    Lobby.SetJsonValues(new Point(i, HotelHeight), 5, new Size(1, 1), i);
+                    Lobby.SetJsonValues(600, new Point(i, HotelHeight), 5, new Size(1, 1), i);
 
                     HotelAreas.Add(Lobby);
                 }
