@@ -12,7 +12,6 @@ namespace HotelSimulationTheLock
     {
         public Hotel Hotel { get; set; }
         public int UnitTestvalue { get; set; }
-        //    public List<JsonModel> HotelLayout { get; set; }
 
         private Timer t { get; set; }
 
@@ -23,8 +22,6 @@ namespace HotelSimulationTheLock
         private Bitmap HotelImage { get; set; }
         public static int RoomArtSize { get; } = 96;
 
-        List<string> listBoxGuest = new List<string>();
-    
 
         public Simulation(List<JsonModel> layout, SettingsModel Settings)
         {
@@ -93,81 +90,45 @@ namespace HotelSimulationTheLock
         //Overview of hotel facilities
         private void _fillFacillityTB()
         {
-            
             roomTB.Clear();
             //fintess overview
             facillityTB.Clear();
-      
 
-            try
+            foreach (string i in Hotel.currentValueIArea())
             {
-                foreach (IArea i in Hotel.HotelAreas)
-                {
-                    string type = i.GetType().ToString().Replace("HotelSimulationTheLock.", "");
-
-                    switch (type)
+                try
+                {                  
+                    if (i.Contains("Room"))
                     {
-
-                        case "Room":
-                            roomTB.Text += "id: "+ i.ID + " " + type + " Star " + ((Room)i).Classification + "\t" + i.AreaStatus + "\t" + ((Room)i).Position;
-                            roomTB.Text += Environment.NewLine;
-                            break;
-                        case "Fitness":
-                            facillityTB.Text += "id: " + i.ID + i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus +"\t"+ i.Capacity;
-                            facillityTB.Text += Environment.NewLine;
-                            break;
-                        case "Restaurant":                         
-                            facillityTB.Text += "id: " + i.ID + i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus + "\t" + i.Capacity;
-                            facillityTB.Text += Environment.NewLine;
-                            break;
-                        case "Cinema":
-                            facillityTB.Text += "id: " + i.ID + i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus + "\t" + i.Capacity;
-                            facillityTB.Text += Environment.NewLine;
-                            break;
-                        default:
-                            break;
+                        roomTB.AppendText(i);
                     }
-
+                    if (i.Contains("Fitness") || i.Contains("Restaurant") || i.Contains("Cinema") || i.Contains("Elevator"))
+                    {
+                        facillityTB.AppendText(i);
+                    } 
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("jasper fix je stats shit" + e.Message);
                 }
             }
-            catch (Exception e)
-            {
-                Debug.WriteLine("jasper fix je stats shit" + e.Message);
-            }
-
-         
-
         }
 
         private void _fillMoveAbleTB()
         {
-            //guest overview
-            listBoxGuest.Clear();    
+            guestTB.Clear();
 
-            listBoxGuest = Hotel.currentValue();
-
-            guestTB.Clear();      
-
-            foreach (string value in listBoxGuest)
+            foreach (string value in Hotel.currentValue())
             {
                 try
                 {
-                    if (value.Contains("Maid"))
-                    {
-                        guestTB.AppendText(value);
-             
-
-                    }
-                    else
-                    {                   
-                        guestTB.AppendText(value);
-                    }
+                    guestTB.AppendText(value);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Debug.WriteLine(e.Message);
                 }
-             
+
             }
         }
 
