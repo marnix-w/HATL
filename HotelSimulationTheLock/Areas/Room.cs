@@ -71,10 +71,6 @@ namespace HotelSimulationTheLock
 
         public bool MoveToArea()
         {
-            if (Capacity == Movables.Count)
-            {
-                return false;
-            }
             return true;
         }
     }

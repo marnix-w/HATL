@@ -28,10 +28,7 @@ namespace HotelSimulationTheLock
 
     public interface IArea
     {
-        // Movable implementation
-        List<IMovable> Movables { get; set; }
-
-
+       
         // Properties
         Point Position { get; set; }
         Size Dimension { get; set; }
@@ -54,9 +51,6 @@ namespace HotelSimulationTheLock
         IArea CreateArea();
 
         void SetJsonValues(Point position, int capacity, Size dimension, int classification);
-
-        bool MoveToArea();
-
-
+        
     }
 }

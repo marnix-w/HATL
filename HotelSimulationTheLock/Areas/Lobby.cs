@@ -23,8 +23,7 @@ namespace HotelSimulationTheLock
         public IArea NearestToStart { get; set; }
         public bool Visited { get; set; }
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
-        public List<IMovable> Movables { get; set; } = new List<IMovable>();
-
+        
         public Lobby()
         {
 
@@ -46,14 +45,6 @@ namespace HotelSimulationTheLock
             }
 
         }
-
-        public bool MoveToArea()
-        {
-            if (Capacity == Movables.Count)
-            {
-                return false;
-            }
-            return true;
-        }
+        
     }
 }

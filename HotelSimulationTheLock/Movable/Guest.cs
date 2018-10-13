@@ -34,7 +34,7 @@ namespace HotelSimulationTheLock
             Position = point;
             FitnessDuration = rnd.Next(0, 11);
 
-            Actions.Add(MovableStatus.CHEKING_IN, MoveFromPath);
+            Actions.Add(MovableStatus.CHEKING_IN, ChekIn);
             Actions.Add(MovableStatus.GOING_TO_ROOM, GoingToRoom);
             Actions.Add(MovableStatus.LEAVING, RemoveMe);
             Actions.Add(MovableStatus.IN_ROOM, null);
@@ -43,83 +43,80 @@ namespace HotelSimulationTheLock
 
         public void SetPath(IArea destination)
         {
-            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));           
+            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));
         }
 
         public void Move()
         {
-            if (Path.First().MoveToArea())
-            {
-                IArea destination = Path.Dequeue();
-
-                // remove old position
-                Area.Movables.Remove(this);
-
-                // add to new position
-                Area = destination;
-                Position = destination.Position;
-                Area.Movables.Add(this);
-            }
-            else
-            {
-
-            }
-            // else kill the person after 20 itterations or so
-            
+            IArea destination = Path.Dequeue();
+            Area = destination;
+            Position = destination.Position;
         }
 
         // Actions list
-        private void MoveFromPath()
-        {          
-
+        private void ChekIn()
+        {
             if (Path.Any())
             {
                 Move();
             }
             else if (Area is Reception)
             {
-                if (((Receptionist)Area.Movables.First()).GiveThisGuestHisRoom(RoomRequest) is null)
+                if (((Reception)Area).EnterArea(this))
                 {
-                    Status = MovableStatus.LEAVING;
-                }
-                else
-                {
-                    SetPath(((Receptionist)Area.Movables.First()).GiveThisGuestHisRoom(RoomRequest));
-                    Path.Last().AreaStatus = AreaStatus.OCCUPIED;
-                    IArea error = Path.Dequeue();
-                    MyRoom = Path.Last();
-
-                    switch (((Room)MyRoom).Classification)
+                    
+                    if (((Reception)Area).Receptionist.GiveThisGuestHisRoom(RoomRequest) is null)
                     {
-                        case 1:
-                            MyRoom.Art = Properties.Resources.room_one_star_locked;
-                            break;
-                        case 2:
-                            MyRoom.Art = Properties.Resources.room_two_star_locked;
-                            break;
-                        case 3:
-                            MyRoom.Art = Properties.Resources.room_three_star_locked;
-                            break;
-                        case 4:
-                            MyRoom.Art = Properties.Resources.room_four_star_locked;
-                            break;
-                        case 5:
-                            MyRoom.Art = Properties.Resources.room_five_star_locked;
-                            break;
-                        default:
-                            break;
+                        Status = MovableStatus.LEAVING;
                     }
+                    else
+                    {
+                        SetPath(((Reception)Area).Receptionist.GiveThisGuestHisRoom(RoomRequest));
+                        Path.Last().AreaStatus = AreaStatus.OCCUPIED;
+                        IArea error = Path.Dequeue();
+                        MyRoom = Path.Last();
 
-                    Status = MovableStatus.GOING_TO_ROOM;
-                }      
-                
+                        switch (((Room)MyRoom).Classification)
+                        {
+                            case 1:
+                                MyRoom.Art = Properties.Resources.room_one_star_locked;
+                                break;
+                            case 2:
+                                MyRoom.Art = Properties.Resources.room_two_star_locked;
+                                break;
+                            case 3:
+                                MyRoom.Art = Properties.Resources.room_three_star_locked;
+                                break;
+                            case 4:
+                                MyRoom.Art = Properties.Resources.room_four_star_locked;
+                                break;
+                            case 5:
+                                MyRoom.Art = Properties.Resources.room_five_star_locked;
+                                break;
+                            default:
+                                break;
+                        }
+                       
+                        Status = MovableStatus.GOING_TO_ROOM;
+                    }
+                }
+                else if(!((Reception)Area).CheckInQueue.Contains(this))
+                {
+                    Console.WriteLine("Im in the queee");
+                    ((Reception)Area).CheckInQueue.Enqueue(this);
+                }
             }
-            
+
         }
 
         private void GoingToRoom()
         {
+            if (Area is Reception)
+            {
+                ((Reception)Area).CheckInQueue.Dequeue();
+            }
            
+
             if (Path.Any())
             {
                 Move();
@@ -136,10 +133,15 @@ namespace HotelSimulationTheLock
         }
 
         private void RemoveMe()
-        {           
-            ((Receptionist)Area.Movables.First()).RemoveGuest(this);
+        {
+            if (Area is Reception)
+            {
+                ((Reception)Area).CheckInQueue.Dequeue();
+            }
+
+            ((Reception)Area).Receptionist.RemoveGuest(this);
         }
-                
+
 
         public void Notify(HotelEvent evt)
         {
@@ -175,6 +177,6 @@ namespace HotelSimulationTheLock
                 Actions[Status]();
             }
         }
-      
+
     }
 }
