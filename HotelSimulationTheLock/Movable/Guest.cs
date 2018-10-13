@@ -17,6 +17,7 @@ namespace HotelSimulationTheLock
         public MovableStatus Status { get; set; }
         public int FitnessDuration { get; set; }
 
+        public int ID { get; set; }
         public string Name { get; set; }
         public int RoomRequest { get; set; }
         public IArea Area { get; set; }
@@ -27,19 +28,28 @@ namespace HotelSimulationTheLock
 
         Random rnd = new Random();
 
-        public Guest(string name, int roomRequest, Point point)
+        public Guest(string name, int roomRequest, Point point, int id)
         {
             Name = name;
             RoomRequest = roomRequest;
             Position = point;
+            ID = id;
             FitnessDuration = rnd.Next(0, 11);
 
             Actions.Add(MovableStatus.CHEKING_IN, ChekIn);
             Actions.Add(MovableStatus.GOING_TO_ROOM, GoingToRoom);
             Actions.Add(MovableStatus.LEAVING, RemoveMe);
+            Actions.Add(MovableStatus.GET_FOOD, GetFood);
             Actions.Add(MovableStatus.IN_ROOM, null);
         }
 
+        public void PerformAction()
+        {
+            if (!(Actions[Status] == null))
+            {
+                Actions[Status]();
+            }
+        }
 
         public void SetPath(IArea destination)
         {
@@ -101,8 +111,7 @@ namespace HotelSimulationTheLock
                     }
                 }
                 else if(!((Reception)Area).CheckInQueue.Contains(this))
-                {
-                    Console.WriteLine("Im in the queee");
+                {                  
                     ((Reception)Area).CheckInQueue.Enqueue(this);
                 }
             }
@@ -141,7 +150,11 @@ namespace HotelSimulationTheLock
 
             ((Reception)Area).Receptionist.RemoveGuest(this);
         }
+        
+        private void GetFood()
+        {
 
+        }
 
         public void Notify(HotelEvent evt)
         {
@@ -170,13 +183,7 @@ namespace HotelSimulationTheLock
             }
         }
 
-        public void PerformAction()
-        {
-            if (!(Actions[Status] == null))
-            {
-                Actions[Status]();
-            }
-        }
+       
 
     }
 }

@@ -121,9 +121,21 @@ namespace HotelSimulationTheLock
                 string name = string.Empty;
                 string request = string.Empty;
                 int requestInt;
+                int id = 0;
 
                 if (!(evt.Data is null))
                 {
+                    foreach (var DataSet in evt.Data)
+                    {
+                        if (DataSet.Key.Contains("Gast"))
+                        {
+                            id = int.Parse(Regex.Match(DataSet.Key, @"\d+").Value);
+                        }
+
+
+                    }
+
+
                     name = evt.Data.FirstOrDefault().Key;
                     request = evt.Data.FirstOrDefault().Value;
 
@@ -131,18 +143,18 @@ namespace HotelSimulationTheLock
                 }
                 else
                 {
+                    // kill test events
                     return;
                 }
 
-                Guest guest = new Guest(name, requestInt, new Point(0, HotelHeight))
+                Guest guest = new Guest(name, requestInt, new Point(0, HotelHeight), id)
                 {
                     Area = HotelAreas.Find(X => X.Position == new Point(0, HotelHeight))
                 };
 
 
                 guest.Area = HotelAreas.Find(X => X.Position == guest.Position);
-                guest.SetPath(HotelAreas.Find(X => X.Position == new Point(1, HotelHeight)));
-
+                
                 guest.SetPath(HotelAreas.Find(X => X is Reception));
 
                 HotelMovables.Add(guest);

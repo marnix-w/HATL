@@ -43,7 +43,7 @@ namespace HotelSimulationTheLock
 
         public void Notify(HotelEvent evt)
         {
-            if (evt.EventType.Equals(HotelEventType.STAR_CINEMA))
+            if (evt.EventType.Equals(HotelEventType.START_CINEMA))
             {
 
             }
