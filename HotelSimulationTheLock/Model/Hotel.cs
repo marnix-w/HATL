@@ -79,8 +79,7 @@ namespace HotelSimulationTheLock
             }
 
             foreach (var item in LeavingGuests)
-            {
-                item.Area.Movables.Remove(item);
+            {               
                 HotelMovables.Remove(item);
             }
         }

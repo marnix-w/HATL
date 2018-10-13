@@ -24,7 +24,7 @@ namespace HotelSimulationTheLock
             Position = position;
             Hotel = hotel;
             Area = hotel.HotelAreas.Find(X => X is Reception);
-            Area.Movables.Add(this);
+            ((Reception)Area).Receptionist = this;
 
         }
 
