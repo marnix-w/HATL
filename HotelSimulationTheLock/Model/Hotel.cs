@@ -1,6 +1,7 @@
 ﻿using HotelEvents;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -22,12 +23,15 @@ namespace HotelSimulationTheLock
         public static int HotelHeight { get; set; }
         public static int HotelWidth { get; set; }
 
+        public List<string> valueofMoveable { get; set; } = new List<string>();
+        public List<string> valueofIArea { get; set; } = new List<string>();
+
         public Hotel(List<JsonModel> layout, SettingsModel settings)
         {
             // Hotel will handle the CheckIn_events so it can add them to its list
             // making it posible to keep the list private
             HotelEventManager.Register(this);
-            
+
 
             // Build the hotel
             HotelAreas = HotelBuilder.BuildHotel(layout, settings);
@@ -35,10 +39,10 @@ namespace HotelSimulationTheLock
 
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
-            
+
             // Right?
             HotelEventManager.HTE_Factor = 1 / settings.HTEPerSeconds;
-            
+
             // Methods for final initialization           
             Dijkstra.IntilazeDijkstra(this);
             HotelEventManager.Start();
@@ -53,18 +57,24 @@ namespace HotelSimulationTheLock
                 area.Visited = false;
             }
         }
-        
+
         public void PerformAllActions()
         {
             lock (HotelMovables)
             {
                 foreach (var item in HotelMovables)
                 {
-                    if (!(item is null))
+                    try
                     {
-                        item.PerformAction();
+                        if (!(item is null))
+                        {
+                            item.PerformAction();
+                        }
                     }
-                    
+                    catch(Exception e)
+                    {
+                        Debug.WriteLine("Could not find {0}", e.Message);
+                    }  
                 }
             }
 
@@ -72,9 +82,8 @@ namespace HotelSimulationTheLock
             {               
                 HotelMovables.Remove(item);
             }
-    
         }
-        
+
         public IArea GetRoom(int request)
         {
             List<IArea> CurrentShortest = HotelAreas;
@@ -86,22 +95,22 @@ namespace HotelSimulationTheLock
                 if (area.AreaStatus.Equals(AreaStatus.EMPTY) && area.Classification == request)
                 {
                     if (Dijkstra.GetShortestPathDijkstra(HotelAreas.Find(X => X is Reception), area).Count < CurrentShortest.Count)
-                    {                     
-                    
+                    {
+
                         CurrentShortest = Dijkstra.GetShortestPathDijkstra(HotelAreas.Find(X => X is Reception), area);
-                        guestRoom = area;                       
+                        guestRoom = area;
                     }
                 }
             }
-        
+
 
             //this room needs to be casted to the guest
             return guestRoom;
         }
 
         public void RemoveGuest(Guest guest)
-        {
-            LeavingGuests.Add(guest);   
+        {           
+            LeavingGuests.Add(guest);
         }
 
         public void Notify(HotelEvent evt)
@@ -132,15 +141,33 @@ namespace HotelSimulationTheLock
 
 
                 guest.Area = HotelAreas.Find(X => X.Position == guest.Position);
-                guest.SetPath(HotelAreas.Find(X => X.Position == new Point(1,HotelHeight)));
+                guest.SetPath(HotelAreas.Find(X => X.Position == new Point(1, HotelHeight)));
 
                 guest.SetPath(HotelAreas.Find(X => X is Reception));
 
                 HotelMovables.Add(guest);
-               
+
             }
         }
 
-        
+        public List<string> currentValue()
+        {
+            valueofMoveable.Clear();
+
+            foreach (IMovable a in HotelMovables)
+            {
+                if (a is Guest g)
+                {
+                    valueofMoveable.Add(g.Name + " \t " + g.RoomRequest + " \t " + g.Status + " \t " + g.Position + "\n");
+                }
+                if (a is Maid m)
+                {
+                    valueofMoveable.Add("Maid" + " \t " + m.Status + " \t " + m.Position + "\n");
+                }
+            }
+
+            return valueofMoveable;
+        }      
+
     }
 }
