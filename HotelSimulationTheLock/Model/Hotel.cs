@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace HotelSimulationTheLock
 {
@@ -41,7 +42,7 @@ namespace HotelSimulationTheLock
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
 
             // Right?
-            HotelEventManager.HTE_Factor = 1 / settings.HTEPerSeconds;
+            HotelEventManager.HTE_Factor = 100;
 
             // Methods for final initialization           
             Dijkstra.IntilazeDijkstra(this);
@@ -114,8 +115,7 @@ namespace HotelSimulationTheLock
         }
 
         public void Notify(HotelEvent evt)
-        {
-            // Redo event handler
+        {         
             if (evt.EventType.Equals(HotelEventType.CHECK_IN))
             {
                 string name = string.Empty;
@@ -151,8 +151,7 @@ namespace HotelSimulationTheLock
                 {
                     Area = HotelAreas.Find(X => X.Position == new Point(0, HotelHeight))
                 };
-
-
+                
                 guest.Area = HotelAreas.Find(X => X.Position == guest.Position);
                 
                 guest.SetPath(HotelAreas.Find(X => X is Reception));

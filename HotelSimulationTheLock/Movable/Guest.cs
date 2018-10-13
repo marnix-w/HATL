@@ -23,6 +23,10 @@ namespace HotelSimulationTheLock
         public IArea Area { get; set; }
         public IArea MyRoom { get; set; }
 
+        public bool Registerd { get; set; } = false;
+        public int DeathAt { get; set; } = 20;
+        public int DeathCounter { get; set; } = 0;
+
         public Queue<IArea> Path { get; set; }
         public Dictionary<MovableStatus, Action> Actions { get; set; } = new Dictionary<MovableStatus, Action>();
 
@@ -35,12 +39,22 @@ namespace HotelSimulationTheLock
             Position = point;
             ID = id;
             FitnessDuration = rnd.Next(0, 11);
-
+            
             Actions.Add(MovableStatus.CHEKING_IN, ChekIn);
             Actions.Add(MovableStatus.GOING_TO_ROOM, GoingToRoom);
             Actions.Add(MovableStatus.LEAVING, RemoveMe);
             Actions.Add(MovableStatus.GET_FOOD, GetFood);
             Actions.Add(MovableStatus.IN_ROOM, null);
+        }
+
+        public void RegisterAs()
+        {
+            if (!Registerd)
+            {
+                Console.WriteLine("ÏAM REGISTERD");
+                HotelEventManager.Register(this);
+                Registerd = true;
+            }
         }
 
         public void PerformAction()
@@ -61,6 +75,18 @@ namespace HotelSimulationTheLock
             IArea destination = Path.Dequeue();
             Area = destination;
             Position = destination.Position;
+        }
+
+        private void AddDeathCounter()
+        {
+            if (DeathCounter == DeathAt)
+            {
+                // KILL
+            }
+            else
+            {
+                DeathCounter++;
+            }
         }
 
         // Actions list
@@ -113,6 +139,10 @@ namespace HotelSimulationTheLock
                 else if(!((Reception)Area).CheckInQueue.Contains(this))
                 {                  
                     ((Reception)Area).CheckInQueue.Enqueue(this);
+                }
+                else
+                {
+
                 }
             }
 
@@ -170,7 +200,19 @@ namespace HotelSimulationTheLock
                     // guest.evacuate()
                     break;
                 case HotelEventType.NEED_FOOD:
-                    // guest.GoToRestaurant()
+                    if (evt.Data != null)
+                    {
+                        foreach (var item in evt.Data)
+                        {
+                            if (item.Key.Contains("Gast"))
+                            {
+                                if (int.Parse(item.Value) == ID)
+                                {
+                                    Status = MovableStatus.GET_FOOD;
+                                }
+                            }
+                        }
+                    }
                     break;
                 case HotelEventType.GOTO_CINEMA:
                     // guest.GoToCinema()

@@ -36,7 +36,7 @@ namespace HotelSimulationTheLock
             // Does this timer work corectly with the HTE factor? -marnix
             t = new Timer
             {
-                Interval = 650 // specify interval time as you want
+                Interval = 100 // specify interval time as you want
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
@@ -63,6 +63,15 @@ namespace HotelSimulationTheLock
 
         void Timer_Tick(object sender, EventArgs e)
         {
+            foreach (var item in Hotel.HotelMovables)
+            {
+                if (item is Guest)
+                {
+                    ((Guest)item).RegisterAs();
+                }
+                
+            }
+
             Hotel.PerformAllActions();
 
             // fix frequent GC calls
