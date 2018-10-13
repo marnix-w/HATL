@@ -14,7 +14,7 @@ namespace HotelSimulationTheLock
     [ExportMetadata("AreaType", "Reception")]
     public class Reception : IArea
     {
-        public int ID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int ID { get ; set ; }
         public Point Position { get; set; }
         public Size Dimension { get; set; } = new Size(1, 1);
         public int Capacity { get; set; } = 2;
@@ -44,6 +44,7 @@ namespace HotelSimulationTheLock
 
         public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
+            ID = id;
             Position = position;
         }
 

@@ -167,7 +167,27 @@ namespace HotelSimulationTheLock
             }
 
             return valueofMoveable;
-        }      
+        }
+
+        public List<string> currentValueIArea()
+        {
+            valueofIArea.Clear();
+
+            foreach (IArea a in HotelAreas)
+            {
+                if (a is Room r)
+                {
+                    valueofIArea.Add("ID: " + r.ID + "\t " +r.GetType().ToString().Replace("HotelSimulationTheLock", "")+ r.Classification + " star \t" + r.AreaStatus + " \t" +r.Position +"\n");
+                }
+                if (a is Fitness || a is Restaurant|| a is Reception)
+                {
+                    valueofIArea.Add("ID: " + a.ID + "\t " + a.GetType().ToString().Replace("HotelSimulationTheLock", "") +" \t" + a.Capacity + " \t" + a.Position + "\n");
+                }
+
+            }
+
+            return valueofIArea;
+        }
 
     }
 }

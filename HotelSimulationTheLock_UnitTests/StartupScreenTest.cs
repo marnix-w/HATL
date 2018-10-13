@@ -71,28 +71,6 @@ namespace HotelSimulationTheLock_UnitTests
             Assert.IsNotNull(test_startupscreen.maid_LB.Text);
         }
 
-        // rework this test its with the new settings object
-        [TestMethod]
-        public void TetstIfOnClickPassingDataThroughIsWorking()
-        {
-            //arrange         
-            StartupScreen test_startupscreen;           
-            string test_path;
-            Simulation test_simulation;
-            SettingsModel test_settings;
-
-            //act       
-            test_startupscreen = new StartupScreen();
-            test_settings = new SettingsModel();
-            test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout");
-            test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
-
-            test_simulation = new Simulation(test_startupscreen.layout, test_settings);
-            test_simulation.HotelLayout = test_startupscreen.layout;
-            //assert
-            Assert.AreEqual(test_startupscreen.layout, test_simulation.HotelLayout);
-        }
-
         [TestMethod]
         public void TestIfJsonFileIsEmptyOrNot()
         {
