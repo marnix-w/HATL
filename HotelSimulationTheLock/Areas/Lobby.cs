@@ -12,6 +12,7 @@ namespace HotelSimulationTheLock
     [ExportMetadata("AreaType", "Lobby")]
     public class Lobby : IArea
     {
+        public int ID { get; set; }
         public Point Position { get; set; }
         public Size Dimension { get; set; } = new Size(1, 1);
         public int Capacity { get; set; } = int.MaxValue;
@@ -35,8 +36,9 @@ namespace HotelSimulationTheLock
 
         }
 
-        public void SetJsonValues(Point position, int capacity, Size dimension, int classification)
+        public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
+            ID = id;
             Position = position;
 
             if (classification % 2 == 0)

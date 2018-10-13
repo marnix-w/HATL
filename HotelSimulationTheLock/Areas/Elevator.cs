@@ -21,6 +21,7 @@ namespace HotelSimulationTheLock
     [ExportMetadata("AreaType", "Elevator")]
     public class Elevator : IArea
     {
+        public int ID { get; set; }
         public Point Position { get; set; }
         public Size Dimension { get; set; } = new Size(1, 1);
         public int Capacity { get; set; } = int.MaxValue;
@@ -45,7 +46,7 @@ namespace HotelSimulationTheLock
             return new Elevator();
         }
 
-        public void SetJsonValues(Point position, int capacity, Size dimension, int classification)
+        public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
             Position = position;
         }
