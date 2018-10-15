@@ -17,7 +17,7 @@ namespace HotelSimulationTheLock
         GOING_TO_ROOM,
         LEAVING,
         GET_FOOD,
-
+        IN_ELEVATOR,
 
 
         // To implement
@@ -28,6 +28,7 @@ namespace HotelSimulationTheLock
        
         //Etc
     }
+
     public interface IMovable
     {
         // area status

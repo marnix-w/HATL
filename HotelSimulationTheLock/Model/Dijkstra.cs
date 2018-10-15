@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +20,7 @@ namespace HotelSimulationTheLock
         }
 
         public static List<IArea> GetShortestPathDijkstra(IArea from, IArea to)
-        {
-            
+        {            
             SetDijkstraSearchValues(from, to);
 
             var shortestPath = new List<IArea>
@@ -32,6 +32,18 @@ namespace HotelSimulationTheLock
             shortestPath.Reverse();
             Hotel.RemoveSearchProperties();
             return shortestPath;
+        }
+
+        public static IArea IsElevatorCloser(IArea from, IArea to)
+        {
+            IArea ev = Hotel.HotelAreas.Find(X => X.Position.Y == from.Position.Y && X is Elevator);
+
+            if (GetShortestPathDijkstra(from, to).Count > GetShortestPathDijkstra(from, ev).Count && ((Elevator)ev).ElevatorCart != null)
+            {               
+                return ev;
+            }
+
+            return to;
         }
 
         private static void BuildShortestPath(List<IArea> list, IArea node)

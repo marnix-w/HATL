@@ -44,6 +44,7 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.GOING_TO_ROOM, GoingToRoom);
             Actions.Add(MovableStatus.LEAVING, RemoveMe);
             Actions.Add(MovableStatus.GET_FOOD, GetFood);
+            Actions.Add(MovableStatus.EATING, null);
             Actions.Add(MovableStatus.IN_ROOM, null);
         }
 
@@ -66,7 +67,7 @@ namespace HotelSimulationTheLock
 
         public void SetPath(IArea destination)
         {
-            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));
+            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, Dijkstra.IsElevatorCloser(Area, destination)));
         }
 
         public void Notify(HotelEvent evt)
@@ -109,10 +110,19 @@ namespace HotelSimulationTheLock
         }
 
         private void Move()
-        {
+        {            
             IArea destination = Path.Dequeue();
             Area = destination;
-            Position = destination.Position;
+            Position = destination.Position;  
+            
+            if (Area is Elevator && Status != MovableStatus.CHEKING_IN && Status != MovableStatus.LEAVING)
+            {
+                if (((Elevator)Area).ElevatorCart != null)
+                {
+                    ((Elevator)Area).ElevatorCart.EnterElevator(this);                   
+                    return;
+                }
+            }
         }
 
         private void AddDeathCounter()
@@ -145,11 +155,13 @@ namespace HotelSimulationTheLock
                     }
                     else
                     {
+                        IArea temp = ((Reception)Area).Receptionist.GiveThisGuestHisRoom(RoomRequest);
                         SetPath(((Reception)Area).Receptionist.GiveThisGuestHisRoom(RoomRequest));
-                        Path.Last().AreaStatus = AreaStatus.OCCUPIED;
-                        IArea error = Path.Dequeue();
-                        MyRoom = Path.Last();
-
+                        temp.AreaStatus = AreaStatus.OCCUPIED;
+                        MyRoom = temp;
+                        
+                        Path.Dequeue();
+                        
                         switch (((Room)MyRoom).Classification)
                         {
                             case 1:
@@ -192,8 +204,7 @@ namespace HotelSimulationTheLock
             {
                 ((Reception)Area).CheckInQueue.Dequeue();
             }
-           
-
+            
             if (Path.Any())
             {
                 Move();

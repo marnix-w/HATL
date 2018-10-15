@@ -66,6 +66,7 @@
     <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Model\BitmapHotelDrawer.cs" />
     <Compile Include="Model\Dijkstra.cs" />
+    <Compile Include="Movable\ElevatorCart.cs" />
     <Compile Include="Model\Hotel.cs" />
     <Compile Include="Model\JsonHotelBuilder.cs" />
     <Compile Include="Model\JsonModel.cs" />

@@ -41,8 +41,10 @@ namespace HotelSimulationTheLock
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
 
+            ElevatorCart elevator = new ElevatorCart(this, settings.ElevatorCapicity);
+
             // Right?
-            HotelEventManager.HTE_Factor = 100;
+            HotelEventManager.HTE_Factor = 1;
 
             // Methods for final initialization           
             Dijkstra.IntilazeDijkstra(this);
@@ -59,6 +61,11 @@ namespace HotelSimulationTheLock
             }
         }
 
+        public IArea GetRoom(Point location)
+        {
+            return HotelAreas.Find(X => X.Position == location);
+        }
+
         public void PerformAllActions()
         {
             lock (HotelMovables)
@@ -72,15 +79,15 @@ namespace HotelSimulationTheLock
                             item.PerformAction();
                         }
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Debug.WriteLine("Could not find {0}", e.Message);
-                    }  
+                    }
                 }
             }
 
             foreach (var item in LeavingGuests)
-            {               
+            {
                 HotelMovables.Remove(item);
             }
         }
@@ -110,12 +117,12 @@ namespace HotelSimulationTheLock
         }
 
         public void RemoveGuest(Guest guest)
-        {           
+        {
             LeavingGuests.Add(guest);
         }
 
         public void Notify(HotelEvent evt)
-        {         
+        {
             if (evt.EventType.Equals(HotelEventType.CHECK_IN))
             {
                 string name = string.Empty;
@@ -151,10 +158,11 @@ namespace HotelSimulationTheLock
                 {
                     Area = HotelAreas.Find(X => X.Position == new Point(0, HotelHeight))
                 };
-                
+
                 guest.Area = HotelAreas.Find(X => X.Position == guest.Position);
-                
-                guest.SetPath(HotelAreas.Find(X => X is Reception));
+
+                guest.Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(guest.Area, HotelAreas.Find(X => X is Reception)));
+
 
                 HotelMovables.Add(guest);
 
@@ -188,11 +196,11 @@ namespace HotelSimulationTheLock
             {
                 if (a is Room r)
                 {
-                    valueofIArea.Add("ID: " + r.ID + "\t " +r.GetType().ToString().Replace("HotelSimulationTheLock", "")+ r.Classification + " star \t" + r.AreaStatus + " \t" +r.Position +"\n");
+                    valueofIArea.Add("ID: " + r.ID + "\t " + r.GetType().ToString().Replace("HotelSimulationTheLock", "") + r.Classification + " star \t" + r.AreaStatus + " \t" + r.Position + "\n");
                 }
-                if (a is Fitness || a is Restaurant|| a is Reception)
+                if (a is Fitness || a is Restaurant || a is Reception)
                 {
-                    valueofIArea.Add("ID: " + a.ID + "\t " + a.GetType().ToString().Replace("HotelSimulationTheLock", "") +" \t" + a.Capacity + " \t" + a.Position + "\n");
+                    valueofIArea.Add("ID: " + a.ID + "\t " + a.GetType().ToString().Replace("HotelSimulationTheLock", "") + " \t" + a.Capacity + " \t" + a.Position + "\n");
                 }
 
             }
