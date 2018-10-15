@@ -46,6 +46,7 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.GOING_TO_ROOM, GoingToRoom);
             Actions.Add(MovableStatus.LEAVING, RemoveMe);
             Actions.Add(MovableStatus.GET_FOOD, GetFood);
+           // Actions.Add(MovableStatus.Ci, GetFood);
             Actions.Add(MovableStatus.EATING, null);
             Actions.Add(MovableStatus.IN_ELEVATOR, null);
             Actions.Add(MovableStatus.IN_ROOM, null);
