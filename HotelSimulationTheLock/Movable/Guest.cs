@@ -51,7 +51,6 @@ namespace HotelSimulationTheLock
         {
             if (!Registerd)
             {
-                Console.WriteLine("ÏAM REGISTERD");
                 HotelEventManager.Register(this);
                 Registerd = true;
             }
@@ -70,7 +69,46 @@ namespace HotelSimulationTheLock
             Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));
         }
 
-        public void Move()
+        public void Notify(HotelEvent evt)
+        {
+            switch (evt.EventType)
+            {
+
+                // find requested guest
+
+                case HotelEventType.CHECK_OUT:
+                    // guest.checkout()
+                    break;
+                case HotelEventType.EVACUATE:
+                    // guest.evacuate()
+                    break;
+                case HotelEventType.NEED_FOOD:
+                    if (evt.Data != null)
+                    {
+                        foreach (var item in evt.Data)
+                        {
+                            if (item.Key.Contains("Gast"))
+                            {
+                                if (int.Parse(item.Value) == ID)
+                                {
+                                    Status = MovableStatus.GET_FOOD;
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case HotelEventType.GOTO_CINEMA:
+                    // guest.GoToCinema()
+                    break;
+                case HotelEventType.GOTO_FITNESS:
+                    // guest.GoToFitness()
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Move()
         {
             IArea destination = Path.Dequeue();
             Area = destination;
@@ -186,44 +224,7 @@ namespace HotelSimulationTheLock
 
         }
 
-        public void Notify(HotelEvent evt)
-        {
-            switch (evt.EventType)
-            {
-
-                // find requested guest
-
-                case HotelEventType.CHECK_OUT:
-                    // guest.checkout()
-                    break;
-                case HotelEventType.EVACUATE:
-                    // guest.evacuate()
-                    break;
-                case HotelEventType.NEED_FOOD:
-                    if (evt.Data != null)
-                    {
-                        foreach (var item in evt.Data)
-                        {
-                            if (item.Key.Contains("Gast"))
-                            {
-                                if (int.Parse(item.Value) == ID)
-                                {
-                                    Status = MovableStatus.GET_FOOD;
-                                }
-                            }
-                        }
-                    }
-                    break;
-                case HotelEventType.GOTO_CINEMA:
-                    // guest.GoToCinema()
-                    break;
-                case HotelEventType.GOTO_FITNESS:
-                    // guest.GoToFitness()
-                    break;
-                default:
-                    break;
-            }
-        }
+        
 
        
 
