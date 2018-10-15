@@ -42,7 +42,7 @@ namespace HotelSimulationTheLock
 
             HotelBackground = new PictureBox
             {
-                Location = new Point(50, 100),
+                Location = new Point(450, 100),
                 Width = Hotel.HotelWidth * RoomArtSize,
                 Height = Hotel.HotelHeight * RoomArtSize,
                 SizeMode = PictureBoxSizeMode.StretchImage,
@@ -109,7 +109,7 @@ namespace HotelSimulationTheLock
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("jasper fix je stats shit" + e.Message);
+                    Debug.WriteLine(e.Message);
                 }
             }
         }
@@ -139,6 +139,7 @@ namespace HotelSimulationTheLock
             {
                 _pauseResume = true;
                 button1.Text = "Resume";
+                label1.Text = "Simulation has been paused";
                 t.Stop();
                 HotelEventManager.Stop();
             }
@@ -146,6 +147,7 @@ namespace HotelSimulationTheLock
             {
                 _pauseResume = false;
                 button1.Text = "Pause";
+                label1.Text = "Simulation is running on normaal speed";
                 t.Start();
                 HotelEventManager.Start();
             }
