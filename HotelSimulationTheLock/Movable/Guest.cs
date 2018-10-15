@@ -46,7 +46,9 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.GOING_TO_ROOM, GoingToRoom);
             Actions.Add(MovableStatus.LEAVING, RemoveMe);
             Actions.Add(MovableStatus.GET_FOOD, GetFood);
-           // Actions.Add(MovableStatus.Ci, GetFood);
+            Actions.Add(MovableStatus.GOING_TO_CINEMA, GetCinema);
+            Actions.Add(MovableStatus.CHECKING_OUT, GetCheckOut);
+            Actions.Add(MovableStatus.WATCHING, null);
             Actions.Add(MovableStatus.EATING, null);
             Actions.Add(MovableStatus.IN_ELEVATOR, null);
             Actions.Add(MovableStatus.IN_ROOM, null);
@@ -83,9 +85,22 @@ namespace HotelSimulationTheLock
 
                 case HotelEventType.CHECK_OUT:
                     // guest.checkout()
+                    if (evt.Data != null)
+                    {
+                        foreach (var item in evt.Data)
+                        {
+                            if (item.Key.Contains("Gast"))
+                            {
+                                if (int.Parse(item.Value) == ID)
+                                {
+                                    Status = MovableStatus.CHECKING_OUT;
+                                }
+                            }
+                        }
+                    }
                     break;
                 case HotelEventType.EVACUATE:
-                    // guest.evacuate()
+                   
                     break;
                 case HotelEventType.NEED_FOOD:
                     if (evt.Data != null)
@@ -103,7 +118,19 @@ namespace HotelSimulationTheLock
                     }
                     break;
                 case HotelEventType.GOTO_CINEMA:
-                    // guest.GoToCinema()
+                    if (evt.Data != null)
+                    {
+                        foreach (var item in evt.Data)
+                        {
+                            if (item.Key.Contains("Gast"))
+                            {
+                                if (int.Parse(item.Value) == ID)
+                                {
+                                    Status = MovableStatus.GOING_TO_CINEMA;
+                                }
+                            }
+                        }
+                    }
                     break;
                 case HotelEventType.GOTO_FITNESS:
                     // guest.GoToFitness()
@@ -234,9 +261,11 @@ namespace HotelSimulationTheLock
             ((Reception)Area).Receptionist.RemoveGuest(this);
         }
         
+        /// <summary>
+        /// Trying to get the first restaurant
+        /// </summary>
         private void GetFood()
-        {
-            Console.WriteLine("We willen eten");
+        {         
 
             if (Path.Any())
             {
@@ -252,9 +281,45 @@ namespace HotelSimulationTheLock
             }
         }
 
-        
+        private void GetCinema()
+        {
 
-       
+            if (Path.Any())
+            {
+                Move();
+            }
+            else if (!(Area is Cinema))
+            {
+                SetPath(_hotel.getLocationCinema(Area));
+            }
+            else
+            {
+                Status = MovableStatus.WATCHING;
+            }
+        }
+
+        private void GetCheckOut()
+        {
+            if (Path.Any())
+            {
+                Move();
+            }
+            if (Area is Reception)
+            {
+                RemoveMe();
+            }
+            else if (!(Area is Reception))
+            {
+                SetPath(_hotel.getCheckOutLocation(Area));
+                
+            }
+            else
+            {
+                Status = MovableStatus.CHECKING_OUT;
+            }
+        }
+
+
 
     }
 }

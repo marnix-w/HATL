@@ -22,11 +22,15 @@ namespace HotelSimulationTheLock
 
         // To implement
         EATING,
-        WORKING_OUT,
-        WATCHING_MOVIE,
+        WORKING_OUT,    
         EVACUATING,
        
-        //Etc
+        //added
+        WATCHING,
+        GOING_TO_CINEMA,        
+        GOING_TO_FITNESS,
+            CHECKING_OUT
+
     }
 
     public interface IMovable

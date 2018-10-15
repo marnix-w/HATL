@@ -131,6 +131,48 @@ namespace HotelSimulationTheLock
             return guestRoom;
         }
 
+        public IArea getLocationCinema(IArea blabla)
+        {
+            List<IArea> CurrentShortest = HotelAreas;
+
+            IArea guestRoom = null;
+
+            foreach (Cinema area in HotelAreas.Where(X => X is Cinema))
+            {
+                if (Dijkstra.GetShortestPathDijkstra(blabla, area).Count < CurrentShortest.Count)
+                {
+
+                    CurrentShortest = Dijkstra.GetShortestPathDijkstra(blabla, area);
+                    guestRoom = area;
+                }
+            }
+
+
+            //this room needs to be casted to the guest
+            return guestRoom;
+        }
+
+        public IArea getCheckOutLocation(IArea blabla)
+        {
+            List<IArea> CurrentShortest = HotelAreas;
+
+            IArea guestRoom = null;
+
+            foreach (Reception area in HotelAreas.Where(X => X is Reception))
+            {
+                if (Dijkstra.GetShortestPathDijkstra(blabla, area).Count < CurrentShortest.Count)
+                {
+
+                    CurrentShortest = Dijkstra.GetShortestPathDijkstra(blabla, area);
+                    guestRoom = area;
+                }
+            }
+
+
+            //this room needs to be casted to the guest
+            return guestRoom;
+        }
+
         public void RemoveGuest(Guest guest)
         {
             LeavingGuests.Add(guest);

@@ -46,7 +46,7 @@ namespace HotelSimulationTheLock
         {
             if (evt.EventType.Equals(HotelEventType.START_CINEMA))
             {
-
+                Console.WriteLine("CINEMA IS STARTING");
             }
         }
 
