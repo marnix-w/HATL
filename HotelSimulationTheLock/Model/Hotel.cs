@@ -70,19 +70,13 @@ namespace HotelSimulationTheLock
         {
             lock (HotelMovables)
             {
-                foreach (var item in HotelMovables)
+                foreach (IMovable item in HotelMovables)
                 {
-                    try
+                    if (!(item is null))
                     {
-                        if (!(item is null))
-                        {
-                            item.PerformAction();
-                        }
+                        item.PerformAction();
                     }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("Could not find {0}", e.Message);
-                    }
+
                 }
             }
 
@@ -199,7 +193,7 @@ namespace HotelSimulationTheLock
                     valueofIArea.Add("ID: " + r.ID + "\t " + r.GetType().ToString().Replace("HotelSimulationTheLock", "") + r.Classification + " star \t" + r.AreaStatus + " \t" + r.Position + "\n");
                 }
 
-                if (a is Fitness || a is Restaurant|| a is Reception || a is Cinema)
+                if (a is Fitness || a is Restaurant || a is Reception || a is Cinema)
                 {
                     valueofIArea.Add("ID: " + a.ID + "\t " + a.GetType().ToString().Replace("HotelSimulationTheLock", "") + " \t" + a.Capacity + " \t" + a.Position + "\n");
                 }
