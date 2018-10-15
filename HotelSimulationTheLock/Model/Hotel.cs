@@ -65,29 +65,18 @@ namespace HotelSimulationTheLock
             }
         }
 
+        // call drawer
+
+        public Bitmap DrawMap()
+        {
+            return HotelDrawer.DrawHotel(HotelAreas, HotelMovables);
+        }
+
+        // Get room overlaods
+
         public IArea GetRoom(Point location)
         {
             return HotelAreas.Find(X => X.Position == location);
-        }
-
-        public void PerformAllActions()
-        {
-            lock (HotelMovables)
-            {
-                foreach (IMovable item in HotelMovables)
-                {
-                    if (!(item is null))
-                    {
-                        item.PerformAction();
-                    }
-
-                }
-            }
-
-            foreach (var item in LeavingGuests)
-            {
-                HotelMovables.Remove(item);
-            }
         }
 
         public IArea GetRoom(int request)
@@ -127,10 +116,44 @@ namespace HotelSimulationTheLock
                     }
                 }
             }
-            
+
             //this room needs to be casted to the guest
             return guestRoom;
         }
+
+
+        // end get room
+
+        public void PerformAllActions()
+        {
+            
+
+            lock (HotelMovables)
+            {
+                foreach (IMovable movable in HotelMovables)
+                {
+                    if (movable is Guest)
+                    {
+                        HotelEventManager.Register((Guest)movable);
+                    }
+                }
+
+                foreach (IMovable item in HotelMovables)
+                {
+                    if (!(item is null))
+                    {
+                        item.PerformAction();
+                    }
+
+                }
+            }
+
+            foreach (var item in LeavingGuests)
+            {
+                HotelMovables.Remove(item);
+            }
+        }
+
 
         public void RemoveGuest(Guest guest)
         {
@@ -170,13 +193,13 @@ namespace HotelSimulationTheLock
                     return;
                 }
 
-                Guest guest = new Guest(name, requestInt, new Point(0, HotelHeight), id)
+                Guest guest = new Guest(this, name, requestInt, new Point(0, HotelHeight), id)
                 {
                     Area = HotelAreas.Find(X => X.Position == new Point(0, HotelHeight))
                 };
 
                 guest.Area = HotelAreas.Find(X => X.Position == guest.Position);
-
+                
                 guest.Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(guest.Area, HotelAreas.Find(X => X is Reception)));
 
 

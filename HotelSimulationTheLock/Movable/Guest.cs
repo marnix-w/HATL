@@ -35,14 +35,20 @@ namespace HotelSimulationTheLock
 
         Random rnd = new Random();
 
-        public Guest(string name, int roomRequest, Point point, int id)
+        public Guest(Hotel hotel, string name, int roomRequest, Point point, int id)
         {
+            Hotel = hotel;
             Name = name;
             RoomRequest = roomRequest;
             Position = point;
             ID = id;
             FitnessDuration = rnd.Next(0, 11);
-            
+
+            SetBahvior();
+        }
+
+        public void SetBahvior()
+        {
             Actions.Add(MovableStatus.CHEKING_IN, ChekIn);
             Actions.Add(MovableStatus.GOING_TO_ROOM, GoingToRoom);
             Actions.Add(MovableStatus.LEAVING, RemoveMe);

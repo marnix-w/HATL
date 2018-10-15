@@ -38,7 +38,7 @@ namespace HotelSimulationTheLock
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
 
-            HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
+            HotelImage = Hotel.DrawMap();
 
             HotelBackground = new PictureBox
             {
@@ -60,14 +60,7 @@ namespace HotelSimulationTheLock
 
         void Timer_Tick(object sender, EventArgs e)
         {
-            foreach (var item in Hotel.HotelMovables)
-            {
-                if (item is Guest)
-                {
-                    ((Guest)item).RegisterAs();
-                }
-                
-            }
+            
 
             Hotel.PerformAllActions();
 
@@ -82,7 +75,7 @@ namespace HotelSimulationTheLock
             // Disposing the movable bitmap to prevent memory leaking
             // https://blogs.msdn.microsoft.com/davidklinems/2005/11/16/three-common-causes-of-memory-leaks-in-managed-applications/
             HotelImage.Dispose();
-            HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
+            HotelImage = Hotel.DrawMap();
             HotelBackground.Image = HotelImage;
         }
 
