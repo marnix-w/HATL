@@ -198,11 +198,8 @@ namespace HotelSimulationTheLock
                 {
                     valueofIArea.Add("ID: " + r.ID + "\t " + r.GetType().ToString().Replace("HotelSimulationTheLock", "") + r.Classification + " star \t" + r.AreaStatus + " \t" + r.Position + "\n");
                 }
-<<<<<<< HEAD
-                if (a is Fitness || a is Restaurant || a is Reception)
-=======
+
                 if (a is Fitness || a is Restaurant|| a is Reception || a is Cinema)
->>>>>>> f2b68b7f805b4ebe6cfd7b2e242aeada7501fce1
                 {
                     valueofIArea.Add("ID: " + a.ID + "\t " + a.GetType().ToString().Replace("HotelSimulationTheLock", "") + " \t" + a.Capacity + " \t" + a.Position + "\n");
                 }
