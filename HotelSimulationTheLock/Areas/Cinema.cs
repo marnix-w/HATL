@@ -12,7 +12,7 @@ namespace HotelSimulationTheLock
 {
     [Export(typeof(IArea))]
     [ExportMetadata("AreaType", "Cinema")]
-    public class Cinema : IArea, HotelEventListener
+    public class Cinema : IArea, IListner
     {
         public int ID { get; set; }
         // Properties

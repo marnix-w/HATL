@@ -13,10 +13,10 @@ namespace HotelSimulationTheLock
 
         private static Hotel Hotel { get; set; }
 
-        public static void IntilazeDijkstra(Hotel hotel)
+        public static void IntilazeDijkstra(Hotel hotel, List<IArea> hotelAreaList)
         {
             Hotel = hotel;
-            Areas = hotel.HotelAreas;
+            Areas = hotelAreaList;
         }
 
         public static List<IArea> GetShortestPathDijkstra(IArea from, IArea to)
@@ -36,7 +36,7 @@ namespace HotelSimulationTheLock
 
         public static IArea IsElevatorCloser(IArea from, IArea to)
         {
-            IArea ev = Hotel.HotelAreas.Find(X => X.Position.Y == from.Position.Y && X is Elevator);
+            IArea ev = Areas.Find(X => X.Position.Y == from.Position.Y && X is Elevator);
 
             if (GetShortestPathDijkstra(from, to).Count > GetShortestPathDijkstra(from, ev).Count && ((Elevator)ev).ElevatorCart != null)
             {               

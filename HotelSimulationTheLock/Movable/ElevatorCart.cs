@@ -32,8 +32,7 @@ namespace HotelSimulationTheLock
 
 
         public Queue<IArea> Path { get; set; }
-
-
+       
 
         public ElevatorCart(Hotel hotel, int capacity)
         {

@@ -9,7 +9,7 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    public class Guest : IMovable, HotelEventListener
+    public class Guest : IMovable, IListner
     {
 
         public Point Position { get; set; }
@@ -29,6 +29,9 @@ namespace HotelSimulationTheLock
 
         public Queue<IArea> Path { get; set; }
         public Dictionary<MovableStatus, Action> Actions { get; set; } = new Dictionary<MovableStatus, Action>();
+        
+        
+        public Hotel Hotel { get; set; }
 
         Random rnd = new Random();
 
@@ -149,14 +152,14 @@ namespace HotelSimulationTheLock
                 if (((Reception)Area).EnterArea(this))
                 {
                     
-                    if (((Reception)Area).Receptionist.GiveThisGuestHisRoom(RoomRequest) is null)
+                    if (Hotel.GetRoom(RoomRequest) is null)
                     {
                         Status = MovableStatus.LEAVING;
                     }
                     else
                     {
-                        IArea temp = ((Reception)Area).Receptionist.GiveThisGuestHisRoom(RoomRequest);
-                        SetPath(((Reception)Area).Receptionist.GiveThisGuestHisRoom(RoomRequest));
+                        IArea temp = Hotel.GetRoom(RoomRequest);
+                        SetPath(Hotel.GetRoom(RoomRequest));
                         temp.AreaStatus = AreaStatus.OCCUPIED;
                         MyRoom = temp;
                         

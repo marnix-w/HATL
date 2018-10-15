@@ -40,6 +40,8 @@ namespace HotelSimulationTheLock
         MovableStatus Status { get; set; }
         Dictionary<MovableStatus, Action> Actions { get; set; }
 
+        Hotel Hotel { get; set; }
+
         void PerformAction();
 
         void SetPath(IArea destination);

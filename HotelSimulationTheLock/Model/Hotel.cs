@@ -9,13 +9,17 @@ using System.Threading;
 
 namespace HotelSimulationTheLock
 {
-    public class Hotel : HotelEventListener
+    public class Hotel : IListner
     {
         // Change the live stats function so these list can be private
         // Make private
-        public List<IArea> HotelAreas { get; set; } = new List<IArea>();
+        private List<IArea> HotelAreas { get; set; } = new List<IArea>();
         // Make private 
-        public List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
+        private List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
+
+
+
+
         private List<IMovable> LeavingGuests { get; set; } = new List<IMovable>();
         public IHotelBuilder HotelBuilder { get; set; } = new JsonHotelBuilder();
         public IHotelDrawer HotelDrawer { get; set; } = new BitmapHotelDrawer();
@@ -47,7 +51,7 @@ namespace HotelSimulationTheLock
             HotelEventManager.HTE_Factor = 100;
 
             // Methods for final initialization           
-            Dijkstra.IntilazeDijkstra(this);
+            Dijkstra.IntilazeDijkstra(this, HotelAreas);
             HotelEventManager.Start();
         }
 
@@ -88,6 +92,25 @@ namespace HotelSimulationTheLock
 
         public IArea GetRoom(int request)
         {
+            IArea result = null;
+
+            // upgrade guests room if request is not available
+            for (int i = request; i <= 5; i++)
+            {
+                if (!(FindRoom(i) is null))
+                {
+                    result = FindRoom(i);
+                    break;
+                }
+            }
+
+            return result;
+
+
+        }
+
+        private IArea FindRoom(int request)
+        {
             List<IArea> CurrentShortest = HotelAreas;
 
             IArea guestRoom = null;
@@ -104,8 +127,7 @@ namespace HotelSimulationTheLock
                     }
                 }
             }
-
-
+            
             //this room needs to be casted to the guest
             return guestRoom;
         }
