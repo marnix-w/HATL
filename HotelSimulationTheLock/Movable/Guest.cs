@@ -171,7 +171,9 @@ namespace HotelSimulationTheLock
 
         private void _addHteCounter()
         {
-            if(_hteCalculateCounter == null)
+            _hteCalculateCounter++; 
+
+            if (_hteCalculateCounter == ((Restaurant)Area).Duration)
             {
 
             }

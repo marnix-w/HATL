@@ -28,8 +28,7 @@ namespace HotelSimulationTheLock
         {
             options = firstScreen;
             // 0.5f should be a varible in the settings data set
-            Hotel = new Hotel(layout, Settings);
-            //   HotelLayout = layout;
+            Hotel = new Hotel(layout, Settings);         
      
             // Does this timer work corectly with the HTE factor? -marnix
             t = new Timer
@@ -38,7 +37,7 @@ namespace HotelSimulationTheLock
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
-
+                       
             HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
 
             HotelBackground = new PictureBox
@@ -85,6 +84,8 @@ namespace HotelSimulationTheLock
             HotelImage.Dispose();
             HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
             HotelBackground.Image = HotelImage;
+
+
         }
 
 
