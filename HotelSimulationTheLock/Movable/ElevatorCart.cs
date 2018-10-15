@@ -17,22 +17,30 @@ namespace HotelSimulationTheLock
 
         public int Capacity { get; set; }
 
-        public Point Position { get; set; }
 
+
+        // other shit
+        public Point Position { get; set; }
+ 
         public Bitmap Art { get; set; } = Properties.Resources.elevator_pressent;
 
         public MovableStatus Status { get; set; }
 
         public Dictionary<MovableStatus, Action> Actions { get; set; }
 
+
+
+
         public Queue<IArea> Path { get; set; }
+
+
 
         public ElevatorCart(Hotel hotel, int capacity)
         {
             Hotel = hotel;
             // Remind me to set it to capicity
             Capacity = 5;
-            Area = Hotel.GetRoom(new System.Drawing.Point(0, Hotel.HotelHeight));
+            Area = Hotel.GetRoom(new Point(0, Hotel.HotelHeight));
             ((Elevator)Area).ElevatorCart = this;
         }
 

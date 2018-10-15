@@ -84,7 +84,7 @@ namespace HotelSimulationTheLock
             }
 
             //Error handeling TO DO
-            Debug.WriteLine("Error there was no requested room");
+            //Debug.WriteLine("Error there was no requested room");
 
             return null;
 
