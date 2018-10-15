@@ -32,7 +32,7 @@ namespace HotelSimulationTheLock
             Hotel = hotel;
             // Remind me to set it to capicity
             Capacity = 5;
-            Area = Hotel.GetRoom(new System.Drawing.Point(0, Hotel.HotelHeight));
+            Area = Hotel.GetRoom(new System.Drawing.Point(0, 1));
             ((Elevator)Area).ElevatorCart = this;
         }
 

@@ -138,6 +138,7 @@
             this.Name = "Simulation";
             this.Text = "Simulation";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Simulation_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -10,6 +10,7 @@ namespace HotelSimulationTheLock
 {
     public partial class Simulation : Form
     {
+        StartupScreen options;
         public Hotel Hotel { get; set; }
         public int UnitTestvalue { get; set; }
 
@@ -23,8 +24,9 @@ namespace HotelSimulationTheLock
         public static int RoomArtSize { get; } = 96;
 
 
-        public Simulation(List<JsonModel> layout, SettingsModel Settings)
+        public Simulation(StartupScreen firstScreen, List<JsonModel> layout, SettingsModel Settings)
         {
+            options = firstScreen;
             // 0.5f should be a varible in the settings data set
             Hotel = new Hotel(layout, Settings);
             //   HotelLayout = layout;
@@ -33,7 +35,7 @@ namespace HotelSimulationTheLock
             // Does this timer work corectly with the HTE factor? -marnix
             t = new Timer
             {
-                Interval = 2000 // specify interval time as you want
+                Interval = 100 // specify interval time as you want
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
@@ -154,6 +156,9 @@ namespace HotelSimulationTheLock
 
         }
 
-
+        private void Simulation_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            options.Dispose();
+        }
     }
 }

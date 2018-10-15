@@ -106,7 +106,7 @@ namespace HotelSimulationTheLock
             };
 
             //below the Simulation is linked to this form
-            Simulation hotelsimulation = new Simulation(layout, settings);
+            Simulation hotelsimulation = new Simulation(this, layout, settings);
 
             hotelsimulation.Show();
             this.Hide();

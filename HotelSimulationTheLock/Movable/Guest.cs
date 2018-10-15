@@ -32,6 +32,8 @@ namespace HotelSimulationTheLock
 
         Random rnd = new Random();
 
+        public Hotel _hotel { get; set; }
+
         public Guest(string name, int roomRequest, Point point, int id)
         {
             Name = name;
@@ -44,6 +46,7 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.GOING_TO_ROOM, GoingToRoom);
             Actions.Add(MovableStatus.LEAVING, RemoveMe);
             Actions.Add(MovableStatus.GET_FOOD, GetFood);
+            Actions.Add(MovableStatus.EATING, null);
             Actions.Add(MovableStatus.IN_ELEVATOR, null);
             Actions.Add(MovableStatus.IN_ROOM, null);
         }
@@ -232,7 +235,20 @@ namespace HotelSimulationTheLock
         
         private void GetFood()
         {
+            Console.WriteLine("We willen eten");
 
+            if (Path.Any())
+            {
+                Move();
+            }
+            else if (!(Area is Restaurant))
+            {
+                SetPath(_hotel.getLocation(Area));
+            }
+            else
+            {
+                Status = MovableStatus.EATING;
+            }
         }
 
         
