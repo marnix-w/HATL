@@ -20,8 +20,10 @@ namespace HotelSimulationTheLock
         public int ID { get; set; }
         public string Name { get; set; }
         public int RoomRequest { get; set; }
+
         public IArea Area { get; set; }
         public IArea MyRoom { get; set; }
+        public IArea FinalDes { get; set; }
 
         public bool Registerd { get; set; } = false;
         public int DeathAt { get; set; } = 20;
@@ -128,7 +130,7 @@ namespace HotelSimulationTheLock
             {
                 if (((Elevator)Area).ElevatorCart != null)
                 {
-                    ((Elevator)Area).ElevatorCart.EnterElevator(this);                   
+                    ((Elevator)Area).ElevatorCart.EnterElevator(this, FinalDes.Position.Y);                   
                     return;
                 }
             }
@@ -164,11 +166,13 @@ namespace HotelSimulationTheLock
                     }
                     else
                     {
-                        IArea temp = Hotel.GetRoom(RoomRequest);
+                        IArea newRoom = Hotel.GetRoom(RoomRequest);
                         SetPath(Hotel.GetRoom(RoomRequest));
-                        temp.AreaStatus = AreaStatus.OCCUPIED;
-                        MyRoom = temp;
+                        newRoom.AreaStatus = AreaStatus.OCCUPIED;
+                        FinalDes = newRoom;
+                        MyRoom = newRoom;
                         
+                        // Count extra first step or not
                         Path.Dequeue();
                         
                         switch (((Room)MyRoom).Classification)
@@ -193,6 +197,7 @@ namespace HotelSimulationTheLock
                         }
                        
                         Status = MovableStatus.GOING_TO_ROOM;
+                        ((Reception)Area).CheckInQueue.Dequeue();
                     }
                 }
                 else if(!((Reception)Area).CheckInQueue.Contains(this))
@@ -201,7 +206,7 @@ namespace HotelSimulationTheLock
                 }
                 else
                 {
-
+                    // kill timer
                 }
             }
 
@@ -209,11 +214,8 @@ namespace HotelSimulationTheLock
 
         private void GoingToRoom()
         {
-            if (Area is Reception)
-            {
-                ((Reception)Area).CheckInQueue.Dequeue();
-            }
-            
+            FinalDes = MyRoom;
+                
             if (Path.Any())
             {
                 Move();

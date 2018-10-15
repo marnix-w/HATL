@@ -13,7 +13,7 @@ namespace HotelSimulationTheLock
 
         public Hotel Hotel { get; set; }
 
-        private List<IMovable> InElevator { get; set; } = new List<IMovable>();
+        private Dictionary<IMovable, int> InElevator { get; set; } = new Dictionary<IMovable, int>();
 
         public int Capacity { get; set; }
 
@@ -43,12 +43,12 @@ namespace HotelSimulationTheLock
             ((Elevator)Area).ElevatorCart = this;
         }
 
-        public void EnterElevator(IMovable movable)
+        public void EnterElevator(IMovable movable, int req)
         {
             if (InElevator.Count < Capacity)
             {
                 movable.Status = MovableStatus.IN_ELEVATOR;
-                InElevator.Add(movable);
+                InElevator.Add(movable, req);
             }
         }
 
