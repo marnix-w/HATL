@@ -37,6 +37,7 @@ namespace HotelSimulationTheLock
         private string _cinema_dur = "Duration of the cinema in hte ";
 
         //restaurant settings
+        private string restaurant_dur = "Duration of the restaurant ";
         private string restaurant_cap = "Capicity of the restaurant ";
 
         //fitness settings
@@ -59,6 +60,7 @@ namespace HotelSimulationTheLock
             hte_per_sec_LB.Text = _hte_per_sec;
             staircase_hte_LB.Text = _staircase_hte;
             cinema_dur_LB.Text = _cinema_dur;
+            restaurant_dur_LB.Text = restaurant_dur;
             restaurant_cap_LB.Text = restaurant_cap;
             eating_dur_LB.Text = _eating_dur;
             fitness_cap_LB.Text = _fitness_cap;
@@ -101,6 +103,7 @@ namespace HotelSimulationTheLock
                 StairsDuration = Decimal.ToInt32(staircase_hte_TB.Value),
                 CinemaDuration = Decimal.ToInt32(cinema_dur_TB.Value),
                 RestaurantCapicity = Decimal.ToInt32(restaurant_cap_TB.Value),
+                RestaurantDuration = Decimal.ToInt32(restaurant_dur_TB.Value),
                 EatingDuration = Decimal.ToInt32(eating_dur_TB.Value),
                 FitnessCapicity = Decimal.ToInt32(fitness_cap_TB.Value)
             };

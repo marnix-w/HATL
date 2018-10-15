@@ -24,8 +24,9 @@ namespace HotelSimulationTheLock
         public IArea MyRoom { get; set; }
 
         public bool Registerd { get; set; } = false;
-        public int DeathAt { get; set; } = 20;
-        public int DeathCounter { get; set; } = 0;
+        private int _deathAt { get; set; } = 20;
+        private int _deathCounter { get; set; } = 0;
+        private int _hteCalculateCounter { get; set; } = 0;
 
         public Queue<IArea> Path { get; set; }
         public Dictionary<MovableStatus, Action> Actions { get; set; } = new Dictionary<MovableStatus, Action>();
@@ -158,13 +159,21 @@ namespace HotelSimulationTheLock
 
         private void AddDeathCounter()
         {
-            if (DeathCounter == DeathAt)
+            if (_deathCounter == _deathAt)
             {
                 // KILL
             }
             else
             {
-                DeathCounter++;
+                _deathCounter++;
+            }
+        }
+
+        private void _addHteCounter()
+        {
+            if(_hteCalculateCounter == null)
+            {
+
             }
         }
 
@@ -303,11 +312,9 @@ namespace HotelSimulationTheLock
             if (Path.Any())
             {
                 Move();
+                Status = MovableStatus.CHECKING_OUT;
             }
-            if (Area is Reception)
-            {
-                RemoveMe();
-            }
+          
             else if (!(Area is Reception))
             {
                 SetPath(_hotel.getCheckOutLocation(Area));
@@ -315,7 +322,7 @@ namespace HotelSimulationTheLock
             }
             else
             {
-                Status = MovableStatus.CHECKING_OUT;
+               
             }
         }
 

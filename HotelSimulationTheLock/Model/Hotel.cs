@@ -44,7 +44,7 @@ namespace HotelSimulationTheLock
             ElevatorCart elevator = new ElevatorCart(this, settings.ElevatorCapicity);
 
             // Right?
-            HotelEventManager.HTE_Factor = 500000;
+            HotelEventManager.HTE_Factor = 2;
 
             // Methods for final initialization           
             Dijkstra.IntilazeDijkstra(this);
