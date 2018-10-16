@@ -88,8 +88,7 @@ namespace HotelSimulationTheLock
             {              
                 Actions[Status]();
             }
-            _deathCounter++;
-            Console.WriteLine(_deathCounter);
+         
         }
 
         public void SetPath(IArea destination)
