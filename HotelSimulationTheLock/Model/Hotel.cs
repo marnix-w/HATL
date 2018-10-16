@@ -59,6 +59,11 @@ namespace HotelSimulationTheLock
             }
         }
 
+        public List<IArea> GetAreas()
+        {
+            return HotelAreas;
+        }
+
         // call drawer
 
         public Bitmap DrawMap()
@@ -139,10 +144,7 @@ namespace HotelSimulationTheLock
 
         public void PerformAllActions()
         {
-            // Updating dijkstra list so the hotel list 
-            // and dijkstra list can be private
-            Dijkstra.SetList(HotelAreas);
-
+            
             lock (HotelMovables)
             {
                 foreach (IMovable movable in HotelMovables)
@@ -159,7 +161,7 @@ namespace HotelSimulationTheLock
                     {
                         item.PerformAction();
                     }
-
+                    
                 }
             }
 
