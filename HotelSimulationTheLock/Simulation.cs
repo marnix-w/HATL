@@ -31,9 +31,7 @@ namespace HotelSimulationTheLock
             options = firstScreen;
             // 0.5f should be a varible in the settings data set
             Hotel = new Hotel(layout, Settings);
-
-
-           
+            
             // Does this timer work corectly with the HTE factor? -marnix
             t = new Timer
             {
