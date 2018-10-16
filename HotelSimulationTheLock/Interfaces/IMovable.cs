@@ -8,11 +8,11 @@ using System.Windows.Forms;
 
 namespace HotelSimulationTheLock
 {
-   
+
     public enum MovableStatus
     {
         // implemented
-        CHEKING_IN,        
+        CHEKING_IN,
         IN_ROOM,
         GOING_TO_ROOM,
         LEAVING,
@@ -22,14 +22,16 @@ namespace HotelSimulationTheLock
 
         // To implement
         EATING,
-        WORKING_OUT,    
+        WORKING_OUT,
         EVACUATING,
-       
+
         //added
         WATCHING,
-        GOING_TO_CINEMA,        
+        GOING_TO_CINEMA,
         GOING_TO_FITNESS,
-            CHECKING_OUT
+        CHECKING_OUT,
+        WAITING_TO_START
+
 
     }
 

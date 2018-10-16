@@ -112,7 +112,7 @@ namespace HotelSimulationTheLock
         private void _fillMoveAbleTB()
         {
             guestTB.Clear();
-
+      
             foreach (string value in Hotel.CurrentValue())
             {
                 try

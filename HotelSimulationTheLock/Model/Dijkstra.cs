@@ -74,6 +74,7 @@ namespace HotelSimulationTheLock
 
             do
             {
+
                 toVisit = toVisit.OrderBy(x => x.BackTrackCost.Value).ToList();
 
                 IArea current = toVisit.First();
