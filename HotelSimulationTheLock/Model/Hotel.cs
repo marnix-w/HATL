@@ -115,6 +115,7 @@ namespace HotelSimulationTheLock
             return HotelAreas.Find(X => X.GetType() == type);
         }
 
+
         /// <summary>
         /// Exstansion of the GetArea(int request) mehtod
         /// </summary>
@@ -142,38 +143,16 @@ namespace HotelSimulationTheLock
             //this room needs to be casted to the guest
             return guestRoom;
         }
-        
+
         // end get room
-
-
-        public IArea getLocation(IArea blabla)
+        public IArea GetNewLocation(IArea blabla, Type fuck)
         {
+            
             List<IArea> CurrentShortest = HotelAreas;
 
             IArea guestRoom = null;
 
-            foreach (Restaurant area in HotelAreas.Where(X => X is Restaurant))
-            {              
-                    if (Dijkstra.GetShortestPathDijkstra(blabla, area).Count < CurrentShortest.Count)
-                    {
-
-                        CurrentShortest = Dijkstra.GetShortestPathDijkstra(blabla, area);
-                        guestRoom = area;
-                    }
-            }
-
-
-            //this room needs to be casted to the guest
-            return guestRoom;
-        }
-
-        public IArea getLocationCinema(IArea blabla)
-        {
-            List<IArea> CurrentShortest = HotelAreas;
-
-            IArea guestRoom = null;
-
-            foreach (Cinema area in HotelAreas.Where(X => X is Cinema))
+            foreach (IArea area in HotelAreas.Where(X => X.GetType() == fuck))
             {
                 if (Dijkstra.GetShortestPathDijkstra(blabla, area).Count < CurrentShortest.Count)
                 {
@@ -183,31 +162,10 @@ namespace HotelSimulationTheLock
                 }
             }
 
-
             //this room needs to be casted to the guest
             return guestRoom;
-        }
+        }       
 
-        public IArea getCheckOutLocation(IArea blabla)
-        {
-            List<IArea> CurrentShortest = HotelAreas;
-
-            IArea guestRoom = null;
-
-            foreach (Reception area in HotelAreas.Where(X => X is Reception))
-            {
-                if (Dijkstra.GetShortestPathDijkstra(blabla, area).Count < CurrentShortest.Count)
-                {
-
-                    CurrentShortest = Dijkstra.GetShortestPathDijkstra(blabla, area);
-                    guestRoom = area;
-                }
-            }
-
-
-            //this room needs to be casted to the guest
-            return guestRoom;
-        }
 
         public void PerformAllActions()
         {
@@ -249,7 +207,9 @@ namespace HotelSimulationTheLock
 
         public void RemoveGuest(Guest guest)
         {
+            HotelEventManager.Deregister(guest);
             LeavingGuests.Add(guest);
+            
         }
 
         public void Notify(HotelEvent evt)
@@ -269,8 +229,6 @@ namespace HotelSimulationTheLock
                         {
                             id = int.Parse(Regex.Match(DataSet.Key, @"\d+").Value);
                         }
-
-
                     }
 
 

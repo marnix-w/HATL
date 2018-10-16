@@ -42,7 +42,7 @@ namespace HotelSimulationTheLock
                         foreach (IMovable movable in movables)
                         {
                             //if the moveable have the status IN_ROOM we don't draw them
-                            if (movable.Status != MovableStatus.IN_ROOM && movable.Status != MovableStatus.EATING && movable.Status != MovableStatus.WATCHING)
+                            if (movable.Status != MovableStatus.IN_ROOM && movable.Status != MovableStatus.EATING && movable.Status != MovableStatus.WATCHING &&  movable.Status !=  MovableStatus.WORKING_OUT)
                             {
                                 graphics.DrawImage(movable.Art,
                                        movable.Position.X * artSize,

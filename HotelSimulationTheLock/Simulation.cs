@@ -23,17 +23,21 @@ namespace HotelSimulationTheLock
         private Bitmap HotelImage { get; set; }
         public static int RoomArtSize { get; } = 96;
 
+        private int count { get; set; } = 0;
+
 
         public Simulation(StartupScreen firstScreen, List<JsonModel> layout, SettingsModel Settings)
         {
             options = firstScreen;
             // 0.5f should be a varible in the settings data set
-            Hotel = new Hotel(layout, Settings);         
-     
+            Hotel = new Hotel(layout, Settings);
+
+
+           
             // Does this timer work corectly with the HTE factor? -marnix
             t = new Timer
             {
-                Interval = 100 // specify interval time as you want
+                Interval = 1000 / Settings.HTEPerSeconds // specify interval time as you want 
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
@@ -60,7 +64,8 @@ namespace HotelSimulationTheLock
 
         void Timer_Tick(object sender, EventArgs e)
         {
-            
+
+            Console.WriteLine($"{count++} HTE elapsed");
 
             Hotel.PerformAllActions();
 
@@ -112,7 +117,7 @@ namespace HotelSimulationTheLock
         private void _fillMoveAbleTB()
         {
             guestTB.Clear();
-
+      
             foreach (string value in Hotel.CurrentValue())
             {
                 try
