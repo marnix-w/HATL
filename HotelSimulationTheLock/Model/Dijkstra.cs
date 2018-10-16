@@ -12,16 +12,11 @@ namespace HotelSimulationTheLock
         private static List<IArea> Areas { get; set; }
 
         private static Hotel Hotel { get; set; }
-
-        public static void SetList(List<IArea> areas)
-        {
-            Areas = areas;
-        }
-
-        public static void IntilazeDijkstra(Hotel hotel, List<IArea> hotelAreaList)
+        
+        public static void IntilazeDijkstra(Hotel hotel)
         {
             Hotel = hotel;
-            Areas = hotelAreaList;
+            Areas = Hotel.HotelAreas;
         }
 
         public static List<IArea> GetShortestPathDijkstra(IArea from, IArea to)
@@ -36,7 +31,7 @@ namespace HotelSimulationTheLock
             BuildShortestPath(shortestPath, to);
             shortestPath.Reverse();
             Hotel.RemoveSearchProperties();
-            Areas = Hotel.GetAreas();
+            Areas = Hotel.HotelAreas;
             return shortestPath;
         }
 

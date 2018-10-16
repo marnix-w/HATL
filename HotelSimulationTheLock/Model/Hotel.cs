@@ -11,10 +11,12 @@ namespace HotelSimulationTheLock
 {
     public class Hotel : IListner
     {     
-        private List<IArea> HotelAreas { get; set; } = new List<IArea>();      
+        public List<IArea> HotelAreas { get; set; } = new List<IArea>();      
         private List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
         
         private List<IMovable> LeavingGuests { get; set; } = new List<IMovable>();
+        private List<IMovable> ArivingGuests { get; set; } = new List<IMovable>();
+
         private IHotelBuilder HotelBuilder { get; set; } = new JsonHotelBuilder();
         private IHotelDrawer HotelDrawer { get; set; } = new BitmapHotelDrawer();
 
@@ -46,7 +48,7 @@ namespace HotelSimulationTheLock
 
 
             // Methods for final initialization           
-            Dijkstra.IntilazeDijkstra(this, HotelAreas);
+            Dijkstra.IntilazeDijkstra(this);
             HotelEventManager.Start();
         }
 
@@ -167,7 +169,12 @@ namespace HotelSimulationTheLock
 
         public void PerformAllActions()
         {
-            
+
+            foreach (var item in ArivingGuests)
+            {
+                HotelMovables.Add(item);
+            }
+
             lock (HotelMovables)
             {
                 foreach (IMovable movable in HotelMovables)
@@ -190,8 +197,12 @@ namespace HotelSimulationTheLock
 
             foreach (var item in LeavingGuests)
             {
-                HotelMovables.Remove(item);
+                HotelMovables.Remove(item);               
             }
+
+            ArivingGuests.Clear();
+            LeavingGuests.Clear();
+
         }        
 
         public void RemoveGuest(Guest guest)
@@ -245,7 +256,7 @@ namespace HotelSimulationTheLock
                       
                 guest.Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(guest.Area, GetArea(typeof(Reception))));
 
-                HotelMovables.Add(guest);
+                ArivingGuests.Add(guest);
 
             }
         }
