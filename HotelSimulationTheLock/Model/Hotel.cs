@@ -11,7 +11,7 @@ namespace HotelSimulationTheLock
 {
     public class Hotel : IListner
     {     
-        private List<IArea> HotelAreas { get; set; } = new List<IArea>();      
+        public List<IArea> HotelAreas { get; set; } = new List<IArea>();      
         private List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
         
         private List<IMovable> LeavingGuests { get; set; } = new List<IMovable>();
@@ -45,7 +45,7 @@ namespace HotelSimulationTheLock
             HotelEventManager.HTE_Factor = 100;
 
             // Methods for final initialization           
-            Dijkstra.IntilazeDijkstra(this, HotelAreas);
+            Dijkstra.IntilazeDijkstra(this);
             HotelEventManager.Start();
         }
 
