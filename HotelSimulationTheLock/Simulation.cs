@@ -33,7 +33,7 @@ namespace HotelSimulationTheLock
             // Does this timer work corectly with the HTE factor? -marnix
             t = new Timer
             {
-                Interval = 100 // specify interval time as you want
+                Interval = 500 // specify interval time as you want
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
@@ -87,7 +87,7 @@ namespace HotelSimulationTheLock
             //fintess overview
             facillityTB.Clear();
 
-            foreach (string i in Hotel.currentValueIArea())
+            foreach (string i in Hotel.CurrentValueIArea())
             {
                 try
                 {                  
@@ -111,7 +111,7 @@ namespace HotelSimulationTheLock
         {
             guestTB.Clear();
 
-            foreach (string value in Hotel.currentValue())
+            foreach (string value in Hotel.CurrentValue())
             {
                 try
                 {

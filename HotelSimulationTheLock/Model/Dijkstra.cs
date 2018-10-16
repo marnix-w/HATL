@@ -13,6 +13,11 @@ namespace HotelSimulationTheLock
 
         private static Hotel Hotel { get; set; }
 
+        public static void SetList(List<IArea> areas)
+        {
+            Areas = areas;
+        }
+
         public static void IntilazeDijkstra(Hotel hotel, List<IArea> hotelAreaList)
         {
             Hotel = hotel;

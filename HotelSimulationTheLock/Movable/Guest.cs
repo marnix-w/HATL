@@ -160,14 +160,14 @@ namespace HotelSimulationTheLock
                 if (((Reception)Area).EnterArea(this))
                 {
                     
-                    if (Hotel.GetRoom(RoomRequest) is null)
+                    if (Hotel.GetArea(RoomRequest) is null)
                     {
                         Status = MovableStatus.LEAVING;
                     }
                     else
                     {
-                        IArea newRoom = Hotel.GetRoom(RoomRequest);
-                        SetPath(Hotel.GetRoom(RoomRequest));
+                        IArea newRoom = Hotel.GetArea(RoomRequest);
+                        SetPath(Hotel.GetArea(RoomRequest));
                         newRoom.AreaStatus = AreaStatus.OCCUPIED;
                         FinalDes = newRoom;
                         MyRoom = newRoom;
@@ -233,12 +233,20 @@ namespace HotelSimulationTheLock
 
         private void RemoveMe()
         {
-            if (Area is Reception)
+            if (Path.Any())
             {
-                ((Reception)Area).CheckInQueue.Dequeue();
+                Move();
+            }
+            else
+            {
+                SetPath(Hotel.GetArea(typeof(Reception)));
             }
 
-            ((Reception)Area).Receptionist.RemoveGuest(this);
+            if (Area is Reception)
+            {
+                Hotel.RemoveGuest(this);
+            }
+           
         }
         
         private void GetFood()
