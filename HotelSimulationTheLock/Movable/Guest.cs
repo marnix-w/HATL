@@ -94,6 +94,7 @@ namespace HotelSimulationTheLock
         public void SetPath(IArea destination)
         {
             Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));
+            Dijkstra.IsElevatorCloser(Area, destination);
         }
 
         public void Notify(HotelEvent evt)
@@ -211,12 +212,17 @@ namespace HotelSimulationTheLock
         // Actions list
         private void _checkIn()
         {
+
+           
             if (Path.Any())
             {
                 Move();
             }
             else if (Area is Reception)
             {
+
+                
+
                 if (((Reception)Area).EnterArea(this))
                 {
 

@@ -41,6 +41,7 @@ namespace HotelSimulationTheLock
 
             if (GetShortestPathDijkstra(from, to).Count > GetShortestPathDijkstra(from, ev).Count)
             {
+                Console.WriteLine("van huidige positie naar kamer kost " + GetShortestPathDijkstra(from, to).Count + " \t van huidgie postie naar lift kost: " + GetShortestPathDijkstra(from, ev).Count);
                 return ev;
             }
 
