@@ -162,69 +162,8 @@ namespace HotelSimulationTheLock
 
             //this room needs to be casted to the guest
             return guestRoom;
-        }
+        }       
 
-        public IArea getLocation(IArea blabla)
-        {
-            List<IArea> CurrentShortest = HotelAreas;
-
-            IArea guestRoom = null;
-
-            foreach (Restaurant area in HotelAreas.Where(X => X is Restaurant))
-            {              
-                    if (Dijkstra.GetShortestPathDijkstra(blabla, area).Count < CurrentShortest.Count)
-                    {
-
-                        CurrentShortest = Dijkstra.GetShortestPathDijkstra(blabla, area);
-                        guestRoom = area;
-                    }
-            }
-
-
-            //this room needs to be casted to the guest
-            return guestRoom;
-        }
-
-        public IArea getLocationCinema(IArea blabla)
-        {
-            List<IArea> CurrentShortest = HotelAreas;
-
-            IArea guestRoom = null;
-
-            foreach (Cinema area in HotelAreas.Where(X => X is Cinema))
-            {
-                if (Dijkstra.GetShortestPathDijkstra(blabla, area).Count < CurrentShortest.Count)
-                {
-
-                    CurrentShortest = Dijkstra.GetShortestPathDijkstra(blabla, area);
-                    guestRoom = area;
-                }
-            }
-
-
-            //this room needs to be casted to the guest
-            return guestRoom;
-        }
-
-        public IArea getCheckOutLocation(IArea blabla)
-        {
-            List<IArea> CurrentShortest = HotelAreas;
-
-            IArea guestRoom = null;
-
-            foreach (Reception area in HotelAreas.Where(X => X is Reception))
-            {
-                if (Dijkstra.GetShortestPathDijkstra(blabla, area).Count < CurrentShortest.Count)
-                {
-
-                    CurrentShortest = Dijkstra.GetShortestPathDijkstra(blabla, area);
-                    guestRoom = area;
-                }
-            }
-
-            //this room needs to be casted to the guest
-            return guestRoom;
-        }
 
         public void PerformAllActions()
         {

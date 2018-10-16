@@ -85,9 +85,11 @@ namespace HotelSimulationTheLock
         public void PerformAction()
         {
             if (!(Actions[Status] == null))
-            {
+            {              
                 Actions[Status]();
             }
+            _deathCounter++;
+            Console.WriteLine(_deathCounter);
         }
 
         public void SetPath(IArea destination)
@@ -96,7 +98,8 @@ namespace HotelSimulationTheLock
         }
 
         public void Notify(HotelEvent evt)
-        {        
+        {
+         
 
             if (evt.Data != null)
             {
@@ -301,7 +304,7 @@ namespace HotelSimulationTheLock
 
             else if (!(Area is Reception))
             {
-                SetPath(_hotel.getCheckOutLocation(Area));
+                SetPath(_hotel.GetNewLocation(Area, typeof(Reception)));
 
             }
             else
@@ -358,7 +361,7 @@ namespace HotelSimulationTheLock
             }
             else if (!(Area is Restaurant))
             {
-                SetPath(_hotel.getLocation(Area));
+                SetPath(_hotel.GetNewLocation(Area, typeof(Restaurant)));
             }
             else
             {        
@@ -376,11 +379,19 @@ namespace HotelSimulationTheLock
             }
             else if (!(Area is Cinema))
             {
-                SetPath(_hotel.getLocationCinema(Area));
+                SetPath(_hotel.GetNewLocation(Area, typeof(Cinema)));
             }
             else
             {
-                Status = MovableStatus.WAITING_TO_START;
+               
+                if(Area.AreaStatus == AreaStatus.PLAYING_MOVIE)
+                {
+                    Status = MovableStatus.WATCHING;
+                }
+                else
+                {
+                    Status = MovableStatus.WAITING_TO_START;
+                }
             }
         }
 
@@ -394,7 +405,7 @@ namespace HotelSimulationTheLock
 
             else if (!(Area is Reception))
             {
-                SetPath(_hotel.getCheckOutLocation(Area));
+                SetPath(_hotel.GetNewLocation(Area, typeof(Reception)));
 
             }
             else

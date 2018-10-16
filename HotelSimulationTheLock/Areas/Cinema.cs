@@ -29,6 +29,7 @@ namespace HotelSimulationTheLock
         public bool Visited { get; set; } = false;
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
         public List<IMovable> MovablesInCinema { get; set; } = new List<IMovable>();
+               
 
         public Cinema()
         {
@@ -46,6 +47,8 @@ namespace HotelSimulationTheLock
         {
             if (evt.EventType.Equals(HotelEventType.START_CINEMA))
             {
+                AreaStatus = AreaStatus.PLAYING_MOVIE;
+
                 Console.WriteLine("CINEMA IS STARTING");
             }
         }
