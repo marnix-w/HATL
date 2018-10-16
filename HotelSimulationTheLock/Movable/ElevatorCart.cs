@@ -69,13 +69,13 @@ namespace HotelSimulationTheLock
 
         private void goingDOwn()
         {
-            if(Position.Y != Hotel.HotelHeight)
-            {
-                Position = new Point(Position.X, Position.Y - 1);
+            if(Position.Y == Hotel.HotelHeight)
+            {                
+                Console.WriteLine("beneden verdieping");
             }
             else
             {
-                Console.WriteLine("beneden verdieping");
+                Position = new Point(Position.X, Position.Y + 1);
             }
           
         }
