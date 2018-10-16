@@ -23,6 +23,8 @@ namespace HotelSimulationTheLock
         public Bitmap Art { get; set; } = Properties.Resources.restaurant;
         public AreaStatus AreaStatus { get; set; }
 
+        public int Duration { get; set; }
+
         // Dijkstra search varibles
         public double? BackTrackCost { get; set; } = null;
         public IArea NearestToStart { get; set; } = null;
@@ -35,7 +37,7 @@ namespace HotelSimulationTheLock
 
         public Restaurant()
         {
-
+          
         }
 
         public IArea CreateArea()
@@ -50,6 +52,8 @@ namespace HotelSimulationTheLock
             Dimension = dimension;
             Capacity = capacity;
         }
+
+        
 
         public bool MoveToArea()
         {

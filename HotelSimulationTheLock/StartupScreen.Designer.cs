@@ -50,6 +50,8 @@
             this.elevator_hte_LB = new System.Windows.Forms.Label();
             this.hte_per_sec_LB = new System.Windows.Forms.Label();
             this.elevator_cap_LB = new System.Windows.Forms.Label();
+            this.restaurant_dur_TB = new System.Windows.Forms.NumericUpDown();
+            this.restaurant_dur_LB = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.restaurant_cap_TB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cinema_dur_TB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.eating_dur_TB)).BeginInit();
@@ -59,6 +61,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.elevator_cap_TB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.elevator_hte_TB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maid_TB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.restaurant_dur_TB)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -360,11 +363,41 @@
             this.elevator_cap_LB.TabIndex = 106;
             this.elevator_cap_LB.Text = "label1";
             // 
+            // restaurant_dur_TB
+            // 
+            this.restaurant_dur_TB.Location = new System.Drawing.Point(39, 321);
+            this.restaurant_dur_TB.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.restaurant_dur_TB.Name = "restaurant_dur_TB";
+            this.restaurant_dur_TB.Size = new System.Drawing.Size(120, 20);
+            this.restaurant_dur_TB.TabIndex = 125;
+            this.restaurant_dur_TB.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // restaurant_dur_LB
+            // 
+            this.restaurant_dur_LB.AutoSize = true;
+            this.restaurant_dur_LB.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.restaurant_dur_LB.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.restaurant_dur_LB.Location = new System.Drawing.Point(36, 296);
+            this.restaurant_dur_LB.Name = "restaurant_dur_LB";
+            this.restaurant_dur_LB.Size = new System.Drawing.Size(56, 18);
+            this.restaurant_dur_LB.TabIndex = 124;
+            this.restaurant_dur_LB.Text = "label1";
+            // 
             // StartupScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(753, 421);
+            this.Controls.Add(this.restaurant_dur_TB);
+            this.Controls.Add(this.restaurant_dur_LB);
             this.Controls.Add(this._runSimulation);
             this.Controls.Add(this.find_file);
             this.Controls.Add(this.restaurant_cap_TB);
@@ -397,6 +430,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.elevator_cap_TB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.elevator_hte_TB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.maid_TB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.restaurant_dur_TB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -425,6 +459,8 @@
         protected System.Windows.Forms.Label elevator_hte_LB;
         protected System.Windows.Forms.Label hte_per_sec_LB;
         protected System.Windows.Forms.Label elevator_cap_LB;
+        private System.Windows.Forms.NumericUpDown restaurant_dur_TB;
+        protected System.Windows.Forms.Label restaurant_dur_LB;
     }
 }
 

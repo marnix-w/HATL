@@ -105,6 +105,7 @@ namespace HotelSimulationTheLock
                 else if (area is Restaurant)
                 {
                     ((Restaurant)area).Capacity = settings.RestaurantCapicity;
+                    ((Restaurant)area).Duration = settings.RestaurantDuration;
                 }
 
                 else if (area is null)
