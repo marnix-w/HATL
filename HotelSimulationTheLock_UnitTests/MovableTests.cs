@@ -34,7 +34,11 @@ namespace HotelSimulationTheLock_UnitTests
             IMovable Bob;
 
             //act
+<<<<<<< HEAD
+            Bob = new Guest("Bob", 1, new System.Drawing.Point(0,0), 5);
+=======
             Bob = new Guest(null, "Bob", 1, new System.Drawing.Point(0,0), 0);
+>>>>>>> hotel-team
 
             //assert
             Assert.IsInstanceOfType(Bob, typeof(Guest));

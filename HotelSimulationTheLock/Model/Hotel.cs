@@ -34,7 +34,7 @@ namespace HotelSimulationTheLock
 
             // Build the hotel
             HotelAreas = HotelBuilder.BuildHotel(layout, settings);
-            HotelMovables = HotelBuilder.BuildMovable(settings, this);
+            HotelMovables = HotelBuilder.BuildMovable(settings, this);          
 
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
@@ -42,7 +42,8 @@ namespace HotelSimulationTheLock
             ElevatorCart elevator = new ElevatorCart(this, settings.ElevatorCapicity);
 
             // Right?
-            HotelEventManager.HTE_Factor = 100;
+            HotelEventManager.HTE_Factor = 2;
+
 
             // Methods for final initialization           
             Dijkstra.IntilazeDijkstra(this);
@@ -142,6 +143,70 @@ namespace HotelSimulationTheLock
         
         // end get room
 
+
+        public IArea getLocation(IArea blabla)
+        {
+            List<IArea> CurrentShortest = HotelAreas;
+
+            IArea guestRoom = null;
+
+            foreach (Restaurant area in HotelAreas.Where(X => X is Restaurant))
+            {              
+                    if (Dijkstra.GetShortestPathDijkstra(blabla, area).Count < CurrentShortest.Count)
+                    {
+
+                        CurrentShortest = Dijkstra.GetShortestPathDijkstra(blabla, area);
+                        guestRoom = area;
+                    }
+            }
+
+
+            //this room needs to be casted to the guest
+            return guestRoom;
+        }
+
+        public IArea getLocationCinema(IArea blabla)
+        {
+            List<IArea> CurrentShortest = HotelAreas;
+
+            IArea guestRoom = null;
+
+            foreach (Cinema area in HotelAreas.Where(X => X is Cinema))
+            {
+                if (Dijkstra.GetShortestPathDijkstra(blabla, area).Count < CurrentShortest.Count)
+                {
+
+                    CurrentShortest = Dijkstra.GetShortestPathDijkstra(blabla, area);
+                    guestRoom = area;
+                }
+            }
+
+
+            //this room needs to be casted to the guest
+            return guestRoom;
+        }
+
+        public IArea getCheckOutLocation(IArea blabla)
+        {
+            List<IArea> CurrentShortest = HotelAreas;
+
+            IArea guestRoom = null;
+
+            foreach (Reception area in HotelAreas.Where(X => X is Reception))
+            {
+                if (Dijkstra.GetShortestPathDijkstra(blabla, area).Count < CurrentShortest.Count)
+                {
+
+                    CurrentShortest = Dijkstra.GetShortestPathDijkstra(blabla, area);
+                    guestRoom = area;
+                }
+            }
+
+
+            //this room needs to be casted to the guest
+            return guestRoom;
+        }
+
         public void PerformAllActions()
         {
             
@@ -169,8 +234,8 @@ namespace HotelSimulationTheLock
             {
                 HotelMovables.Remove(item);
             }
-        }
-        
+        }        
+
         public void RemoveGuest(Guest guest)
         {
             LeavingGuests.Add(guest);
@@ -215,9 +280,12 @@ namespace HotelSimulationTheLock
                 };
 
                 guest.Area = HotelAreas.Find(X => X.Position == guest.Position);
-                
-                guest.Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(guest.Area, GetArea(typeof(Reception))));
 
+
+                guest._hotel = this;
+
+                      
+                guest.Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(guest.Area, GetArea(typeof(Reception))));
 
                 HotelMovables.Add(guest);
 
@@ -252,12 +320,16 @@ namespace HotelSimulationTheLock
             {
                 if (a is Room r)
                 {
-                    ValueofIArea.Add("ID: " + r.ID + "\t " + r.GetType().ToString().Replace("HotelSimulationTheLock", "") + r.Classification + " star \t" + r.AreaStatus + " \t" + r.Position + "\n");
+
+                    ValueofIArea.Add("ID: " + r.ID + "\t " + r.GetType().ToString().Replace("HotelSimulationTheLock.", "") + r.Classification + " star \t" + r.AreaStatus + " \t" + r.Position + "\n");
+
                 }
 
                 if (a is Fitness || a is Restaurant || a is Reception || a is Cinema)
                 {
-                    ValueofIArea.Add("ID: " + a.ID + "\t " + a.GetType().ToString().Replace("HotelSimulationTheLock", "") + " \t" + a.Capacity + " \t" + a.Position + "\n");
+                    ValueofIArea.Add("ID: " + a.ID + "\t " + a.GetType().ToString().Replace("HotelSimulationTheLock.", "") + " \t" + a.Capacity + " \t" + a.Position + "\n");
+
+
                 }
 
             }
