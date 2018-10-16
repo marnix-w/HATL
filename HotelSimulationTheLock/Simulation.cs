@@ -33,12 +33,12 @@ namespace HotelSimulationTheLock
             // Does this timer work corectly with the HTE factor? -marnix
             t = new Timer
             {
-                Interval = 650 // specify interval time as you want
+                Interval = 500 // specify interval time as you want
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
 
-            HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
+            HotelImage = Hotel.DrawMap();
 
             HotelBackground = new PictureBox
             {
@@ -60,6 +60,8 @@ namespace HotelSimulationTheLock
 
         void Timer_Tick(object sender, EventArgs e)
         {
+            
+
             Hotel.PerformAllActions();
 
             // fix frequent GC calls
@@ -73,7 +75,7 @@ namespace HotelSimulationTheLock
             // Disposing the movable bitmap to prevent memory leaking
             // https://blogs.msdn.microsoft.com/davidklinems/2005/11/16/three-common-causes-of-memory-leaks-in-managed-applications/
             HotelImage.Dispose();
-            HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
+            HotelImage = Hotel.DrawMap();
             HotelBackground.Image = HotelImage;
         }
 
@@ -85,7 +87,7 @@ namespace HotelSimulationTheLock
             //fintess overview
             facillityTB.Clear();
 
-            foreach (string i in Hotel.currentValueIArea())
+            foreach (string i in Hotel.CurrentValueIArea())
             {
                 try
                 {                  
@@ -109,7 +111,7 @@ namespace HotelSimulationTheLock
         {
             guestTB.Clear();
 
-            foreach (string value in Hotel.currentValue())
+            foreach (string value in Hotel.CurrentValue())
             {
                 try
                 {
@@ -144,7 +146,6 @@ namespace HotelSimulationTheLock
             }
 
         }
-
-
+        
     }
 }

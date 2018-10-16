@@ -9,7 +9,7 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    public class Maid : IMovable, HotelEventListener
+    public class Maid : IMovable, IListner
     {
         public Point Position { get; set; }
         public Bitmap Art { get; set; } = Properties.Resources.maid;
@@ -17,6 +17,8 @@ namespace HotelSimulationTheLock
         Queue<HotelEvent> CleaningEmergencies { get; set; }
         public IArea Area { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Dictionary<MovableStatus, Action> Actions { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public Hotel Hotel { get; set; }
 
         public Maid(Point startLocation)
         {

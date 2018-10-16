@@ -11,17 +11,24 @@ namespace HotelSimulationTheLock
    
     public enum MovableStatus
     {
-        CHEKING_IN,
-        IN_HOTEL,
+        // implemented
+        CHEKING_IN,        
         IN_ROOM,
+        GOING_TO_ROOM,
         LEAVING,
+        GET_FOOD,
+        IN_ELEVATOR,
+
+
+        // To implement
         EATING,
         WORKING_OUT,
         WATCHING_MOVIE,
         EVACUATING,
-        GOING_TO_ROOM
+       
         //Etc
     }
+
     public interface IMovable
     {
         // area status
@@ -32,6 +39,8 @@ namespace HotelSimulationTheLock
         Bitmap Art { get; set; }
         MovableStatus Status { get; set; }
         Dictionary<MovableStatus, Action> Actions { get; set; }
+
+        Hotel Hotel { get; set; }
 
         void PerformAction();
 

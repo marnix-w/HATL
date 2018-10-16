@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 
@@ -84,7 +82,7 @@ namespace HotelSimulationTheLock
             }
 
             //Error handeling TO DO
-            Debug.WriteLine("Error there was no requested room");
+            //Debug.WriteLine("Error there was no requested room");
 
             return null;
 

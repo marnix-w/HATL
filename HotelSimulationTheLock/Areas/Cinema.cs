@@ -12,7 +12,7 @@ namespace HotelSimulationTheLock
 {
     [Export(typeof(IArea))]
     [ExportMetadata("AreaType", "Cinema")]
-    public class Cinema : IArea, HotelEventListener
+    public class Cinema : IArea, IListner
     {
         public int ID { get; set; }
         // Properties
@@ -44,7 +44,7 @@ namespace HotelSimulationTheLock
 
         public void Notify(HotelEvent evt)
         {
-            if (evt.EventType.Equals(HotelEventType.STAR_CINEMA))
+            if (evt.EventType.Equals(HotelEventType.START_CINEMA))
             {
 
             }
