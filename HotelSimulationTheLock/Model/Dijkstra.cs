@@ -39,7 +39,7 @@ namespace HotelSimulationTheLock
         {
             IArea ev = Areas.Find(X => X.Position.Y == from.Position.Y && X is Elevator);
 
-            if (GetShortestPathDijkstra(from, to).Count > GetShortestPathDijkstra(from, ev).Count && ((Elevator)ev).ElevatorCart != null)
+            if (GetShortestPathDijkstra(from, to).Count > GetShortestPathDijkstra(from, ev).Count)
             {
                 return ev;
             }

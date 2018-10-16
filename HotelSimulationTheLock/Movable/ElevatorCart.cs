@@ -40,7 +40,7 @@ namespace HotelSimulationTheLock
             Status = MovableStatus.NOONE_INSIDE;
             // Area = Hotel.GetArea(new Point(0, Hotel.HotelHeight));
             Area = Hotel.GetArea(position);
-            Area.Art = Properties.Resources.elevator_pressent;
+            
             ((Elevator)Area).ElevatorCart = this;
         }
 
