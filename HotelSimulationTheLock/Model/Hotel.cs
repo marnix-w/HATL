@@ -10,13 +10,9 @@ using System.Threading;
 namespace HotelSimulationTheLock
 {
     public class Hotel : IListner
-    {
-        // Change the live stats function so these list can be private
-        // Make private
-        private List<IArea> HotelAreas { get; set; } = new List<IArea>();
-        // Make private 
+    {     
+        private List<IArea> HotelAreas { get; set; } = new List<IArea>();      
         private List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
-
         
         private List<IMovable> LeavingGuests { get; set; } = new List<IMovable>();
         private IHotelBuilder HotelBuilder { get; set; } = new JsonHotelBuilder();
@@ -138,9 +134,7 @@ namespace HotelSimulationTheLock
             //this room needs to be casted to the guest
             return guestRoom;
         }
-
-
-
+        
         // end get room
 
         public void PerformAllActions()
