@@ -172,6 +172,7 @@ namespace HotelSimulationTheLock
 
             foreach (var item in ArivingGuests)
             {
+                item.SetPath(GetArea(typeof(Reception)));
                 HotelMovables.Add(item);
             }
 
@@ -254,7 +255,7 @@ namespace HotelSimulationTheLock
                 guest._hotel = this;
 
                       
-                guest.Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(guest.Area, GetArea(typeof(Reception))));
+                
 
                 ArivingGuests.Add(guest);
 
