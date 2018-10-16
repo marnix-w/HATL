@@ -257,7 +257,7 @@ namespace HotelSimulationTheLock
                         }
 
                         Status = MovableStatus.GOING_TO_ROOM;
-                        ((Reception)Area).CheckInQueue.Dequeue();
+                        
                     }
                 }
                 else if (!((Reception)Area).CheckInQueue.Contains(this))
@@ -308,6 +308,11 @@ namespace HotelSimulationTheLock
         private void _goingToRoom()
         {
             FinalDes = MyRoom;
+
+            if (Area is Reception)
+            {
+                ((Reception)Area).CheckInQueue.Dequeue();
+            }
 
             if (Path.Any())
             {
