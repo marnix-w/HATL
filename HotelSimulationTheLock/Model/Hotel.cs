@@ -9,23 +9,21 @@ using System.Threading;
 
 namespace HotelSimulationTheLock
 {
-    public class Hotel : HotelEventListener
-    {
-        // Change the live stats function so these list can be private
-        // Make private
-        public List<IArea> HotelAreas { get; set; } = new List<IArea>();
-        // Make private 
-        public List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
+    public class Hotel : IListner
+    {     
+        private List<IArea> HotelAreas { get; set; } = new List<IArea>();      
+        private List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
+        
         private List<IMovable> LeavingGuests { get; set; } = new List<IMovable>();
-        public IHotelBuilder HotelBuilder { get; set; } = new JsonHotelBuilder();
-        public IHotelDrawer HotelDrawer { get; set; } = new BitmapHotelDrawer();
+        private IHotelBuilder HotelBuilder { get; set; } = new JsonHotelBuilder();
+        private IHotelDrawer HotelDrawer { get; set; } = new BitmapHotelDrawer();
 
         // Hotel dimensions for calcuations
         public static int HotelHeight { get; set; }
         public static int HotelWidth { get; set; }
 
-        public List<string> valueofMoveable { get; set; } = new List<string>();
-        public List<string> valueofIArea { get; set; } = new List<string>();
+        private List<string> ValueofMoveable { get; set; } = new List<string>();
+        private List<string> ValueofIArea { get; set; } = new List<string>();
 
         public Hotel(List<JsonModel> layout, SettingsModel settings)
         {
@@ -46,8 +44,9 @@ namespace HotelSimulationTheLock
             // Right?
             HotelEventManager.HTE_Factor = 2;
 
+
             // Methods for final initialization           
-            Dijkstra.IntilazeDijkstra(this);
+            Dijkstra.IntilazeDijkstra(this, HotelAreas);
             HotelEventManager.Start();
         }
 
@@ -61,32 +60,65 @@ namespace HotelSimulationTheLock
             }
         }
 
-        public IArea GetRoom(Point location)
+        public List<IArea> GetAreas()
+        {
+            return HotelAreas;
+        }
+
+        // call drawer
+
+        public Bitmap DrawMap()
+        {
+            return HotelDrawer.DrawHotel(HotelAreas, HotelMovables);
+        }
+
+        // Get room overlaods
+
+        /// <summary>
+        /// Find an area in the hotel based on its position
+        /// </summary>
+        /// <param name="location">A point indecating its location</param>
+        /// <returns>The coresponding IArea if none found, null</returns>
+        public IArea GetArea(Point location)
         {
             return HotelAreas.Find(X => X.Position == location);
         }
 
-        public void PerformAllActions()
+        public IArea GetArea(int request)
         {
-            lock (HotelMovables)
-            {
-                foreach (IMovable item in HotelMovables)
-                {
-                    if (!(item is null))
-                    {
-                        item.PerformAction();
-                    }
+            IArea result = null;
 
+            // upgrade guests room if request is not available
+            for (int i = request; i <= 5; i++)
+            {
+                if (!(FindRoom(i) is null))
+                {
+                    result = FindRoom(i);
+                    break;
                 }
             }
 
-            foreach (var item in LeavingGuests)
-            {
-                HotelMovables.Remove(item);
-            }
+            return result;
+
+
         }
 
-        public IArea GetRoom(int request)
+        /// <summary>
+        /// Find an area of a specefic type
+        /// </summary>
+        /// <param name="type">Specifi as "typeof([specilazation])"</param>
+        /// <returns>The coresponding IArea if none found, null</returns>
+        public IArea GetArea(Type type)
+        {
+            return HotelAreas.Find(X => X.GetType() == type);
+        }
+
+        /// <summary>
+        /// Exstansion of the GetArea(int request) mehtod
+        /// </summary>
+        /// <param name="request">Requested classifacation it should find</param>
+        /// <returns>The coresponding IArea if none found, null</returns>
+        private IArea FindRoom(int request)
         {
             List<IArea> CurrentShortest = HotelAreas;
 
@@ -105,10 +137,12 @@ namespace HotelSimulationTheLock
                 }
             }
 
-
             //this room needs to be casted to the guest
             return guestRoom;
         }
+        
+        // end get room
+
 
         public IArea getLocation(IArea blabla)
         {
@@ -173,6 +207,35 @@ namespace HotelSimulationTheLock
             return guestRoom;
         }
 
+        public void PerformAllActions()
+        {
+            
+            lock (HotelMovables)
+            {
+                foreach (IMovable movable in HotelMovables)
+                {
+                    if (movable is Guest)
+                    {
+                        ((Guest)movable).RegisterAs();
+                    }
+                }
+
+                foreach (IMovable item in HotelMovables)
+                {
+                    if (!(item is null))
+                    {
+                        item.PerformAction();
+                    }
+                    
+                }
+            }
+
+            foreach (var item in LeavingGuests)
+            {
+                HotelMovables.Remove(item);
+            }
+        }        
+
         public void RemoveGuest(Guest guest)
         {
             LeavingGuests.Add(guest);
@@ -211,61 +274,67 @@ namespace HotelSimulationTheLock
                     return;
                 }
 
-                Guest guest = new Guest(name, requestInt, new Point(0, HotelHeight), id)
+                Guest guest = new Guest(this, name, requestInt, new Point(0, HotelHeight), id)
                 {
                     Area = HotelAreas.Find(X => X.Position == new Point(0, HotelHeight))
                 };
 
                 guest.Area = HotelAreas.Find(X => X.Position == guest.Position);
 
+
                 guest._hotel = this;
 
-                guest.Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(guest.Area, HotelAreas.Find(X => X is Reception)));
-
+                      
+                guest.Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(guest.Area, GetArea(typeof(Reception))));
 
                 HotelMovables.Add(guest);
 
             }
         }
 
-        public List<string> currentValue()
+        // motivate your choice here jasper
+        public List<string> CurrentValue()
         {
-            valueofMoveable.Clear();
+            ValueofMoveable.Clear();
 
             foreach (IMovable a in HotelMovables)
             {
                 if (a is Guest g)
                 {
-                    valueofMoveable.Add(g.Name + " \t " + g.RoomRequest + " \t " + g.Status + " \t " + g.Position + "\n");
+                    ValueofMoveable.Add(g.Name + " \t " + g.RoomRequest + " \t " + g.Status + " \t " + g.Position + "\n");
                 }
                 if (a is Maid m)
                 {
-                    valueofMoveable.Add("Maid" + " \t " + m.Status + " \t " + m.Position + "\n");
+                    ValueofMoveable.Add("Maid" + " \t " + m.Status + " \t " + m.Position + "\n");
                 }
             }
 
-            return valueofMoveable;
+            return ValueofMoveable;
         }
 
-        public List<string> currentValueIArea()
+        public List<string> CurrentValueIArea()
         {
-            valueofIArea.Clear();
+            ValueofIArea.Clear();
 
             foreach (IArea a in HotelAreas)
             {
                 if (a is Room r)
                 {
-                    valueofIArea.Add("ID: " + r.ID + "\t " + r.GetType().ToString().Replace("HotelSimulationTheLock.", "") + r.Classification + " star \t" + r.AreaStatus + " \t" + r.Position + "\n");
+
+                    ValueofIArea.Add("ID: " + r.ID + "\t " + r.GetType().ToString().Replace("HotelSimulationTheLock.", "") + r.Classification + " star \t" + r.AreaStatus + " \t" + r.Position + "\n");
+
                 }
 
                 if (a is Fitness || a is Restaurant || a is Reception || a is Cinema)
                 {
-                    valueofIArea.Add("ID: " + a.ID + "\t " + a.GetType().ToString().Replace("HotelSimulationTheLock.", "") + " \t" + a.Capacity + " \t" + a.Position + "\n");
+                    ValueofIArea.Add("ID: " + a.ID + "\t " + a.GetType().ToString().Replace("HotelSimulationTheLock.", "") + " \t" + a.Capacity + " \t" + a.Position + "\n");
+
+
                 }
 
             }
 
-            return valueofIArea;
+            return ValueofIArea;
         }
 
     }

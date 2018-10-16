@@ -37,8 +37,8 @@ namespace HotelSimulationTheLock
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
-                       
-            HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
+
+            HotelImage = Hotel.DrawMap();
 
             HotelBackground = new PictureBox
             {
@@ -60,14 +60,7 @@ namespace HotelSimulationTheLock
 
         void Timer_Tick(object sender, EventArgs e)
         {
-            foreach (var item in Hotel.HotelMovables)
-            {
-                if (item is Guest)
-                {
-                    ((Guest)item).RegisterAs();
-                }
-                
-            }
+            
 
             Hotel.PerformAllActions();
 
@@ -82,7 +75,7 @@ namespace HotelSimulationTheLock
             // Disposing the movable bitmap to prevent memory leaking
             // https://blogs.msdn.microsoft.com/davidklinems/2005/11/16/three-common-causes-of-memory-leaks-in-managed-applications/
             HotelImage.Dispose();
-            HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
+            HotelImage = Hotel.DrawMap();
             HotelBackground.Image = HotelImage;
 
 
@@ -96,7 +89,7 @@ namespace HotelSimulationTheLock
             //fintess overview
             facillityTB.Clear();
 
-            foreach (string i in Hotel.currentValueIArea())
+            foreach (string i in Hotel.CurrentValueIArea())
             {
                 try
                 {                  
@@ -120,7 +113,7 @@ namespace HotelSimulationTheLock
         {
             guestTB.Clear();
 
-            foreach (string value in Hotel.currentValue())
+            foreach (string value in Hotel.CurrentValue())
             {
                 try
                 {
@@ -153,12 +146,12 @@ namespace HotelSimulationTheLock
                 t.Start();
                 HotelEventManager.Start();
             }
-
         }
 
         private void Simulation_FormClosed(object sender, FormClosedEventArgs e)
         {
             options.Dispose();
         }
+
     }
 }

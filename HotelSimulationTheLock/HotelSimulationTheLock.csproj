@@ -63,6 +63,7 @@
     <Compile Include="Factories\AreaFactory.cs" />
     <Compile Include="Interfaces\IHotelBuilder.cs" />
     <Compile Include="Interfaces\IHotelDrawer.cs" />
+    <Compile Include="Interfaces\IListner.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Model\BitmapHotelDrawer.cs" />
     <Compile Include="Model\Dijkstra.cs" />
