@@ -21,7 +21,7 @@ namespace HotelSimulationTheLock
 
         // other shit
         public Point Position { get; set; }
- 
+
         public Bitmap Art { get; set; } = Properties.Resources.elevator_pressent;
 
         public MovableStatus Status { get; set; }
@@ -29,20 +29,18 @@ namespace HotelSimulationTheLock
         public Dictionary<MovableStatus, Action> Actions { get; set; }
 
 
-
-
         public Queue<IArea> Path { get; set; }
-       
 
-        public ElevatorCart(Hotel hotel, int capacity)
+
+        public ElevatorCart(Point position, Hotel hotel, int capacity)
         {
             Hotel = hotel;
             // Remind me to set it to capicity
-            Capacity = 5;
-
-           // Area = Hotel.GetArea(new Point(0, Hotel.HotelHeight));
-            Area = Hotel.GetArea(new Point(0, 1));
-
+            Capacity = capacity;
+            Status = MovableStatus.NOONE_INSIDE;
+            // Area = Hotel.GetArea(new Point(0, Hotel.HotelHeight));
+            Area = Hotel.GetArea(position);
+            Area.Art = Properties.Resources.elevator_pressent;
             ((Elevator)Area).ElevatorCart = this;
         }
 
@@ -57,12 +55,29 @@ namespace HotelSimulationTheLock
 
         public void PerformAction()
         {
-            throw new NotImplementedException();
+            if (Status == MovableStatus.NOONE_INSIDE)
+            {
+                goingDOwn();
+                Console.WriteLine("ER IS NIEMAND BINNEN");
+            }
         }
 
         public void SetPath(IArea destination)
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
+        }
+
+        private void goingDOwn()
+        {
+            if(Position.Y != Hotel.HotelHeight)
+            {
+                Position = new Point(Position.X, Position.Y - 1);
+            }
+            else
+            {
+                Console.WriteLine("beneden verdieping");
+            }
+          
         }
     }
 }

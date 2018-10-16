@@ -41,7 +41,7 @@ namespace HotelSimulationTheLock
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
 
-            ElevatorCart elevator = new ElevatorCart(this, settings.ElevatorCapicity);
+        //    ElevatorCart elevator = new ElevatorCart(this, settings.ElevatorCapicity);
 
             // Right?
             HotelEventManager.HTE_Factor = 2;
@@ -275,6 +275,11 @@ namespace HotelSimulationTheLock
                 if (a is Maid m)
                 {
                     ValueofMoveable.Add("Maid" + " \t " + m.Status + " \t " + m.Position + "\n");
+                }
+
+                if (a is ElevatorCart e)
+                {
+                    ValueofMoveable.Add("Elevator" + " \t " + e.Status + " \t " + e.Position + "\n");
                 }
             }
 

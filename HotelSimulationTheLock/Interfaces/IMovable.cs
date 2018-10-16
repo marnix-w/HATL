@@ -30,7 +30,11 @@ namespace HotelSimulationTheLock
         GOING_TO_CINEMA,
         GOING_TO_FITNESS,
         CHECKING_OUT,
-        WAITING_TO_START
+        WAITING_TO_START,
+
+        //elvator
+        NOONE_INSIDE
+
 
 
     }
