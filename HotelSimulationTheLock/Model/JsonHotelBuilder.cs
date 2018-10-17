@@ -116,7 +116,7 @@ namespace HotelSimulationTheLock
                 // Add right neighbour
                 for (int i = 1; i < HotelWidth; i++)
                 {
-                    if (AddNeighbour(area, i, 0, i))
+                    if (AddNeighbour(area, i, 0, 1))
                     {
                         break;
                     }
@@ -124,7 +124,7 @@ namespace HotelSimulationTheLock
                 // Add left neighbour
                 for (int i = 1; i < HotelWidth - 1; i++)
                 {
-                    if (AddNeighbour(area, -i, 0, i))
+                    if (AddNeighbour(area, -i, 0, 1))
                     {
                         break;
                     }
@@ -132,18 +132,17 @@ namespace HotelSimulationTheLock
                 if (area.Position.X == 0 || area.Position.X == HotelWidth)
                 {
                     // Keep lift weight in mind needs a rework
-                    int weight = 1;
-
+                    
                     if (area is Elevator)
                     {
-                        weight = 100;                       
+                        continue;                      
                     }
                     
 
                     // Add top neighbour
-                    AddNeighbour(area, 0, 1, weight);
+                    AddNeighbour(area, 0, 1, 1);
                     // Add bottom neighbour
-                    AddNeighbour(area, 0, -1, weight);
+                    AddNeighbour(area, 0, -1, 1);
                 }
             }
 

@@ -74,6 +74,11 @@ namespace HotelSimulationTheLock
             return HotelDrawer.DrawHotel(HotelAreas, HotelMovables);
         }
 
+        public int HowLongWillMovieTake()
+        {
+            return HotelMovables.Where(X => X is Guest && ((Guest)X).Status == MovableStatus.WATCHING && ((Guest)X)._hteTime != 0).Select(X => ((Guest)X)._hteTime - ((Guest)X)._hteCalculateCounter).First();
+        }
+
         // Get room overlaods
 
         /// <summary>
@@ -172,6 +177,7 @@ namespace HotelSimulationTheLock
 
             foreach (var item in ArivingGuests)
             {
+                ((Guest)item).RegisterAs();
                 item.SetPath(GetArea(typeof(Reception)));
                 HotelMovables.Add(item);
             }

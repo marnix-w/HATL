@@ -21,6 +21,8 @@ namespace HotelSimulationTheLock
         public string Name { get; set; }
         public int RoomRequest { get; set; }
 
+        private bool Registerd { get; set; } = false;
+
         // Iarea information
         #region
         public IArea Area { get; set; }
@@ -32,13 +34,17 @@ namespace HotelSimulationTheLock
         #region
         private int _deathAt { get; set; } = 20;
         private int _deathCounter { get; set; } = 0;
-        private int _hteTime { get; set; }
-        private int _hteCalculateCounter { get; set; } = 0;
+        public int _hteTime { get; set; }
+        public int _hteCalculateCounter { get; set; } = 0;
         Random rnd = new Random();
         #endregion
 
 
         public Queue<IArea> Path { get; set; }
+
+        /// <summary>
+        /// A list of statuses paired with the coresponding action
+        /// </summary>
         public Dictionary<MovableStatus, Action> Actions { get; set; } = new Dictionary<MovableStatus, Action>();
 
 
@@ -67,18 +73,18 @@ namespace HotelSimulationTheLock
         {
             Actions.Add(MovableStatus.CHEKING_IN, _checkIn);
             Actions.Add(MovableStatus.GOING_TO_ROOM, _goingToRoom);
-            Actions.Add(MovableStatus.LEAVING, RemoveMe);
+            Actions.Add(MovableStatus.LEAVING, _removeMe);
             Actions.Add(MovableStatus.GET_FOOD, _getFood);
             Actions.Add(MovableStatus.GOING_TO_CINEMA, _getToCinema);
             Actions.Add(MovableStatus.CHECKING_OUT, _getCheckOut);
             Actions.Add(MovableStatus.EVACUATING, _getOutOfHotel);
             Actions.Add(MovableStatus.GOING_TO_FITNESS, _goToFitness);
-            Actions.Add(MovableStatus.WATCHING, null);
-            Actions.Add(MovableStatus.EATING, null);
+            Actions.Add(MovableStatus.WATCHING, _addHteCounter);
+            Actions.Add(MovableStatus.EATING, _addHteCounter);
             Actions.Add(MovableStatus.IN_ELEVATOR, null);
             Actions.Add(MovableStatus.IN_ROOM, null);
             Actions.Add(MovableStatus.WAITING_TO_START, null);
-            Actions.Add(MovableStatus.WORKING_OUT, null);
+            Actions.Add(MovableStatus.WORKING_OUT, _addHteCounter);
         }
         
         public void PerformAction()
@@ -90,14 +96,29 @@ namespace HotelSimulationTheLock
          
         }
 
+        public void RegisterAs()
+        {
+            if (!Registerd)
+            {
+                HotelEventManager.Register(this);
+                Registerd = true;
+            }
+        }
+
         public void SetPath(IArea destination)
         {
-            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));           
+            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));
+            // Count extra first step or not
+            Path.Dequeue();
+
         }
 
         public void Notify(HotelEvent evt)
         {
-         
+            if (Status != MovableStatus.IN_ROOM && Status != MovableStatus.WAITING_TO_START)
+            {
+                return;
+            }
 
             if (evt.Data != null)
             {
@@ -106,7 +127,7 @@ namespace HotelSimulationTheLock
 
                     if (evt.EventType == HotelEventType.START_CINEMA && Status == MovableStatus.WAITING_TO_START)
                     {
-                        Status = MovableStatus.WATCHING;
+                        Status = MovableStatus.WATCHING;                       
                         Console.WriteLine("i'm watching Marvel movie with Batman as Hoofdrolspeler" + item.Key + item.Value);
                     }
 
@@ -200,9 +221,14 @@ namespace HotelSimulationTheLock
 
         private void _addHteCounter()
         {
-            _hteCalculateCounter++;
-
-            
+            if (_hteCalculateCounter == _hteTime)
+            {
+                Status = MovableStatus.GOING_TO_ROOM;
+            }
+            else
+            {
+                _hteCalculateCounter++;
+            }               
         }
 
 
@@ -232,9 +258,7 @@ namespace HotelSimulationTheLock
                         FinalDes = newRoom;
                         MyRoom = newRoom;
 
-                        // Count extra first step or not
-                        Path.Dequeue();
-
+                        
                         switch (((Room)MyRoom).Classification)
                         {
                             case 1:
@@ -284,6 +308,7 @@ namespace HotelSimulationTheLock
             else
             {
                 Status = MovableStatus.WORKING_OUT;
+                _hteTime = rnd.Next(1, 7);
             }
         }
         private void _getOutOfHotel()
@@ -304,14 +329,18 @@ namespace HotelSimulationTheLock
                 //   RemoveMe();
             }
         }
-
         private void _goingToRoom()
         {
+            _hteCalculateCounter = 0;
             FinalDes = MyRoom;
 
             if (Area is Reception)
             {
                 ((Reception)Area).CheckInQueue.Dequeue();
+            }
+            if (Area is Cinema)
+            {
+                Area.Art = Properties.Resources.cinema;
             }
 
             if (Path.Any())
@@ -328,8 +357,7 @@ namespace HotelSimulationTheLock
             }
 
         }
-
-        private void RemoveMe()
+        private void _removeMe()
         {
             if (Path.Any())
             {
@@ -346,7 +374,6 @@ namespace HotelSimulationTheLock
             }
 
         }
-
         /// <summary>
         /// Trying to get the first restaurant
         /// </summary>
@@ -363,7 +390,7 @@ namespace HotelSimulationTheLock
             else
             {        
                 Status = MovableStatus.EATING;
-              
+                _hteTime = ((Restaurant)Area).Duration;
             }
         }
 
@@ -379,15 +406,16 @@ namespace HotelSimulationTheLock
                 SetPath(_hotel.GetNewLocation(Area, typeof(Cinema)));
             }
             else
-            {
-               
+            {               
                 if(Area.AreaStatus == AreaStatus.PLAYING_MOVIE)
                 {
                     Status = MovableStatus.WATCHING;
+                    _hteTime = Hotel.HowLongWillMovieTake() + Path.Count();
                 }
                 else
                 {
                     Status = MovableStatus.WAITING_TO_START;
+                    _hteTime = ((Cinema)Area).Duration;
                 }
             }
         }
@@ -407,7 +435,7 @@ namespace HotelSimulationTheLock
             }
             else
             {
-                RemoveMe();
+                _removeMe();
             }
         }
 
