@@ -92,8 +92,7 @@ namespace HotelSimulationTheLock
         }
 
         public void SetPath(IArea destination)
-        {
-            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));
+        { 
             Dijkstra.IsElevatorCloser(Area, destination);
         }
 
@@ -181,8 +180,6 @@ namespace HotelSimulationTheLock
             IArea destination = Path.Dequeue();
             Area = destination;
             Position = destination.Position;
-
-            
         }
 
         private void AddDeathCounter(Guest guest)
@@ -262,8 +259,8 @@ namespace HotelSimulationTheLock
                                 break;
                         }
 
-                        Status = MovableStatus.GOING_TO_ROOM;
-                        
+                        Status = MovableStatus.GOING_TO_ROOM;                       
+
                     }
                 }
                 else if (!((Reception)Area).CheckInQueue.Contains(this))
