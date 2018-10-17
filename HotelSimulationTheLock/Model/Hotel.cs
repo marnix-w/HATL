@@ -23,7 +23,7 @@ namespace HotelSimulationTheLock
         // Hotel dimensions for calcuations
         public static int HotelHeight { get; set; }
         public static int HotelWidth { get; set; }
-
+        
         private List<string> ValueofMoveable { get; set; } = new List<string>();
         private List<string> ValueofIArea { get; set; } = new List<string>();
 
@@ -76,6 +76,15 @@ namespace HotelSimulationTheLock
         {
             return HotelAreas;
 
+        }
+
+        public bool IsHotelSafe()
+        {          
+            if (HotelMovables.Where(X => X is Guest && X.Area is Reception).Count() == HotelMovables.Where(X => X is Guest).Count())
+            {
+                return true;
+            }
+            return false;
         }
 
         // call drawer

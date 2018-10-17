@@ -77,7 +77,7 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.GET_FOOD, _getFood);
             Actions.Add(MovableStatus.GOING_TO_CINEMA, _getToCinema);
             Actions.Add(MovableStatus.CHECKING_OUT, _getCheckOut);
-            Actions.Add(MovableStatus.EVACUATING, _getOutOfHotel);
+            Actions.Add(MovableStatus.EVACUATING, _Evacuate);
             Actions.Add(MovableStatus.GOING_TO_FITNESS, _goToFitness);
             Actions.Add(MovableStatus.WATCHING, _addHteCounter);
             Actions.Add(MovableStatus.EATING, _addHteCounter);
@@ -126,6 +126,15 @@ namespace HotelSimulationTheLock
 
         public void Notify(HotelEvent evt)
         {
+            if (evt.EventType == HotelEventType.EVACUATE)
+            {
+                Status = MovableStatus.EVACUATING;
+                _hteCalculateCounter = 0;
+                _hteTime = 5;
+                SetPath(Hotel.GetArea(typeof(Reception)));
+                Console.WriteLine("WHERERE ALLL GONNE DIEEEEE, YEAHHHHHHH");
+            }
+
             if (Status != MovableStatus.IN_ROOM && Status != MovableStatus.WAITING_TO_START)
             {
                 return;
@@ -142,11 +151,7 @@ namespace HotelSimulationTheLock
                         Console.WriteLine("i'm watching Marvel movie with Batman as Hoofdrolspeler" + item.Key + item.Value);
                     }
 
-                    if (evt.EventType == HotelEventType.EVACUATE)
-                    {
-                        Status = MovableStatus.EVACUATING;
-                        Console.WriteLine(item + item.Key + item.Value + item.ToString());
-                    }
+                    
 
                     if (item.Key.Contains("Gast"))
                     {
@@ -305,6 +310,72 @@ namespace HotelSimulationTheLock
             //    }
             //}
 
+            if (MyRoom != null)
+            {
+                ((Reception)Area).CheckInQueue.Dequeue();
+                Status = MovableStatus.GOING_TO_ROOM;
+            }
+            if (Path.Any())
+            {
+                Move();
+            }
+            else if (Area is Reception)
+            {
+                
+                if (((Reception)Area).EnterArea(this))
+                {
+
+                    if (Hotel.GetArea(RoomRequest) is null)
+                    {
+                        Status = MovableStatus.LEAVING;
+                    }
+                    else
+                    {
+                        IArea newRoom = Hotel.GetArea(RoomRequest);
+                        SetPath(Hotel.GetArea(RoomRequest));
+                        newRoom.AreaStatus = AreaStatus.OCCUPIED;
+                        FinalDes = newRoom;
+                        MyRoom = newRoom;
+
+                        
+                        switch (((Room)MyRoom).Classification)
+                        {
+                            case 1:
+                                MyRoom.Art = Properties.Resources.room_one_star_locked;
+                                break;
+                            case 2:
+                                MyRoom.Art = Properties.Resources.room_two_star_locked;
+                                break;
+                            case 3:
+                                MyRoom.Art = Properties.Resources.room_three_star_locked;
+                                break;
+                            case 4:
+                                MyRoom.Art = Properties.Resources.room_four_star_locked;
+                                break;
+                            case 5:
+                                MyRoom.Art = Properties.Resources.room_five_star_locked;
+                                break;
+                            default:
+                                break;
+                        }
+
+                                             
+
+                    }
+                    
+                }
+                else if (!((Reception)Area).CheckInQueue.Contains(this))
+                {
+                    ((Reception)Area).CheckInQueue.Enqueue(this);
+                }
+                else
+                {
+                    // kill timer
+                }
+            }
+            
+
+
         }
         private void _goToFitness()
         {
@@ -345,10 +416,7 @@ namespace HotelSimulationTheLock
             _hteCalculateCounter = 0;
             FinalDes = MyRoom;
 
-            if (Area is Reception)
-            {
-                ((Reception)Area).CheckInQueue.Dequeue();
-            }
+            
             if (Area is Cinema)
             {
                 Area.Art = Properties.Resources.cinema;
@@ -384,10 +452,7 @@ namespace HotelSimulationTheLock
                 Hotel.RemoveGuest(this);
             }
 
-        }
-        /// <summary>
-        /// Trying to get the first restaurant
-        /// </summary>
+        }       
         private void _getFood()
         {
             if (Path.Any())
@@ -404,7 +469,6 @@ namespace HotelSimulationTheLock
                 _hteTime = ((Restaurant)Area).Duration;
             }
         }
-
         private void _getToCinema()
         {
 
@@ -430,7 +494,6 @@ namespace HotelSimulationTheLock
                 }
             }
         }
-
         private void _getCheckOut()
         {
             if (Path.Any())
@@ -450,12 +513,29 @@ namespace HotelSimulationTheLock
             }
         }
 
+
         public void CallElevator()
         {
             Hotel.CallElevator(this);
         }
-
-
+        private void _Evacuate()
+        {          
+            if (Hotel.IsHotelSafe())
+            {
+                if (_hteTime == _hteCalculateCounter)
+                {
+                    Status = MovableStatus.GOING_TO_ROOM;
+                }
+                else
+                {
+                    _hteCalculateCounter++;
+                }
+            }
+            else if(Path.Any())
+            {
+                Move();
+            }           
+        }
 
     }
 }
