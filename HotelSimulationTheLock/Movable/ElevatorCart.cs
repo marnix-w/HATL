@@ -60,6 +60,7 @@ namespace HotelSimulationTheLock
                 goingDOwn();
                 Console.WriteLine("ER IS NIEMAND BINNEN");
             }
+            
         }
 
         public void SetPath(IArea destination)
@@ -78,6 +79,31 @@ namespace HotelSimulationTheLock
                 Position = new Point(Position.X, Position.Y + 1);
             }
           
+        }
+
+        private void GoingToGuest(Guest guest)
+        {
+            //if the elevator is lower than guest we go up
+            if(Position.Y < guest.Position.Y)
+            {
+                Position = new Point(Position.X, Position.Y - 1);
+                Console.WriteLine("going to guest upwards");
+            }
+            //if the elevator is lower than guest we go down
+            else if (Position.Y < guest.Position.Y)
+            {
+                Position = new Point(Position.X, Position.Y + 1);
+                Console.WriteLine("going to guest downwards");
+            }
+            else if (Position.Y == guest.Position.Y)
+            {
+                Console.WriteLine("guest can enter");
+            }
+            else
+            {
+                //no request was found
+            }
+
         }
     }
 }

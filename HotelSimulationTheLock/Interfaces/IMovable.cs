@@ -33,7 +33,8 @@ namespace HotelSimulationTheLock
         WAITING_TO_START,
 
         //elvator
-        NOONE_INSIDE
+        NOONE_INSIDE,
+        ELEVATOR_REQUEST
 
 
 
