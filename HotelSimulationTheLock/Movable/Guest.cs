@@ -93,10 +93,9 @@ namespace HotelSimulationTheLock
         private void LeavingElevator()
         {
             SetPath(FinalDes);
-            if (FinalDes is Restaurant)
-            {
-                Status = MovableStatus.GET_FOOD;
-            }
+
+            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, FinalDes));
+            Status = MovableStatus.GOING_TO_ROOM;
             
         }
 
