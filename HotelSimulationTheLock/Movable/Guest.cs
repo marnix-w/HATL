@@ -453,8 +453,6 @@ namespace HotelSimulationTheLock
                 _removeMe();
             }
         }
-
-
         public void CallElevator()
         {
             Hotel.CallElevator(this);

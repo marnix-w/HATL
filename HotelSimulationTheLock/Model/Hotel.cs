@@ -203,6 +203,9 @@ namespace HotelSimulationTheLock
             foreach (var item in ArivingGuests)
             {
                 ((Guest)item).RegisterAs();
+
+                IArea area = Dijkstra.IsElevatorCloser(GetArea(typeof(Restaurant)), GetArea(typeof(Reception)));
+
                 item.SetPath(GetArea(typeof(Reception)));
                 HotelMovables.Add(item);
             }
