@@ -178,14 +178,7 @@ namespace HotelSimulationTheLock
 
             lock (HotelMovables)
             {
-                foreach (IMovable movable in HotelMovables)
-                {
-                    if (movable is Guest)
-                    {
-                        ((Guest)movable).RegisterAs();
-                    }
-                }
-
+                
                 foreach (IMovable item in HotelMovables)
                 {
                     if (!(item is null))

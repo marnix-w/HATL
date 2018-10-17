@@ -21,14 +21,22 @@ namespace HotelSimulationTheLock
         public string Name { get; set; }
         public int RoomRequest { get; set; }
 
+        // Iarea information
+        #region
         public IArea Area { get; set; }
         public IArea MyRoom { get; set; }
         public IArea FinalDes { get; set; }
-
-        public bool Registerd { get; set; } = false;
+        #endregion
+        
+        // Counter Properties
+        #region
         private int _deathAt { get; set; } = 20;
         private int _deathCounter { get; set; } = 0;
+        private int _hteTime { get; set; }
         private int _hteCalculateCounter { get; set; } = 0;
+        Random rnd = new Random();
+        #endregion
+
 
         public Queue<IArea> Path { get; set; }
         public Dictionary<MovableStatus, Action> Actions { get; set; } = new Dictionary<MovableStatus, Action>();
@@ -36,7 +44,7 @@ namespace HotelSimulationTheLock
 
         public Hotel Hotel { get; set; }
 
-        Random rnd = new Random();
+        
 
 
         public Hotel _hotel { get; set; }
@@ -72,16 +80,7 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.WAITING_TO_START, null);
             Actions.Add(MovableStatus.WORKING_OUT, null);
         }
-
-        public void RegisterAs()
-        {
-            if (!Registerd)
-            {
-                HotelEventManager.Register(this);
-                Registerd = true;
-            }
-        }
-
+        
         public void PerformAction()
         {
             if (!(Actions[Status] == null))
@@ -92,8 +91,8 @@ namespace HotelSimulationTheLock
         }
 
         public void SetPath(IArea destination)
-        { 
-            Dijkstra.IsElevatorCloser(Area, destination);
+        {
+            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));           
         }
 
         public void Notify(HotelEvent evt)
@@ -174,6 +173,10 @@ namespace HotelSimulationTheLock
             }
         }
 
+        public Point GetPoint()
+        {
+            return Position;
+        }
 
         private void Move()
         {
@@ -199,27 +202,21 @@ namespace HotelSimulationTheLock
         {
             _hteCalculateCounter++;
 
-            if (_hteCalculateCounter == ((Restaurant)Area).Duration)
-            {
-
-            }
+            
         }
 
 
         // Actions list
         private void _checkIn()
         {
-
-           
+            
             if (Path.Any())
             {
                 Move();
             }
             else if (Area is Reception)
             {
-
                 
-
                 if (((Reception)Area).EnterArea(this))
                 {
 
