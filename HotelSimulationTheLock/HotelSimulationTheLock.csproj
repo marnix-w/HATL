@@ -158,6 +158,7 @@
     <None Include="Assets\Images\staircase.png" />
     <Content Include="Assets\Images\background_lich_king.gif" />
     <None Include="Assets\Images\options_background.png" />
+    <None Include="Assets\Images\cinem_playinga.png" />
     <Content Include="Assets\Libraries\HotelEvents.dll" />
   </ItemGroup>
   <ItemGroup>

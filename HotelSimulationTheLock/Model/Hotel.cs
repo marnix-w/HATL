@@ -44,8 +44,8 @@ namespace HotelSimulationTheLock
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
 
             Guest bob = new Guest(this, "bob", 5, new Point(1, 5), 5);
-            HotelMovables.Add(bob);
-           
+            bob.MyRoom = GetArea(new Point(1, 1));
+            HotelMovables.Add(bob);  
 
             _elevatorCart = (ElevatorCart)HotelMovables.Find(X => X is ElevatorCart);
 
@@ -75,6 +75,7 @@ namespace HotelSimulationTheLock
         public List<IArea> GetAreas()
         {
             return HotelAreas;
+
         }
 
         // call drawer
@@ -82,6 +83,11 @@ namespace HotelSimulationTheLock
         public Bitmap DrawMap()
         {
             return HotelDrawer.DrawHotel(HotelAreas, HotelMovables);
+        }
+
+        public int HowLongWillMovieTake()
+        {
+            return HotelMovables.Where(X => X is Guest && ((Guest)X).Status == MovableStatus.WATCHING && ((Guest)X)._hteTime != 0).Select(X => ((Guest)X)._hteTime - ((Guest)X)._hteCalculateCounter).First();
         }
 
         // Get room overlaods
@@ -187,6 +193,7 @@ namespace HotelSimulationTheLock
 
             foreach (var item in ArivingGuests)
             {
+                ((Guest)item).RegisterAs();
                 item.SetPath(GetArea(typeof(Reception)));
                 HotelMovables.Add(item);
             }

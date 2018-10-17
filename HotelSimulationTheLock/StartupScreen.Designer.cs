@@ -188,7 +188,7 @@
             // 
             this.hte_per_sec_TB.Location = new System.Drawing.Point(39, 210);
             this.hte_per_sec_TB.Minimum = new decimal(new int[] {
-            2,
+            1,
             0,
             0,
             0});
