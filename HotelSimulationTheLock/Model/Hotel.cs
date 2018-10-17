@@ -10,10 +10,10 @@ using System.Threading;
 namespace HotelSimulationTheLock
 {
     public class Hotel : IListner
-    {     
-        public List<IArea> HotelAreas { get; set; } = new List<IArea>();      
+    {
+        public List<IArea> HotelAreas { get; set; } = new List<IArea>();
         private List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
-        
+
         private List<IMovable> LeavingGuests { get; set; } = new List<IMovable>();
         private List<IMovable> ArivingGuests { get; set; } = new List<IMovable>();
 
@@ -26,6 +26,8 @@ namespace HotelSimulationTheLock
 
         private List<string> ValueofMoveable { get; set; } = new List<string>();
         private List<string> ValueofIArea { get; set; } = new List<string>();
+
+        private ElevatorCart _elevatorCart {get;set;}
 
         public Hotel(List<JsonModel> layout, SettingsModel settings)
         {
@@ -41,7 +43,15 @@ namespace HotelSimulationTheLock
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
 
-        //    ElevatorCart elevator = new ElevatorCart(this, settings.ElevatorCapicity);
+            Guest bob = new Guest(this, "bob", 5, new Point(1, 5), 5);
+            HotelMovables.Add(bob);
+           
+
+            _elevatorCart = (ElevatorCart)HotelMovables.Find(X => X is ElevatorCart);
+
+            bob.CallElevator();
+
+            //    ElevatorCart elevator = new ElevatorCart(this, settings.ElevatorCapicity);
 
             // Right?
             HotelEventManager.HTE_Factor = 2;
@@ -165,6 +175,11 @@ namespace HotelSimulationTheLock
             //this room needs to be casted to the guest
             return guestRoom;
         }       
+        public void CallElevator(Guest guest)
+        {
+            _elevatorCart.gastenlijst.Enqueue(guest);
+            _elevatorCart.Status = MovableStatus.ELEVATOR_REQUEST;
+        }
 
 
         public void PerformAllActions()

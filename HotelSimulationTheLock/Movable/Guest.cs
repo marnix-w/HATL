@@ -172,6 +172,10 @@ namespace HotelSimulationTheLock
                 }
             }
         }
+        public void CallElevator()
+        {           
+            Hotel.CallElevator(this);           
+        }
 
         public Point GetPoint()
         {
@@ -210,65 +214,65 @@ namespace HotelSimulationTheLock
         private void _checkIn()
         {
             
-            if (Path.Any())
-            {
-                Move();
-            }
-            else if (Area is Reception)
-            {
+            //if (Path.Any())
+            //{
+            //    Move();
+            //}
+            //else if (Area is Reception)
+            //{
                 
-                if (((Reception)Area).EnterArea(this))
-                {
+            //    if (((Reception)Area).EnterArea(this))
+            //    {
 
-                    if (Hotel.GetArea(RoomRequest) is null)
-                    {
-                        Status = MovableStatus.LEAVING;
-                    }
-                    else
-                    {
-                        IArea newRoom = Hotel.GetArea(RoomRequest);
-                        SetPath(Hotel.GetArea(RoomRequest));
-                        newRoom.AreaStatus = AreaStatus.OCCUPIED;
-                        FinalDes = newRoom;
-                        MyRoom = newRoom;
+            //        if (Hotel.GetArea(RoomRequest) is null)
+            //        {
+            //            Status = MovableStatus.LEAVING;
+            //        }
+            //        else
+            //        {
+            //            IArea newRoom = Hotel.GetArea(RoomRequest);
+            //            SetPath(Hotel.GetArea(RoomRequest));
+            //            newRoom.AreaStatus = AreaStatus.OCCUPIED;
+            //            FinalDes = newRoom;
+            //            MyRoom = newRoom;
 
-                        // Count extra first step or not
-                        Path.Dequeue();
+            //            // Count extra first step or not
+            //            Path.Dequeue();
 
-                        switch (((Room)MyRoom).Classification)
-                        {
-                            case 1:
-                                MyRoom.Art = Properties.Resources.room_one_star_locked;
-                                break;
-                            case 2:
-                                MyRoom.Art = Properties.Resources.room_two_star_locked;
-                                break;
-                            case 3:
-                                MyRoom.Art = Properties.Resources.room_three_star_locked;
-                                break;
-                            case 4:
-                                MyRoom.Art = Properties.Resources.room_four_star_locked;
-                                break;
-                            case 5:
-                                MyRoom.Art = Properties.Resources.room_five_star_locked;
-                                break;
-                            default:
-                                break;
-                        }
+            //            switch (((Room)MyRoom).Classification)
+            //            {
+            //                case 1:
+            //                    MyRoom.Art = Properties.Resources.room_one_star_locked;
+            //                    break;
+            //                case 2:
+            //                    MyRoom.Art = Properties.Resources.room_two_star_locked;
+            //                    break;
+            //                case 3:
+            //                    MyRoom.Art = Properties.Resources.room_three_star_locked;
+            //                    break;
+            //                case 4:
+            //                    MyRoom.Art = Properties.Resources.room_four_star_locked;
+            //                    break;
+            //                case 5:
+            //                    MyRoom.Art = Properties.Resources.room_five_star_locked;
+            //                    break;
+            //                default:
+            //                    break;
+            //            }
 
-                        Status = MovableStatus.GOING_TO_ROOM;                       
+            //            Status = MovableStatus.GOING_TO_ROOM;                       
 
-                    }
-                }
-                else if (!((Reception)Area).CheckInQueue.Contains(this))
-                {
-                    ((Reception)Area).CheckInQueue.Enqueue(this);
-                }
-                else
-                {
-                    // kill timer
-                }
-            }
+            //        }
+            //    }
+            //    else if (!((Reception)Area).CheckInQueue.Contains(this))
+            //    {
+            //        ((Reception)Area).CheckInQueue.Enqueue(this);
+            //    }
+            //    else
+            //    {
+            //        // kill timer
+            //    }
+            //}
 
         }
         private void _goToFitness()

@@ -31,6 +31,8 @@ namespace HotelSimulationTheLock
 
         public Queue<IArea> Path { get; set; }
 
+        public Queue<Guest> gastenlijst { get; set; } = new Queue<Guest>();
+
 
         public ElevatorCart(Point position, Hotel hotel, int capacity)
         {
@@ -55,12 +57,42 @@ namespace HotelSimulationTheLock
 
         public void PerformAction()
         {
-            if (Status == MovableStatus.NOONE_INSIDE)
+            foreach (Guest g in gastenlijst)
             {
-                goingDOwn();
-                Console.WriteLine("ER IS NIEMAND BINNEN");
+                if (g != null)
+                {
+                    if (Status == MovableStatus.ELEVATOR_REQUEST)
+                    {
+                        GoingToGuest();
+                    }
+                    else if(Status == MovableStatus.GOING_TO_FLOOR)
+                    {
+                        g.FinalDes = Hotel.GetArea(typeof(Restaurant));
+                        GoingToFloor(g, g.FinalDes);
+                        Console.WriteLine("guest can enter" + g.FinalDes.Position.ToString());
+                    }
+                    else
+                    {
+                       
+                    }
+                  
+                }
+                else
+                {
+                    Status = MovableStatus.NOONE_INSIDE;
+                    goingDOwn();
+                    Console.WriteLine("ER IS NIEMAND BINNEN");
+                    //   Console.WriteLine("something went wrong");
+                }
+                //if (Status == MovableStatus.ELEVATOR_REQUEST)
+                //{
+                //  //  GoingToGuest();
+                //    Console.WriteLine("onderweg naar gast");
+                //}
+
             }
-            
+
+
         }
 
         public void SetPath(IArea destination)
@@ -81,29 +113,59 @@ namespace HotelSimulationTheLock
           
         }
 
-        private void GoingToGuest(Guest guest)
+        public void GoingToGuest()
         {
-            //if the elevator is lower than guest we go up
-            if(Position.Y < guest.Position.Y)
+            foreach(Guest g in gastenlijst)
+            {
+                //if the elevator is lower than guest we go up
+                if (Position.Y > g.Position.Y)
+                {
+                    Position = new Point(Position.X, Position.Y - 1);
+                    Console.WriteLine("going to guest upwards" + Position.Y);
+                }
+                //if the elevator is lower than guest we go down
+                else if (Position.Y < g.Position.Y)
+                {
+                    Position = new Point(Position.X, Position.Y + 1);
+                    Console.WriteLine("going to guest downwards" + Position.Y);
+                }
+                else if (Position.Y == g.Position.Y)
+                {
+                    Status = MovableStatus.GOING_TO_FLOOR;
+                    Console.WriteLine("lift is  op deZelfde verdieping");
+                    g.Position = Position;
+                }
+                else
+                {
+                    //no request was found
+                }
+            }
+           
+
+        }
+
+        private void GoingToFloor(Guest guest, IArea floordestination)
+        {
+            if (Position.Y > floordestination.Position.Y)
             {
                 Position = new Point(Position.X, Position.Y - 1);
-                Console.WriteLine("going to guest upwards");
+                Console.WriteLine("lets go current" + Position.Y + "\t to :"+ floordestination.Position.Y);
+                guest.Position = Position;
+
             }
-            //if the elevator is lower than guest we go down
-            else if (Position.Y < guest.Position.Y)
+            else if(Position.Y < floordestination.Position.Y)
             {
                 Position = new Point(Position.X, Position.Y + 1);
-                Console.WriteLine("going to guest downwards");
+                Console.WriteLine("lets go current" + Position.Y + "\t to:"+ floordestination.Position.Y);
+                guest.Position = Position;
             }
-            else if (Position.Y == guest.Position.Y)
+            else if(floordestination.Position.Y == Position.Y)
             {
-                Console.WriteLine("guest can enter");
+                Console.WriteLine("guest can leaven");
+                Status = MovableStatus.OPENING_DOORS;
+                guest.Position = Position;
             }
-            else
-            {
-                //no request was found
-            }
-
+            
         }
     }
 }

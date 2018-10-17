@@ -34,7 +34,9 @@ namespace HotelSimulationTheLock
 
         //elvator
         NOONE_INSIDE,
-        ELEVATOR_REQUEST
+        ELEVATOR_REQUEST,
+        GOING_TO_FLOOR,
+        OPENING_DOORS
 
 
 
