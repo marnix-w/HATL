@@ -22,6 +22,7 @@ namespace HotelSimulationTheLock
         public int RoomRequest { get; set; }
 
         private bool Registerd { get; set; } = false;
+        private bool WantsElevator { get; set; }
 
         // Iarea information
         #region
@@ -118,7 +119,17 @@ namespace HotelSimulationTheLock
 
         public void SetPath(IArea destination)
         {
-            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));
+            if (Dijkstra.IsElevatorCloser(Area, destination) is Elevator)
+            {
+                Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, Dijkstra.IsElevatorCloser(Area, destination)));
+                WantsElevator = true;
+            }
+            else
+            {
+                Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));
+            }
+
+            
             // Count extra first step or not
             Path.Dequeue();
 
@@ -220,6 +231,11 @@ namespace HotelSimulationTheLock
             IArea destination = Path.Dequeue();
             Area = destination;
             Position = destination.Position;
+
+            if (WantsElevator)
+            {
+                Status = MovableStatus.ELEVATOR_REQUEST;
+            }
         }
 
         private void AddDeathCounter(Guest guest)

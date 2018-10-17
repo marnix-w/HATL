@@ -39,6 +39,11 @@ namespace HotelSimulationTheLock
         {
             Elevator ev = (Elevator)Areas.Find(X => X.Position.Y == from.Position.Y && X is Elevator);
 
+            if (ev.Position.Y == to.Position.Y)
+            {
+                return to;
+            }
+
             int dictanceWithStairs = 0;
             int dictanceWithElevator = 0;
 
@@ -69,6 +74,16 @@ namespace HotelSimulationTheLock
             }
 
             return to;
+        }
+
+        public static IArea CouldTheElevatorBeFaster(IArea from, IArea to)
+        {
+            if (!(from is Elevator))
+            {
+
+            }
+
+            return null;
         }
 
         private static void BuildShortestPath(List<IArea> list, IArea node)
