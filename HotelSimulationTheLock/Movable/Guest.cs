@@ -50,6 +50,12 @@ namespace HotelSimulationTheLock
 
         public Hotel Hotel { get; set; }
 
+
+
+
+      
+
+
         public Guest(Hotel hotel, string name, int roomRequest, Point point, int id)
 
         {
