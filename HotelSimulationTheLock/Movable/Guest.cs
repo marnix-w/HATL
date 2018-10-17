@@ -173,6 +173,10 @@ namespace HotelSimulationTheLock
             }
         }
 
+        public Point GetPoint()
+        {
+            return Position;
+        }
 
         private void Move()
         {
