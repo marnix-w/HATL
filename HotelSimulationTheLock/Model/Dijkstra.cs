@@ -77,10 +77,7 @@ namespace HotelSimulationTheLock
 
         public static IArea CouldTheElevatorBeFaster(IArea from, IArea to)
         {
-            if (!(from is Elevator))
-            {
-
-            }
+            
 
             return null;
         }

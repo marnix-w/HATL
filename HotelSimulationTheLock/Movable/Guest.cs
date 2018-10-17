@@ -472,7 +472,11 @@ namespace HotelSimulationTheLock
 
         public void CallElevator()
         {
-            Hotel.CallElevator(this);
+            if (Area is Elevator && WantsElevator)
+            {
+                Hotel.CallElevator(this);
+                WantsElevator = false;
+            }
         }
         private void _Evacuate()
         {          
