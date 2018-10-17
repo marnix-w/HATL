@@ -193,7 +193,8 @@ namespace HotelSimulationTheLock
         public void CallElevator(Guest guest)
         {
             _elevatorCart.gastenlijst.Enqueue(guest);
-            _elevatorCart.Status = MovableStatus.ELEVATOR_REQUEST;
+
+           // _elevatorCart.Status = MovableStatus.ELEVATOR_REQUEST;
         }
 
 

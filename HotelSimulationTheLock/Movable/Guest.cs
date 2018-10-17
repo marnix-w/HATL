@@ -88,6 +88,7 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.WORKING_OUT, _addHteCounter);
             Actions.Add(MovableStatus.ELEVATOR_REQUEST, CallElevator);
             Actions.Add(MovableStatus.LEAVING_ELEVATOR, LeavingElevator);
+            Actions.Add(MovableStatus.WAITING_FOR_ELEVATOR, null);
         }
 
         private void LeavingElevator()
@@ -476,6 +477,7 @@ namespace HotelSimulationTheLock
             {
                 Hotel.CallElevator(this);
                 WantsElevator = false;
+                Status = MovableStatus.WAITING_FOR_ELEVATOR;
             }
         }
         private void _Evacuate()

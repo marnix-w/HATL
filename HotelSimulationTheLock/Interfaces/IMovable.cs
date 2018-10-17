@@ -37,7 +37,9 @@ namespace HotelSimulationTheLock
         ELEVATOR_REQUEST,
         GOING_TO_FLOOR,
         OPENING_DOORS,
-        LEAVING_ELEVATOR
+        LEAVING_ELEVATOR,
+        WAITING_FOR_ELEVATOR
+
 
 
 
