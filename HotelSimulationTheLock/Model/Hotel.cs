@@ -279,7 +279,7 @@ namespace HotelSimulationTheLock
                 guest.Area = HotelAreas.Find(X => X.Position == guest.Position);
 
 
-                guest._hotel = this;
+                guest.Hotel = this;
 
                       
                 

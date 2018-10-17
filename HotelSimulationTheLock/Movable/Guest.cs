@@ -50,12 +50,6 @@ namespace HotelSimulationTheLock
 
         public Hotel Hotel { get; set; }
 
-
-
-
-        public Hotel _hotel { get; set; }
-
-
         public Guest(Hotel hotel, string name, int roomRequest, Point point, int id)
 
         {
@@ -326,7 +320,7 @@ namespace HotelSimulationTheLock
             }
             else if (!(Area is Fitness))
             {
-                SetPath(_hotel.GetNewLocation(Area, typeof(Fitness)));
+                SetPath(Hotel.GetNewLocation(Area, typeof(Fitness)));
             }
             else
             {
@@ -344,7 +338,7 @@ namespace HotelSimulationTheLock
 
             else if (!(Area is Reception))
             {
-                SetPath(_hotel.GetNewLocation(Area, typeof(Reception)));
+                SetPath(Hotel.GetNewLocation(Area, typeof(Reception)));
 
             }
             else
@@ -402,7 +396,7 @@ namespace HotelSimulationTheLock
             }
             else if (!(Area is Restaurant))
             {
-                SetPath(_hotel.GetNewLocation(Area, typeof(Restaurant)));
+                SetPath(Hotel.GetNewLocation(Area, typeof(Restaurant)));
             }
             else
             {
@@ -419,7 +413,7 @@ namespace HotelSimulationTheLock
             }
             else if (!(Area is Cinema))
             {
-                SetPath(_hotel.GetNewLocation(Area, typeof(Cinema)));
+                SetPath(Hotel.GetNewLocation(Area, typeof(Cinema)));
             }
             else
             {
@@ -445,7 +439,7 @@ namespace HotelSimulationTheLock
 
             else if (!(Area is Reception))
             {
-                SetPath(_hotel.GetNewLocation(Area, typeof(Reception)));
+                SetPath(Hotel.GetNewLocation(Area, typeof(Reception)));
 
             }
             else
