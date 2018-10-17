@@ -60,7 +60,7 @@ namespace HotelSimulationTheLock
             
             // Adding the dictance it has to walk from elevator to room
             dictanceWithElevator += GetShortestPathDijkstra((Elevator)Areas.Find(X => X.Position.Y == to.Position.Y && X is Elevator), to).Count() - 1;
-
+           
             // Movables will favor the elevator over the stairs if the dictance is the same
             if (dictanceWithStairs >= dictanceWithElevator &&
                 ev.ElevatorCart != null)

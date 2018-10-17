@@ -85,6 +85,7 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.IN_ROOM, null);
             Actions.Add(MovableStatus.WAITING_TO_START, null);
             Actions.Add(MovableStatus.WORKING_OUT, _addHteCounter);
+            Actions.Add(MovableStatus.ELEVATOR_REQUEST, CallElevator);
             Actions.Add(MovableStatus.LEAVING_ELEVATOR, LeavingElevator);
         }
 
@@ -272,7 +273,7 @@ namespace HotelSimulationTheLock
                     }
                     else
                     {
-                        IArea newRoom = Hotel.GetArea(RoomRequest);
+                        IArea newRoom = Hotel.GetArea(RoomRequest);                        
                         SetPath(Hotel.GetArea(RoomRequest));
                         newRoom.AreaStatus = AreaStatus.OCCUPIED;
                         FinalDes = newRoom;
@@ -453,6 +454,7 @@ namespace HotelSimulationTheLock
                 _removeMe();
             }
         }
+
         public void CallElevator()
         {
             Hotel.CallElevator(this);
