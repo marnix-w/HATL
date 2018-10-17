@@ -12,7 +12,7 @@ namespace HotelSimulationTheLock
         private static List<IArea> Areas { get; set; }
 
         private static Hotel Hotel { get; set; }
-        
+
         public static void IntilazeDijkstra(Hotel hotel)
         {
             Hotel = hotel;
@@ -20,7 +20,7 @@ namespace HotelSimulationTheLock
         }
 
         public static List<IArea> GetShortestPathDijkstra(IArea from, IArea to)
-        {            
+        {
             SetDijkstraSearchValues(from, to);
 
             var shortestPath = new List<IArea>
@@ -39,8 +39,9 @@ namespace HotelSimulationTheLock
         {
             IArea ev = Areas.Find(X => X.Position.Y == from.Position.Y && X is Elevator);
 
-            if (GetShortestPathDijkstra(from, to).Count > GetShortestPathDijkstra(from, ev).Count && ((Elevator)ev).ElevatorCart != null)
-            {               
+            if (GetShortestPathDijkstra(from, to).Count > GetShortestPathDijkstra(from, ev).Count)
+            {
+                Console.WriteLine("van huidige positie naar kamer kost " + GetShortestPathDijkstra(from, to).Count + " \t van huidgie postie naar lift kost: " + GetShortestPathDijkstra(from, ev).Count);
                 return ev;
             }
 
@@ -59,7 +60,7 @@ namespace HotelSimulationTheLock
         }
 
         private static void SetDijkstraSearchValues(IArea from, IArea to)
-        {
+        { 
             from.BackTrackCost = 0;
 
             List<IArea> toVisit = new List<IArea>
@@ -69,7 +70,6 @@ namespace HotelSimulationTheLock
 
             do
             {
-
                 toVisit = toVisit.OrderBy(x => x.BackTrackCost.Value).ToList();
 
                 IArea current = toVisit.First();
@@ -93,7 +93,6 @@ namespace HotelSimulationTheLock
                         {
                             toVisit.Add(childNode);
                         }
-
                     }
                 }
 
@@ -104,7 +103,8 @@ namespace HotelSimulationTheLock
                     break;
                 }
 
-            } while (toVisit.Any());
+            }
+            while (toVisit.Any());
         }
 
         public static bool DoesPathExistFunction(IArea from, IArea to)
@@ -116,7 +116,6 @@ namespace HotelSimulationTheLock
             {
                 return true;
             }
-
 
             Queue<IArea> queue = new Queue<IArea>();
             queue.Enqueue(from);

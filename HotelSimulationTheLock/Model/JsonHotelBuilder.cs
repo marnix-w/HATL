@@ -136,8 +136,9 @@ namespace HotelSimulationTheLock
 
                     if (area is Elevator)
                     {
-                        weight = 100;
+                        weight = 100;                       
                     }
+                    
 
                     // Add top neighbour
                     AddNeighbour(area, 0, 1, weight);
@@ -158,15 +159,18 @@ namespace HotelSimulationTheLock
                 movables.Add(new Maid(new Point(4, HotelHeight)));
             }
 
+            movables.Add(new ElevatorCart(new Point(0, 1), hotel, settings.ElevatorCapicity));
+
             movables.Add(new Receptionist(new Point(1, HotelHeight), hotel));
 
-            foreach (var movable in movables)
-            {
-                if (movable is null)
-                {
-                    movables.Remove(movable);
-                }
-            }
+            // removed this foreach loop no idea what this does??
+            //foreach (var movable in movables)
+            //{
+            //    if (movable is null)
+            //    {
+            //        movables.Remove(movable);
+            //    }
+            //}
 
             return movables;
         }
