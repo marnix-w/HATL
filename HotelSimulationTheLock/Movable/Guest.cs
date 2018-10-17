@@ -251,6 +251,11 @@ namespace HotelSimulationTheLock
         // Actions list
         private void _checkIn()
         {
+            if (MyRoom != null)
+            {
+                ((Reception)Area).CheckInQueue.Dequeue();
+                Status = MovableStatus.GOING_TO_ROOM;
+            }
             if (Path.Any())
             {
                 Move();
