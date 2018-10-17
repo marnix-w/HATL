@@ -143,7 +143,7 @@
             // 
             this.cinema_dur_TB.Location = new System.Drawing.Point(393, 48);
             this.cinema_dur_TB.Minimum = new decimal(new int[] {
-            2,
+            15,
             0,
             0,
             0});
@@ -151,7 +151,7 @@
             this.cinema_dur_TB.Size = new System.Drawing.Size(120, 20);
             this.cinema_dur_TB.TabIndex = 120;
             this.cinema_dur_TB.Value = new decimal(new int[] {
-            2,
+            15,
             0,
             0,
             0});

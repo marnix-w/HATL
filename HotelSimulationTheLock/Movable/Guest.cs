@@ -77,7 +77,7 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.GET_FOOD, _getFood);
             Actions.Add(MovableStatus.GOING_TO_CINEMA, _getToCinema);
             Actions.Add(MovableStatus.CHECKING_OUT, _getCheckOut);
-            Actions.Add(MovableStatus.EVACUATING, _getOutOfHotel);
+            Actions.Add(MovableStatus.EVACUATING, _Evacuate);
             Actions.Add(MovableStatus.GOING_TO_FITNESS, _goToFitness);
             Actions.Add(MovableStatus.WATCHING, _addHteCounter);
             Actions.Add(MovableStatus.EATING, _addHteCounter);
@@ -86,7 +86,12 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.WAITING_TO_START, null);
             Actions.Add(MovableStatus.WORKING_OUT, _addHteCounter);
         }
-        
+
+        private void LeavingElevator()
+        {
+            SetPath(FinalDes);
+        }
+
         public void PerformAction()
         {
             if (!(Actions[Status] == null))
@@ -115,6 +120,15 @@ namespace HotelSimulationTheLock
 
         public void Notify(HotelEvent evt)
         {
+            if (evt.EventType == HotelEventType.EVACUATE)
+            {
+                Status = MovableStatus.EVACUATING;
+                _hteCalculateCounter = 0;
+                _hteTime = 5;
+                SetPath(Hotel.GetArea(typeof(Reception)));
+                Console.WriteLine("WHERERE ALLL GONNE DIEEEEE, YEAHHHHHHH");
+            }
+
             if (Status != MovableStatus.IN_ROOM && Status != MovableStatus.WAITING_TO_START)
             {
                 return;
@@ -131,11 +145,7 @@ namespace HotelSimulationTheLock
                         Console.WriteLine("i'm watching Marvel movie with Batman as Hoofdrolspeler" + item.Key + item.Value);
                     }
 
-                    if (evt.EventType == HotelEventType.EVACUATE)
-                    {
-                        Status = MovableStatus.EVACUATING;
-                        Console.WriteLine(item + item.Key + item.Value + item.ToString());
-                    }
+                    
 
                     if (item.Key.Contains("Gast"))
                     {
@@ -235,7 +245,11 @@ namespace HotelSimulationTheLock
         // Actions list
         private void _checkIn()
         {
-            
+            if (MyRoom != null)
+            {
+                ((Reception)Area).CheckInQueue.Dequeue();
+                Status = MovableStatus.GOING_TO_ROOM;
+            }
             if (Path.Any())
             {
                 Move();
@@ -280,9 +294,10 @@ namespace HotelSimulationTheLock
                                 break;
                         }
 
-                        Status = MovableStatus.GOING_TO_ROOM;                       
+                                             
 
                     }
+                    
                 }
                 else if (!((Reception)Area).CheckInQueue.Contains(this))
                 {
@@ -293,6 +308,7 @@ namespace HotelSimulationTheLock
                     // kill timer
                 }
             }
+            
 
         }
         private void _goToFitness()
@@ -334,10 +350,7 @@ namespace HotelSimulationTheLock
             _hteCalculateCounter = 0;
             FinalDes = MyRoom;
 
-            if (Area is Reception)
-            {
-                ((Reception)Area).CheckInQueue.Dequeue();
-            }
+            
             if (Area is Cinema)
             {
                 Area.Art = Properties.Resources.cinema;
@@ -373,10 +386,7 @@ namespace HotelSimulationTheLock
                 Hotel.RemoveGuest(this);
             }
 
-        }
-        /// <summary>
-        /// Trying to get the first restaurant
-        /// </summary>
+        }       
         private void _getFood()
         {
             if (Path.Any())
@@ -393,7 +403,6 @@ namespace HotelSimulationTheLock
                 _hteTime = ((Restaurant)Area).Duration;
             }
         }
-
         private void _getToCinema()
         {
 
@@ -419,7 +428,6 @@ namespace HotelSimulationTheLock
                 }
             }
         }
-
         private void _getCheckOut()
         {
             if (Path.Any())
@@ -438,8 +446,23 @@ namespace HotelSimulationTheLock
                 _removeMe();
             }
         }
-
-
-
+        private void _Evacuate()
+        {          
+            if (Hotel.IsHotelSafe())
+            {
+                if (_hteTime == _hteCalculateCounter)
+                {
+                    Status = MovableStatus.GOING_TO_ROOM;
+                }
+                else
+                {
+                    _hteCalculateCounter++;
+                }
+            }
+            else if(Path.Any())
+            {
+                Move();
+            }           
+        }
     }
 }
