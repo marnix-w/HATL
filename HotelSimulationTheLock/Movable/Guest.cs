@@ -120,7 +120,7 @@ namespace HotelSimulationTheLock
 
         public void SetPath(IArea destination)
         {
-            if (Dijkstra.IsElevatorCloser(Area, destination) is Elevator)
+            if (Dijkstra.IsElevatorCloser(Area, destination) is Elevator && Status != MovableStatus.EVACUATING && Status != MovableStatus.CHECKING_OUT)
             {
                 Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, Dijkstra.IsElevatorCloser(Area, destination)));
                 WantsElevator = true;
@@ -473,7 +473,7 @@ namespace HotelSimulationTheLock
 
         public void CallElevator()
         {
-            if (Area is Elevator && WantsElevator)
+            if (Area is Elevator)
             {
                 Hotel.CallElevator(this);
                 WantsElevator = false;
