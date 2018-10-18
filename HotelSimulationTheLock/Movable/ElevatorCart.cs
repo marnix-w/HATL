@@ -33,6 +33,18 @@ namespace HotelSimulationTheLock
 
         public Queue<Guest> gastenlijst { get; set; } = new Queue<Guest>();
 
+        //volgens david
+        public List<Guest> RequestList { get; set; } = new List<Guest>();
+        public List<Guest> GuestList { get; set; } = new List<Guest>();
+
+        //'U' for UP, 'D' for DOWN, 'I' for IDLE
+
+
+
+        private List<int> Up = new List<int>();
+        private List<int> Down = new List<int>();
+
+
 
         public ElevatorCart(Point position, Hotel hotel, int capacity)
         {
@@ -48,45 +60,191 @@ namespace HotelSimulationTheLock
 
         public void PerformAction()
         {
-            try
+            for (int i = 0; i < GuestList.Count; i++)
             {
-                if (gastenlijst.Count() >= 1)
+                if (Position.Y == GuestList[i].FinalDes.Position.Y)
                 {
-                    Status = MovableStatus.ELEVATOR_REQUEST;
-
-                    Guest g = gastenlijst.First();
-
-                    Console.WriteLine("er zijn op dit moment aanwezig " + gastenlijst.Count());
-
-
-                    if (Status == MovableStatus.ELEVATOR_REQUEST)
-                    {
-                        GoingToGuest();
-                    }
-                    if (Status == MovableStatus.GOING_TO_FLOOR)
-                    {
-                        // g.FinalDes = Hotel.GetArea(typeof(Restaurant));
-                        GoingToFloor(g, g.FinalDes);
-                        Console.WriteLine("guest can enter" + g.FinalDes.Position.ToString());
-                    }
+                    GuestList[i].Status = MovableStatus.LEAVING_ELEVATOR;
+                    GuestList[i].Area = Hotel.GetArea(Position);
+                    GuestList.Remove(GuestList[i]);
                 }
+            }
+            if (Down.Count != 0 && Down[0] == Position.Y)
+            {
+                Down.RemoveAt(0);
+            }
+            if (Up.Count != 0 && Up[0] == Position.Y)
+            {
+                Up.RemoveAt(0);
+            }
 
+            if (Status == MovableStatus.IDLE)
+            {
+                if (Up.Count > Down.Count)
+                {
+                    Status = MovableStatus.UP;
+                }
                 else
                 {
-                    Status = MovableStatus.NOONE_INSIDE;
-                    goingDOwn();
-                    Console.WriteLine("ER IS NIEMAND BINNEN");
-                    //   Console.WriteLine("something went wrong");
+                    Status = MovableStatus.DOWN;
                 }
-
             }
-            catch (Exception e)
+
+            if (Up.Count != 0 || Down.Count != 0)
             {
-                Console.WriteLine(e.Message);
+                if (Status == MovableStatus.UP)
+                {
+                    if (Up.Count == 0 && Down.Count != 0)
+                    {
+                        this.Status = MovableStatus.DOWN;
+                        PerformAction();
+                    }
+                    else
+                    {
+                        Position = new Point(Position.X, Position.Y - 1);
+
+                        for (int i = 0; i < Up.Count; i++)
+                        {
+                            if (Up[i] == Position.Y)
+                            {
+                                Up.RemoveAt(i);
+                                break;
+                            }
+                        }
+                    }
+                }
+                else if (Status == MovableStatus.DOWN)
+                {
+                    if (Up.Count != 0 && Down.Count == 0)
+                    {
+                        this.Status = MovableStatus.UP;
+                        PerformAction();
+                    }
+                    else
+                    {
+                        Position = new Point(Position.X, Position.Y + 1);
+
+                        for (int i = 0; i < Down.Count; i++)
+                        {
+                            if (Down[i] == Position.Y)
+                            {
+                                Down.RemoveAt(i);
+                                break;
+                            }
+                        }
+                    }
+                }
+                foreach (Guest human in GuestList)
+                {
+                    human.Position = Position;
+                }
+                AddDestinationFloor();
             }
 
+            if (Up.Count == 0 && Down.Count == 0)
+            {
+                Status = MovableStatus.IDLE;
+            }
+            //try
+            //{
+            //    if (gastenlijst.Count() >= 1)
+            //    {
+            //        Status = MovableStatus.ELEVATOR_REQUEST;
+
+            //        Guest g = gastenlijst.First();
+
+            //        Console.WriteLine("er zijn op dit moment aanwezig " + gastenlijst.Count());
 
 
+            //        if (Status == MovableStatus.ELEVATOR_REQUEST)
+            //        {
+            //            GoingToGuest();
+            //        }
+            //        if (Status == MovableStatus.GOING_TO_FLOOR)
+            //        {
+            //            // g.FinalDes = Hotel.GetArea(typeof(Restaurant));
+            //            GoingToFloor(g, g.FinalDes);
+            //            Console.WriteLine("guest can enter" + g.FinalDes.Position.ToString());
+            //        }
+            //    }
+
+            //    else
+            //    {
+            //        Status = MovableStatus.NOONE_INSIDE;
+            //        goingDOwn();
+            //        Console.WriteLine("ER IS NIEMAND BINNEN");
+            //        //   Console.WriteLine("something went wrong");
+            //    }
+
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
+
+
+
+        }
+
+        public void RequestElevator(Guest RequestFloor, int height)
+        {
+            //Extra Check
+            //Check for Current floor
+            if(RequestFloor.ID == 11)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+            if (RequestFloor.FinalDes.Position.Y <= height && RequestFloor.FinalDes.Position.Y >= 0)
+            {
+                RequestList.Add(RequestFloor);
+                //Goes UP
+                if (RequestFloor.Position.Y < Position.Y)
+                {
+                    Up.Add(RequestFloor.Position.Y);
+                    UpdateList();
+                }
+                //Goes DOWN
+                else
+                {
+                    Down.Add(RequestFloor.Position.Y);
+                    UpdateList();
+                }
+            }
+
+        }
+
+        public void AddDestinationFloor()
+        {
+            List<Guest> RemoveGuests = new List<Guest>();
+            for (int i = 0; i < RequestList.Count; i++)
+            {
+                if (RequestList[i].Position.Y == Position.Y /*&& Capacity < GuestList.Count*/)
+                {
+                    GuestList.Add(RequestList[i]);
+                    if (RequestList[i].FinalDes.Position.Y < Position.Y)
+                    {
+                        Up.Add(RequestList[i].FinalDes.Position.Y);
+                        UpdateList();
+                    }
+                    else
+                    {
+                        Down.Add(RequestList[i].FinalDes.Position.Y);
+                        UpdateList();
+                    }
+                    GuestList[i].Status = MovableStatus.IN_ELEVATOR;
+                    RemoveGuests.Add(GuestList[i]);
+                }
+            }
+            for (int i = 0; i < RemoveGuests.Count; i++)
+            {
+                RequestList.Remove(RemoveGuests[i]);
+            }
+        }
+
+        private void UpdateList()
+        {
+            Up = Up.Distinct().OrderByDescending(x => x).ToList();
+            Down = Down.Distinct().OrderBy(x => x).ToList();
         }
 
         public void SetPath(IArea destination)

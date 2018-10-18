@@ -91,6 +91,12 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.WAITING_FOR_ELEVATOR, null);
         }
 
+        public void ElevatorIsFullNewPath(IArea destination)
+        {
+            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));
+            WantsElevator = false;
+        }
+
         private void LeavingElevator()
         {
             SetPath(FinalDes);
@@ -473,7 +479,7 @@ namespace HotelSimulationTheLock
 
         public void CallElevator()
         {
-            if (Area is Elevator)
+            if (Area is Elevator && Position.X == 0)
             {
                 Hotel.CallElevator(this);
                 WantsElevator = false;
