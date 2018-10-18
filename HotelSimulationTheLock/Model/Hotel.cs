@@ -192,7 +192,18 @@ namespace HotelSimulationTheLock
         }
         public void CallElevator(Guest guest)
         {
-            _elevatorCart.RequestElevator(guest, HotelHeight);
+                _elevatorCart.RequestElevator(guest, HotelHeight);
+          //if(_elevatorCart.RequestList.Count < _elevatorCart.Capacity)
+          //  {
+          //  }
+          //  else
+          //  {
+          //     // guest.ElevatorIsFullNewPath(guest.FinalDes);
+          //      guest.Status = MovableStatus.GOING_TO_ROOM;
+          //      guest.Path(guest.FinalDes);
+          //  }
+
+
         }
 
 

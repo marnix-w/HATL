@@ -60,6 +60,7 @@ namespace HotelSimulationTheLock
 
         public void PerformAction()
         {
+            RemoveGuests.Clear();
             for (int i = 0; i < GuestList.Count; i++)
             {
                 if (GuestList[i] is Guest g)
@@ -68,11 +69,15 @@ namespace HotelSimulationTheLock
                     {
                         g.Status = MovableStatus.LEAVING_ELEVATOR;
                         g.Area = Hotel.GetArea(Position);
-                        GuestList.Remove(GuestList[i]);
+                        RemoveGuests.Add(GuestList[i]);
                     }
                 }
-              
             }
+            for (int i = 0; i < RemoveGuests.Count; i++)
+            {
+                GuestList.Remove(RemoveGuests[i]);
+            }
+            RemoveGuests.Clear();
             if (Down.Count != 0 && Down[0] == Position.Y)
             {
                 Down.RemoveAt(0);
