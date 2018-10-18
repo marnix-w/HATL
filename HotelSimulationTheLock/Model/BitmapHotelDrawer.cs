@@ -30,8 +30,35 @@ namespace HotelSimulationTheLock
                                             area.Dimension.Width * artSize,
                                             area.Dimension.Height * artSize);
                     }
+
+
                 }
             }
+            using (Graphics graphics = Graphics.FromImage(buffer))
+            {
+                lock (areas)
+                {
+                    foreach (IArea area in areas)
+                    {
+                      
+                        if (area.Dimension.Height > 1 || area.Dimension.Width > 1)
+                        {                           
+
+                            graphics.DrawImage(area.Art,
+                                       area.Position.X * artSize,
+                                       (area.Position.Y - 1) * artSize,
+                                       area.Dimension.Width * artSize / area.Dimension.Width,
+                                       area.Dimension.Height * artSize / area.Dimension.Height);
+                        }
+
+
+
+                    }
+
+
+                }
+            }
+
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
                 // Prevent opperation from coliding with eachother
@@ -42,13 +69,13 @@ namespace HotelSimulationTheLock
                         foreach (IMovable movable in movables)
                         {
                             //if the moveable have the status IN_ROOM we don't draw them
-                            if (movable.Status != MovableStatus.IN_ROOM && movable.Status != MovableStatus.EATING && movable.Status != MovableStatus.WATCHING &&  movable.Status !=  MovableStatus.WORKING_OUT)
+                            if (movable.Status != MovableStatus.IN_ROOM && movable.Status != MovableStatus.EATING && movable.Status != MovableStatus.WATCHING && movable.Status != MovableStatus.WORKING_OUT)
                             {
                                 graphics.DrawImage(movable.Art,
                                        movable.Position.X * artSize,
                                        (movable.Position.Y - 1) * artSize,
                                        movable.Art.Width, movable.Art.Height);
-                            }   
+                            }
                         }
                     }
                     catch (InvalidOperationException)
