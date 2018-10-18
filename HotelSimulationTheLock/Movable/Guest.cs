@@ -89,11 +89,32 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.WORKING_OUT, _addHteCounter);
             Actions.Add(MovableStatus.ELEVATOR_REQUEST, CallElevator);
             Actions.Add(MovableStatus.LEAVING_ELEVATOR, LeavingElevator);
-            Actions.Add(MovableStatus.WAITING_FOR_ELEVATOR, null);
+            Actions.Add(MovableStatus.WAITING_FOR_ELEVATOR, Idle);
+        }
+
+        private void Idle()
+        {
+            if (Status == MovableStatus.EVACUATING || LastStatus == MovableStatus.EVACUATING)
+            {
+                SetPath(Hotel.GetArea(typeof(Reception)));
+                FinalDes = Hotel.GetArea(typeof(Reception));
+                Status = MovableStatus.EVACUATING;
+                LastStatus = MovableStatus.EVACUATING;
+                return;
+            }
         }
 
         private void LeavingElevator()
         {
+            if (Status == MovableStatus.EVACUATING || LastStatus == MovableStatus.EVACUATING)
+            {
+                SetPath(Hotel.GetArea(typeof(Reception)));
+                FinalDes = Hotel.GetArea(typeof(Reception));
+                Status = MovableStatus.EVACUATING;
+                LastStatus = MovableStatus.EVACUATING;
+                return;
+            }
+
             SetPath(FinalDes);
 
             Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, FinalDes));
@@ -144,9 +165,10 @@ namespace HotelSimulationTheLock
             if (evt.EventType == HotelEventType.EVACUATE)
             {
                 Status = MovableStatus.EVACUATING;
+                LastStatus = MovableStatus.EVACUATING;
                 _hteCalculateCounter = 0;
                 _hteTime = 5;
-                SetPath(Hotel.GetArea(typeof(Reception)));
+                
                 Console.WriteLine("WHERERE ALLL GONNE DIEEEEE, YEAHHHHHHH");
             }
 
@@ -183,14 +205,6 @@ namespace HotelSimulationTheLock
                                     Status = MovableStatus.CHECKING_OUT;
                                     Console.WriteLine("Check out" + item.Key + item.Value);
                                 }
-                                break;
-                            case HotelEventType.EVACUATE:
-                                if (int.Parse(item.Value) == ID)
-                                {
-                                    Status = MovableStatus.EVACUATING;
-                                    Console.WriteLine("Evacuating" + item.Key + item.Value);
-                                }
-
                                 break;
                             case HotelEventType.NEED_FOOD:
                                 if (int.Parse(item.Value) == ID)
@@ -456,7 +470,14 @@ namespace HotelSimulationTheLock
         }
         public void CallElevator()
         {
-
+            if (Status == MovableStatus.EVACUATING || LastStatus == MovableStatus.EVACUATING)
+            {
+                SetPath(Hotel.GetArea(typeof(Reception)));
+                FinalDes = Hotel.GetArea(typeof(Reception));
+                Status = MovableStatus.EVACUATING;
+                LastStatus = MovableStatus.EVACUATING;
+                return;
+            }
 
             if (Path.Any())
             {
@@ -471,6 +492,9 @@ namespace HotelSimulationTheLock
         }
         private void _Evacuate()
         {
+            SetPath(Hotel.GetArea(typeof(Reception)));
+            FinalDes = Hotel.GetArea(typeof(Reception));
+
             if (Hotel.IsHotelSafe())
             {
                 if (_hteTime == _hteCalculateCounter)
