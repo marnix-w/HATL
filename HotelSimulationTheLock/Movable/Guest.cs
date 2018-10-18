@@ -15,6 +15,7 @@ namespace HotelSimulationTheLock
         public Point Position { get; set; }
         public Bitmap Art { get; set; } = Properties.Resources.customer;
         public MovableStatus Status { get; set; }
+        public MovableStatus LastStatus { get; set; }
         public int FitnessDuration { get; set; }
 
         public int ID { get; set; }
@@ -96,7 +97,7 @@ namespace HotelSimulationTheLock
             SetPath(FinalDes);
 
             Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, FinalDes));
-            Status = MovableStatus.GOING_TO_ROOM;
+            Status = LastStatus;
 
         }
 
@@ -124,6 +125,7 @@ namespace HotelSimulationTheLock
             {
                 Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, Dijkstra.IsElevatorCloser(Area, destination)));
                 WantsElevator = true;
+                LastStatus = Status;
                 Status = MovableStatus.ELEVATOR_REQUEST;
             }
             else
@@ -339,29 +341,12 @@ namespace HotelSimulationTheLock
             else if (!(Area is Fitness))
             {
                 SetPath(Hotel.GetNewLocation(Area, typeof(Fitness)));
+                FinalDes = Hotel.GetNewLocation(Area, typeof(Fitness));
             }
             else
             {
                 Status = MovableStatus.WORKING_OUT;
                 _hteTime = rnd.Next(1, 7);
-            }
-        }
-        private void _getOutOfHotel()
-        {
-            if (Path.Any())
-            {
-                Move();
-                Status = MovableStatus.CHECKING_OUT;
-            }
-
-            else if (!(Area is Reception))
-            {
-                SetPath(Hotel.GetNewLocation(Area, typeof(Reception)));
-
-            }
-            else
-            {
-                //   RemoveMe();
             }
         }
         private void _goingToRoom()
@@ -382,6 +367,7 @@ namespace HotelSimulationTheLock
             else if (!(Area == MyRoom))
             {
                 SetPath(MyRoom);
+                FinalDes = MyRoom;
             }
             else
             {
@@ -398,6 +384,7 @@ namespace HotelSimulationTheLock
             else
             {
                 SetPath(Hotel.GetArea(typeof(Reception)));
+                FinalDes = Hotel.GetArea(typeof(Reception));
             }
 
             if (Area is Reception)
@@ -415,6 +402,7 @@ namespace HotelSimulationTheLock
             else if (!(Area is Restaurant))
             {
                 SetPath(Hotel.GetNewLocation(Area, typeof(Restaurant)));
+                FinalDes = Hotel.GetNewLocation(Area, typeof(Restaurant));
             }
             else
             {
@@ -432,6 +420,7 @@ namespace HotelSimulationTheLock
             else if (!(Area is Cinema))
             {
                 SetPath(Hotel.GetNewLocation(Area, typeof(Cinema)));
+                FinalDes = Hotel.GetNewLocation(Area, typeof(Cinema));
             }
             else
             {
@@ -458,14 +447,13 @@ namespace HotelSimulationTheLock
             else if (!(Area is Reception))
             {
                 SetPath(Hotel.GetNewLocation(Area, typeof(Reception)));
-
+                FinalDes = Hotel.GetNewLocation(Area, typeof(Reception));
             }
             else
             {
                 _removeMe();
             }
         }
-
         public void CallElevator()
         {
 

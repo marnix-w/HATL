@@ -48,6 +48,8 @@ namespace HotelSimulationTheLock
 
         public void PerformAction()
         {
+            gastenlijst.OrderByDescending(X => X.FinalDes.Position.Y);
+
             try
             {
                 if (gastenlijst.Count() >= 1)
