@@ -190,10 +190,7 @@ namespace HotelSimulationTheLock
         {
             //Extra Check
             //Check for Current floor
-            if(RequestFloor.ID == 11)
-            {
-                System.Diagnostics.Debugger.Break();
-            }
+
             if (RequestFloor.FinalDes.Position.Y <= height && RequestFloor.FinalDes.Position.Y >= 0)
             {
                 RequestList.Add(RequestFloor);
