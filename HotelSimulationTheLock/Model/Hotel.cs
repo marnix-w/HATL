@@ -190,24 +190,6 @@ namespace HotelSimulationTheLock
             //this room needs to be casted to the guest
             return guestRoom;
         }
-        //public void CallElevator(Guest guest)
-        //{
-        //    if (_elevatorCart.gastenlijst.Count() < _elevatorCart.Capacity)
-        //    {
-        //        _elevatorCart.gastenlijst.Enqueue(guest);
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("lift is vol");
-
-        //        guest.ElevatorIsFullNewPath(guest.FinalDes);
-        //        guest.Status = MovableStatus.GOING_TO_ROOM;
-        //        // guest.Path(guest.FinalDes);
-        //    }
-
-        //    // _elevatorCart.Status = MovableStatus.ELEVATOR_REQUEST;
-        //}
-
         public void CallElevator(Guest guest)
         {
             _elevatorCart.RequestElevator(guest, HotelHeight);
