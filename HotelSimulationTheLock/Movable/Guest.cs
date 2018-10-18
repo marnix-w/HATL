@@ -89,11 +89,32 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.WORKING_OUT, _addHteCounter);
             Actions.Add(MovableStatus.ELEVATOR_REQUEST, CallElevator);
             Actions.Add(MovableStatus.LEAVING_ELEVATOR, LeavingElevator);
-            Actions.Add(MovableStatus.WAITING_FOR_ELEVATOR, null);
+            Actions.Add(MovableStatus.WAITING_FOR_ELEVATOR, Idle);
+        }
+
+        private void Idle()
+        {
+            if (Status == MovableStatus.EVACUATING || LastStatus == MovableStatus.EVACUATING)
+            {
+                SetPath(Hotel.GetArea(typeof(Reception)));
+                FinalDes = Hotel.GetArea(typeof(Reception));
+                Status = MovableStatus.EVACUATING;
+                LastStatus = MovableStatus.EVACUATING;
+                return;
+            }
         }
 
         private void LeavingElevator()
         {
+            if (Status == MovableStatus.EVACUATING || LastStatus == MovableStatus.EVACUATING)
+            {
+                SetPath(Hotel.GetArea(typeof(Reception)));
+                FinalDes = Hotel.GetArea(typeof(Reception));
+                Status = MovableStatus.EVACUATING;
+                LastStatus = MovableStatus.EVACUATING;
+                return;
+            }
+
             SetPath(FinalDes);
 
             Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, FinalDes));
@@ -449,7 +470,14 @@ namespace HotelSimulationTheLock
         }
         public void CallElevator()
         {
-
+            if (Status == MovableStatus.EVACUATING || LastStatus == MovableStatus.EVACUATING)
+            {
+                SetPath(Hotel.GetArea(typeof(Reception)));
+                FinalDes = Hotel.GetArea(typeof(Reception));
+                Status = MovableStatus.EVACUATING;
+                LastStatus = MovableStatus.EVACUATING;
+                return;
+            }
 
             if (Path.Any())
             {
