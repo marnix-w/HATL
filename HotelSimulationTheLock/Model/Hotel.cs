@@ -23,11 +23,11 @@ namespace HotelSimulationTheLock
         // Hotel dimensions for calcuations
         public static int HotelHeight { get; set; }
         public static int HotelWidth { get; set; }
-        
+
         private List<string> ValueofMoveable { get; set; } = new List<string>();
         private List<string> ValueofIArea { get; set; } = new List<string>();
 
-        private ElevatorCart _elevatorCart {get;set;}
+        private ElevatorCart _elevatorCart { get; set; }
 
         public Hotel(List<JsonModel> layout, SettingsModel settings)
         {
@@ -38,18 +38,18 @@ namespace HotelSimulationTheLock
 
             // Build the hotel
             HotelAreas = HotelBuilder.BuildHotel(layout, settings);
-            HotelMovables = HotelBuilder.BuildMovable(settings, this);          
+            HotelMovables = HotelBuilder.BuildMovable(settings, this);
 
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
 
-      //      Guest bob = new Guest(this, "bob", 5, new Point(1, 5), 5);
-    //        bob.MyRoom = GetArea(new Point(1, 1));
-    //        HotelMovables.Add(bob);  
+            //      Guest bob = new Guest(this, "bob", 5, new Point(1, 5), 5);
+            //        bob.MyRoom = GetArea(new Point(1, 1));
+            //        HotelMovables.Add(bob);  
 
             _elevatorCart = (ElevatorCart)HotelMovables.Find(X => X is ElevatorCart);
 
-  //          bob.CallElevator();
+            //          bob.CallElevator();
 
             //    ElevatorCart elevator = new ElevatorCart(this, settings.ElevatorCapicity);
 
@@ -79,7 +79,7 @@ namespace HotelSimulationTheLock
         }
 
         public bool IsHotelSafe()
-        {          
+        {
             if (HotelMovables.Where(X => X is Guest && X.Area is Reception).Count() == HotelMovables.Where(X => X is Guest).Count())
             {
                 return true;
@@ -172,7 +172,7 @@ namespace HotelSimulationTheLock
         // end get room
         public IArea GetNewLocation(IArea blabla, Type fuck)
         {
-            
+
             List<IArea> CurrentShortest = HotelAreas;
 
             IArea guestRoom = null;
@@ -189,7 +189,7 @@ namespace HotelSimulationTheLock
 
             //this room needs to be casted to the guest
             return guestRoom;
-        }       
+        }
         //public void CallElevator(Guest guest)
         //{
         //    if (_elevatorCart.gastenlijst.Count() < _elevatorCart.Capacity)
@@ -219,39 +219,39 @@ namespace HotelSimulationTheLock
 
             foreach (var item in ArivingGuests)
             {
-                ((Guest)item).RegisterAs();                              
+                ((Guest)item).RegisterAs();
                 item.SetPath(GetArea(typeof(Reception)));
                 HotelMovables.Add(item);
             }
 
             lock (HotelMovables)
             {
-                
+
                 foreach (IMovable item in HotelMovables)
                 {
                     if (!(item is null))
                     {
                         item.PerformAction();
                     }
-                    
+
                 }
             }
 
             foreach (var item in LeavingGuests)
             {
-                HotelMovables.Remove(item);               
+                HotelMovables.Remove(item);
             }
 
             ArivingGuests.Clear();
             LeavingGuests.Clear();
 
-        }        
+        }
 
         public void RemoveGuest(Guest guest)
         {
             HotelEventManager.Deregister(guest);
             LeavingGuests.Add(guest);
-            
+
         }
 
         public void Notify(HotelEvent evt)
@@ -295,8 +295,8 @@ namespace HotelSimulationTheLock
 
                 guest.Hotel = this;
 
-                      
-                
+
+
 
                 ArivingGuests.Add(guest);
 
@@ -312,7 +312,10 @@ namespace HotelSimulationTheLock
             {
                 if (a is Guest g)
                 {
-                    ValueofMoveable.Add(g.Name + " \t " + g.RoomRequest + " \t " + g.Status + " \t " + g.Position + "\n");
+                    if (g.FinalDes != null)
+                    {
+                        ValueofMoveable.Add(g.Name + " " + g.RoomRequest + "\t" + g.Status + "\t" + g.Position + "\t" + g.FinalDes.Position + "\n");
+                    }
                 }
                 if (a is Maid m)
                 {
