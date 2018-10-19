@@ -216,13 +216,13 @@ namespace HotelSimulationTheLock
                             try
                             {
                                 GuestList[i].Status = MovableStatus.IN_ELEVATOR;
+                                RemoveGuests.Add(GuestList[i]);
                             }
-                            catch (System.IndexOutOfRangeException)
+                            catch (Exception)
                             {
 
                             }
                         
-                        RemoveGuests.Add(GuestList[i]);
                     }
                 }
                
