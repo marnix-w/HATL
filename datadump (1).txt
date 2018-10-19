@@ -1,3 +1,4 @@
+Starting...
 True
 #- Begin Event Dump -#
 Message =
@@ -269,3 +270,4 @@ Time = 156
 Type = NONE
 #- End Event Dump nr 34-#
 
+Stopping...
