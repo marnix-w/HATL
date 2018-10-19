@@ -63,9 +63,11 @@
     <Compile Include="Factories\AreaFactory.cs" />
     <Compile Include="Interfaces\IHotelBuilder.cs" />
     <Compile Include="Interfaces\IHotelDrawer.cs" />
+    <Compile Include="Interfaces\IListner.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Model\BitmapHotelDrawer.cs" />
     <Compile Include="Model\Dijkstra.cs" />
+    <Compile Include="Movable\ElevatorCart.cs" />
     <Compile Include="Model\Hotel.cs" />
     <Compile Include="Model\JsonHotelBuilder.cs" />
     <Compile Include="Model\JsonModel.cs" />
@@ -105,8 +107,10 @@
       <DependentUpon>StartupScreen.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Assets\Libraries\Hotel.layout" />
+    <None Include="Assets\Libraries\Hotel3.layout" />
     <None Include="Assets\Libraries\Hotel_reparatie.layout" />
-    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagramExample.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -153,6 +157,8 @@
     <None Include="Assets\Images\room_two_star_open.png" />
     <None Include="Assets\Images\staircase.png" />
     <Content Include="Assets\Images\background_lich_king.gif" />
+    <None Include="Assets\Images\options_background.png" />
+    <None Include="Assets\Images\cinem_playinga.png" />
     <Content Include="Assets\Libraries\HotelEvents.dll" />
   </ItemGroup>
   <ItemGroup>

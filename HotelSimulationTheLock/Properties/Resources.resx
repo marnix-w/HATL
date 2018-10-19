@@ -124,6 +124,9 @@
   <data name="cinema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Images\cinema.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cinem_playinga" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Images\cinem_playinga.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="cleaning_emargance" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Images\cleaning_emargance.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -156,6 +159,9 @@
   </data>
   <data name="maid" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Images\maid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="options_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Images\options_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="reception" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Images\reception.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

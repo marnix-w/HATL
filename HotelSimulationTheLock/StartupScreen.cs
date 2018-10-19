@@ -15,10 +15,8 @@ namespace HotelSimulationTheLock
 {
     public partial class StartupScreen : Form
     {
-
-
         // private string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel.layout");
-        public string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel_reparatie.layout");
+        public string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel3.layout");
 
         public List<JsonModel> layout { get; set; }
         public SettingsModel settings { get; set; }
@@ -39,6 +37,7 @@ namespace HotelSimulationTheLock
         private string _cinema_dur = "Duration of the cinema in hte ";
 
         //restaurant settings
+        private string restaurant_dur = "Duration of the restaurant ";
         private string restaurant_cap = "Capicity of the restaurant ";
 
         //fitness settings
@@ -61,38 +60,10 @@ namespace HotelSimulationTheLock
             hte_per_sec_LB.Text = _hte_per_sec;
             staircase_hte_LB.Text = _staircase_hte;
             cinema_dur_LB.Text = _cinema_dur;
+            restaurant_dur_LB.Text = restaurant_dur;
             restaurant_cap_LB.Text = restaurant_cap;
             eating_dur_LB.Text = _eating_dur;
             fitness_cap_LB.Text = _fitness_cap;
-        }
-
-        public void _runSimulation_Click(object sender, EventArgs e)
-        {
-            string path = file_path_TB.Text;
-
-            if (layout == null)
-            {
-                layout = ReadLayoutJson(path);
-            }
-
-            settings = new SettingsModel
-            {
-                AmountOfMaids = Decimal.ToInt32(maid_TB.Value),
-                ElevatorDuration = Decimal.ToInt32(elevator_hte_TB.Value),
-                ElevatorCapicity = Decimal.ToInt32(elevator_cap_TB.Value),
-                HTEPerSeconds = Decimal.ToInt32(hte_per_sec_TB.Value),
-                StairsDuration = Decimal.ToInt32(staircase_hte_TB.Value),
-                CinemaDuration = Decimal.ToInt32(cinema_dur_TB.Value),
-                RestaurantCapicity = Decimal.ToInt32(restaurant_cap_TB.Value),
-                EatingDuration = Decimal.ToInt32(eating_dur_TB.Value),
-                FitnessCapicity = Decimal.ToInt32(fitness_cap_TB.Value)
-            };
-
-            //below the Simulation is linked to this form
-            Simulation hotelsimulation = new Simulation(layout, settings);
-            
-            hotelsimulation.Show();
-            this.Hide();
         }
         
         // Json uitlezen en dan een list van maken voor layout
@@ -112,14 +83,46 @@ namespace HotelSimulationTheLock
             return null;
         }
 
-        private void find_file_Click(object sender, EventArgs e)
+     
+
+        private void _runSimulation_Click_1(object sender, EventArgs e)
+        {
+            string path = file_path_TB.Text;
+
+            if (layout == null)
+            {
+                layout = ReadLayoutJson(path);
+            }
+
+            settings = new SettingsModel
+            {
+                AmountOfMaids = Decimal.ToInt32(maid_TB.Value),
+                ElevatorDuration = Decimal.ToInt32(elevator_hte_TB.Value),
+                ElevatorCapicity = Decimal.ToInt32(elevator_cap_TB.Value),
+                HTEPerSeconds = Decimal.ToInt32(hte_per_sec_TB.Value),
+                StairsDuration = Decimal.ToInt32(staircase_hte_TB.Value),
+                CinemaDuration = Decimal.ToInt32(cinema_dur_TB.Value),
+                RestaurantCapicity = Decimal.ToInt32(restaurant_cap_TB.Value),
+                RestaurantDuration = Decimal.ToInt32(restaurant_dur_TB.Value),
+                EatingDuration = Decimal.ToInt32(eating_dur_TB.Value),
+                FitnessCapicity = Decimal.ToInt32(fitness_cap_TB.Value)
+            };
+
+            //below the Simulation is linked to this form
+            Simulation hotelsimulation = new Simulation(this, layout, settings);
+
+            hotelsimulation.Show();
+            this.Hide();
+        }
+
+        private void find_file_Click_1(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
                 var path = openFileDialog1.FileName;
                 file_path_TB.Text = path;
-            }
-        }
+            }        
+    }
     }
 }

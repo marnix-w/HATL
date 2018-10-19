@@ -10,53 +10,64 @@ namespace HotelSimulationTheLock
 {
     public partial class Simulation : Form
     {
+        StartupScreen options;
         public Hotel Hotel { get; set; }
         public int UnitTestvalue { get; set; }
-        public List<JsonModel> HotelLayout { get; set; }
+
+        private Timer t { get; set; }
+
+        private bool _pauseResume { get; set; }
 
         // Drawing properties
         private PictureBox HotelBackground { get; set; }
         private Bitmap HotelImage { get; set; }
         public static int RoomArtSize { get; } = 96;
 
-        public Simulation(List<JsonModel> layout, SettingsModel Settings)
+        private int count { get; set; } = 0;
+
+
+        public Simulation(StartupScreen firstScreen, List<JsonModel> layout, SettingsModel Settings)
         {
+            options = firstScreen;
             // 0.5f should be a varible in the settings data set
             Hotel = new Hotel(layout, Settings);
-            HotelLayout = layout;
-            HotelEventManager.HTE_Factor = 0.5f;
+
+            HotelEventManager.HTE_Factor = Settings.HTEPerSeconds;
 
             // Does this timer work corectly with the HTE factor? -marnix
-            Timer t = new Timer
+            t = new Timer
             {
-                Interval = 100 // specify interval time as you want
+                Interval = 1000 / Settings.HTEPerSeconds // specify interval time as you want 
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
 
-            HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
+            HotelImage = Hotel.DrawMap();
 
             HotelBackground = new PictureBox
             {
-                Location = new Point(50, 100),
+                Location = new Point(450, 100),
                 Width = Hotel.HotelWidth * RoomArtSize,
                 Height = Hotel.HotelHeight * RoomArtSize,
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 Image = HotelImage
             };
-            
+
             Controls.Add(HotelBackground);
 
             // Last methods for setup
             InitializeComponent();
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
 
-         
+            _pauseResume = false;
+            button1.Text = "Pause";
         }
 
         void Timer_Tick(object sender, EventArgs e)
         {
-            Hotel.PerformAllActions();      
+
+            Console.WriteLine($"{count++} HTE elapsed");
+
+            Hotel.PerformAllActions();
 
             // fix frequent GC calls
 
@@ -69,90 +80,86 @@ namespace HotelSimulationTheLock
             // Disposing the movable bitmap to prevent memory leaking
             // https://blogs.msdn.microsoft.com/davidklinems/2005/11/16/three-common-causes-of-memory-leaks-in-managed-applications/
             HotelImage.Dispose();
-            HotelImage = Hotel.HotelDrawer.DrawHotel(Hotel.HotelAreas, Hotel.HotelMovables);
+            HotelImage = Hotel.DrawMap();
             HotelBackground.Image = HotelImage;
 
-            
+
         }
-        
+
 
         //Overview of hotel facilities
         private void _fillFacillityTB()
         {
-            //room overview
             roomTB.Clear();
             //fintess overview
-            fitnessTB.Clear();
-            //restaurant
-            restaurantTB.Clear();
+            facillityTB.Clear();
 
-            try
+            foreach (string i in Hotel.CurrentValueIArea())
             {
-                foreach (IArea i in Hotel.HotelAreas)
-                {
-                    string type = i.GetType().ToString().Replace("HotelSimulationTheLock.", "");
-
-                    switch (type)
+                try
+                {                  
+                    if (i.Contains("Room"))
                     {
-
-                        case "Room":
-                            roomTB.Text += ((Room)i).Classification + " Star " + type + "\t" + i.AreaStatus + "\t" + ((Room)i).Position;
-                            roomTB.Text += Environment.NewLine;
-                            break;
-                        case "Fitness":
-                            fitnessTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                            fitnessTB.Text += Environment.NewLine;
-                            break;
-                        case "Restaurant":
-                            restaurantTB.Text += i.GetType().ToString().Replace("HotelSimulationTheLock.", "") + ": " + i.AreaStatus;
-                            restaurantTB.Text += Environment.NewLine;
-                            break;
-                        default:
-                            break;
+                        roomTB.AppendText(i);
                     }
-
+                    if (i.Contains("Fitness") || i.Contains("Restaurant") || i.Contains("Cinema") || i.Contains("Elevator"))
+                    {
+                        facillityTB.AppendText(i);
+                    } 
                 }
-            }
-            catch
-            {
-                Debug.WriteLine("jasper fix je stats shit");
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
             }
         }
 
         private void _fillMoveAbleTB()
         {
-            //guest overview
             guestTB.Clear();
-
-            //maid overview
-            maidTB.Clear();
-
-            // Causes errors with current version
-            // list is not lockeable 
-            // status handle should not be done here
-
-            try
+      
+            foreach (string value in Hotel.CurrentValue())
             {
-                foreach (IMovable g in Hotel.HotelMovables)
+                try
                 {
-                    if (g is Guest t)
-                    {
-                        guestTB.Text += t.Name + "\t" + g.Status + "\t" + t.RoomRequest + "\t" + t.Position;
-                        guestTB.Text += Environment.NewLine;
-                    }
-                    if (g is Maid m)
-                    {
-                        maidTB.Text += "Maid \t" + m.Status + "\t" + m.Position;
-                        maidTB.Text += Environment.NewLine;
-                    }
+                    guestTB.AppendText(value);
                 }
-            }
-            catch (Exception)
-            {
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
 
-                Debug.WriteLine("Jasper fix je stats shit");
             }
         }
 
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!_pauseResume)
+            {
+                _pauseResume = true;
+                button1.Text = "Resume";
+                label1.Text = "Simulation has been paused";
+                t.Stop();
+                HotelEventManager.Stop();
+            }
+            else
+            {
+                _pauseResume = false;
+                button1.Text = "Pause";
+                label1.Text = "Simulation is running on normaal speed";
+                t.Start();
+                HotelEventManager.Start();
+            }
+        }
+
+        private void Simulation_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            options.Dispose();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {         
+        }
     }
 }

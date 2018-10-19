@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,12 +16,11 @@ namespace HotelSimulationTheLock
         public static void IntilazeDijkstra(Hotel hotel)
         {
             Hotel = hotel;
-            Areas = hotel.HotelAreas;
+            Areas = Hotel.HotelAreas;
         }
 
         public static List<IArea> GetShortestPathDijkstra(IArea from, IArea to)
         {
-            
             SetDijkstraSearchValues(from, to);
 
             var shortestPath = new List<IArea>
@@ -31,7 +31,55 @@ namespace HotelSimulationTheLock
             BuildShortestPath(shortestPath, to);
             shortestPath.Reverse();
             Hotel.RemoveSearchProperties();
+            Areas = Hotel.HotelAreas;
             return shortestPath;
+        }
+
+        public static IArea IsElevatorCloser(IArea from, IArea to)
+        {
+            Elevator ev = (Elevator)Areas.Find(X => X.Position.Y == from.Position.Y && X is Elevator);
+
+            if (ev.Position.Y == to.Position.Y)
+            {
+                return to;
+            }
+
+            int dictanceWithStairs = 0;
+            int dictanceWithElevator = 0;
+
+            
+            dictanceWithStairs += GetShortestPathDijkstra(from, to).Count - 1;
+            
+            dictanceWithElevator += GetShortestPathDijkstra(from, ev).Count - 1;
+
+            // This takes the best case cenerio to make the decision to go with the lift
+            // a re evaluation will be made when the movable is at the elevator 
+            if (ev.Position.Y > to.Position.Y)
+            {
+                dictanceWithElevator += ev.Position.Y - to.Position.Y;
+            }
+            else
+            {
+                dictanceWithElevator += to.Position.Y - ev.Position.Y;
+            }
+            
+            // Adding the dictance it has to walk from elevator to room
+            dictanceWithElevator += GetShortestPathDijkstra((Elevator)Areas.Find(X => X.Position.Y == to.Position.Y && X is Elevator), to).Count() - 1;
+           
+            // Movables will favor the elevator over the stairs if the dictance is the same
+            if (dictanceWithStairs >= dictanceWithElevator)
+            {
+                return ev;
+            }
+
+            return to;
+        }
+
+        public static IArea CouldTheElevatorBeFaster(IArea from, IArea to)
+        {
+            
+
+            return null;
         }
 
         private static void BuildShortestPath(List<IArea> list, IArea node)
@@ -46,7 +94,7 @@ namespace HotelSimulationTheLock
         }
 
         private static void SetDijkstraSearchValues(IArea from, IArea to)
-        {
+        { 
             from.BackTrackCost = 0;
 
             List<IArea> toVisit = new List<IArea>
@@ -79,7 +127,6 @@ namespace HotelSimulationTheLock
                         {
                             toVisit.Add(childNode);
                         }
-
                     }
                 }
 
@@ -90,7 +137,8 @@ namespace HotelSimulationTheLock
                     break;
                 }
 
-            } while (toVisit.Any());
+            }
+            while (toVisit.Any());
         }
 
         public static bool DoesPathExistFunction(IArea from, IArea to)
@@ -102,7 +150,6 @@ namespace HotelSimulationTheLock
             {
                 return true;
             }
-
 
             Queue<IArea> queue = new Queue<IArea>();
             queue.Enqueue(from);

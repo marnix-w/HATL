@@ -9,142 +9,117 @@ using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
-    public class Guest : IMovable, HotelEventListener
+    public class Guest : IMovable, IListner
     {
 
         public Point Position { get; set; }
         public Bitmap Art { get; set; } = Properties.Resources.customer;
         public MovableStatus Status { get; set; }
+        public MovableStatus LastStatus { get; set; }
         public int FitnessDuration { get; set; }
 
+        public int ID { get; set; }
         public string Name { get; set; }
         public int RoomRequest { get; set; }
+
+        private bool Registerd { get; set; } = false;
+        private bool WantsElevator { get; set; }
+
+        // Iarea information
+        #region
         public IArea Area { get; set; }
         public IArea MyRoom { get; set; }
+        public IArea FinalDes { get; set; }
+        #endregion
+
+        // Counter Properties
+        #region
+        private int _deathAt { get; set; } = 20;
+        private int _deathCounter { get; set; } = 0;
+        public int _hteTime { get; set; }
+        public int _hteCalculateCounter { get; set; } = 0;
+        Random rnd = new Random();
+        #endregion
+
 
         public Queue<IArea> Path { get; set; }
+
+        /// <summary>
+        /// A list of statuses paired with the coresponding action
+        /// </summary>
         public Dictionary<MovableStatus, Action> Actions { get; set; } = new Dictionary<MovableStatus, Action>();
 
-        Random rnd = new Random();
 
-        public Guest(string name, int roomRequest, Point point)
+        public Hotel Hotel { get; set; }
+
+
+
+
+
+
+
+        public Guest(Hotel hotel, string name, int roomRequest, Point point, int id)
+
         {
+            Hotel = hotel;
             Name = name;
             RoomRequest = roomRequest;
             Position = point;
+            ID = id;
             FitnessDuration = rnd.Next(0, 11);
 
-            Actions.Add(MovableStatus.CHEKING_IN, MoveFromPath);
-            Actions.Add(MovableStatus.GOING_TO_ROOM, GoingToRoom);
-            Actions.Add(MovableStatus.LEAVING, RemoveMe);
+            SetBahvior();
+        }
+
+        public void SetBahvior()
+        {
+            Actions.Add(MovableStatus.CHEKING_IN, _checkIn);
+            Actions.Add(MovableStatus.GOING_TO_ROOM, _goingToRoom);
+            Actions.Add(MovableStatus.LEAVING, _removeMe);
+            Actions.Add(MovableStatus.GET_FOOD, _getFood);
+            Actions.Add(MovableStatus.GOING_TO_CINEMA, _getToCinema);
+            Actions.Add(MovableStatus.CHECKING_OUT, _getCheckOut);
+            Actions.Add(MovableStatus.EVACUATING, _Evacuate);
+            Actions.Add(MovableStatus.GOING_TO_FITNESS, _goToFitness);
+            Actions.Add(MovableStatus.WATCHING, _addHteCounter);
+            Actions.Add(MovableStatus.EATING, _addHteCounter);
+            Actions.Add(MovableStatus.IN_ELEVATOR, null);
             Actions.Add(MovableStatus.IN_ROOM, null);
+            Actions.Add(MovableStatus.WAITING_TO_START, null);
+            Actions.Add(MovableStatus.WORKING_OUT, _addHteCounter);
+            Actions.Add(MovableStatus.ELEVATOR_REQUEST, CallElevator);
+            Actions.Add(MovableStatus.LEAVING_ELEVATOR, LeavingElevator);
+            Actions.Add(MovableStatus.WAITING_FOR_ELEVATOR, Idle);
         }
 
-
-        public void SetPath(IArea destination)
+        private void Idle()
         {
-            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));           
+            if (Status == MovableStatus.EVACUATING || LastStatus == MovableStatus.EVACUATING)
+            {
+                SetPath(Hotel.GetArea(typeof(Reception)));
+                FinalDes = Hotel.GetArea(typeof(Reception));
+                Status = MovableStatus.EVACUATING;
+                LastStatus = MovableStatus.EVACUATING;
+                return;
+            }
         }
 
-        public void Move()
+        private void LeavingElevator()
         {
-            if (Path.First().MoveToArea())
+            if (Status == MovableStatus.EVACUATING || LastStatus == MovableStatus.EVACUATING)
             {
-                IArea destination = Path.Dequeue();
-
-                // remove old position
-                Area.Movables.Remove(this);
-
-                // add to new position
-                Area = destination;
-                Position = destination.Position;
-                Area.Movables.Add(this);
-            }
-            else
-            {
-
-            }
-            // else kill the person after 20 itterations or so
-            
-        }
-
-        // Actions list
-        private void MoveFromPath()
-        {          
-
-            if (Path.Any())
-            {
-                Move();
-            }
-            else if (Area is Reception)
-            {
-                if (((Receptionist)Area.Movables.First()).GiveThisGuestHisRoom(RoomRequest) is null)
-                {
-                    Status = MovableStatus.LEAVING;
-                }
-                else
-                {
-                    SetPath(((Receptionist)Area.Movables.First()).GiveThisGuestHisRoom(RoomRequest));
-                    Path.Last().AreaStatus = AreaStatus.OCCUPIED;
-                    IArea error = Path.Dequeue();
-                    MyRoom = Path.Last();
-                    Status = MovableStatus.GOING_TO_ROOM;
-                }      
-                
-            }
-            
-        }
-
-        private void GoingToRoom()
-        {
-           
-            if (Path.Any())
-            {
-                Move();
-            }
-            else if (!(Area == MyRoom))
-            {
-                SetPath(MyRoom);
-            }
-            else
-            {
-                Status = MovableStatus.IN_ROOM;
+                SetPath(Hotel.GetArea(typeof(Reception)));
+                FinalDes = Hotel.GetArea(typeof(Reception));
+                Status = MovableStatus.EVACUATING;
+                LastStatus = MovableStatus.EVACUATING;
+                return;
             }
 
-        }
+            SetPath(FinalDes);
 
-        private void RemoveMe()
-        {
-            // remove from are list
-            ((Receptionist)Area.Movables.First()).RemoveGuest(this);
-        }
-                
+            Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, FinalDes));
+            Status = LastStatus;
 
-        public void Notify(HotelEvent evt)
-        {
-            switch (evt.EventType)
-            {
-
-                // find requested guest
-
-                case HotelEventType.CHECK_OUT:
-                    // guest.checkout()
-                    break;
-                case HotelEventType.EVACUATE:
-                    // guest.evacuate()
-                    break;
-                case HotelEventType.NEED_FOOD:
-                    // guest.GoToRestaurant()
-                    break;
-                case HotelEventType.GOTO_CINEMA:
-                    // guest.GoToCinema()
-                    break;
-                case HotelEventType.GOTO_FITNESS:
-                    // guest.GoToFitness()
-                    break;
-                default:
-                    break;
-            }
         }
 
         public void PerformAction()
@@ -153,7 +128,389 @@ namespace HotelSimulationTheLock
             {
                 Actions[Status]();
             }
+
         }
-      
+
+        public void RegisterAs()
+        {
+            if (!Registerd)
+            {
+                HotelEventManager.Register(this);
+                Registerd = true;
+            }
+        }
+
+        public void SetPath(IArea destination)
+        {
+            if (Dijkstra.IsElevatorCloser(Area, destination) is Elevator && Status != MovableStatus.EVACUATING)
+            {
+                Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, Dijkstra.IsElevatorCloser(Area, destination)));
+                WantsElevator = true;
+                LastStatus = Status;
+                Status = MovableStatus.ELEVATOR_REQUEST;
+            }
+            else
+            {
+                Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));
+            }
+
+
+            // Count extra first step or not
+            Path.Dequeue();
+
+        }
+
+        public void Notify(HotelEvent evt)
+        {
+            if (evt.EventType == HotelEventType.EVACUATE)
+            {
+                Status = MovableStatus.EVACUATING;
+                LastStatus = MovableStatus.EVACUATING;
+                _hteCalculateCounter = 0;
+                _hteTime = 5;
+                
+                Console.WriteLine("WHERERE ALLL GONNE DIEEEEE, YEAHHHHHHH");
+            }
+
+            if (Status != MovableStatus.IN_ROOM && Status != MovableStatus.WAITING_TO_START)
+            {
+                return;
+            }
+
+            if (evt.Data != null)
+            {
+                foreach (var item in evt.Data)
+                {
+
+                    if (evt.EventType == HotelEventType.START_CINEMA && Status == MovableStatus.WAITING_TO_START)
+                    {
+                        Status = MovableStatus.WATCHING;
+                        Console.WriteLine("i'm watching Marvel movie with Batman as Hoofdrolspeler" + item.Key + item.Value);
+                    }
+
+
+
+                    if (item.Key.Contains("Gast"))
+                    {
+
+
+                        switch (evt.EventType)
+                        {
+                            // find requested guest
+
+                            case HotelEventType.CHECK_OUT:
+                                // guest.checkout()
+                                if (int.Parse(item.Value) == ID)
+                                {
+                                    Status = MovableStatus.CHECKING_OUT;
+                                    Console.WriteLine("Check out" + item.Key + item.Value);
+                                }
+                                break;
+                            case HotelEventType.NEED_FOOD:
+                                if (int.Parse(item.Value) == ID)
+                                {
+                                    Status = MovableStatus.GET_FOOD;
+                                    Console.WriteLine("Get food" + item.Key + item.Value);
+                                }
+                                break;
+                            case HotelEventType.GOTO_CINEMA:
+                                if (int.Parse(item.Value) == ID)
+                                {
+                                    Status = MovableStatus.GOING_TO_CINEMA;
+                                    Console.WriteLine("Going to cinema" + item.Key + item.Value);
+                                    AddDeathCounter(this);
+                                }
+                                break;
+                            case HotelEventType.GOTO_FITNESS:
+                                if (int.Parse(item.Value) == ID)
+                                {
+                                    Status = MovableStatus.GOING_TO_FITNESS;
+                                    Console.WriteLine("going to fitness" + item.Key + item.Value);
+                                }
+                                break;
+
+                            default:
+                                break;
+
+
+                        }
+                    }
+                }
+            }
+        }
+
+        public Point GetPoint()
+        {
+            return Position;
+        }
+
+        private void Move()
+        {
+            IArea destination = Path.Dequeue();
+            Area = destination;
+            Position = destination.Position;
+        }
+
+        private void AddDeathCounter(Guest guest)
+        {
+            if (_deathCounter == _deathAt)
+            {
+                // KILL
+            }
+            else
+            {
+                _deathCounter++;
+                Console.WriteLine(guest.ID + " " + _deathCounter);
+            }
+        }
+
+        private void _addHteCounter()
+        {
+            if (_hteCalculateCounter == _hteTime)
+            {
+                Status = MovableStatus.GOING_TO_ROOM;
+            }
+            else
+            {
+                _hteCalculateCounter++;
+            }
+        }
+
+
+        // Actions list
+        private void _checkIn()
+        {
+
+            if (Path.Any())
+            {
+                Move();
+            }
+            else if (Area is Reception)
+            {
+
+                if (((Reception)Area).EnterArea(this))
+                {
+
+                    if (Hotel.GetArea(RoomRequest) is null)
+                    {
+                        Status = MovableStatus.LEAVING;
+                    }
+                    else
+                    {
+                        IArea newRoom = Hotel.GetArea(RoomRequest);
+                        SetPath(Hotel.GetArea(RoomRequest));
+                        newRoom.AreaStatus = AreaStatus.OCCUPIED;
+                        FinalDes = newRoom;
+                        MyRoom = newRoom;
+
+
+                        switch (((Room)MyRoom).Classification)
+                        {
+                            case 1:
+                                MyRoom.Art = Properties.Resources.room_one_star_locked;
+                                break;
+                            case 2:
+                                MyRoom.Art = Properties.Resources.room_two_star_locked;
+                                break;
+                            case 3:
+                                MyRoom.Art = Properties.Resources.room_three_star_locked;
+                                break;
+                            case 4:
+                                MyRoom.Art = Properties.Resources.room_four_star_locked;
+                                break;
+                            case 5:
+                                MyRoom.Art = Properties.Resources.room_five_star_locked;
+                                break;
+                            default:
+                                break;
+                        }
+
+
+                            ((Reception)Area).CheckInQueue.Dequeue();
+                        Status = MovableStatus.GOING_TO_ROOM;
+
+
+                    }
+
+                }
+                else if (!((Reception)Area).CheckInQueue.Contains(this))
+                {
+                    ((Reception)Area).CheckInQueue.Enqueue(this);
+                }
+                else
+                {
+                    // kill timer
+                }
+            }
+
+
+
+        }
+        private void _goToFitness()
+        {
+            if (Path.Any())
+            {
+                Move();
+            }
+            else if (!(Area is Fitness))
+            {
+                SetPath(Hotel.GetNewLocation(Area, typeof(Fitness)));
+                FinalDes = Hotel.GetNewLocation(Area, typeof(Fitness));
+            }
+            else
+            {
+                Status = MovableStatus.WORKING_OUT;
+                _hteTime = rnd.Next(1, 7);
+            }
+        }
+        private void _goingToRoom()
+        {
+            _hteCalculateCounter = 0;
+            FinalDes = MyRoom;
+
+
+            if (Area is Cinema)
+            {
+                Area.Art = Properties.Resources.cinema;
+            }
+
+            if (Path.Any())
+            {
+                Move();
+            }
+            else if (!(Area == MyRoom))
+            {
+                SetPath(MyRoom);
+                FinalDes = MyRoom;
+            }
+            else
+            {
+                Status = MovableStatus.IN_ROOM;
+            }
+
+        }
+        private void _removeMe()
+        {
+            if (Path.Any())
+            {
+                Move();
+            }
+            else
+            {
+                SetPath(Hotel.GetArea(typeof(Reception)));
+                FinalDes = Hotel.GetArea(typeof(Reception));
+            }
+
+            if (Area is Reception)
+            {
+                Hotel.RemoveGuest(this);
+            }
+
+        }
+        private void _getFood()
+        {
+            if (Path.Any())
+            {
+                Move();
+            }
+            else if (!(Area is Restaurant))
+            {
+                SetPath(Hotel.GetNewLocation(Area, typeof(Restaurant)));
+                FinalDes = Hotel.GetNewLocation(Area, typeof(Restaurant));
+            }
+            else
+            {
+                Status = MovableStatus.EATING;
+                _hteTime = ((Restaurant)Area).Duration;
+            }
+        }
+        private void _getToCinema()
+        {
+
+            if (Path.Any())
+            {
+                Move();
+            }
+            else if (!(Area is Cinema))
+            {
+                SetPath(Hotel.GetNewLocation(Area, typeof(Cinema)));
+                FinalDes = Hotel.GetNewLocation(Area, typeof(Cinema));
+            }
+            else
+            {
+                if (Area.AreaStatus == AreaStatus.PLAYING_MOVIE)
+                {
+                    Status = MovableStatus.WATCHING;
+                    _hteTime = Hotel.HowLongWillMovieTake() + Path.Count();
+                }
+                else
+                {
+                    Status = MovableStatus.WAITING_TO_START;
+                    _hteTime = ((Cinema)Area).Duration;
+                }
+            }
+        }
+        private void _getCheckOut()
+        {
+            if (Path.Any())
+            {
+                Move();
+                Status = MovableStatus.CHECKING_OUT;
+            }
+
+            else if (!(Area is Reception))
+            {
+                SetPath(Hotel.GetNewLocation(Area, typeof(Reception)));
+                FinalDes = Hotel.GetNewLocation(Area, typeof(Reception));
+            }
+            else
+            {
+                _removeMe();
+            }
+        }
+        public void CallElevator()
+        {
+            if (Status == MovableStatus.EVACUATING || LastStatus == MovableStatus.EVACUATING)
+            {
+                SetPath(Hotel.GetArea(typeof(Reception)));
+                FinalDes = Hotel.GetArea(typeof(Reception));
+                Status = MovableStatus.EVACUATING;
+                LastStatus = MovableStatus.EVACUATING;
+                return;
+            }
+
+            if (Path.Any())
+            {
+                Move();
+            }
+            else if (Area is Elevator && WantsElevator)
+            {
+                Hotel.CallElevator(this);
+                WantsElevator = false;
+                Status = MovableStatus.WAITING_FOR_ELEVATOR;
+            }
+        }
+        private void _Evacuate()
+        {
+            SetPath(Hotel.GetArea(typeof(Reception)));
+            FinalDes = Hotel.GetArea(typeof(Reception));
+
+            if (Hotel.IsHotelSafe())
+            {
+                if (_hteTime == _hteCalculateCounter)
+                {
+                    Status = MovableStatus.GOING_TO_ROOM;
+                }
+                else
+                {
+                    _hteCalculateCounter++;
+                }
+            }
+            else if (Path.Any())
+            {
+                Move();
+            }
+        }
+
     }
 }

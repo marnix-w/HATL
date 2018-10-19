@@ -12,8 +12,9 @@ namespace HotelSimulationTheLock
 {
     [Export(typeof(IArea))]
     [ExportMetadata("AreaType", "Cinema")]
-    public class Cinema : IArea, HotelEventListener
+    public class Cinema : IArea, IListner
     {
+        public int ID { get; set; }
         // Properties
         public Point Position { get; set; }
         public Size Dimension { get; set; }
@@ -27,7 +28,8 @@ namespace HotelSimulationTheLock
         public IArea NearestToStart { get; set; } = null;
         public bool Visited { get; set; } = false;
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
-        public List<IMovable> Movables { get; set; } = new List<IMovable>();
+        public List<IMovable> MovablesInCinema { get; set; } = new List<IMovable>();
+               
 
         public Cinema()
         {
@@ -36,27 +38,31 @@ namespace HotelSimulationTheLock
 
         public IArea CreateArea()
         {
-            HotelEventManager.Register(this);
-            return new Cinema();
+            Cinema c = new Cinema();
+            HotelEventManager.Register(c);
+            return c;
         }
 
         public void Notify(HotelEvent evt)
         {
-            if (evt.EventType.Equals(HotelEventType.STAR_CINEMA))
+            if (evt.EventType.Equals(HotelEventType.START_CINEMA))
             {
-
+                AreaStatus = AreaStatus.PLAYING_MOVIE;
+                Art = Properties.Resources.cinem_playinga;
+                Console.WriteLine("CINEMA IS STARTING");
             }
         }
 
-        public void SetJsonValues(Point position, int capacity, Size dimension, int classification)
+        public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
+            ID = id;
             Position = position;
-            Dimension = dimension;
+            Dimension = dimension;         
         }
 
-        public bool MoveToArea()
+        public bool EnterArea()
         {
-            if (Capacity == Movables.Count)
+            if (Capacity == MovablesInCinema.Count)
             {
                 return false;
             }

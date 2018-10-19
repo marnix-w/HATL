@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HotelSimulationTheLock.Cinema" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACQABCAAAgAgAAAgAiAAAARIBQAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Cinema.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.ElevatorRequest" Collapsed="true">
+    <Position X="6" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Elevator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulationTheLock.Elevator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACQABAAAAgAgAAAgAiAAAARIAQAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Elevator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.Fitness" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACQABAAAAgAgAAAgAiAAAARIAQAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Fitness.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.Lobby" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACQABAAAAgAgAAAgAiAAAARIAQAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Lobby.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.Reception" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACQABCAAAgAgAAAgAiAAAARIAQAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Reception.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.Restaurant" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACQABAAAAgAgAAAgAiAAAARIAQAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Restaurant.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.Room" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACQABAAAAgAgQAAgAiAAAARIAQAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Room.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.Staircase" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACQABAAAAgAgAAAgAiAAAARIAQAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Staircase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.AreaFactory">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAACAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Factories\AreaFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulationTheLock.BitmapHotelDrawer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\BitmapHotelDrawer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.Dijkstra" Collapsed="true">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAABBAAAAAACAAAIAAAAAAAAAIEA=</HashCode>
+      <FileName>Model\Dijkstra.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulationTheLock.Hotel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABARAAACAAAAAgAAAAQIAAAAAAJBAAAIAAABAAA=</HashCode>
+      <FileName>Model\Hotel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.JsonHotelBuilder" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAQAAEAAAAAABAAAAAAAAAAAAAAAAAIAAABAAA=</HashCode>
+      <FileName>Model\JsonHotelBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.JsonModel" Collapsed="true">
+    <Position X="6" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAgAAQAAAACAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\JsonModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulationTheLock.SettingsModel" Collapsed="true">
+    <Position X="6" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAgAAIAAAAAABAAAAAAAAACACAEAEAAAAA=</HashCode>
+      <FileName>Model\SettingsModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulationTheLock.Guest" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAEIIIAEAIgAAgQAAQAAABAIJBAQAAAAQAAAAA=</HashCode>
+      <FileName>Movable\Guest.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.Maid" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEIAIAAAAgAAAAAAAAAAABIIBAAAAAAQAAAAA=</HashCode>
+      <FileName>Movable\Maid.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.Receptionist" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAEIAICAAAgAAAAAAAAAAAAIIBAAAABAQAAAAA=</HashCode>
+      <FileName>Movable\Receptionist.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulationTheLock.Program" Collapsed="true">
+    <Position X="11.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulationTheLock.Simulation" Collapsed="true">
+    <Position X="7.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEABACAIAgBAAACIAgACAAAYAEABAERACAAAAxA=</HashCode>
+      <FileName>Simulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulationTheLock.StartupScreen" Collapsed="true">
+    <Position X="11.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAhCAAAAWACAgQCACCQRgYCAACIQIEAAIMQGAACAgA=</HashCode>
+      <FileName>StartupScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulationTheLock.Properties.Resources" Collapsed="true">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQAQISBBIAQKgAAgAADBEAJABQAAAAAgAYAABAMAIoA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulationTheLock.Properties.Settings" Collapsed="true">
+    <Position X="13" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="HotelSimulationTheLock.IAreaType" Collapsed="true">
+    <Position X="7.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IArea.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HotelSimulationTheLock.IArea" Collapsed="true">
+    <Position X="6" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACQABAAAAgAgAAAgAiAAAARIAQAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IArea.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HotelSimulationTheLock.IHotelBuilder" Collapsed="true">
+    <Position X="9.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IHotelBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HotelSimulationTheLock.IHotelDrawer" Collapsed="true">
+    <Position X="11.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IHotelDrawer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HotelSimulationTheLock.IMovable" Collapsed="true">
+    <Position X="13" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEIAIAAAAgAAAAAAAAAAAAIIAAAAAAAQAAAAA=</HashCode>
+      <FileName>Interfaces\IMovable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="HotelSimulationTheLock.AreaStatus" Collapsed="true">
+    <Position X="6" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACkAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IArea.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="HotelSimulationTheLock.MovableStatus" Collapsed="true">
+    <Position X="7.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgACAAgAgAAAAAAQAAAAAAAAAAAAADACAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IMovable.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

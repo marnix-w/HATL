@@ -45,7 +45,7 @@ namespace HotelSimulationTheLock
                 }
 
                 IArea area = Factory.GetArea(i.AreaType);
-                area.SetJsonValues(i.Position, i.Capacity, i.Dimension, classificationNum);
+                area.SetJsonValues(i.ID, i.Position, i.Capacity, i.Dimension, classificationNum);
                 HotelAreas.Add(area);
             }
 
@@ -59,8 +59,8 @@ namespace HotelSimulationTheLock
                 IArea elevator = Factory.GetArea("Elevator");
                 IArea staircase = Factory.GetArea("Staircase");
 
-                elevator.SetJsonValues(new Point(0, i), settings.ElevatorCapicity, new Size(1, 1), i);
-                staircase.SetJsonValues(new Point(HotelWidth, i), 5, new Size(1, 1), 0);
+                elevator.SetJsonValues(300, new Point(0, i), settings.ElevatorCapicity, new Size(1, 1), i);
+                staircase.SetJsonValues(400, new Point(HotelWidth, i), 5, new Size(1, 1), 0);
 
                 HotelAreas.Add(elevator);
                 HotelAreas.Add(staircase);
@@ -73,7 +73,7 @@ namespace HotelSimulationTheLock
                 {
                     IArea reception = Factory.GetArea("Reception");
 
-                    reception.SetJsonValues(new Point(1, HotelHeight), 5, new Size(1, 1), 1);
+                    reception.SetJsonValues(500, new Point(1, HotelHeight), 5, new Size(1, 1), 1);
 
                     HotelAreas.Add(reception);
                 }
@@ -81,7 +81,7 @@ namespace HotelSimulationTheLock
                 {
                     IArea Lobby = Factory.GetArea("Lobby");
 
-                    Lobby.SetJsonValues(new Point(i, HotelHeight), 5, new Size(1, 1), i);
+                    Lobby.SetJsonValues(600, new Point(i, HotelHeight), 5, new Size(1, 1), i);
 
                     HotelAreas.Add(Lobby);
                 }
@@ -105,6 +105,7 @@ namespace HotelSimulationTheLock
                 else if (area is Restaurant)
                 {
                     ((Restaurant)area).Capacity = settings.RestaurantCapicity;
+                    ((Restaurant)area).Duration = settings.RestaurantDuration;
                 }
 
                 else if (area is null)
@@ -115,7 +116,7 @@ namespace HotelSimulationTheLock
                 // Add right neighbour
                 for (int i = 1; i < HotelWidth; i++)
                 {
-                    if (AddNeighbour(area, i, 0, i))
+                    if (AddNeighbour(area, i, 0, 1))
                     {
                         break;
                     }
@@ -123,7 +124,7 @@ namespace HotelSimulationTheLock
                 // Add left neighbour
                 for (int i = 1; i < HotelWidth - 1; i++)
                 {
-                    if (AddNeighbour(area, -i, 0, i))
+                    if (AddNeighbour(area, -i, 0, 1))
                     {
                         break;
                     }
@@ -131,17 +132,17 @@ namespace HotelSimulationTheLock
                 if (area.Position.X == 0 || area.Position.X == HotelWidth)
                 {
                     // Keep lift weight in mind needs a rework
-                    int weight = 1;
-
+                    
                     if (area is Elevator)
                     {
-                        weight = 100;
+                        continue;                      
                     }
+                    
 
                     // Add top neighbour
-                    AddNeighbour(area, 0, 1, weight);
+                    AddNeighbour(area, 0, 1, 1);
                     // Add bottom neighbour
-                    AddNeighbour(area, 0, -1, weight);
+                    AddNeighbour(area, 0, -1, 1);
                 }
             }
 
@@ -157,15 +158,18 @@ namespace HotelSimulationTheLock
                 movables.Add(new Maid(new Point(4, HotelHeight)));
             }
 
+            movables.Add(new ElevatorCart(new Point(0, HotelHeight), hotel, settings.ElevatorCapicity));
+
             movables.Add(new Receptionist(new Point(1, HotelHeight), hotel));
 
-            foreach (var movable in movables)
-            {
-                if (movable is null)
-                {
-                    movables.Remove(movable);
-                }
-            }
+            // removed this foreach loop no idea what this does??
+            //foreach (var movable in movables)
+            //{
+            //    if (movable is null)
+            //    {
+            //        movables.Remove(movable);
+            //    }
+            //}
 
             return movables;
         }

@@ -14,11 +14,11 @@ namespace HotelSimulationTheLock
     [ExportMetadata("AreaType", "Reception")]
     public class Reception : IArea
     {
+        public int ID { get ; set ; }
         public Point Position { get; set; }
         public Size Dimension { get; set; } = new Size(1, 1);
         public int Capacity { get; set; } = 2;
         public Bitmap Art { get; set; } = Properties.Resources.reception;
-        public int Duration { get; set; }
         public AreaStatus AreaStatus { get; set; }
 
         // Dijkstra search varibles
@@ -26,7 +26,11 @@ namespace HotelSimulationTheLock
         public IArea NearestToStart { get; set; } = null;
         public bool Visited { get; set; } = false;
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
-        public List<IMovable> Movables { get; set; } = new List<IMovable>();
+
+        // event properties
+        public Receptionist Receptionist { get; set; }
+        public Queue<IMovable> CheckInQueue { get; set; } = new Queue<IMovable>();
+       
 
         public Reception()
         {
@@ -38,18 +42,20 @@ namespace HotelSimulationTheLock
             return new Reception();
         }
 
-        public void SetJsonValues(Point position, int capacity, Size dimension, int classification)
+        public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
+            ID = id;
             Position = position;
         }
 
-        public bool MoveToArea()
+        public bool EnterArea(IMovable movable)
         {
-            if (Capacity == Movables.Count)
+            if (CheckInQueue.Any() && CheckInQueue.First() == movable)
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
+ 
     }
 }

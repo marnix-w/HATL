@@ -8,20 +8,47 @@ using System.Windows.Forms;
 
 namespace HotelSimulationTheLock
 {
-   
+
     public enum MovableStatus
     {
+        // implemented
         CHEKING_IN,
-        IN_HOTEL,
         IN_ROOM,
+        GOING_TO_ROOM,
         LEAVING,
+        GET_FOOD,
+        IN_ELEVATOR,
+
+
+        // To implement
         EATING,
         WORKING_OUT,
-        WATCHING_MOVIE,
         EVACUATING,
-        GOING_TO_ROOM
-        //Etc
+
+        //added
+        WATCHING,
+        GOING_TO_CINEMA,
+        GOING_TO_FITNESS,
+        CHECKING_OUT,
+        WAITING_TO_START,
+
+        //elvator
+        NOONE_INSIDE,
+        ELEVATOR_REQUEST,
+        GOING_TO_FLOOR,
+        OPENING_DOORS,
+        LEAVING_ELEVATOR,
+        WAITING_FOR_ELEVATOR,
+
+            UP,
+            DOWN,
+            IDLE
+
+
+
+
     }
+
     public interface IMovable
     {
         // area status
@@ -32,6 +59,8 @@ namespace HotelSimulationTheLock
         Bitmap Art { get; set; }
         MovableStatus Status { get; set; }
         Dictionary<MovableStatus, Action> Actions { get; set; }
+
+        Hotel Hotel { get; set; }
 
         void PerformAction();
 

@@ -10,8 +10,8 @@ namespace HotelSimulationTheLock
 {
     public class JsonModel
     {
-        //[JsonProperty("ID")]
-        //public int ID { get; set; }
+        [JsonProperty("ID")]
+        public int ID { get; set; }
 
         [JsonProperty("Classification")]
         public string Classification { get; set; }
