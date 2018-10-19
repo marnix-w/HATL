@@ -29,11 +29,6 @@ namespace HotelSimulationTheLock
         public bool Visited { get; set; } = false;
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
        
-        public Elevator()
-        {
-
-        }
-
         public IArea CreateArea()
         {
             return new Elevator();
@@ -41,6 +36,7 @@ namespace HotelSimulationTheLock
 
         public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
+            ID = id;
             Position = position;
         }
         

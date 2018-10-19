@@ -31,16 +31,35 @@ namespace HotelSimulationTheLock_UnitTests
         [TestMethod]
         public void TestJsonValues()
         {
+
             // arrange
-            Cinema c = new Cinema();
+            List<IArea> l = new List<IArea>();
+
+            l.Add(new Cinema());
+            l.Add(new Elevator());
+            l.Add(new Fitness());
+            l.Add(new Lobby());
+            l.Add(new Reception());
+            l.Add(new Restaurant());
+            l.Add(new Room());
+            l.Add(new Staircase());
 
             // act
-            c.SetJsonValues(5, new Point(0,0), 1, new Size(1,1), 3);
+            foreach (var item in l)
+            {
+                item.SetJsonValues(5, new Point(0, 0), 1, new Size(1, 1), 3);
+            }
+            
 
             // assert
-            Assert.AreEqual(c.ID, 5);
-            Assert.AreEqual(c.Position, new Point(0, 0));
-            Assert.AreEqual(c.Dimension, new Size(1, 1));
+            Assert.AreEqual(l[0].ID, 5);
+            Assert.AreEqual(l[1].Position, new Point(0, 0));
+            Assert.AreEqual(l[2].Dimension, new Size(1, 1));
+            Assert.AreEqual(l[3].Position, new Point(0, 0));
+            Assert.AreEqual(l[4].ID, 5);
+            Assert.AreEqual(l[5].Dimension, new Size(1, 1));
+            Assert.AreEqual(((Room)l[6]).Classification, 3);
+            Assert.AreEqual(l[7].ID, 5);
         }
 
 
