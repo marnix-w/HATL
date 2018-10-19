@@ -10,7 +10,7 @@ namespace HotelSimulationTheLock
 {
     public partial class Simulation : Form
     {
-        StartupScreen options;
+        private StartupScreen options { get; set; }
         public Hotel Hotel { get; set; }
         public int UnitTestvalue { get; set; }
 
@@ -25,6 +25,9 @@ namespace HotelSimulationTheLock
 
         private int count { get; set; } = 0;
 
+        private SettingsModel _Settings { get; set; }
+
+
 
         public Simulation(StartupScreen firstScreen, List<JsonModel> layout, SettingsModel Settings)
         {
@@ -32,12 +35,14 @@ namespace HotelSimulationTheLock
             // 0.5f should be a varible in the settings data set
             Hotel = new Hotel(layout, Settings);
 
-            HotelEventManager.HTE_Factor = Settings.HTEPerSeconds;
+            _Settings = Settings;
+
+            HotelEventManager.HTE_Factor = _Settings.HTEPerSeconds;
 
             // Does this timer work corectly with the HTE factor? -marnix
             t = new Timer
             {
-                Interval = 1000  // specify interval time as you want 
+                Interval = 1000 / _Settings.HTEPerSeconds // specify interval time as you want 
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
@@ -97,7 +102,7 @@ namespace HotelSimulationTheLock
             foreach (string i in Hotel.CurrentValueIArea())
             {
                 try
-                {                  
+                {
                     if (i.Contains("Room"))
                     {
                         roomTB.AppendText(i);
@@ -105,7 +110,7 @@ namespace HotelSimulationTheLock
                     if (i.Contains("Fitness") || i.Contains("Restaurant") || i.Contains("Cinema") || i.Contains("Elevator"))
                     {
                         facillityTB.AppendText(i);
-                    } 
+                    }
                 }
                 catch (Exception e)
                 {
@@ -117,7 +122,7 @@ namespace HotelSimulationTheLock
         private void _fillMoveAbleTB()
         {
             guestTB.Clear();
-      
+
             foreach (string value in Hotel.CurrentValue())
             {
                 try
@@ -155,11 +160,79 @@ namespace HotelSimulationTheLock
 
         private void Simulation_FormClosed(object sender, FormClosedEventArgs e)
         {
+            StopSimulation();
+
+            this.Dispose();
             options.Dispose();
         }
 
         private void button3_Click(object sender, EventArgs e)
-        {         
+        {
+            StopSimulation();
+
+
+            _Settings.HTEPerSeconds = _Settings.HTEPerSeconds * 2;
+            HotelEventManager.HTE_Factor = _Settings.HTEPerSeconds;
+
+
+            SetButtonsText();
+
+            StartSimulation();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            StopSimulation();
+
+            if (_Settings.HTEPerSeconds <= 1)
+            {
+                _Settings.HTEPerSeconds = 1;
+            }
+            else
+            {
+                _Settings.HTEPerSeconds = _Settings.HTEPerSeconds / 2;
+                HotelEventManager.HTE_Factor = _Settings.HTEPerSeconds;
+            }
+
+
+            SetButtonsText();
+
+            StartSimulation();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            StopSimulation();
+
+
+            _Settings.HTEPerSeconds = 1;
+            HotelEventManager.HTE_Factor = _Settings.HTEPerSeconds;
+            t.Interval = 1000 / _Settings.HTEPerSeconds;
+
+            SetButtonsText();
+
+            StartSimulation();
+        }
+
+        private void SetButtonsText()
+        {
+            _fastForward.Text = "Speed up the simulation times 2  \n current speed is " + HotelEventManager.HTE_Factor;
+            _slowDown.Text = "Slow down the simulation subtract by 2 \n current speed is " + HotelEventManager.HTE_Factor;
+            _resetSpeed.Text = "Reset the HTE factor to 1";
+
+            Console.WriteLine("INTERVAL IS " + t.Interval);
+        }
+
+        private void StopSimulation()
+        {
+            t.Stop();
+            HotelEventManager.Stop();
+        }
+
+        private void StartSimulation()
+        {
+            t.Start();
+            HotelEventManager.Start();
         }
     }
 }
