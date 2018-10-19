@@ -53,16 +53,7 @@ namespace HotelSimulationTheLock
             ((Elevator)Area).ElevatorCart = this;
         }
 
-<<<<<<< HEAD
-        /// <summary>
-        /// Let's an IMovable enter the elevator if the elevator's capacity allows it
-        /// </summary>
-        /// <param name="movable">The IMovable that wants to enter the elevator</param>
-        /// <param name="req">The floor the IMovable wants to go to</param>
-        public void EnterElevator(IMovable movable, int req)
-=======
         public void PerformAction()
->>>>>>> hotel-team
         {
             //We wanted to use a foreach loop but because
             RemoveGuests.Clear();
@@ -92,21 +83,6 @@ namespace HotelSimulationTheLock
                 Up.RemoveAt(0);
             }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        /// <summary>
-        /// Performs the relevant action by looking at the status
-        /// </summary>
-        public void PerformAction()
-        {
-            if (Status == MovableStatus.NOONE_INSIDE)
-=======
-
-
-            //if (Up.Count != 0 || Down.Count != 0)
-            //{
-=======
->>>>>>> hotel-team
             if (Status == MovableStatus.UP)
             {
                 _elevatorGoesUp();
@@ -128,7 +104,6 @@ namespace HotelSimulationTheLock
             //}
 
             if (Up.Count == 0 && Down.Count == 0)
->>>>>>> hotel-team
             {
                 Status = MovableStatus.IDLE;
             }
@@ -211,12 +186,6 @@ namespace HotelSimulationTheLock
             }
         }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-        private void goingDOwn()
-=======
-=======
         private void _ElevatorDoesNothing()
         {
             if (Up.Count > Down.Count)
@@ -228,9 +197,7 @@ namespace HotelSimulationTheLock
                 Status = MovableStatus.DOWN;
             }
         }
->>>>>>> hotel-team
         public void AddDestinationFloor()
->>>>>>> hotel-team
         {
 
             for (int i = 0; i < RequestList.Count; i++)
