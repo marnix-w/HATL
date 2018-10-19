@@ -33,7 +33,7 @@ namespace HotelSimulationTheLock
         {
             options = firstScreen;
             // 0.5f should be a varible in the settings data set
-            Hotel = new Hotel(layout, Settings);
+            Hotel = new Hotel(layout, Settings, new JsonHotelBuilder());
 
             _Settings = Settings;
 
@@ -146,7 +146,7 @@ namespace HotelSimulationTheLock
                 button1.Text = "Resume";
                 label1.Text = "Simulation has been paused";
                 t.Stop();
-                HotelEventManager.Stop();
+                HotelEventManager.Pauze();
             }
             else
             {
@@ -154,7 +154,7 @@ namespace HotelSimulationTheLock
                 button1.Text = "Pause";
                 label1.Text = "Simulation is running on normaal speed";
                 t.Start();
-                HotelEventManager.Start();
+                HotelEventManager.Pauze();
             }
         }
 

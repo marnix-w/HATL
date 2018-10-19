@@ -17,7 +17,7 @@ namespace HotelSimulationTheLock
         private List<IMovable> LeavingGuests { get; set; } = new List<IMovable>();
         private List<IMovable> ArivingGuests { get; set; } = new List<IMovable>();
 
-        private IHotelBuilder HotelBuilder { get; set; } = new JsonHotelBuilder();
+        private IHotelBuilder HotelBuilder { get; set; }
         private IHotelDrawer HotelDrawer { get; set; } = new BitmapHotelDrawer();
 
         // Hotel dimensions for calcuations
@@ -34,12 +34,13 @@ namespace HotelSimulationTheLock
 
         }
 
-        public Hotel(List<JsonModel> layout, SettingsModel settings)
+        public Hotel(List<JsonModel> layout, SettingsModel settings, IHotelBuilder TypeOfBuilder)
         {
             // Hotel will handle the CheckIn_events so it can add them to its list
             // making it posible to keep the list private
             HotelEventManager.Register(this);
 
+            HotelBuilder = TypeOfBuilder;
 
             // Build the hotel
             HotelAreas = HotelBuilder.BuildHotel(layout, settings);
