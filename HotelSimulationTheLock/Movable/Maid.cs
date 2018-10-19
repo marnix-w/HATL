@@ -58,6 +58,14 @@ namespace HotelSimulationTheLock
 
         private void IsSomthingInQueue()
         {
+            IArea toClean = Hotel.GetRoomToClean();
+
+            if (toClean != null)
+            {
+                ToCleanList.Enqueue(new CleaningEvent() { ToClean = toClean, Time = 2 });
+                Status = MovableStatus.GOING_TO_ROOM;
+            }
+
             if (ToCleanList.Any())
             {
                 Status = MovableStatus.GOING_TO_ROOM;
@@ -173,14 +181,8 @@ namespace HotelSimulationTheLock
 
         public void PerformAction()
         {
+               
             
-            IArea toClean = Hotel.GetRoomToClean();
-
-            if (toClean != null)
-            {
-                ToCleanList.Enqueue(new CleaningEvent() { ToClean = toClean, Time = 2 });
-                Status = MovableStatus.GOING_TO_ROOM;
-            }
 
             if (Actions[Status] != null)
             {               

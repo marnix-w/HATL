@@ -45,7 +45,7 @@ namespace HotelSimulationTheLock_UnitTests
             test_Simulation._Settings = test_startupscreen.settings;
 
 
-            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings);
+            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings, new JsonHotelBuilder());
             g = new Guest(null, "SUPERMAN BOB", 155, new System.Drawing.Point(5, 5), 10);
 
             elevator = new ElevatorCart(new System.Drawing.Point(0, 1), HotelTest, 5);
@@ -101,7 +101,7 @@ namespace HotelSimulationTheLock_UnitTests
             ListTest = new List<string>();
 
 
-            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings);
+            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings, new JsonHotelBuilder());
             g = new Guest(null, "Arthas died as Lich King", 155, new System.Drawing.Point(5, 5), 10);
 
             ListTest = new List<string>();
@@ -148,7 +148,7 @@ namespace HotelSimulationTheLock_UnitTests
             ListTest = new List<string>();
 
 
-            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings);
+            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings, new JsonHotelBuilder());
             g = new Guest(null, "Iron Man", 4, new System.Drawing.Point(5, 5), 10);
 
             ListTest = new List<string>();
@@ -193,7 +193,7 @@ namespace HotelSimulationTheLock_UnitTests
             test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.settings);
             test_Simulation._Settings = test_startupscreen.settings;    
 
-            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings);
+            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings, new JsonHotelBuilder());
             AreaTest = new Room();
             AreaTest.Position = new Point(5, 5);
             Point locationTest = new Point(5, 5);     
@@ -237,7 +237,7 @@ namespace HotelSimulationTheLock_UnitTests
             test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.settings);
             test_Simulation._Settings = test_startupscreen.settings;  
 
-            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings);
+            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings, new JsonHotelBuilder());
             AreaTestID = new Room();
             AreaTestID.ID = 101;
 
@@ -281,7 +281,7 @@ namespace HotelSimulationTheLock_UnitTests
             test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.settings);
             test_Simulation._Settings = test_startupscreen.settings;
 
-            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings);
+            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings, new JsonHotelBuilder());
             AreaTestID = new Room();
             AreaTestID.ID = 101;
 
