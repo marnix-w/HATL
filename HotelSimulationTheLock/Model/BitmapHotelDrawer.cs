@@ -14,6 +14,8 @@ namespace HotelSimulationTheLock
             int HotelWidth = areas.OrderBy(X => X.Position.X).Last().Position.X;
             int HotelHeight = areas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
 
+            Bitmap b = Properties.Resources.hallway;
+
             int artSize = Simulation.RoomArtSize;
 
             Bitmap buffer = new Bitmap((HotelWidth + 1) * artSize, (HotelHeight) * artSize);
@@ -26,7 +28,7 @@ namespace HotelSimulationTheLock
                     {
                         for (int j = 0; j < Hotel.HotelWidth; j++)
                         {
-                            graphics.DrawImage(Properties.Resources.hallway, j * artSize, i * artSize, artSize, artSize);
+                            graphics.DrawImage(b, j * artSize, i * artSize, artSize, artSize);
                         }
                     }
                 }
@@ -53,9 +55,9 @@ namespace HotelSimulationTheLock
                 {
                     foreach (IArea area in areas)
                     {
-                      
+
                         if (area.Dimension.Height > 1 || area.Dimension.Width > 1)
-                        {                           
+                        {
 
                             graphics.DrawImage(area.Art,
                                        area.Position.X * artSize,
