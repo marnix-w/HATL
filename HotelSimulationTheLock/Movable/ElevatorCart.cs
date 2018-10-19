@@ -102,7 +102,7 @@ namespace HotelSimulationTheLock
                 human.Position = Position;
             }
             AddDestinationFloor();
-            //}
+          
 
             if (Up.Count == 0 && Down.Count == 0)
             {

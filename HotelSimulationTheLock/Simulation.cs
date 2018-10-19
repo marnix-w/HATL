@@ -37,7 +37,7 @@ namespace HotelSimulationTheLock
             // Does this timer work corectly with the HTE factor? -marnix
             t = new Timer
             {
-                Interval = 1000 / Settings.HTEPerSeconds // specify interval time as you want 
+                Interval = 1000  // specify interval time as you want 
             };
             t.Tick += new EventHandler(Timer_Tick);
             t.Start();
