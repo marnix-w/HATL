@@ -47,8 +47,9 @@ namespace HotelSimulationTheLock
             // Remind me to set it to capicity
             Capacity = capacity;
             Status = MovableStatus.NOONE_INSIDE;
+            Position = position;
             // Area = Hotel.GetArea(new Point(0, Hotel.HotelHeight));
-            Area = Hotel.GetArea(position);
+            Area = Hotel.GetArea(Position);
 
             ((Elevator)Area).ElevatorCart = this;
         }
