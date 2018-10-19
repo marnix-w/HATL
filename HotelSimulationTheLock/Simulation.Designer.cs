@@ -91,7 +91,7 @@
             this._fastForward.Name = "_fastForward";
             this._fastForward.Size = new System.Drawing.Size(205, 141);
             this._fastForward.TabIndex = 12;
-            this._fastForward.Text = "Slow down simulation";
+            this._fastForward.Text = "Speed up the simulation";
             this._fastForward.UseVisualStyleBackColor = true;
             this._fastForward.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -101,7 +101,7 @@
             this._slowDown.Name = "_slowDown";
             this._slowDown.Size = new System.Drawing.Size(205, 141);
             this._slowDown.TabIndex = 13;
-            this._slowDown.Text = "Speed up simulation";
+            this._slowDown.Text = "Slow simulation down";
             this._slowDown.UseVisualStyleBackColor = true;
             this._slowDown.Click += new System.EventHandler(this.button4_Click);
             // 

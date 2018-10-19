@@ -170,9 +170,16 @@ namespace HotelSimulationTheLock
         {
             StopSimulation();
 
-
-            _Settings.HTEPerSeconds = _Settings.HTEPerSeconds * 2;
-            HotelEventManager.HTE_Factor = _Settings.HTEPerSeconds;
+            if(_Settings.HTEPerSeconds >= 4)
+            {
+                _Settings.HTEPerSeconds = 4;
+            }
+            else
+            {
+                _Settings.HTEPerSeconds = _Settings.HTEPerSeconds * 2;
+                HotelEventManager.HTE_Factor = _Settings.HTEPerSeconds;
+            }
+          
 
 
             SetButtonsText();
