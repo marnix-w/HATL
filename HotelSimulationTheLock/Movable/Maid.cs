@@ -20,7 +20,7 @@ namespace HotelSimulationTheLock
         public Point Position { get; set; }
         public Bitmap Art { get; set; } = Properties.Resources.maid;
         public MovableStatus Status { get; set; }
-        private Queue<CleaningEvent> ToCleanList { get; set; } = new Queue<CleaningEvent>();
+        public Queue<CleaningEvent> ToCleanList { get; set; } = new Queue<CleaningEvent>();
         public Dictionary<MovableStatus, Action> Actions { get; set; } = new Dictionary<MovableStatus, Action>();
         public Queue<IArea> Path { get; set; } = new Queue<IArea>();
         public bool WantsElevator { get; set; } = false;
@@ -63,6 +63,7 @@ namespace HotelSimulationTheLock
                 Status = MovableStatus.GOING_TO_ROOM;
             }
         }
+
         private void LeavingElevator()
         {
             if (Status == MovableStatus.EVACUATING || LastStatus == MovableStatus.EVACUATING)
