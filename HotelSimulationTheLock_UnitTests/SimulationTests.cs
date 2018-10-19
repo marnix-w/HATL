@@ -17,8 +17,6 @@ namespace HotelSimulationTheLock_UnitTests
             string test_path;
 
 
-
-
             //act       
             test_startupscreen = new StartupScreen();
 
