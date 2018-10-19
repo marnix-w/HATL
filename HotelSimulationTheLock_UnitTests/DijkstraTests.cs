@@ -1,5 +1,6 @@
 ﻿using System;
 using HotelEvents;
+using System.Drawing;
 using HotelSimulationTheLock;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,7 +24,15 @@ namespace HotelSimulationTheLock_UnitTests
 
             for (int i = 0; i < 9; i++)
             {
-                l.Add(new Room() { ID = i });
+                if (i == 3)
+                {
+                    l.Add(new Elevator() { ID = i, Position = new Point(8, 8)});
+                    continue;
+                        
+                }
+
+                l.Add(new Room() { ID = i, Position = new Point(8,8)});
+                
             }
 
             JsonHotelBuilder.AddDirectedEdge(l[7], l[0], 3);
@@ -46,19 +55,21 @@ namespace HotelSimulationTheLock_UnitTests
             Dijkstra.IntilazeDijkstra(h);
 
             g = Dijkstra.GetShortestPathDijkstra(l[7], l[8]);
-
+            
             f = new List<IArea>();
             f.Add(l[7]);
             f.Add(l[0]);
             f.Add(l[3]);
             f.Add(l[8]);
-            
-            
+
+            IArea a = Dijkstra.IsElevatorCloser(l[7], l[8]);
+
             //assert
             Assert.AreEqual(f[0].ID, g[0].ID);
             Assert.AreEqual(f[1].ID, g[1].ID);
             Assert.AreEqual(f[2].ID, g[2].ID);
             Assert.AreEqual(f[3].ID, g[3].ID);
+            Assert.AreNotEqual(l[0].ID, a.ID);
         }
     }
 

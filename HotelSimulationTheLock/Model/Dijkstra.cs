@@ -75,13 +75,6 @@ namespace HotelSimulationTheLock
             return to;
         }
 
-        public static IArea CouldTheElevatorBeFaster(IArea from, IArea to)
-        {
-            
-
-            return null;
-        }
-
         private static void BuildShortestPath(List<IArea> list, IArea node)
         {
             if (node.NearestToStart == null)
