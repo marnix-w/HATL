@@ -40,6 +40,7 @@ namespace HotelSimulationTheLock
 
         public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
+            ID = id;
             Position = position;
         }
 

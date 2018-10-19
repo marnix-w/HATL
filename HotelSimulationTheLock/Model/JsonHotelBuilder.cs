@@ -8,12 +8,17 @@ using System.Threading.Tasks;
 
 namespace HotelSimulationTheLock
 {
-    class JsonHotelBuilder : IHotelBuilder
+    public class JsonHotelBuilder : IHotelBuilder
     {
         private List<IArea> HotelAreas { get; set; }
 
         private int HotelWidth { get; set; }
         private int HotelHeight { get; set; }
+
+        public static void AddDirectedEdge(IArea from, IArea to, int weight)
+        {
+            from.Edge.Add(to, weight);
+        }
 
         public List<IArea> BuildHotel<T>(T file, SettingsModel settings)
         {
