@@ -18,7 +18,6 @@ namespace HotelSimulationTheLock
         public int Capacity { get; set; }
 
 
-
         // other shit
         public Point Position { get; set; }
 
@@ -48,9 +47,10 @@ namespace HotelSimulationTheLock
             Hotel = hotel;
             // Remind me to set it to capicity
             Capacity = capacity;
-            Status = MovableStatus.NOONE_INSIDE;
+            Status = MovableStatus.IDLE;
+            Position = position;
             // Area = Hotel.GetArea(new Point(0, Hotel.HotelHeight));
-            Area = Hotel.GetArea(position);
+            Area = Hotel.GetArea(Position);
 
             ((Elevator)Area).ElevatorCart = this;
         }
@@ -103,7 +103,7 @@ namespace HotelSimulationTheLock
                 human.Position = Position;
             }
             AddDestinationFloor();
-            //}
+          
 
             if (Up.Count == 0 && Down.Count == 0)
             {
@@ -114,12 +114,11 @@ namespace HotelSimulationTheLock
             {
                 _ElevatorDoesNothing();
             }
-
         }
 
 
-
         public void RequestElevator(IMovable RequestFloor, int height)
+
         {
             //Extra Check
             //Check for Current floor
