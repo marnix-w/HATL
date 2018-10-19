@@ -20,7 +20,7 @@ namespace HotelSimulationTheLock
         public Bitmap Art { get; set; } = Properties.Resources.fitness;
         public AreaStatus AreaStatus { get; set; }
 
-        // Dijkstra search varibles
+        // Dijkstra search variables
         public double? BackTrackCost { get; set; } = null;
         public IArea NearestToStart { get; set; } = null;
         public bool Visited { get; set; } = false;
@@ -32,11 +32,23 @@ namespace HotelSimulationTheLock
             
         }
 
+        /// <summary>
+        /// Creates a new IArea
+        /// </summary>
+        /// <returns></returns>
         public IArea CreateArea()
         {
             return new Fitness();
         }
 
+        /// <summary>
+        /// Sets values from the given json file
+        /// </summary>
+        /// <param name="id">ID of the area</param>
+        /// <param name="position">Position of the area in the hotel</param>
+        /// <param name="capacity">Capacity of the area</param>
+        /// <param name="dimension">Dimension of the area</param>
+        /// <param name="classification">Classification of the area</param>
         public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
             ID = id;
@@ -44,6 +56,10 @@ namespace HotelSimulationTheLock
             Dimension = dimension;
         }
 
+        /// <summary>
+        /// Checks wheter the capacity of the area allows a new IMovable to enter
+        /// </summary>
+        /// <returns>Wheter the IMovable can enter the area</returns>
         public bool EnterArea()
         {
             if (Capacity == MovablesInFitness.Count)

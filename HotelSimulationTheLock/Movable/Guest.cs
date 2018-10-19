@@ -69,6 +69,9 @@ namespace HotelSimulationTheLock
             SetBahvior();
         }
 
+        /// <summary>
+        /// Adds all the possible behaviours of the guest to the Actions dictionary
+        /// </summary>
         public void SetBahvior()
         {
             Actions.Add(MovableStatus.CHEKING_IN, _checkIn);
@@ -87,11 +90,17 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.WORKING_OUT, _addHteCounter);
         }
 
+        /// <summary>
+        /// Sets the path from the elevator to the guest's destination
+        /// </summary>
         private void LeavingElevator()
         {
             SetPath(FinalDes);
         }
 
+        /// <summary>
+        /// Performs the current action of the guest
+        /// </summary>
         public void PerformAction()
         {
             if (!(Actions[Status] == null))
@@ -101,6 +110,9 @@ namespace HotelSimulationTheLock
          
         }
 
+        /// <summary>
+        /// Registers the guest to the HotelEventManager
+        /// </summary>
         public void RegisterAs()
         {
             if (!Registerd)
@@ -110,6 +122,10 @@ namespace HotelSimulationTheLock
             }
         }
 
+        /// <summary>
+        /// Sets the fastest path from the guest's current location tho the guest's desired destination
+        /// </summary>
+        /// <param name="destination">The destionation the guest wants to go to</param>
         public void SetPath(IArea destination)
         {
             Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, destination));
@@ -118,6 +134,10 @@ namespace HotelSimulationTheLock
 
         }
 
+        /// <summary>
+        /// Checks wheter a relevant event is called and responds accordingly
+        /// </summary>
+        /// <param name="evt">The event that is called</param>
         public void Notify(HotelEvent evt)
         {
             if (evt.EventType == HotelEventType.EVACUATE)
@@ -204,11 +224,18 @@ namespace HotelSimulationTheLock
             }
         }
 
+        /// <summary>
+        /// Gets the current position of the guest
+        /// </summary>
+        /// <returns>The guest's current position</returns>
         public Point GetPoint()
         {
             return Position;
         }
 
+        /// <summary>
+        /// Moves the guest to the next area in his path
+        /// </summary>
         private void Move()
         {
             IArea destination = Path.Dequeue();
@@ -243,6 +270,10 @@ namespace HotelSimulationTheLock
 
 
         // Actions list
+
+        /// <summary>
+        /// Checks in the guest and moves the guest to his room
+        /// </summary>
         private void _checkIn()
         {
             if (MyRoom != null)
@@ -311,6 +342,10 @@ namespace HotelSimulationTheLock
             
 
         }
+
+        /// <summary>
+        /// Brings the guest to the nearest fitness area
+        /// </summary>
         private void _goToFitness()
         {
             if (Path.Any())
@@ -327,6 +362,10 @@ namespace HotelSimulationTheLock
                 _hteTime = rnd.Next(1, 7);
             }
         }
+
+        /// <summary>
+        /// Moves the guest out of the hotel at checkout
+        /// </summary>
         private void _getOutOfHotel()
         {
             if (Path.Any())
@@ -345,6 +384,10 @@ namespace HotelSimulationTheLock
                 //   RemoveMe();
             }
         }
+
+        /// <summary>
+        /// Brings the guest to his room
+        /// </summary>
         private void _goingToRoom()
         {
             _hteCalculateCounter = 0;
@@ -370,6 +413,10 @@ namespace HotelSimulationTheLock
             }
 
         }
+
+        /// <summary>
+        /// Removes the guest from the hotel
+        /// </summary>
         private void _removeMe()
         {
             if (Path.Any())
@@ -386,7 +433,11 @@ namespace HotelSimulationTheLock
                 Hotel.RemoveGuest(this);
             }
 
-        }       
+        }
+        
+        /// <summary>
+        /// Brings the guest to the restaurant
+        /// </summary>
         private void _getFood()
         {
             if (Path.Any())
@@ -403,6 +454,10 @@ namespace HotelSimulationTheLock
                 _hteTime = ((Restaurant)Area).Duration;
             }
         }
+
+        /// <summary>
+        /// Brings guest to the cinema
+        /// </summary>
         private void _getToCinema()
         {
 
@@ -428,6 +483,10 @@ namespace HotelSimulationTheLock
                 }
             }
         }
+
+        /// <summary>
+        /// Checks the guest out of the hotel
+        /// </summary>
         private void _getCheckOut()
         {
             if (Path.Any())
@@ -446,6 +505,10 @@ namespace HotelSimulationTheLock
                 _removeMe();
             }
         }
+
+        /// <summary>
+        /// Evacuates the guest
+        /// </summary>
         private void _Evacuate()
         {          
             if (Hotel.IsHotelSafe())

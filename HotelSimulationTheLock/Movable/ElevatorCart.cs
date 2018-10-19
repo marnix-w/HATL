@@ -44,6 +44,11 @@ namespace HotelSimulationTheLock
             ((Elevator)Area).ElevatorCart = this;
         }
 
+        /// <summary>
+        /// Let's an IMovable enter the elevator if the elevator's capacity allows it
+        /// </summary>
+        /// <param name="movable">The IMovable that wants to enter the elevator</param>
+        /// <param name="req">The floor the IMovable wants to go to</param>
         public void EnterElevator(IMovable movable, int req)
         {
             if (InElevator.Count < Capacity)
@@ -53,6 +58,9 @@ namespace HotelSimulationTheLock
             }
         }
 
+        /// <summary>
+        /// Performs the relevant action by looking at the status
+        /// </summary>
         public void PerformAction()
         {
             if (Status == MovableStatus.NOONE_INSIDE)
@@ -66,6 +74,7 @@ namespace HotelSimulationTheLock
         {
             // throw new NotImplementedException();
         }
+
 
         private void goingDOwn()
         {

@@ -27,7 +27,7 @@ namespace HotelSimulationTheLock
         public bool Visited { get; set; } = false;
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
 
-        // event properties
+        // Event properties
         public Receptionist Receptionist { get; set; }
         public Queue<IMovable> CheckInQueue { get; set; } = new Queue<IMovable>();
        
@@ -37,17 +37,34 @@ namespace HotelSimulationTheLock
 
         }
 
+        /// <summary>
+        /// Creates a new IArea
+        /// </summary>
+        /// <returns>A new Reception</returns>
         public IArea CreateArea()
         {
             return new Reception();
         }
 
+        /// <summary>
+        /// Sets values from the given json file
+        /// </summary>
+        /// <param name="id">ID of the area</param>
+        /// <param name="position">Position of the area in the hotel</param>
+        /// <param name="capacity">Capacity of the area</param>
+        /// <param name="dimension">Dimension of the area</param>
+        /// <param name="classification">Classification of the area</param>
         public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
             ID = id;
             Position = position;
         }
 
+        /// <summary>
+        /// Check wheter the IMovable is the next person in the CheckInQueue
+        /// </summary>
+        /// <param name="movable">The IMovable that wants to check in</param>
+        /// <returns>Wheter the IMovable can enter the reception area to check in</returns>
         public bool EnterArea(IMovable movable)
         {
             if (CheckInQueue.Any() && CheckInQueue.First() == movable)

@@ -24,8 +24,6 @@ namespace HotelSimulationTheLock
         {
             Position = position;
             Hotel = hotel;
-            
-
         }
 
         public void Notify(HotelEvent evt)
@@ -36,6 +34,10 @@ namespace HotelSimulationTheLock
             }
         }
         
+        /// <summary>
+        /// Removes guest from the hotel
+        /// </summary>
+        /// <param name="guest">The guest that needs to be removed</param>
         public void RemoveGuest(Guest guest)
         {
             Hotel.RemoveGuest(guest);

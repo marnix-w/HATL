@@ -44,7 +44,7 @@ namespace HotelSimulationTheLock
         bool Visited { get; set; }
 
         /// <summary>
-        /// IArea: Conected to, Int: Time to treverse in HTE
+        /// IArea: Conected to, Int: Time to reverse in HTE
         /// </summary>
         Dictionary<IArea, int> Edge { get; set; }
 
