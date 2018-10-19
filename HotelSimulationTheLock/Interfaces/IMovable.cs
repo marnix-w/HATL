@@ -35,16 +35,12 @@ namespace HotelSimulationTheLock
         //elvator
         NOONE_INSIDE,
         ELEVATOR_REQUEST,
-        GOING_TO_FLOOR,
-        OPENING_DOORS,
         LEAVING_ELEVATOR,
         WAITING_FOR_ELEVATOR,
 
-            UP,
-            DOWN,
-            IDLE,
-
-
+        UP,
+        DOWN,
+        IDLE,
 
         CLEANING
     }
@@ -63,7 +59,7 @@ namespace HotelSimulationTheLock
         Hotel Hotel { get; set; }
 
         void PerformAction();
-         IArea FinalDes { get; set; }
+        IArea FinalDes { get; set; }
         void SetPath(IArea destination);
 
     }
