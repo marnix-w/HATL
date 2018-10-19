@@ -25,7 +25,7 @@ namespace HotelSimulationTheLock
 
         private int count { get; set; } = 0;
 
-        private SettingsModel _Settings { get; set; }
+        public SettingsModel _Settings { get; set; }
 
 
 
