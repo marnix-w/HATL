@@ -22,13 +22,26 @@ namespace HotelSimulationTheLock
             {
                 lock (areas)
                 {
+                    for (int i = 0; i < Hotel.HotelHeight; i++)
+                    {
+                        for (int j = 0; j < Hotel.HotelWidth; j++)
+                        {
+                            graphics.DrawImage(Properties.Resources.hallway, j * artSize, i * artSize, artSize, artSize);
+                        }
+                    }
+                }
+            }
+            using (Graphics graphics = Graphics.FromImage(buffer))
+            {
+                lock (areas)
+                {
                     foreach (IArea area in areas)
                     {
                         graphics.DrawImage(area.Art,
                                             area.Position.X * artSize,
                                             (area.Position.Y - 1) * artSize,
-                                            area.Dimension.Width * artSize,
-                                            area.Dimension.Height * artSize);
+                                            artSize,
+                                            artSize);
                     }
                 }
             }
