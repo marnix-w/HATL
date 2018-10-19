@@ -13,8 +13,6 @@ namespace HotelSimulationTheLock
 
         public Hotel Hotel { get; set; }
 
-        private Dictionary<IMovable, int> InElevator { get; set; } = new Dictionary<IMovable, int>();
-
         public int Capacity { get; set; }
 
 
@@ -27,8 +25,6 @@ namespace HotelSimulationTheLock
 
         public Dictionary<MovableStatus, Action> Actions { get; set; }
 
-
-        public Queue<IArea> Path { get; set; }
 
 
         //volgens david

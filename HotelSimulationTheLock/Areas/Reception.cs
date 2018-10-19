@@ -32,11 +32,6 @@ namespace HotelSimulationTheLock
         public Queue<IMovable> CheckInQueue { get; set; } = new Queue<IMovable>();
        
 
-        public Reception()
-        {
-
-        }
-
         public IArea CreateArea()
         {
             return new Reception();

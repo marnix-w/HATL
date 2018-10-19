@@ -24,11 +24,7 @@ namespace HotelSimulationTheLock
         public IArea NearestToStart { get; set; }
         public bool Visited { get; set; }
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
-        
-        public Lobby()
-        {
-
-        }
+ 
 
         public IArea CreateArea()
         {

@@ -36,11 +36,7 @@ namespace HotelSimulationTheLock
 
             }
         }
-        
-        public void RemoveGuest(Guest guest)
-        {
-            Hotel.RemoveGuest(guest);
-        }
+
 
         public void PerformAction()
         {

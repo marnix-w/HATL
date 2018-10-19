@@ -47,16 +47,9 @@ namespace HotelSimulationTheLock
 
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
-
-            //      Guest bob = new Guest(this, "bob", 5, new Point(1, 5), 5);
-            //        bob.MyRoom = GetArea(new Point(1, 1));
-            //        HotelMovables.Add(bob);  
+   
 
             _elevatorCart = (ElevatorCart)HotelMovables.Find(X => X is ElevatorCart);
-
-            //          bob.CallElevator();
-
-            //    ElevatorCart elevator = new ElevatorCart(this, settings.ElevatorCapicity);
 
             // Right?
             HotelEventManager.HTE_Factor = 2;
