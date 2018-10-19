@@ -73,23 +73,34 @@ namespace HotelSimulationTheLock
 
         public void SetBahvior()
         {
-            Actions.Add(MovableStatus.CHEKING_IN, _checkIn);
-            Actions.Add(MovableStatus.GOING_TO_ROOM, _goingToRoom);
-            Actions.Add(MovableStatus.LEAVING, _removeMe);
-            Actions.Add(MovableStatus.GET_FOOD, _getFood);
-            Actions.Add(MovableStatus.GOING_TO_CINEMA, _getToCinema);
-            Actions.Add(MovableStatus.CHECKING_OUT, _getCheckOut);
-            Actions.Add(MovableStatus.EVACUATING, _Evacuate);
-            Actions.Add(MovableStatus.GOING_TO_FITNESS, _goToFitness);
-            Actions.Add(MovableStatus.WATCHING, _addHteCounter);
-            Actions.Add(MovableStatus.EATING, _addHteCounter);
-            Actions.Add(MovableStatus.IN_ELEVATOR, null);
-            Actions.Add(MovableStatus.IN_ROOM, null);
-            Actions.Add(MovableStatus.WAITING_TO_START, null);
-            Actions.Add(MovableStatus.WORKING_OUT, _addHteCounter);
+            //these are all the actions and statuses for guests
+
+            //elevator actions and statuses
             Actions.Add(MovableStatus.ELEVATOR_REQUEST, CallElevator);
             Actions.Add(MovableStatus.LEAVING_ELEVATOR, LeavingElevator);
             Actions.Add(MovableStatus.WAITING_FOR_ELEVATOR, Idle);
+            Actions.Add(MovableStatus.IN_ELEVATOR, null);
+
+            //actions for going to the facillity
+            Actions.Add(MovableStatus.GOING_TO_ROOM, _goingToRoom);
+            Actions.Add(MovableStatus.GOING_TO_CINEMA, _getToCinema);
+            Actions.Add(MovableStatus.GET_FOOD, _getFood);
+            Actions.Add(MovableStatus.GOING_TO_FITNESS, _goToFitness);
+
+            //actions during the event
+            Actions.Add(MovableStatus.CHEKING_IN, _checkIn);
+            Actions.Add(MovableStatus.WATCHING, _addHteCounter);
+            Actions.Add(MovableStatus.EATING, _addHteCounter);
+            Actions.Add(MovableStatus.WORKING_OUT, _addHteCounter);
+            Actions.Add(MovableStatus.WAITING_TO_START, null);
+            Actions.Add(MovableStatus.IN_ROOM, null);
+
+            //actions when the guest is leaving
+            Actions.Add(MovableStatus.LEAVING, _removeMe);
+            Actions.Add(MovableStatus.CHECKING_OUT, _getCheckOut);
+            Actions.Add(MovableStatus.EVACUATING, _Evacuate);
+         
+            
         }
 
         private void Idle()
@@ -456,6 +467,7 @@ namespace HotelSimulationTheLock
             {
                 Move();
                 Status = MovableStatus.CHECKING_OUT;
+                MyRoom.AreaStatus = AreaStatus.NEED_CLEANING;
             }
 
             else if (!(Area is Reception))

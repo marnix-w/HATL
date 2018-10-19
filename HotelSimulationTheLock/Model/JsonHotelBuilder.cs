@@ -155,11 +155,11 @@ namespace HotelSimulationTheLock
 
             for (int i = 0; i < settings.AmountOfMaids; i++)
             {
-                movables.Add(new Maid(new Point(4, HotelHeight)));
+                movables.Add(new Maid(new Point(4, HotelHeight), hotel));
             }
 
             movables.Add(new ElevatorCart(new Point(0, HotelHeight), hotel, settings.ElevatorCapicity));
-
+            Console.WriteLine("HOTEL HEIGHT IS {0}", HotelHeight);
             movables.Add(new Receptionist(new Point(1, HotelHeight), hotel));
 
             // removed this foreach loop no idea what this does??
