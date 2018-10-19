@@ -71,16 +71,22 @@ namespace HotelSimulationTheLock
                 area.Visited = false;
             }
         }
-
-        public List<IArea> GetAreas()
+        
+        public IArea GetRoomToClean()
         {
-            return HotelAreas;
+            if (HotelAreas.Where(X => X.AreaStatus == AreaStatus.NEED_CLEANING).Any())
+            {
+                IArea temp = HotelAreas.Where(X => X.AreaStatus == AreaStatus.NEED_CLEANING).First();
+                temp.AreaStatus = AreaStatus.IN_CLEANING_QUEUE;
+                return temp;
+            }
 
+            return null;
         }
 
         public bool IsHotelSafe()
         {
-            if (HotelMovables.Where(X => X is Guest && X.Area is Reception).Count() == HotelMovables.Where(X => X is Guest).Count())
+            if (HotelMovables.Where(X =>!(X is ElevatorCart) && X.Area is Reception).Count() == HotelMovables.Where(X => !(X is ElevatorCart)).Count())
             {
                 return true;
             }
@@ -109,6 +115,11 @@ namespace HotelSimulationTheLock
         public IArea GetArea(Point location)
         {
             return HotelAreas.Find(X => X.Position == location);
+        }
+
+        public IArea GetAreaByID(int ID)
+        {
+            return HotelAreas.Find(X => X.ID == ID);
         }
 
         public IArea GetArea(int request)
@@ -190,7 +201,7 @@ namespace HotelSimulationTheLock
             //this room needs to be casted to the guest
             return guestRoom;
         }
-        public void CallElevator(Guest guest)
+        public void CallElevator(IMovable guest)
         {
                 _elevatorCart.RequestElevator(guest, HotelHeight);
           //if(_elevatorCart.RequestList.Count < _elevatorCart.Capacity)

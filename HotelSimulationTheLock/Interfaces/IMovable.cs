@@ -42,11 +42,11 @@ namespace HotelSimulationTheLock
 
             UP,
             DOWN,
-            IDLE
+            IDLE,
 
 
 
-
+        CLEANING
     }
 
     public interface IMovable
@@ -63,7 +63,7 @@ namespace HotelSimulationTheLock
         Hotel Hotel { get; set; }
 
         void PerformAction();
-
+         IArea FinalDes { get; set; }
         void SetPath(IArea destination);
 
     }

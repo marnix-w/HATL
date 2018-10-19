@@ -36,6 +36,8 @@ namespace HotelSimulationTheLock
         List<IMovable> RemoveGuests = new List<IMovable>();
         public List<IMovable> RequestList { get; set; } = new List<IMovable>();
         public List<IMovable> GuestList { get; set; } = new List<IMovable>();
+        public IArea FinalDes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
 
         //'U' for UP, 'D' for DOWN, 'I' for IDLE
 
@@ -63,7 +65,7 @@ namespace HotelSimulationTheLock
             RemoveGuests.Clear();
             for (int i = 0; i < GuestList.Count; i++)
             {
-                if (GuestList[i] is Guest g)
+                if (GuestList[i] is IMovable g)
                 {
                     if (Position.Y == g.FinalDes.Position.Y)
                     {
@@ -141,7 +143,7 @@ namespace HotelSimulationTheLock
                 //do nothing
                 Status = MovableStatus.IDLE;
             }
-            foreach (Guest human in GuestList)
+            foreach (IMovable human in GuestList)
             {
                 human.Position = Position;
             }
@@ -169,7 +171,7 @@ namespace HotelSimulationTheLock
 
         }
 
-        public void RequestElevator(Guest RequestFloor, int height)
+        public void RequestElevator(IMovable RequestFloor, int height)
         {
             //Extra Check
             //Check for Current floor
@@ -198,7 +200,7 @@ namespace HotelSimulationTheLock
 
             for (int i = 0; i < RequestList.Count; i++)
             {
-                if(RequestList[i] is Guest g)
+                if(RequestList[i] is IMovable g)
                 {
                     if (g.Position.Y == Position.Y)
                     {
@@ -229,7 +231,7 @@ namespace HotelSimulationTheLock
             }
             for (int i = 0; i < RemoveGuests.Count; i++)
             {
-                if (RemoveGuests[i] is Guest g)
+                if (RemoveGuests[i] is IMovable g)
                 {
                     RequestList.Remove(RemoveGuests[i]);
                 }
