@@ -24,14 +24,7 @@ namespace HotelSimulationTheLock_UnitTests
 
             for (int i = 0; i < 9; i++)
             {
-                if (i == 3)
-                {
-                    l.Add(new Elevator() { ID = i, Position = new Point(8, 8)});
-                    continue;
-                        
-                }
-
-                l.Add(new Room() { ID = i, Position = new Point(8,8)});
+                l.Add(new Room() { ID = i, Position = new Point(11,12)});
                 
             }
 
@@ -62,14 +55,11 @@ namespace HotelSimulationTheLock_UnitTests
             f.Add(l[3]);
             f.Add(l[8]);
 
-            IArea a = Dijkstra.IsElevatorCloser(l[7], l[8]);
-
             //assert
             Assert.AreEqual(f[0].ID, g[0].ID);
             Assert.AreEqual(f[1].ID, g[1].ID);
             Assert.AreEqual(f[2].ID, g[2].ID);
             Assert.AreEqual(f[3].ID, g[3].ID);
-            Assert.AreNotEqual(l[0].ID, a.ID);
         }
     }
 

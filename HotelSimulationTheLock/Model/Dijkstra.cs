@@ -133,44 +133,6 @@ namespace HotelSimulationTheLock
             }
             while (toVisit.Any());
         }
-
-        public static bool DoesPathExistFunction(IArea from, IArea to)
-        {
-
-            List<IArea> visited = new List<IArea>();
-
-            if (from.Edge.ContainsKey(to))
-            {
-                return true;
-            }
-
-            Queue<IArea> queue = new Queue<IArea>();
-            queue.Enqueue(from);
-
-            while (queue.Count > 0)
-            {
-                IArea Current = queue.Dequeue();
-
-                if (visited.Contains(Current))
-                    continue;
-
-                visited.Add(Current);
-
-                foreach (IArea neighbor in Current.Edge.Keys)
-                {
-                    if (!visited.Contains(neighbor))
-                    {
-                        queue.Enqueue(neighbor);
-                    }
-                    if (neighbor.Equals(to))
-                    {
-                        return true;
-                    }
-                }
-
-            }
-
-            return false;
-        }
+        
     }
 }
