@@ -213,7 +213,15 @@ namespace HotelSimulationTheLock
                             Down.Add(g.FinalDes.Position.Y);
                             UpdateList();
                         }
-                        GuestList[i].Status = MovableStatus.IN_ELEVATOR;
+                            try
+                            {
+                                GuestList[i].Status = MovableStatus.IN_ELEVATOR;
+                            }
+                            catch (System.IndexOutOfRangeException)
+                            {
+
+                            }
+                        
                         RemoveGuests.Add(GuestList[i]);
                     }
                 }

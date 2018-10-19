@@ -158,7 +158,7 @@ namespace HotelSimulationTheLock
                 movables.Add(new Maid(new Point(4, HotelHeight)));
             }
 
-            movables.Add(new ElevatorCart(new Point(0, 1), hotel, settings.ElevatorCapicity));
+            movables.Add(new ElevatorCart(new Point(0, HotelHeight), hotel, settings.ElevatorCapicity));
 
             movables.Add(new Receptionist(new Point(1, HotelHeight), hotel));
 
