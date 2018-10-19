@@ -93,18 +93,13 @@ namespace HotelSimulationTheLock_UnitTests
             Assert.AreEqual(m.Status, MovableStatus.GOING_TO_ROOM);
         }
 
+        [TestMethod]
         public void Evacuate()
         {
             Maid m = new Maid(new Point(0, 4), Hotel());
-
-            Dictionary<string, string> t = new Dictionary<string, string>();
             
-            m.Status = MovableStatus.IDLE;
-
             m.Notify(new HotelEvent() { EventType = HotelEventType.EVACUATE });
             
-            m.PerformAction();
-
             Assert.AreEqual(m.Status, MovableStatus.EVACUATING);
         }
     }
