@@ -39,8 +39,8 @@ namespace HotelSimulationTheLock
 
 
         //'U' for UP, 'D' for DOWN, 'I' for IDLE
-        private List<int> Up = new List<int>();
-        private List<int> Down = new List<int>();
+        public List<int> Up = new List<int>();
+        public List<int> Down = new List<int>();
 
         public ElevatorCart(Point position, Hotel hotel, int capacity)
         {
