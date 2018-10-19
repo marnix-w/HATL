@@ -21,7 +21,7 @@ namespace HotelSimulationTheLock_UnitTests
             IMovable Barbra;
 
             //act
-            Barbra = new Maid(new System.Drawing.Point(0, 0));
+            Barbra = new Maid(new System.Drawing.Point(0, 0), null);
 
             //assert
             Assert.IsInstanceOfType(Barbra, typeof(Maid));
