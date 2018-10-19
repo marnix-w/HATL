@@ -48,8 +48,7 @@ namespace HotelSimulationTheLock
             if (evt.EventType.Equals(HotelEventType.START_CINEMA))
             {
                 AreaStatus = AreaStatus.PLAYING_MOVIE;
-                Art = Properties.Resources.cinem_playinga;
-                Console.WriteLine("CINEMA IS STARTING");
+                Art = Properties.Resources.cinem_playinga;                
             }
         }
 
@@ -59,14 +58,6 @@ namespace HotelSimulationTheLock
             Position = position;
             Dimension = dimension;         
         }
-
-        public bool EnterArea()
-        {
-            if (Capacity == MovablesInCinema.Count)
-            {
-                return false;
-            }
-            return true;
-        }
+        
     }
 }

@@ -71,9 +71,7 @@ namespace HotelSimulationTheLock
             }
         }
 
-        public bool MoveToArea()
-        {
-            return true;
-        }
+        
+
     }
 }

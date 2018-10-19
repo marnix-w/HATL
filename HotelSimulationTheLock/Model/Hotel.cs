@@ -29,6 +29,11 @@ namespace HotelSimulationTheLock
 
         private ElevatorCart _elevatorCart { get; set; }
 
+        public Hotel()
+        {
+
+        }
+
         public Hotel(List<JsonModel> layout, SettingsModel settings)
         {
             // Hotel will handle the CheckIn_events so it can add them to its list
