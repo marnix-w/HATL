@@ -15,6 +15,7 @@ namespace HotelSimulationTheLock
         EMPTY,
         OCCUPIED,
         NEED_CLEANING,
+        IN_CLEANING_QUEUE,
         PLAYING_MOVIE
         //Etc
     }
