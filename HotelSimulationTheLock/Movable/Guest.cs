@@ -467,6 +467,7 @@ namespace HotelSimulationTheLock
             {
                 Move();
                 Status = MovableStatus.CHECKING_OUT;
+                MyRoom.AreaStatus = AreaStatus.NEED_CLEANING;
             }
 
             else if (!(Area is Reception))
