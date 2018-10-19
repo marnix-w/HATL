@@ -146,6 +146,10 @@ namespace HotelSimulationTheLock
         /// <returns>The coresponding IArea if none found, null</returns>
         public IArea GetArea(Type type)
         {
+            if (!(HotelAreas.Any()))
+            {
+                return null;
+            }
             return HotelAreas.Find(X => X.GetType() == type);
         }
 
