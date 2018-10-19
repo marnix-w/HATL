@@ -179,19 +179,19 @@ namespace HotelSimulationTheLock
         }
 
         // end get room
-        public IArea GetNewLocation(IArea blabla, Type fuck)
+        public IArea GetNewLocation(IArea CurrentArea, Type newArea)
         {
 
             List<IArea> CurrentShortest = HotelAreas;
 
             IArea guestRoom = null;
 
-            foreach (IArea area in HotelAreas.Where(X => X.GetType() == fuck))
+            foreach (IArea area in HotelAreas.Where(X => X.GetType() == newArea))
             {
-                if (Dijkstra.GetShortestPathDijkstra(blabla, area).Count < CurrentShortest.Count)
+                if (Dijkstra.GetShortestPathDijkstra(CurrentArea, area).Count < CurrentShortest.Count)
                 {
 
-                    CurrentShortest = Dijkstra.GetShortestPathDijkstra(blabla, area);
+                    CurrentShortest = Dijkstra.GetShortestPathDijkstra(CurrentArea, area);
                     guestRoom = area;
                 }
             }
