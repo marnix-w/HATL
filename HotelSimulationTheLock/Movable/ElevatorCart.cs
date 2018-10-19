@@ -30,7 +30,7 @@ namespace HotelSimulationTheLock
 
 
         public Queue<IArea> Path { get; set; }
-      
+
 
         //volgens david
         List<IMovable> RemoveGuests = new List<IMovable>();
@@ -38,13 +38,8 @@ namespace HotelSimulationTheLock
         public List<IMovable> GuestList { get; set; } = new List<IMovable>();
 
         //'U' for UP, 'D' for DOWN, 'I' for IDLE
-
-
-
         private List<int> Up = new List<int>();
         private List<int> Down = new List<int>();
-
-
 
         public ElevatorCart(Point position, Hotel hotel, int capacity)
         {
@@ -69,6 +64,7 @@ namespace HotelSimulationTheLock
         public void PerformAction()
 >>>>>>> hotel-team
         {
+            //We wanted to use a foreach loop but because
             RemoveGuests.Clear();
             for (int i = 0; i < GuestList.Count; i++)
             {
@@ -97,6 +93,7 @@ namespace HotelSimulationTheLock
             }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         /// <summary>
         /// Performs the relevant action by looking at the status
         /// </summary>
@@ -108,54 +105,19 @@ namespace HotelSimulationTheLock
 
             //if (Up.Count != 0 || Down.Count != 0)
             //{
+=======
+>>>>>>> hotel-team
             if (Status == MovableStatus.UP)
             {
-                if (Up.Count == 0 && Down.Count != 0)
-                {
-                    this.Status = MovableStatus.DOWN;
-                    PerformAction();
-                }
-                else
-                {
-                    Position = new Point(Position.X, Position.Y - 1);
-                    Area = Hotel.GetArea(Position);
-
-                    for (int i = 0; i < Up.Count; i++)
-                    {
-                        if (Up[i] == Position.Y)
-                        {
-                            Up.RemoveAt(i);
-                            break;
-                        }
-                    }
-                }
+                _elevatorGoesUp();
             }
             else if (Status == MovableStatus.DOWN && Position.Y < Hotel.HotelHeight)
             {
 
-                if (Up.Count != 0 && Down.Count == 0)
-                {
-                    this.Status = MovableStatus.UP;
-                    PerformAction();
-                }
-                else
-                {
-                    Position = new Point(Position.X, Position.Y + 1);
-                    Area = Hotel.GetArea(Position);
-
-                    for (int i = 0; i < Down.Count; i++)
-                    {
-                        if (Down[i] == Position.Y)
-                        {
-                            Down.RemoveAt(i);
-                            break;
-                        }
-                    }
-                }
+                _elevatorGoesDown();
             }
             else
             {
-                //do nothing
                 Status = MovableStatus.IDLE;
             }
             foreach (Guest human in GuestList)
@@ -173,19 +135,12 @@ namespace HotelSimulationTheLock
 
             if (Status == MovableStatus.IDLE)
             {
-                if (Up.Count > Down.Count)
-                {
-                    Status = MovableStatus.UP;
-                }
-                else
-                {
-                    Status = MovableStatus.DOWN;
-                }
+                _ElevatorDoesNothing();
             }
 
-
-
         }
+
+
 
         public void RequestElevator(Guest RequestFloor, int height)
         {
@@ -210,18 +165,77 @@ namespace HotelSimulationTheLock
             }
 
         }
+        private void _elevatorGoesUp()
+        {
+            if (Up.Count == 0 && Down.Count != 0)
+            {
+                this.Status = MovableStatus.DOWN;
+                PerformAction();
+            }
+            else
+            {
+                Position = new Point(Position.X, Position.Y - 1);
+                Area = Hotel.GetArea(Position);
 
+                for (int i = 0; i < Up.Count; i++)
+                {
+                    if (Up[i] == Position.Y)
+                    {
+                        Up.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void _elevatorGoesDown()
+        {
+            if (Up.Count != 0 && Down.Count == 0)
+            {
+                this.Status = MovableStatus.UP;
+                PerformAction();
+            }
+            else
+            {
+                Position = new Point(Position.X, Position.Y + 1);
+                Area = Hotel.GetArea(Position);
+
+                for (int i = 0; i < Down.Count; i++)
+                {
+                    if (Down[i] == Position.Y)
+                    {
+                        Down.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+        }
+
+<<<<<<< HEAD
 <<<<<<< HEAD
 
         private void goingDOwn()
 =======
+=======
+        private void _ElevatorDoesNothing()
+        {
+            if (Up.Count > Down.Count)
+            {
+                Status = MovableStatus.UP;
+            }
+            else
+            {
+                Status = MovableStatus.DOWN;
+            }
+        }
+>>>>>>> hotel-team
         public void AddDestinationFloor()
 >>>>>>> hotel-team
         {
 
             for (int i = 0; i < RequestList.Count; i++)
             {
-                if(RequestList[i] is Guest g)
+                if (RequestList[i] is Guest g)
                 {
                     if (g.Position.Y == Position.Y)
                     {
@@ -236,19 +250,19 @@ namespace HotelSimulationTheLock
                             Down.Add(g.FinalDes.Position.Y);
                             UpdateList();
                         }
-                            try
-                            {
-                                GuestList[i].Status = MovableStatus.IN_ELEVATOR;
-                                RemoveGuests.Add(GuestList[i]);
-                            }
-                            catch (Exception)
-                            {
+                        try
+                        {
+                            GuestList[i].Status = MovableStatus.IN_ELEVATOR;
+                            RemoveGuests.Add(GuestList[i]);
+                        }
+                        catch (Exception)
+                        {
 
-                            }
-                        
+                        }
+
                     }
                 }
-               
+
             }
             for (int i = 0; i < RemoveGuests.Count; i++)
             {
