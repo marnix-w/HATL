@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestClasses\AreaFactoyTests.cs" />
+    <Compile Include="TestClasses\GuestTests.cs" />
     <Compile Include="TestClasses\HotelClassTest.cs" />
     <Compile Include="TestClasses\AreaTests.cs" />
     <Compile Include="TestClasses\DijkstraTests.cs" />

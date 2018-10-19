@@ -62,6 +62,25 @@ namespace HotelSimulationTheLock_UnitTests
             Assert.AreEqual(l[7].ID, 5);
         }
 
+        [TestMethod]
+        public void TestEnterReception()
+        {
+            // arrange
+            Reception c = new Reception();
+
+            // act
+            IMovable d = new Receptionist();
+
+
+            c.CheckInQueue.Enqueue(d);
+        
+            bool a = c.EnterArea(d);
+
+
+            // assert
+            Assert.IsTrue(a);
+   
+        }
 
 
     }

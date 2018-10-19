@@ -21,6 +21,11 @@ namespace HotelSimulationTheLock
         public Hotel Hotel { get; set; }
         public IArea FinalDes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
+        public Receptionist()
+        {
+
+        }
+
         public Receptionist(Point position, Hotel hotel)
         {
             Position = position;

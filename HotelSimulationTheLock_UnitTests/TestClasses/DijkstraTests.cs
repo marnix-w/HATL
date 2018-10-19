@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HotelSimulationTheLock_UnitTests
 {
     [TestClass]
-    public class DirectedGraphTests
+    public class DijkstraTests
     {                       
         [TestMethod]
         public void TestDijkstraPathfinding()
@@ -60,6 +60,38 @@ namespace HotelSimulationTheLock_UnitTests
             Assert.AreEqual(f[1].ID, g[1].ID);
             Assert.AreEqual(f[2].ID, g[2].ID);
             Assert.AreEqual(f[3].ID, g[3].ID);
+        }
+
+        [TestMethod]
+        public void TestIfElevatorIsCloser()
+        {
+            SettingsModel g = new SettingsModel()
+            {
+                AmountOfMaids = 3,
+                ElevatorDuration = 3,
+                ElevatorCapicity = 3,
+                HTEPerSeconds = 3,
+                StairsDuration = 3,
+                CinemaDuration = 3,
+                RestaurantCapicity = 3,
+                RestaurantDuration = 3,
+                EatingDuration = 3,
+                FitnessCapicity = 3,
+            };
+
+            Hotel hotel = new Hotel(null, g, new StubedHotelBuilder());
+
+            IMovable t = new Receptionist(new Point(2,4), hotel);
+
+            IArea a = Dijkstra.IsElevatorCloser(t.Area, hotel.GetAreaByID(21));
+
+            Assert.AreEqual(a.GetType(), typeof(Elevator));
+
+            IMovable p = new Receptionist(new Point(8, 4), hotel);
+
+            IArea q = Dijkstra.IsElevatorCloser(p.Area, hotel.GetAreaByID(21));
+
+            Assert.AreNotEqual(g.GetType(), typeof(Elevator));
         }
     }
 

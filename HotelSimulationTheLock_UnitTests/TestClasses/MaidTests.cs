@@ -5,6 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using HotelEvents;
 using System.Drawing;
+using System.Linq;
 
 namespace HotelSimulationTheLock_UnitTests
 {
@@ -101,6 +102,85 @@ namespace HotelSimulationTheLock_UnitTests
             m.Notify(new HotelEvent() { EventType = HotelEventType.EVACUATE });
             
             Assert.AreEqual(m.Status, MovableStatus.EVACUATING);
+        }
+
+        [TestMethod]
+        public void LeavingElevator()
+        {
+            Maid m = new Maid(new Point(1, 4), Hotel());
+
+            m.Area = m.Hotel.GetArea(new Point(0, 4));
+
+            m.Status = MovableStatus.LEAVING_ELEVATOR;
+            m.LastStatus = MovableStatus.EVACUATING;
+
+            m.PerformAction();
+
+            Assert.AreEqual(MovableStatus.EVACUATING, m.Status);
+
+        }
+
+        [TestMethod]
+        public void CallElevator()
+        {
+            Maid m = new Maid(new Point(0, 4), Hotel());
+
+            m.Area = m.Hotel.GetArea(new Point(0, 4));
+            m.FinalDes = m.Hotel.GetAreaByID(13);
+
+            m.Status = MovableStatus.ELEVATOR_REQUEST;
+
+            m.WantsElevator = true;
+
+            m.PerformAction();
+
+            Assert.AreEqual(MovableStatus.WAITING_FOR_ELEVATOR, m.Status);
+
+        }
+
+        [TestMethod]
+        public void evacuateMethod()
+        {
+            Maid m = new Maid(new Point(0, 4), Hotel());
+
+            m.Area = m.Hotel.GetArea(new Point(0, 4));
+
+            m.Status = MovableStatus.EVACUATING;
+
+            m.PerformAction();
+
+            Assert.AreEqual(m.Hotel.GetAreaByID(9), m.Path.Last());
+
+        }
+
+        [TestMethod]
+        public void GoToROom()
+        {
+            Maid m = new Maid(new Point(3, 2), Hotel());
+
+            m.Area = m.Hotel.GetArea(new Point(3, 2));
+            m.FinalDes = m.Hotel.GetAreaByID(13);
+
+            m.SetPath(m.FinalDes);
+
+            Assert.AreEqual(m.Path.Last(), m.Hotel.GetAreaByID(13));
+
+        }
+
+        [TestMethod]
+        public void CheckIdle()
+        {
+            Maid m = new Maid(new Point(1, 4), Hotel());
+
+            m.Area = m.Hotel.GetArea(new Point(1, 4));
+
+            m.Status = MovableStatus.WAITING_FOR_ELEVATOR;
+            m.LastStatus = MovableStatus.EVACUATING;
+
+            m.PerformAction();
+
+            Assert.AreEqual(MovableStatus.EVACUATING, m.Status);
+
         }
     }
 }

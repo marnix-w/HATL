@@ -23,7 +23,7 @@ namespace HotelSimulationTheLock
         public int RoomRequest { get; set; }
 
         private bool Registerd { get; set; } = false;
-        private bool WantsElevator { get; set; }
+        public bool WantsElevator { get; set; }
 
         // Iarea information
         #region
@@ -42,7 +42,7 @@ namespace HotelSimulationTheLock
         #endregion
 
 
-        public Queue<IArea> Path { get; set; }
+        public Queue<IArea> Path { get; set; } = new Queue<IArea>();
 
         /// <summary>
         /// A list of statuses paired with the coresponding action
@@ -103,14 +103,19 @@ namespace HotelSimulationTheLock
             
         }
 
+        private void EvacuateSequence()
+        {
+            SetPath(Hotel.GetArea(typeof(Reception)));
+            FinalDes = Hotel.GetArea(typeof(Reception));
+            Status = MovableStatus.EVACUATING;
+            LastStatus = MovableStatus.EVACUATING;
+        }
+
         private void Idle()
         {
             if (Status == MovableStatus.EVACUATING || LastStatus == MovableStatus.EVACUATING)
             {
-                SetPath(Hotel.GetArea(typeof(Reception)));
-                FinalDes = Hotel.GetArea(typeof(Reception));
-                Status = MovableStatus.EVACUATING;
-                LastStatus = MovableStatus.EVACUATING;
+                EvacuateSequence();
                 return;
             }
         }
@@ -119,15 +124,10 @@ namespace HotelSimulationTheLock
         {
             if (Status == MovableStatus.EVACUATING || LastStatus == MovableStatus.EVACUATING)
             {
-                SetPath(Hotel.GetArea(typeof(Reception)));
-                FinalDes = Hotel.GetArea(typeof(Reception));
-                Status = MovableStatus.EVACUATING;
-                LastStatus = MovableStatus.EVACUATING;
+                EvacuateSequence();
                 return;
             }
-
-            SetPath(FinalDes);
-
+            
             Path = new Queue<IArea>(Dijkstra.GetShortestPathDijkstra(Area, FinalDes));
             Status = LastStatus;
 
@@ -480,10 +480,7 @@ namespace HotelSimulationTheLock
         {
             if (Status == MovableStatus.EVACUATING || LastStatus == MovableStatus.EVACUATING)
             {
-                SetPath(Hotel.GetArea(typeof(Reception)));
-                FinalDes = Hotel.GetArea(typeof(Reception));
-                Status = MovableStatus.EVACUATING;
-                LastStatus = MovableStatus.EVACUATING;
+                EvacuateSequence();
                 return;
             }
 
