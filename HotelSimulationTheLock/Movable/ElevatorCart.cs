@@ -30,6 +30,20 @@ namespace HotelSimulationTheLock
 
 
         public Queue<IArea> Path { get; set; }
+      
+
+        //volgens david
+        List<IMovable> RemoveGuests = new List<IMovable>();
+        public List<IMovable> RequestList { get; set; } = new List<IMovable>();
+        public List<IMovable> GuestList { get; set; } = new List<IMovable>();
+
+        //'U' for UP, 'D' for DOWN, 'I' for IDLE
+
+
+
+        private List<int> Up = new List<int>();
+        private List<int> Down = new List<int>();
+
 
 
         public ElevatorCart(Point position, Hotel hotel, int capacity)
@@ -44,30 +58,211 @@ namespace HotelSimulationTheLock
             ((Elevator)Area).ElevatorCart = this;
         }
 
+<<<<<<< HEAD
         /// <summary>
         /// Let's an IMovable enter the elevator if the elevator's capacity allows it
         /// </summary>
         /// <param name="movable">The IMovable that wants to enter the elevator</param>
         /// <param name="req">The floor the IMovable wants to go to</param>
         public void EnterElevator(IMovable movable, int req)
+=======
+        public void PerformAction()
+>>>>>>> hotel-team
         {
-            if (InElevator.Count < Capacity)
+            RemoveGuests.Clear();
+            for (int i = 0; i < GuestList.Count; i++)
             {
-                movable.Status = MovableStatus.IN_ELEVATOR;
-                InElevator.Add(movable, req);
+                if (GuestList[i] is Guest g)
+                {
+                    if (Position.Y == g.FinalDes.Position.Y)
+                    {
+                        g.Status = MovableStatus.LEAVING_ELEVATOR;
+                        g.Area = Hotel.GetArea(Position);
+                        RemoveGuests.Add(GuestList[i]);
+                    }
+                }
             }
-        }
+            for (int i = 0; i < RemoveGuests.Count; i++)
+            {
+                GuestList.Remove(RemoveGuests[i]);
+            }
+            RemoveGuests.Clear();
+            if (Down.Count != 0 && Down[0] == Position.Y)
+            {
+                Down.RemoveAt(0);
+            }
+            if (Up.Count != 0 && Up[0] == Position.Y)
+            {
+                Up.RemoveAt(0);
+            }
 
+<<<<<<< HEAD
         /// <summary>
         /// Performs the relevant action by looking at the status
         /// </summary>
         public void PerformAction()
         {
             if (Status == MovableStatus.NOONE_INSIDE)
+=======
+
+
+            //if (Up.Count != 0 || Down.Count != 0)
+            //{
+            if (Status == MovableStatus.UP)
             {
-                goingDOwn();
-                Console.WriteLine("ER IS NIEMAND BINNEN");
+                if (Up.Count == 0 && Down.Count != 0)
+                {
+                    this.Status = MovableStatus.DOWN;
+                    PerformAction();
+                }
+                else
+                {
+                    Position = new Point(Position.X, Position.Y - 1);
+                    Area = Hotel.GetArea(Position);
+
+                    for (int i = 0; i < Up.Count; i++)
+                    {
+                        if (Up[i] == Position.Y)
+                        {
+                            Up.RemoveAt(i);
+                            break;
+                        }
+                    }
+                }
             }
+            else if (Status == MovableStatus.DOWN && Position.Y < Hotel.HotelHeight)
+            {
+
+                if (Up.Count != 0 && Down.Count == 0)
+                {
+                    this.Status = MovableStatus.UP;
+                    PerformAction();
+                }
+                else
+                {
+                    Position = new Point(Position.X, Position.Y + 1);
+                    Area = Hotel.GetArea(Position);
+
+                    for (int i = 0; i < Down.Count; i++)
+                    {
+                        if (Down[i] == Position.Y)
+                        {
+                            Down.RemoveAt(i);
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //do nothing
+                Status = MovableStatus.IDLE;
+            }
+            foreach (Guest human in GuestList)
+            {
+                human.Position = Position;
+            }
+            AddDestinationFloor();
+            //}
+
+            if (Up.Count == 0 && Down.Count == 0)
+>>>>>>> hotel-team
+            {
+                Status = MovableStatus.IDLE;
+            }
+
+            if (Status == MovableStatus.IDLE)
+            {
+                if (Up.Count > Down.Count)
+                {
+                    Status = MovableStatus.UP;
+                }
+                else
+                {
+                    Status = MovableStatus.DOWN;
+                }
+            }
+
+
+
+        }
+
+        public void RequestElevator(Guest RequestFloor, int height)
+        {
+            //Extra Check
+            //Check for Current floor
+
+            if (RequestFloor.FinalDes.Position.Y <= height && RequestFloor.FinalDes.Position.Y >= 0)
+            {
+                RequestList.Add(RequestFloor);
+                //Goes UP
+                if (RequestFloor.Position.Y < Position.Y)
+                {
+                    Up.Add(RequestFloor.Position.Y);
+                    UpdateList();
+                }
+                //Goes DOWN
+                else
+                {
+                    Down.Add(RequestFloor.Position.Y);
+                    UpdateList();
+                }
+            }
+
+        }
+
+<<<<<<< HEAD
+
+        private void goingDOwn()
+=======
+        public void AddDestinationFloor()
+>>>>>>> hotel-team
+        {
+
+            for (int i = 0; i < RequestList.Count; i++)
+            {
+                if(RequestList[i] is Guest g)
+                {
+                    if (g.Position.Y == Position.Y)
+                    {
+                        GuestList.Add(RequestList[i]);
+                        if (g.FinalDes.Position.Y < Position.Y)
+                        {
+                            Up.Add(g.FinalDes.Position.Y);
+                            UpdateList();
+                        }
+                        else
+                        {
+                            Down.Add(g.FinalDes.Position.Y);
+                            UpdateList();
+                        }
+                            try
+                            {
+                                GuestList[i].Status = MovableStatus.IN_ELEVATOR;
+                                RemoveGuests.Add(GuestList[i]);
+                            }
+                            catch (Exception)
+                            {
+
+                            }
+                        
+                    }
+                }
+               
+            }
+            for (int i = 0; i < RemoveGuests.Count; i++)
+            {
+                if (RemoveGuests[i] is Guest g)
+                {
+                    RequestList.Remove(RemoveGuests[i]);
+                }
+            }
+        }
+
+        private void UpdateList()
+        {
+            Up = Up.Distinct().OrderByDescending(x => x).ToList();
+            Down = Down.Distinct().OrderBy(x => x).ToList();
         }
 
         public void SetPath(IArea destination)
@@ -76,17 +271,5 @@ namespace HotelSimulationTheLock
         }
 
 
-        private void goingDOwn()
-        {
-            if(Position.Y == Hotel.HotelHeight)
-            {                
-                Console.WriteLine("beneden verdieping");
-            }
-            else
-            {
-                Position = new Point(Position.X, Position.Y + 1);
-            }
-          
-        }
     }
 }

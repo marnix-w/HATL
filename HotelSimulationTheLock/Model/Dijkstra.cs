@@ -37,15 +37,49 @@ namespace HotelSimulationTheLock
 
         public static IArea IsElevatorCloser(IArea from, IArea to)
         {
-            IArea ev = Areas.Find(X => X.Position.Y == from.Position.Y && X is Elevator);
+            Elevator ev = (Elevator)Areas.Find(X => X.Position.Y == from.Position.Y && X is Elevator);
 
-            if (GetShortestPathDijkstra(from, to).Count > GetShortestPathDijkstra(from, ev).Count)
+            if (ev.Position.Y == to.Position.Y)
             {
-                Console.WriteLine("van huidige positie naar kamer kost " + GetShortestPathDijkstra(from, to).Count + " \t van huidgie postie naar lift kost: " + GetShortestPathDijkstra(from, ev).Count);
+                return to;
+            }
+
+            int dictanceWithStairs = 0;
+            int dictanceWithElevator = 0;
+
+            
+            dictanceWithStairs += GetShortestPathDijkstra(from, to).Count - 1;
+            
+            dictanceWithElevator += GetShortestPathDijkstra(from, ev).Count - 1;
+
+            // This takes the best case cenerio to make the decision to go with the lift
+            // a re evaluation will be made when the movable is at the elevator 
+            if (ev.Position.Y > to.Position.Y)
+            {
+                dictanceWithElevator += ev.Position.Y - to.Position.Y;
+            }
+            else
+            {
+                dictanceWithElevator += to.Position.Y - ev.Position.Y;
+            }
+            
+            // Adding the dictance it has to walk from elevator to room
+            dictanceWithElevator += GetShortestPathDijkstra((Elevator)Areas.Find(X => X.Position.Y == to.Position.Y && X is Elevator), to).Count() - 1;
+           
+            // Movables will favor the elevator over the stairs if the dictance is the same
+            if (dictanceWithStairs >= dictanceWithElevator)
+            {
                 return ev;
             }
 
             return to;
+        }
+
+        public static IArea CouldTheElevatorBeFaster(IArea from, IArea to)
+        {
+            
+
+            return null;
         }
 
         private static void BuildShortestPath(List<IArea> list, IArea node)
