@@ -29,6 +29,7 @@ namespace HotelSimulationTheLock
             Bitmap buffer = new Bitmap((HotelWidth + 1) * artSize, (HotelHeight) * artSize);
 
             // Drawing Layer 1
+            #region
             // Layer 1 is and static image with all hallway images
             // This creates the emergance that its a real hotel
             using (Graphics graphics = Graphics.FromImage(buffer))
@@ -47,9 +48,11 @@ namespace HotelSimulationTheLock
                     }
                 }
             }
+            #endregion
 
             // Drawing Layer 2
-
+            #region
+            // Drawing all the areas in the hotel over the hallways to create the rooms
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
                 lock (areas)
@@ -66,21 +69,29 @@ namespace HotelSimulationTheLock
 
                 }
             }
-            
+            #endregion
+
+            // Drawing Layer 3
+            #region
+            // Drawing all the movables on top of the hotel
             using (Graphics graphics = Graphics.FromImage(buffer))
-            {
-                // Prevent opperation from coliding with eachother
+            {               
                 lock (movables)
                 {
                     try
                     {
+                        // making sure the elevator is drawn first so it wont colide with other movables
                         graphics.DrawImage(movables.Find(X => X is ElevatorCart).Art, movables.Find(X => X is ElevatorCart).Position.X * artSize,
                                        (movables.Find(X => X is ElevatorCart).Position.Y - 1) * artSize);
 
                         foreach (IMovable movable in movables.Where(X => !(X is ElevatorCart)))
                         {
-                            //if the moveable have the status IN_ROOM we don't draw them
-                            if (movable.Status != MovableStatus.IN_ROOM && movable.Status != MovableStatus.EATING && movable.Status != MovableStatus.WATCHING && movable.Status != MovableStatus.WORKING_OUT)
+                            // on a few occations guest wont be drawn
+                            // These will indicate that there in an room
+                            if (movable.Status != MovableStatus.IN_ROOM && 
+                                movable.Status != MovableStatus.EATING && 
+                                movable.Status != MovableStatus.WATCHING && 
+                                movable.Status != MovableStatus.WORKING_OUT)
                             {
                                 graphics.DrawImage(movable.Art,
                                        movable.Position.X * artSize,
@@ -89,7 +100,7 @@ namespace HotelSimulationTheLock
                             }
                         }
                     }
-                    catch (InvalidOperationException)
+                    catch (InvalidOperationException) // Somtimes this method crashes, we coudnt figure out why in the time we had
                     {
                         return buffer;
                     }
@@ -97,8 +108,9 @@ namespace HotelSimulationTheLock
 
                 }
             }
+            #endregion
 
-
+            // Returning the new frame
             return buffer;
         }
     }

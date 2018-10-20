@@ -8,22 +8,51 @@ using System.Threading.Tasks;
 
 namespace HotelSimulationTheLock
 {
+    /// <summary>
+    /// An hotel builder that works with the jsonmodel
+    /// </summary>
     public class JsonHotelBuilder : IHotelBuilder
     {
-        private List<IArea> HotelAreas { get; set; }
-
+        // Properties:
+        #region
+        /// <summary>
+        /// The areas that are build
+        /// </summary>
+        private List<IArea> HotelAreas { get; set; } = new List<IArea>();
+        /// <summary>
+        /// Hotel width that is used for building opperations
+        /// </summary>
         private int HotelWidth { get; set; }
+        /// <summary>
+        /// Hotel hieght that is used for building opperations
+        /// </summary>
         private int HotelHeight { get; set; }
+        #endregion
 
+        /// <summary>
+        /// Method used for testing testing the neighbor function
+        /// </summary>
+        /// <param name="from">Area from wich the edge goes</param>
+        /// <param name="to">Area to wich te edge arives</param>
+        /// <param name="weight">The weight thats added tot the edge</param>
         public static void AddDirectedEdge(IArea from, IArea to, int weight)
         {
             from.Edge.Add(to, weight);
         }
 
+        /// <summary>
+        /// Provide a generic file and an settings model
+        /// Truh these parameters create an list of Iareas
+        /// This method is also resposable for setting the neighbors
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="file">An file provding information to build an Iarea list</param>
+        /// <param name="settings">The settings model used for the simulation</param>
+        /// <returns></returns>
         public List<IArea> BuildHotel<T>(T file, SettingsModel settings)
         {
-            HotelAreas = new List<IArea>();
-
+            // Casting the file to a List<JsonModel>
+            #region
             List<JsonModel> jsonModel;
 
             if (file is List<JsonModel>)
@@ -33,13 +62,16 @@ namespace HotelSimulationTheLock
             else
             {
                 // the provided file is incorrect
+                // The error handeling is not fully implemented
                 return null;
             }
+            #endregion
 
             // Create a factory to make the rooms
             AreaFactory Factory = new AreaFactory();
 
             // Read out the json file and add rooms to the layout
+            #region
             foreach (JsonModel i in jsonModel)
             {
                 int classificationNum = 0;
@@ -56,16 +88,18 @@ namespace HotelSimulationTheLock
 
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X + 1;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y + 1;
+            #endregion
 
-            // Set elevator and staircase
+            // Set constant objects
+            #region
+            // Set Elevator and staircase
             for (int i = 1; i < HotelHeight + 1; i++)
-            {
-                // 5 is the capacity get from setting screen
+            {                
                 IArea elevator = Factory.GetArea("Elevator");
                 IArea staircase = Factory.GetArea("Staircase");
 
-                elevator.SetJsonValues(300, new Point(0, i), settings.ElevatorCapicity, new Size(1, 1), i);
-                staircase.SetJsonValues(400, new Point(HotelWidth, i), 5, new Size(1, 1), 0);
+                elevator.SetJsonValues(HotelAreas.Count() + 1, new Point(0, i), settings.ElevatorCapicity, new Size(1, 1), i);
+                staircase.SetJsonValues(HotelAreas.Count() + 1, new Point(HotelWidth, i), 5, new Size(1, 1), 0);
 
                 HotelAreas.Add(elevator);
                 HotelAreas.Add(staircase);
@@ -78,7 +112,7 @@ namespace HotelSimulationTheLock
                 {
                     IArea reception = Factory.GetArea("Reception");
 
-                    reception.SetJsonValues(500, new Point(1, HotelHeight), 5, new Size(1, 1), 1);
+                    reception.SetJsonValues(HotelAreas.Count() + 1, new Point(1, HotelHeight), 5, new Size(1, 1), 1);
 
                     HotelAreas.Add(reception);
                 }
@@ -86,11 +120,12 @@ namespace HotelSimulationTheLock
                 {
                     IArea Lobby = Factory.GetArea("Lobby");
 
-                    Lobby.SetJsonValues(600, new Point(i, HotelHeight), 5, new Size(1, 1), i);
+                    Lobby.SetJsonValues(HotelAreas.Count() + 1, new Point(i, HotelHeight), 5, new Size(1, 1), i);
 
                     HotelAreas.Add(Lobby);
                 }
             }
+            #endregion
 
             foreach (IArea area in HotelAreas)
             {
