@@ -6,7 +6,7 @@ namespace HotelSimulationTheLock
 {
     /// <summary>
     /// The status that a movable can have
-    /// based on their status the correct behavoir is chosen
+    /// based on their status the correct behavior is chosen
     /// </summary>
     public enum MovableStatus
     {        

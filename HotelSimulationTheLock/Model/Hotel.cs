@@ -46,11 +46,11 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// The hotel builder for this hotel
         /// </summary>
-        private IHotelBuilder HotelBuilder { get; set; }
+        private IHotelBuilder _hotelBuilder { get; set; }
         /// <summary>
         /// The hotel drawer for this hotel
         /// </summary>
-        private IHotelDrawer HotelDrawer { get; set; } = new HotelSimDrawer();
+        private IHotelDrawer _hotelDrawer { get; set; } = new HotelSimDrawer();
         #endregion
 
         #region Calculation properties
@@ -68,11 +68,11 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// A list of statistic from the movables
         /// </summary>
-        private List<string> ValueofMoveable { get; } = new List<string>();
+        private List<string> _listOfMoveables { get; } = new List<string>();
         /// <summary>
         /// A list of statistic from the areas
         /// </summary>
-        private List<string> ValueofIArea { get; } = new List<string>();
+        private List<string> _listOfFacillty { get; } = new List<string>();
         #endregion
 
         #region Other properties
@@ -105,11 +105,11 @@ namespace HotelSimulationTheLock
             // making it posible to keep the list private
             HotelEventManager.Register(this);
 
-            HotelBuilder = TypeOfBuilder;
+            _hotelBuilder = TypeOfBuilder;
 
             // Build the hotel
-            HotelAreas = HotelBuilder.BuildHotel(layout, settings);
-            HotelMovables = HotelBuilder.BuildMovable(settings, this);
+            HotelAreas = _hotelBuilder.BuildHotel(layout, settings);
+            HotelMovables = _hotelBuilder.BuildMovable(settings, this);
 
             // set calculation properties
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
@@ -182,7 +182,7 @@ namespace HotelSimulationTheLock
         /// <returns></returns>
         public Bitmap DrawMap()
         {
-            return HotelDrawer.DrawHotel(HotelAreas, HotelMovables);
+            return _hotelDrawer.DrawHotel(HotelAreas, HotelMovables);
         }
         #endregion
 
@@ -424,7 +424,7 @@ namespace HotelSimulationTheLock
         /// <returns></returns>
         public List<string> CurrentValue()
         {
-            ValueofMoveable.Clear();
+            _listOfMoveables.Clear();
 
             foreach (IMovable a in HotelMovables)
             {
@@ -432,50 +432,50 @@ namespace HotelSimulationTheLock
                 {
                     if (g.FinalDes != null)
                     {
-                        ValueofMoveable.Add(g.Name + " " + g.RoomRequest + "\t" + g.Status + "\t" + g.Position + "\n");
+                        _listOfMoveables.Add(g.Name + " " + g.RoomRequest + "\t" + g.Status + "\t" + g.Position + "\n");
                     }
                 }
                 if (a is Maid m)
                 {
-                    ValueofMoveable.Add("Maid" + " \t " + m.Status + " \t " + m.Position + "\n");
+                    _listOfMoveables.Add("Maid" + " \t " + m.Status + " \t " + m.Position + "\n");
                 }
 
                 if (a is ElevatorCart e)
                 {
-                    ValueofMoveable.Add("Elevator" + " \t " + e.Status + " \t " + e.Position + "\n");
+                    _listOfMoveables.Add("Elevator" + " \t " + e.Status + " \t " + e.Position + "\n");
                 }
             }
 
-            return ValueofMoveable;
+            return _listOfMoveables;
         }
 
         /// <summary>
-        /// Sets Area statics
+        /// Sets Area statics reading data out from the Facillity list
         /// </summary>
         /// <returns></returns>
         public List<string> CurrentValueIArea()
         {
-            ValueofIArea.Clear();
+            _listOfFacillty.Clear();
 
             foreach (IArea a in HotelAreas)
             {
                 if (a is Room r)
                 {
 
-                    ValueofIArea.Add("ID: " + r.ID + "\t " + r.GetType().ToString().Replace("HotelSimulationTheLock.", "") + r.Classification + " star \t" + r.AreaStatus + " \t" + r.Position + "\n");
+                    _listOfFacillty.Add("ID: " + r.ID + "\t " + r.GetType().ToString().Replace("HotelSimulationTheLock.", "") + r.Classification + " star \t" + r.AreaStatus + " \t" + r.Position + "\n");
 
                 }
 
                 if (a is Fitness || a is Restaurant || a is Reception || a is Cinema)
                 {
-                    ValueofIArea.Add("ID: " + a.ID + "\t " + a.GetType().ToString().Replace("HotelSimulationTheLock.", "") + " \t" + a.Capacity + " \t" + a.Position + "\n");
+                    _listOfFacillty.Add("ID: " + a.ID + "\t " + a.GetType().ToString().Replace("HotelSimulationTheLock.", "") + " \t" + a.Capacity + " \t" + a.Position + "\n");
 
 
                 }
 
             }
 
-            return ValueofIArea;
+            return _listOfFacillty;
         }
         #endregion
     }
