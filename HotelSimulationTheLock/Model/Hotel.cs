@@ -10,7 +10,7 @@ namespace HotelSimulationTheLock
     /// <summary>
     /// The simulation object that handels the main opperations
     /// </summary>
-    public class Hotel : IListner
+    public class Hotel : IListener
     {    
         // Properties
 

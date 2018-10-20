@@ -9,7 +9,7 @@ namespace HotelSimulationTheLock
     /// <summary>
     /// The main movable of the simulation
     /// </summary>
-    public class Guest : IMovable, IListner
+    public class Guest : IMovable, IListener
     {
         #region Properties
         /// <summary>
