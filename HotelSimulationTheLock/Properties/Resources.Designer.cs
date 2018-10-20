@@ -63,16 +63,6 @@ namespace HotelSimulationTheLock.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap background_lich_king {
-            get {
-                object obj = ResourceManager.GetObject("background_lich_king", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap cinem_playinga {
             get {
                 object obj = ResourceManager.GetObject("cinem_playinga", resourceCulture);
@@ -96,16 +86,6 @@ namespace HotelSimulationTheLock.Properties {
         internal static System.Drawing.Bitmap cleaning_emargance {
             get {
                 object obj = ResourceManager.GetObject("cleaning_emargance", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap concept_hotel {
-            get {
-                object obj = ResourceManager.GetObject("concept_hotel", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -196,16 +176,6 @@ namespace HotelSimulationTheLock.Properties {
         internal static System.Drawing.Bitmap maid {
             get {
                 object obj = ResourceManager.GetObject("maid", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap options_background {
-            get {
-                object obj = ResourceManager.GetObject("options_background", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

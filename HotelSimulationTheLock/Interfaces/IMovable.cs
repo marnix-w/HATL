@@ -1,66 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace HotelSimulationTheLock
 {
-
+    /// <summary>
+    /// The status that a movable can have
+    /// based on their status the correct behavoir is chosen
+    /// </summary>
     public enum MovableStatus
-    {
-        // implemented
+    {        
         CHEKING_IN,
         IN_ROOM,
         GOING_TO_ROOM,
         LEAVING,
         GET_FOOD,
         IN_ELEVATOR,
-
-
-        // To implement
         EATING,
         WORKING_OUT,
         EVACUATING,
-
-        //added
         WATCHING,
         GOING_TO_CINEMA,
         GOING_TO_FITNESS,
         CHECKING_OUT,
         WAITING_TO_START,
-
-        //elvator
         NOONE_INSIDE,
         ELEVATOR_REQUEST,
         LEAVING_ELEVATOR,
         WAITING_FOR_ELEVATOR,
-
         UP,
         DOWN,
         IDLE,
-
         CLEANING
     }
 
+    /// <summary>
+    /// The movable items inside of the hotel
+    /// </summary>
     public interface IMovable
     {
-        // area status
+        #region Movable properties
+        /// <summary>
+        /// The Movable its current position
+        /// </summary>
         IArea Area { get; set; }
-
-        // properties
-        Point Position { get; set; }
-        Bitmap Art { get; set; }
-        MovableStatus Status { get; set; }
-        Dictionary<MovableStatus, Action> Actions { get; set; }
-
-        Hotel Hotel { get; set; }
-
-        void PerformAction();
+        /// <summary>
+        /// The final destanation a movable is going
+        /// </summary>
         IArea FinalDes { get; set; }
+        /// <summary>
+        /// The position of the movable
+        /// This coresponds with the Area
+        /// </summary>
+        Point Position { get; set; } // this is used for drawing and the elevatorcart
+        /// <summary>
+        /// The vizual representation of the movable
+        /// </summary>
+        Bitmap Art { get; set; } // Bob, Barbra or cool bob
+        /// <summary>
+        /// The status of the movable 
+        /// </summary>
+        MovableStatus Status { get; set; }
+        /// <summary>
+        /// The List of actions a movable can perfrom
+        /// </summary>
+        Dictionary<MovableStatus, Action> Actions { get; set; } // This list uses the status and an delegate to handle bahavoir
+        /// <summary>
+        /// The movable knows the hotel so it can find its way around
+        /// and call for varius types of data
+        /// </summary>
+        Hotel Hotel { get; set; }
+        #endregion
+        
+        #region Methods
+        /// <summary>
+        /// Calls the Actions list and performs an action
+        /// </summary>
+        void PerformAction();
+        /// <summary>
+        /// Sets a path truh calling dijkstra to an destanation
+        /// </summary>
         void SetPath(IArea destination);
-
+        #endregion
     }
 }

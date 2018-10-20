@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Drawing;
+This is the location to add new IArea implemtations.
+Follow the correct format for it to work.
+if the correct format is not followd it will not load
 
-namespace HotelSimulationTheLock
-{
-    /// <summary>
-    /// <para>An specefic implemantation of an IArea.</para>
-    /// <para>Metadata: "AreaType", "Restaurant".</para>
-    /// </summary>
+# Begin format #
+
     [Export(typeof(IArea))]
-    [ExportMetadata("AreaType", "Restaurant")]
-    public class Restaurant : IArea
-    {       
-        #region IArea properties
+    [ExportMetadata("AreaType", "[Name of Area (unique)]")]
+    public class [Name of Area]: IArea
+    {
+        // IArea properties implementation:        
+        #region
         /// <summary>
         /// An Specefic identifier for an IArea, this must be uniqe.
         /// </summary>
@@ -24,7 +21,7 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// The Size of the IArea.
         /// </summary>
-        public Size Dimension { get; set; }
+        public Size Dimension { get; set; } = new Size(1, 1);
         /// <summary>
         /// The amount of movabales that are allowed to enter the area.
         /// </summary>
@@ -32,14 +29,15 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// The Art that represents the IArea.
         /// </summary>
-        public Bitmap Art { get; set; } = Properties.Resources.restaurant;
+        public Bitmap Art { get; set; } = Properties.Resources.fitness;
         /// <summary>
         /// An enumarator the provides a status for a room .
         /// </summary>
         public AreaStatus AreaStatus { get; set; }
         #endregion
 
-        #region ijkstra search properties
+        // Dijkstra search properties:
+        #region
         /// <summary>
         /// A number wich is used for calculating the shortest path.
         /// </summary>
@@ -58,16 +56,13 @@ namespace HotelSimulationTheLock
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>(); // IArea will be changed to ISearchable in the future.
         #endregion
 
-        // Restaurant Properties:
-        public int Duration { get; set; }
-
         /// <summary>
         /// Creates a new IArea
         /// </summary>
         /// <returns></returns>
         public IArea CreateArea()
         {
-            return new Restaurant();
+            return new [Name of Area]();
         }
 
         /// <summary>
@@ -80,10 +75,9 @@ namespace HotelSimulationTheLock
         /// <param name="classification">Classification of the area</param>
         public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
-            ID = id;
-            Position = position;
-            Dimension = dimension;
-            Capacity = capacity;
+            // Write implementation
         }
+
     }
-}
+
+# End Format #
