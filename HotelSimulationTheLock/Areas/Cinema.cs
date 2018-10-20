@@ -16,7 +16,7 @@ namespace HotelSimulationTheLock
     {            
         #region IArea properties
         /// <summary>
-        /// An Specefic identifier for an IArea, this must be uniqe.
+        /// An specific identifier for an IArea, this must be uniqe.
         /// </summary>
         public int ID { get; set; } // We didn'_timer have the time to ensure this number would be unique.
         /// <summary>

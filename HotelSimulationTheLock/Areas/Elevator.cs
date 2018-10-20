@@ -5,7 +5,7 @@ using System.Drawing;
 namespace HotelSimulationTheLock
 {
     /// <summary>
-    /// <para>An specefic implemantation of an IArea.</para>
+    /// <para>An specific implementation of an IArea.</para>
     /// <para>Elevator(shaft) is an Iarea used for pathfinding to the Elevator system.</para>
     /// <para>Metadata: "AreaType", "Elevator".</para>
     /// </summary>
@@ -15,7 +15,7 @@ namespace HotelSimulationTheLock
     {      
         #region IArea properties
         /// <summary>
-        /// An Specefic identifier for an IArea, this must be uniqe.
+        /// An specific identifier for an IArea, this must be uniqe.
         /// </summary>
         public int ID { get; set; }
         /// <summary>
