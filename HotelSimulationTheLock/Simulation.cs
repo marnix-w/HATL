@@ -132,6 +132,8 @@ namespace HotelSimulationTheLock
             roomTB.Clear();            
             facillityTB.Clear();
 
+            roomTB.Text = "ID: \t Facillity:  \t\tPosition: \t\tStatus:\n";
+            facillityTB.Text = "ID: \tPosition: \t \tMax: \tFacility:\n";
             foreach (string i in Hotel.CurrentValueIArea())
             {
                 try
@@ -158,7 +160,7 @@ namespace HotelSimulationTheLock
         private void _fillMoveAbleTB()
         {
             guestTB.Clear();
-
+            guestTB.Text = "Moveable: \tPosition: \t\tStatus \n";
             foreach (string value in Hotel.CurrentValue())
             {
                 try

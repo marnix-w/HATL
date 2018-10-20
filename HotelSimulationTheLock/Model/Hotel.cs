@@ -432,17 +432,17 @@ namespace HotelSimulationTheLock
                 {
                     if (g.FinalDes != null)
                     {
-                        _listOfMoveables.Add(g.Name + " " + g.RoomRequest + "\t" + g.Status + "\t" + g.Position + "\n");
+                        _listOfMoveables.Add(g.Name + " \t " + g.RoomRequest + "\t" + g.Position +  "\t"  +g.Status + "\n");
                     }
                 }
                 if (a is Maid m)
                 {
-                    _listOfMoveables.Add("Maid" + " \t " + m.Status + " \t " + m.Position + "\n");
+                    _listOfMoveables.Add("Maid" + " \t\t" + m.Position + " \t " + m.Status + "\n");
                 }
 
                 if (a is ElevatorCart e)
                 {
-                    _listOfMoveables.Add("Elevator" + " \t " + e.Status + " \t " + e.Position + "\n");
+                    _listOfMoveables.Add("Elevator" + "\t \t" + e.Position + " \t "  +e.Status + "\n");
                 }
             }
 
@@ -462,13 +462,14 @@ namespace HotelSimulationTheLock
                 if (a is Room r)
                 {
 
-                    _listOfFacillty.Add("ID: " + r.ID + "\t " + r.GetType().ToString().Replace("HotelSimulationTheLock.", "") + r.Classification + " star \t" + r.AreaStatus + " \t" + r.Position + "\n");
+                    _listOfFacillty.Add( r.ID + "\t " + r.GetType().ToString().Replace("HotelSimulationTheLock.", "")+ r.Classification + " star \t"  + r.Position + "\t"+ r.AreaStatus +"\n");
+               
 
                 }
 
                 if (a is Fitness || a is Restaurant || a is Reception || a is Cinema)
                 {
-                    _listOfFacillty.Add("ID: " + a.ID + "\t " + a.GetType().ToString().Replace("HotelSimulationTheLock.", "") + " \t" + a.Capacity + " \t" + a.Position + "\n");
+                    _listOfFacillty.Add(a.ID + " \t" + a.Position + "\t" + a.Capacity + "\t" +a.GetType().ToString().Replace("HotelSimulationTheLock.", "") + "\n");
 
 
                 }
