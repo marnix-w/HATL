@@ -84,11 +84,11 @@ namespace HotelSimulationTheLock
         {
             foreach (Lazy<IArea, IAreaType> i in AreaTypes)
             {
-                // Truh this impematation it creates an object to return a newly created object
-                // i didnt have the time to look further in to this but since the obeject isnt used
+                // truthfully this implementation it creates an object to return a newly created object
+                // i didnt have the time to look further in to this but since the object isnt used
                 // it will be collected thruh the GC and properly disposed.
-                // One of the problems is that the constructor cannot initilize any assiciations wich
-                // can be an issue in the future
+                // One of the problems is that the constructor cannot initilize any associations wich
+                // can be an issue in the near future
                 if (i.Metadata.AreaType.Equals(typeOfArea)) return i.Value.CreateArea();
             }           
             return null;
