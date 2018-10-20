@@ -150,8 +150,8 @@ namespace HotelSimulationTheLock
                     HotelAreas.Remove(area);
                 }
 
-                // Alle neigbros wights are 1 since it has been stated in one
-                // of the meatings with the PO that they can jump over the other rooms
+                // All neighbours weights are 1 since it has been stated in one
+                // of the meetings with the PO that they can jump over the other rooms
                 // it would be nicer to add a hallway tile and walk that way but there
                 // was no time to do this
 
