@@ -39,20 +39,50 @@ namespace HotelSimulationTheLock
     /// </summary>
     public interface IMovable
     {
-        // area status
+        // Movable properties
+        #region
+        /// <summary>
+        /// The Movable its current position
+        /// </summary>
         IArea Area { get; set; }
-
-        // properties
-        Point Position { get; set; }
-        Bitmap Art { get; set; }
-        MovableStatus Status { get; set; }
-        Dictionary<MovableStatus, Action> Actions { get; set; }
-
-        Hotel Hotel { get; set; }
-
-        void PerformAction();
+        /// <summary>
+        /// The final destanation a movable is going
+        /// </summary>
         IArea FinalDes { get; set; }
-        void SetPath(IArea destination);
+        /// <summary>
+        /// The position of the movable
+        /// This coresponds with the Area
+        /// </summary>
+        Point Position { get; set; } // this is used for drawing and the elevatorcart
+        /// <summary>
+        /// The vizual representation of the movable
+        /// </summary>
+        Bitmap Art { get; set; } // Bob, Barbra or cool bob
+        /// <summary>
+        /// The status of the movable 
+        /// </summary>
+        MovableStatus Status { get; set; }
+        /// <summary>
+        /// The List of actions a movable can perfrom
+        /// </summary>
+        Dictionary<MovableStatus, Action> Actions { get; set; } // This list uses the status and an delegate to handle bahavoir
+        /// <summary>
+        /// The movable knows the hotel so it can find its way around
+        /// and call for varius types of data
+        /// </summary>
+        Hotel Hotel { get; set; }
+        #endregion
 
+        // Methods:
+        #region
+        /// <summary>
+        /// Calls the Actions list and performs an action
+        /// </summary>
+        void PerformAction();
+        /// <summary>
+        /// Sets a path truh calling dijkstra to an destanation
+        /// </summary>
+        void SetPath(IArea destination);
+        #endregion
     }
 }
