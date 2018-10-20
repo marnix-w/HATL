@@ -86,6 +86,11 @@ namespace HotelSimulationTheLock
 
                         foreach (IMovable movable in movables.Where(X => !(X is ElevatorCart)))
                         {
+                            if (movable.Status == MovableStatus.EVACUATING && movable.Area is Reception)
+                            {
+                                continue;
+                            }
+
                             // on a few occations guest wont be drawn
                             // These will indicate that there in an room
                             if (movable.Status != MovableStatus.IN_ROOM && 

@@ -31,18 +31,24 @@ namespace HotelSimulationTheLock
             Position = position;
             Hotel = hotel;
             Area = hotel.GetArea(typeof(Reception));
+            Status = MovableStatus.IDLE;
+            HotelEventManager.Register(this);
         }
 
         public void Notify(HotelEvent evt)
         {
-            if (evt.EventType.Equals(HotelEventType.EVACUATE))
+            if (evt.EventType == HotelEventType.EVACUATE)
             {
-
+                Status = MovableStatus.EVACUATING;
             }
         }
 
         public void PerformAction()
         {
+            if (Status == MovableStatus.EVACUATING && Hotel.IsHotelSafe())
+            {
+                Status = MovableStatus.IDLE;
+            }
         }
 
         public void SetPath(IArea destination)
