@@ -15,6 +15,12 @@ namespace HotelSimulationTheLock
 {
     public partial class StartupScreen : Form
     {
+        
+        /// 
+        /// !!! Note if the simulation causes a breakmode please stop and try to run the simulation again !!!
+        /// 
+        
+        
         /// <summary>
         /// we want to have a string path that we can show in the textbox field
         /// </summary>
