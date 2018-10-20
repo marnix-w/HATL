@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace HotelSimulationTheLock
 {
@@ -27,6 +24,11 @@ namespace HotelSimulationTheLock
         /// Hotel hieght that is used for building opperations
         /// </summary>
         private int HotelHeight { get; set; }
+        /// <summary>
+        /// Create the area facotry wich the Hotel builder will use
+        /// </summary>
+        private AreaFactory Factory { get; set; } = new AreaFactory();
+
         #endregion
 
         /// <summary>
@@ -67,9 +69,7 @@ namespace HotelSimulationTheLock
             }
             #endregion
 
-            // Create a factory to make the rooms
-            AreaFactory Factory = new AreaFactory();
-
+            
             // Read out the json file and add rooms to the layout
             #region
             foreach (JsonModel i in jsonModel)
@@ -127,6 +127,8 @@ namespace HotelSimulationTheLock
             }
             #endregion
 
+            // Settings infromation from the settings model and the neigbors
+            #region
             foreach (IArea area in HotelAreas)
             {
                 // Set settings for cinema
@@ -153,6 +155,11 @@ namespace HotelSimulationTheLock
                     HotelAreas.Remove(area);
                 }
 
+                // Alle neigbros wights are 1 since it has been stated in one
+                // of the meatings with the PO that they can jump over the other rooms
+                // it would be nicer to add a hallway tile and walk that way but there
+                // was no time to do this
+
                 // Add right neighbour
                 for (int i = 1; i < HotelWidth; i++)
                 {
@@ -171,49 +178,56 @@ namespace HotelSimulationTheLock
                 }
                 if (area.Position.X == 0 || area.Position.X == HotelWidth)
                 {
-                    // Keep lift weight in mind needs a rework
-                    
+                    // The elevator wont get any neigbros
                     if (area is Elevator)
                     {
                         continue;                      
                     }
                     
-
                     // Add top neighbour
                     AddNeighbour(area, 0, 1, 1);
                     // Add bottom neighbour
                     AddNeighbour(area, 0, -1, 1);
                 }
             }
+            #endregion
 
+            // Returning the hotel layout
             return HotelAreas;
         }
 
+        /// <summary>
+        /// Create a list of set movables fot the hotel
+        /// This list is also resposable for creating the elevator
+        /// </summary>
+        /// <param name="settings"></param>
+        /// <param name="hotel"></param>
+        /// <returns></returns>
         public List<IMovable> BuildMovable(SettingsModel settings, Hotel hotel)
         {
             List<IMovable> movables = new List<IMovable>();
 
+            // creating the correct amount of maids from the setting
             for (int i = 0; i < settings.AmountOfMaids; i++)
             {
                 movables.Add(new Maid(new Point(4, HotelHeight), hotel));
             }
 
-            movables.Add(new ElevatorCart(new Point(0, HotelHeight), hotel, settings.ElevatorCapicity));
-            Console.WriteLine("HOTEL HEIGHT IS {0}", HotelHeight);
+            // Creating the elevator cart and receptionist
+            movables.Add(new ElevatorCart(new Point(0, HotelHeight), hotel, settings.ElevatorCapicity));            
             movables.Add(new Receptionist(new Point(1, HotelHeight), hotel));
-
-            // removed this foreach loop no idea what this does??
-            //foreach (var movable in movables)
-            //{
-            //    if (movable is null)
-            //    {
-            //        movables.Remove(movable);
-            //    }
-            //}
-
+            
             return movables;
         }
 
+        /// <summary>
+        /// An funcition that returns true it has added neighbor
+        /// </summary>
+        /// <param name="area">From area</param>
+        /// <param name="xOffset">Offset for finding neigbor</param>
+        /// <param name="yOffset">Offset for finding neigbor</param>
+        /// <param name="weight">The weight that is givin to the edge</param>
+        /// <returns></returns>
         private bool AddNeighbour(IArea area, int xOffset, int yOffset, int weight)
         {
             if (!(HotelAreas.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)) is null))
