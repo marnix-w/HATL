@@ -11,8 +11,7 @@ namespace HotelSimulationTheLock
     public partial class Simulation : Form
     {
         private StartupScreen options { get; set; }
-        public Hotel Hotel { get; set; }
-        public int UnitTestvalue { get; set; }
+        public Hotel Hotel { get; set; }      
 
         private Timer t { get; set; }
 
