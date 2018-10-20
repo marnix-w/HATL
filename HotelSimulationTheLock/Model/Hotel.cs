@@ -14,8 +14,8 @@ namespace HotelSimulationTheLock
         public List<IArea> HotelAreas { get; set; } = new List<IArea>();
         private List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
 
-        private List<IMovable> LeavingGuests { get; set; } = new List<IMovable>();
-        private List<IMovable> ArivingGuests { get; set; } = new List<IMovable>();
+        private List<IMovable> LeavingGuests { get; } = new List<IMovable>();
+        private List<IMovable> ArivingGuests { get;  } = new List<IMovable>();
 
         private IHotelBuilder HotelBuilder { get; set; }
         private IHotelDrawer HotelDrawer { get; set; } = new BitmapHotelDrawer();
@@ -24,8 +24,8 @@ namespace HotelSimulationTheLock
         public static int HotelHeight { get; set; }
         public static int HotelWidth { get; set; }
 
-        private List<string> ValueofMoveable { get; set; } = new List<string>();
-        private List<string> ValueofIArea { get; set; } = new List<string>();
+        private List<string> ValueofMoveable { get;  } = new List<string>();
+        private List<string> ValueofIArea { get;  } = new List<string>();
 
         private ElevatorCart _elevatorCart { get; set; }
 

@@ -11,8 +11,7 @@ namespace HotelSimulationTheLock
     public partial class Simulation : Form
     {
         private StartupScreen options { get; set; }
-        public Hotel Hotel { get; set; }
-        public int UnitTestvalue { get; set; }
+        public Hotel Hotel { get; set; }      
 
         private Timer t { get; set; }
 
@@ -23,7 +22,7 @@ namespace HotelSimulationTheLock
         private Bitmap HotelImage { get; set; }
         public static int RoomArtSize { get; } = 96;
 
-        private int count { get; set; } = 0;
+        private int count { get;  } = 0;
 
         public SettingsModel _Settings { get; set; }
 

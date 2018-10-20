@@ -291,7 +291,7 @@ namespace HotelSimulationTheLock_UnitTests
             //assert
             Assert.AreNotEqual(101, HotelTest.GetArea(AreaTestID.ID));
 
-        }
+        } 
 
 
     }
