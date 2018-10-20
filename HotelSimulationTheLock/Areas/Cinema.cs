@@ -6,7 +6,7 @@ using HotelEvents;
 namespace HotelSimulationTheLock
 {
     /// <summary>
-    /// <para>An specefic implemantation of an IArea.</para>
+    /// <para>An specific implementation of an IArea.</para>
     /// <para>Cinema Takes care of handeling the START_CINEMA event.</para>
     /// <para>Metadata: "AreaType", "Cinema".</para>
     /// </summary>
@@ -46,7 +46,7 @@ namespace HotelSimulationTheLock
         // We wanted to implement a more generic version of dijkstra
         // using an ISearchable interface. this is somthing to add in the future
 
-        // BackTrackCost, NeasestToStart and visted
+        // BackTrackCost, NearestToStart and visted
         // will be reset everytime dijkstra has ran it GetShortestPath() function
 
         /// <summary>
@@ -54,11 +54,11 @@ namespace HotelSimulationTheLock
         /// </summary>
         public double? BackTrackCost { get; set; } = null; // This is double so the future ISearchable can be more reusable.
         /// <summary>
-        /// The ISerachable that is closest to the starting from this current ISearchable.
+        /// The ISearchable that is closest to the starting from this current ISearchable.
         /// </summary>
         public IArea NearestToStart { get; set; } = null;
         /// <summary>
-        /// Deterimens wheter this ISearchable has been visted.
+        /// Determins weather this ISearchable has been visted.
         /// </summary>
         public bool Visited { get; set; } = false;
         /// <summary>
@@ -113,7 +113,7 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Performs the eventhandeling
+        /// Performs the event handling
         /// </summary>
         /// <param name="evt">The given event</param>
         public void Notify(HotelEvent evt)
