@@ -361,8 +361,8 @@ namespace HotelSimulationTheLock
             }
             else if (!(Area is Fitness))
             {
-                SetPath(Hotel.GetNewLocation(Area, typeof(Fitness)));
-                FinalDes = Hotel.GetNewLocation(Area, typeof(Fitness));
+                SetPath(Hotel.GetArea(Area, typeof(Fitness)));
+                FinalDes = Hotel.GetArea(Area, typeof(Fitness));
             }
             else
             {
@@ -422,8 +422,8 @@ namespace HotelSimulationTheLock
             }
             else if (!(Area is Restaurant))
             {
-                SetPath(Hotel.GetNewLocation(Area, typeof(Restaurant)));
-                FinalDes = Hotel.GetNewLocation(Area, typeof(Restaurant));
+                SetPath(Hotel.GetArea(Area, typeof(Restaurant)));
+                FinalDes = Hotel.GetArea(Area, typeof(Restaurant));
             }
             else
             {
@@ -440,8 +440,8 @@ namespace HotelSimulationTheLock
             }
             else if (!(Area is Cinema))
             {
-                SetPath(Hotel.GetNewLocation(Area, typeof(Cinema)));
-                FinalDes = Hotel.GetNewLocation(Area, typeof(Cinema));
+                SetPath(Hotel.GetArea(Area, typeof(Cinema)));
+                FinalDes = Hotel.GetArea(Area, typeof(Cinema));
             }
             else
             {
@@ -468,8 +468,8 @@ namespace HotelSimulationTheLock
 
             else if (!(Area is Reception))
             {
-                SetPath(Hotel.GetNewLocation(Area, typeof(Reception)));
-                FinalDes = Hotel.GetNewLocation(Area, typeof(Reception));
+                SetPath(Hotel.GetArea(Area, typeof(Reception)));
+                FinalDes = Hotel.GetArea(Area, typeof(Reception));
             }
             else
             {
