@@ -11,9 +11,8 @@ namespace HotelSimulationTheLock
     [Export(typeof(IArea))]
     [ExportMetadata("AreaType", "Lobby")]
     public class Lobby : IArea
-    {
-        // IArea properties implementation:        
-        #region
+    {               
+        #region  IArea properties
         /// <summary>
         /// An Specefic identifier for an IArea, this must be uniqe.
         /// </summary>
@@ -40,8 +39,8 @@ namespace HotelSimulationTheLock
         public AreaStatus AreaStatus { get; set; }
         #endregion
 
-        // Dijkstra search properties:
-        #region
+      
+        #region Dijkstra search properties
         /// <summary>
         /// A number wich is used for calculating the shortest path.
         /// </summary>

@@ -13,8 +13,8 @@ namespace HotelSimulationTheLock
     [ExportMetadata("AreaType", "Staircase")]
     public class Staircase : IArea
     {
-        // IArea properties implementation:        
-        #region
+      
+        #region IArea properties
         /// <summary>
         /// An Specefic identifier for an IArea, this must be uniqe.
         /// </summary>
@@ -41,8 +41,7 @@ namespace HotelSimulationTheLock
         public AreaStatus AreaStatus { get; set; }
         #endregion
 
-        // Dijkstra search properties:
-        #region
+        #region Dijkstra search properties
 
         // This type of IArea has top and bothem neighbors
 

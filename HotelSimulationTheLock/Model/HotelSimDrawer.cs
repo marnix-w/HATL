@@ -27,9 +27,8 @@ namespace HotelSimulationTheLock
 
             // Creating a bitmap with the correct dimensions
             Bitmap buffer = new Bitmap((HotelWidth + 1) * artSize, (HotelHeight) * artSize);
-
-            // Drawing Layer 1
-            #region
+            
+            #region Layer 1
             // Layer 1 is and static image with all hallway images
             // This creates the emergance that its a real hotel
             using (Graphics graphics = Graphics.FromImage(buffer))
@@ -49,9 +48,8 @@ namespace HotelSimulationTheLock
                 }
             }
             #endregion
-
-            // Drawing Layer 2
-            #region
+            
+            #region Layer 2
             // Drawing all the areas in the hotel over the hallways to create the rooms
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
@@ -70,9 +68,8 @@ namespace HotelSimulationTheLock
                 }
             }
             #endregion
-
-            // Drawing Layer 3
-            #region
+            
+            #region Layer 3
             // Drawing all the movables on top of the hotel
             using (Graphics graphics = Graphics.FromImage(buffer))
             {               
@@ -86,6 +83,7 @@ namespace HotelSimulationTheLock
 
                         foreach (IMovable movable in movables.Where(X => !(X is ElevatorCart)))
                         {
+                            // Skip drawing on evacuaction
                             if (movable.Status == MovableStatus.EVACUATING && movable.Area is Reception)
                             {
                                 continue;

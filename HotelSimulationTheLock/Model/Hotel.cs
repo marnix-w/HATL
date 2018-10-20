@@ -7,23 +7,66 @@ using System.Text.RegularExpressions;
 
 namespace HotelSimulationTheLock
 {
+    /// <summary>
+    /// The simulation object that handels the main opperations
+    /// </summary>
     public class Hotel : IListner
     {
-        public List<IArea> HotelAreas { get; set; } = new List<IArea>();
+       
+        #region Main Properties
+        /// <summary>
+        /// Stores all the areas in the hotel
+        /// </summary>
+        public List<IArea> HotelAreas { get; set; } = new List<IArea>(); // We wanted this list private but coudnt make it because of problems with dijkstra
+        /// <summary>
+        /// Stores all the movables in the hotel
+        /// </summary>
         private List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
-
-        private List<IMovable> LeavingGuests { get; } = new List<IMovable>();
+        
+        // Adding and removing guests while handeling events caused mayor errors
+        // we save them in a temparary list and add them in the thread hotel is running on
+        // this seems to solve the problem
+        // there probably might be a better solution but we havn't had time to go in depth on threads
+        
+        /// <summary>
+        /// Guests that are leaving
+        /// </summary>
+        private List<IMovable> LeavingGuests { get; } = new List<IMovable>(); 
+        /// <summary>
+        /// Guests that are ariving
+        /// </summary>
         private List<IMovable> ArivingGuests { get;  } = new List<IMovable>();
+        #endregion
 
+        #region Utility Properties
+        // using the SOLID preinciple of dependency onversion
+        // so that hotel has less string coupeling
+
+        /// <summary>
+        /// The hotel builder for this hotel
+        /// </summary>
         private IHotelBuilder HotelBuilder { get; set; }
+        /// <summary>
+        /// The hotel drawer for this hotel
+        /// </summary>
         private IHotelDrawer HotelDrawer { get; set; } = new HotelSimDrawer();
+        #endregion
 
-        // Hotel dimensions for calcuations
+        #region Calculation properties
+        /// <summary>
+        /// The hieght of the current hotel
+        /// </summary>
         public static int HotelHeight { get; set; }
+        /// <summary>
+        /// The widht of the curretn hotel
+        /// </summary>
         public static int HotelWidth { get; set; }
+        #endregion
 
-        private List<string> ValueofMoveable { get;  } = new List<string>();
-        private List<string> ValueofIArea { get;  } = new List<string>();
+        #region Statistic Properties
+        private List<string> ValueofMoveable { get; } = new List<string>();
+        private List<string> ValueofIArea { get; } = new List<string>();
+        #endregion
 
         private ElevatorCart _elevatorCart { get; set; }
 

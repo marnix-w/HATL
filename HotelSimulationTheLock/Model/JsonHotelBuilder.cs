@@ -10,8 +10,7 @@ namespace HotelSimulationTheLock
     /// </summary>
     public class JsonHotelBuilder : IHotelBuilder
     {
-        // Properties:
-        #region
+        #region Properties
         /// <summary>
         /// The areas that are build
         /// </summary>
@@ -53,8 +52,8 @@ namespace HotelSimulationTheLock
         /// <returns></returns>
         public List<IArea> BuildHotel<T>(T file, SettingsModel settings)
         {
-            // Casting the file to a List<JsonModel>
-            #region
+       
+            #region Casting the file to a List<JsonModel>
             List<JsonModel> jsonModel;
 
             if (file is List<JsonModel>)
@@ -69,9 +68,7 @@ namespace HotelSimulationTheLock
             }
             #endregion
 
-            
-            // Read out the json file and add rooms to the layout
-            #region
+            #region Read out the json file and add rooms to the layout
             foreach (JsonModel i in jsonModel)
             {
                 int classificationNum = 0;
@@ -90,8 +87,7 @@ namespace HotelSimulationTheLock
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y + 1;
             #endregion
 
-            // Set constant objects
-            #region
+            #region Set constant objects
             // Set Elevator and staircase
             for (int i = 1; i < HotelHeight + 1; i++)
             {                
@@ -127,8 +123,7 @@ namespace HotelSimulationTheLock
             }
             #endregion
 
-            // Settings infromation from the settings model and the neigbors
-            #region
+            #region Settings infromation from the settings model and the neigbors
             foreach (IArea area in HotelAreas)
             {
                 // Set settings for cinema

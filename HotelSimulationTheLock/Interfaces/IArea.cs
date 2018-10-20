@@ -29,9 +29,8 @@ namespace HotelSimulationTheLock
     /// The generic declaration for an Area in the Hotel
     /// </summary>
     public interface IArea
-    {
-        // IArea properties        
-        #region
+    {           
+        #region IArea properties
         /// <summary>
         /// An Specefic identifier for an IArea, this must be uniqe.
         /// </summary>
@@ -58,8 +57,7 @@ namespace HotelSimulationTheLock
         AreaStatus AreaStatus { get; set; }
         #endregion
 
-        // Dijkstra search properties:
-        #region
+        #region Dijkstra search properties
 
         // We wanted to implement a more generic version of dijkstra
         // using an ISearchable interface. this is somthing to add in the future
