@@ -22,7 +22,7 @@ namespace HotelSimulationTheLock
         private Bitmap HotelImage { get; set; }
         public static int RoomArtSize { get; } = 96;
 
-        private int count { get;  } = 0;
+        private int count { get; set; } = 0;
 
         public SettingsModel _Settings { get; set; }
 

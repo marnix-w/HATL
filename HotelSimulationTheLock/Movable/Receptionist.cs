@@ -16,10 +16,10 @@ namespace HotelSimulationTheLock
         public MovableStatus Status { get; set; }
         public IArea Area { get; set; }
         
-        public Dictionary<MovableStatus, Action> Actions { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Dictionary<MovableStatus, Action> Actions { get; set; }
 
         public Hotel Hotel { get; set; }
-        public IArea FinalDes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IArea FinalDes { get; set; }
 
         public Receptionist()
         {
