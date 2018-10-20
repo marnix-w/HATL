@@ -23,12 +23,13 @@ namespace HotelSimulationTheLock
 
         // For more information on the MEF framework go to
         // https://docs.microsoft.com/en-us/dotnet/framework/mef/
+        // https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.composition?view=netframework-4.7.2
 
         // the container in wich the composition will be held
         private CompositionContainer _container;
 
         [ImportMany]
-        IEnumerable<Lazy<IArea, IAreaType>> AreaTypes;
+        private IEnumerable<Lazy<IArea, IAreaType>> AreaTypes;
 
         /// <summary>
         /// When a factory is made it will check the function for what rooms it can make
@@ -83,12 +84,13 @@ namespace HotelSimulationTheLock
         {
             foreach (Lazy<IArea, IAreaType> i in AreaTypes)
             {
+                // Truh this impematation it creates an object to return a newly created object
+                // i didnt have the time to look further in to this but since the obeject isnt used
+                // it will be collected thruh the GC and properly disposed.
+                // One of the problems is that the constructor cannot initilize any assiciations wich
+                // can be an issue in the future
                 if (i.Metadata.AreaType.Equals(typeOfArea)) return i.Value.CreateArea();
-            }
-
-            //Error handeling TO DO
-            //Debug.WriteLine("Error there was no requested room");
-
+            }           
             return null;
 
         }

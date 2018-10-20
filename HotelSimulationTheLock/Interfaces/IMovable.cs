@@ -1,50 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace HotelSimulationTheLock
 {
-
+    /// <summary>
+    /// The status that a movable can have
+    /// based on their status the correct behavoir is chosen
+    /// </summary>
     public enum MovableStatus
-    {
-        // implemented
+    {        
         CHEKING_IN,
         IN_ROOM,
         GOING_TO_ROOM,
         LEAVING,
         GET_FOOD,
         IN_ELEVATOR,
-
-
-        // To implement
         EATING,
         WORKING_OUT,
         EVACUATING,
-
-        //added
         WATCHING,
         GOING_TO_CINEMA,
         GOING_TO_FITNESS,
         CHECKING_OUT,
         WAITING_TO_START,
-
-        //elvator
         NOONE_INSIDE,
         ELEVATOR_REQUEST,
         LEAVING_ELEVATOR,
         WAITING_FOR_ELEVATOR,
-
         UP,
         DOWN,
         IDLE,
-
         CLEANING
     }
 
+    /// <summary>
+    /// The movable items inside of the hotel
+    /// </summary>
     public interface IMovable
     {
         // area status
