@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Hosting; 
 using System.IO;
 using System.Linq;
 
@@ -9,15 +9,20 @@ namespace HotelSimulationTheLock
 {
     /// <summary>
     /// An implementation of a combenation of a Factory design pattern and a bit of the MEF framework
+    /// This is no a true factory nor is it a true implemtation of the MEF framework
+    /// It combines the best of both to create a good "factory" for this project
     /// </summary>
     public class AreaFactory
     {
         // For this project we used a special variation on the Design pattern factory
-        // this variation makes the simulation MODULAIR
+        // this variation makes the simulation modulair
         // it implements the MEF framework to capture new types of areas and can directly work with them
         // if an area will be added they have to implement the IArea interface and by filling in the create area method 
         // it is compatable with the program. this way it is posible to add loads of new area's without having to deal with 
         // implementation in the program
+
+        // For more information on the MEF framework go to
+        // https://docs.microsoft.com/en-us/dotnet/framework/mef/
 
         // the container in wich the composition will be held
         private CompositionContainer _container;
@@ -70,7 +75,7 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// The factory method
+        /// The Factory method that creates a new area based on the area type
         /// </summary>
         /// <param name="typeOfArea">A AreaType wich corisponds with the Area's exported metadata</param>
         /// <returns></returns>

@@ -156,8 +156,6 @@
     <None Include="Assets\Images\room_two_star_locked.png" />
     <None Include="Assets\Images\room_two_star_open.png" />
     <None Include="Assets\Images\staircase.png" />
-    <Content Include="Assets\Images\background_lich_king.gif" />
-    <None Include="Assets\Images\options_background.png" />
     <None Include="Assets\Images\cinem_playinga.png" />
     <Content Include="Assets\Libraries\HotelEvents.dll" />
   </ItemGroup>

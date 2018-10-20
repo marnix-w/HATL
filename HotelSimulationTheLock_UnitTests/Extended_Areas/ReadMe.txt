@@ -1,17 +1,12 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Drawing;
+This is the location to add new IArea implemtations.
+Follow the correct format for it to work.
+if the correct format is not followd it will not load
 
-namespace HotelSimulationTheLock
-{
-    /// <summary>
-    /// <para>An specefic implemantation of an IArea.</para>
-    /// <para>The only IArea that can have top and bothem neigbors</para>
-    /// <para>Metadata: "AreaType", "Staircase".</para>
-    /// </summary>
+# Begin format #
+
     [Export(typeof(IArea))]
-    [ExportMetadata("AreaType", "Staircase")]
-    public class Staircase : IArea
+    [ExportMetadata("AreaType", "[Name of Area (unique)]")]
+    public class [Name of Area]: IArea
     {
         // IArea properties implementation:        
         #region
@@ -34,7 +29,7 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// The Art that represents the IArea.
         /// </summary>
-        public Bitmap Art { get; set; } = Properties.Resources.staircase;
+        public Bitmap Art { get; set; } = Properties.Resources.fitness;
         /// <summary>
         /// An enumarator the provides a status for a room .
         /// </summary>
@@ -43,9 +38,6 @@ namespace HotelSimulationTheLock
 
         // Dijkstra search properties:
         #region
-
-        // This type of IArea has top and bothem neighbors
-
         /// <summary>
         /// A number wich is used for calculating the shortest path.
         /// </summary>
@@ -70,7 +62,7 @@ namespace HotelSimulationTheLock
         /// <returns></returns>
         public IArea CreateArea()
         {
-            return new Staircase();
+            return new [Name of Area]();
         }
 
         /// <summary>
@@ -83,9 +75,9 @@ namespace HotelSimulationTheLock
         /// <param name="classification">Classification of the area</param>
         public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
-            ID = id;
-            Position = position;
+            // Write implementation
         }
 
     }
-} 
+
+# End Format #
