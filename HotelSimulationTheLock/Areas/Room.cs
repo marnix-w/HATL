@@ -24,7 +24,7 @@ namespace HotelSimulationTheLock
         public Bitmap Art { get; set; }
         public AreaStatus AreaStatus { get; set; }
 
-        // Dijkstra search varibles
+        // Dijkstra search variables
         public double? BackTrackCost { get; set; } = null;
         public IArea NearestToStart { get; set; } = null;
         public bool Visited { get; set; } = false;
@@ -32,11 +32,23 @@ namespace HotelSimulationTheLock
         public List<IMovable> Movables { get; set; } = new List<IMovable>();
 
 
+        /// <summary>
+        /// Creates a new IArea
+        /// </summary>
+        /// <returns>A new Room</returns>
         public IArea CreateArea()
         {
             return new Room();
         }
 
+        /// <summary>
+        /// Sets values from the given json file
+        /// </summary>
+        /// <param name="id">ID of the area</param>
+        /// <param name="position">Position of the area in the hotel</param>
+        /// <param name="capacity">Capacity of the area</param>
+        /// <param name="dimension">Dimension of the area</param>
+        /// <param name="classification">Classification of the area</param>
         public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
             ID = id;

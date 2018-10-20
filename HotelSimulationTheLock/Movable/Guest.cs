@@ -99,8 +99,8 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.LEAVING, _removeMe);
             Actions.Add(MovableStatus.CHECKING_OUT, _getCheckOut);
             Actions.Add(MovableStatus.EVACUATING, _Evacuate);
-         
-            
+
+
         }
 
         private void EvacuateSequence()
@@ -179,7 +179,7 @@ namespace HotelSimulationTheLock
                 LastStatus = MovableStatus.EVACUATING;
                 _hteCalculateCounter = 0;
                 _hteTime = 5;
-                
+
                 Console.WriteLine("WHERERE ALLL GONNE DIEEEEE, YEAHHHHHHH");
             }
 

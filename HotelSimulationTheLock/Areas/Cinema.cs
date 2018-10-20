@@ -23,7 +23,7 @@ namespace HotelSimulationTheLock
         public int Duration { get; set; }
         public AreaStatus AreaStatus { get; set; }
 
-        // Dijkstra search varibles
+        // Dijkstra search variables
         public double? BackTrackCost { get; set; } = null;
         public IArea NearestToStart { get; set; } = null;
         public bool Visited { get; set; } = false;
@@ -32,6 +32,10 @@ namespace HotelSimulationTheLock
 
   
 
+        /// <summary>
+        /// Creates a new IArea and registers that IArea whith the HotelEventManager
+        /// </summary>
+        /// <returns>A new Cinema</returns>
         public IArea CreateArea()
         {
             Cinema c = new Cinema();
@@ -39,6 +43,10 @@ namespace HotelSimulationTheLock
             return c;
         }
 
+        /// <summary>
+        /// Checks wheter the given event is a cinema event and in that case starts the event
+        /// </summary>
+        /// <param name="evt">The given event</param>
         public void Notify(HotelEvent evt)
         {
             if (evt.EventType.Equals(HotelEventType.START_CINEMA))
@@ -48,12 +56,36 @@ namespace HotelSimulationTheLock
             }
         }
 
+        /// <summary>
+        /// Sets values from the given json file
+        /// </summary>
+        /// <param name="id">ID of the area</param>
+        /// <param name="position">Position of the area in the hotel</param>
+        /// <param name="capacity">Capacity of the area</param>
+        /// <param name="dimension">Dimension of the area</param>
+        /// <param name="classification">Classification of the area</param>
         public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
             ID = id;
             Position = position;
             Dimension = dimension;         
         }
+<<<<<<< HEAD
+
+        /// <summary>
+        /// Checks wheter the capacity of the area allows a new IMovable to enter
+        /// </summary>
+        /// <returns>Wheter the IMovable can enter the area</returns>
+        public bool EnterArea()
+        {
+            if (Capacity == MovablesInCinema.Count)
+            {
+                return false;
+            }
+            return true;
+        }
+=======
         
+>>>>>>> hotel-team
     }
 }
