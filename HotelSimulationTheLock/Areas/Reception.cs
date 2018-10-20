@@ -1,36 +1,78 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HotelEvents;
 
 namespace HotelSimulationTheLock
 {
+    /// <summary>
+    /// <para>An specefic implemantation of an IArea.</para>
+    /// <para>An IArea that handels 1 Checkin at a time.</para>
+    /// <para>Metadata: "AreaType", "Reception".</para>
+    /// </summary>
     [Export(typeof(IArea))]
     [ExportMetadata("AreaType", "Reception")]
     public class Reception : IArea
     {
-        public int ID { get ; set ; }
+        // IArea properties implementation:        
+        #region
+        /// <summary>
+        /// An Specefic identifier for an IArea, this must be uniqe.
+        /// </summary>
+        public int ID { get; set; }
+        /// <summary>
+        /// The Position where the IArea stands in the hotel, This must be uniqe.
+        /// </summary>
         public Point Position { get; set; }
+        /// <summary>
+        /// The Size of the IArea.
+        /// </summary>
         public Size Dimension { get; set; } = new Size(1, 1);
+        /// <summary>
+        /// The amount of movabales that are allowed to enter the area.
+        /// </summary>
         public int Capacity { get; set; } = 2;
+        /// <summary>
+        /// The Art that represents the IArea.
+        /// </summary>
         public Bitmap Art { get; set; } = Properties.Resources.reception;
+        /// <summary>
+        /// An enumarator the provides a status for a room .
+        /// </summary>
         public AreaStatus AreaStatus { get; set; }
+        #endregion
 
-        // Dijkstra search varibles
-        public double? BackTrackCost { get; set; } = null;
+        // Dijkstra search properties:
+        #region
+        /// <summary>
+        /// A number wich is used for calculating the shortest path.
+        /// </summary>
+        public double? BackTrackCost { get; set; } = null; // This is double so the future ISearchable can be more reusable.
+        /// <summary>
+        /// The ISerachable that is closest to the starting from this current ISearchable.
+        /// </summary>
         public IArea NearestToStart { get; set; } = null;
+        /// <summary>
+        /// Deterimens wheter this ISearchable has been visted.
+        /// </summary>
         public bool Visited { get; set; } = false;
-        public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
+        /// <summary>
+        /// An collection of connection that the ISearchable has.
+        /// </summary>
+        public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>(); // IArea will be changed to ISearchable in the future.
+        #endregion
 
-        // Event properties
-        public Receptionist Receptionist { get; set; }
+        // Reception Properties:
+        /// <summary>
+        /// The Queue of guests waiting to be checked in
+        /// </summary>
         public Queue<IMovable> CheckInQueue { get; set; } = new Queue<IMovable>();
-       
+        
+        /// <summary>
+        /// The AreaFactory creation method.
+        /// This creates and initilizes a new IArea.
+        /// </summary>
+        /// <returns>A new Elevator</returns>
         public IArea CreateArea()
         {
             return new Reception();

@@ -42,7 +42,7 @@ namespace HotelSimulationTheLock
         public AreaStatus AreaStatus { get; set; } // Currently all statuses can be used for rooms, this might change in the future.       
         #endregion
 
-        // Dijkstra search properties
+        // Dijkstra search properties:
         #region
 
         // We wanted to implement a more generic version of dijkstra
@@ -69,7 +69,7 @@ namespace HotelSimulationTheLock
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>(); // IArea will be changed to ISearchable in the future.
         #endregion
 
-        // Cinema Properties
+        // Cinema Properties:
         #region
         /// <summary>
         /// The duration in HTE of an movie
@@ -85,7 +85,8 @@ namespace HotelSimulationTheLock
         #endregion
             
         /// <summary>
-        /// Creates a new IArea and registers that IArea whith the HotelEventManager
+        /// The AreaFactory creation method.
+        /// This creates and initilizes a new IArea.
         /// </summary>
         /// <returns>A new Cinema</returns>
         public IArea CreateArea()
@@ -96,20 +97,8 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Checks wheter the given event is a cinema event and in that case starts the event
-        /// </summary>
-        /// <param name="evt">The given event</param>
-        public void Notify(HotelEvent evt)
-        {
-            if (evt.EventType.Equals(HotelEventType.START_CINEMA))
-            {
-                AreaStatus = AreaStatus.PLAYING_MOVIE;
-                Art = Properties.Resources.cinem_playinga;                
-            }
-        }
-
-        /// <summary>
         /// Sets values from the given json file
+        /// Used by th Json Hotelbuilder
         /// </summary>
         /// <param name="id">ID of the area</param>
         /// <param name="position">Position of the area in the hotel</param>
@@ -118,9 +107,29 @@ namespace HotelSimulationTheLock
         /// <param name="classification">Classification of the area</param>
         public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
+            // This method is not very expandleble
+            // a posibility is to pass a collection so it can work with other IHotelBuilders
+
             ID = id;
             Position = position;
-            Dimension = dimension;         
+            Dimension = dimension;
         }
+
+        /// <summary>
+        /// Performs the eventhandeling
+        /// </summary>
+        /// <param name="evt">The given event</param>
+        public void Notify(HotelEvent evt)
+        {
+            // Checks for an START_CINEMA event.
+            // it changes its status and vizualie "plays" an movie
+            if (evt.EventType.Equals(HotelEventType.START_CINEMA))
+            {
+                AreaStatus = AreaStatus.PLAYING_MOVIE;
+                Art = Properties.Resources.cinem_playinga;                
+            }
+        }
+
+        
     }
 }
