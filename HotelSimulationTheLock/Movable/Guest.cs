@@ -22,6 +22,7 @@ namespace HotelSimulationTheLock
         public Bitmap Art { get; set; } = Properties.Resources.customer; // <3 Bob
         /// <summary>
         /// Its current status
+        /// depending on the status of the guest an action will perform
         /// </summary>
         public MovableStatus Status { get; set; }
         /// <summary>
@@ -57,7 +58,7 @@ namespace HotelSimulationTheLock
         /// </summary>
         public Queue<IArea> Path { get; set; } = new Queue<IArea>();
         /// <summary>
-        /// A list of statuses paired with the coresponding action
+        /// A list of statusses paired with the coresponding action
         /// </summary>
         public Dictionary<MovableStatus, Action> Actions { get; set; } = new Dictionary<MovableStatus, Action>();
         /// <summary>
@@ -83,11 +84,12 @@ namespace HotelSimulationTheLock
         #endregion
  
         #region Counter Properties
-        // the deadth counter is not working yet
-        // For a future release i can be implemented
+        // the death counter is not working yet
+        // For a future release it can be implemented
+        // we just need to check the simulation count timer and the guest timer if its equal we kill the guest
 
         /// <summary>
-        /// Death barier
+        /// Death barrier
         /// </summary>
         private int _deathAt { get; set; } = 20;
         /// <summary>
@@ -174,7 +176,7 @@ namespace HotelSimulationTheLock
         // there is no time for this so it is an issue that needs to be rethaught in the fututure
 
         /// <summary>
-        /// Sets variables for evacuating
+        /// Sets variables for evacuate
         /// </summary>
         private void _EvacuateSequence()
         {
@@ -395,7 +397,7 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Makes the guest go get food
+        /// Makes the guest go get food and find the closest restaurant
         /// </summary>
         private void _getFood()
         {
@@ -531,7 +533,7 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Register as an eventlistner
+        /// Register as an eventlistener
         /// </summary>
         public void RegisterAs()
         {
