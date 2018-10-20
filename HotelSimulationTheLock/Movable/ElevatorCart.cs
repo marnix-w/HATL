@@ -9,10 +9,17 @@ namespace HotelSimulationTheLock
 {
     public class ElevatorCart : IMovable
     {
+        /// <summary>
+        /// it's current area
+        /// </summary>
         public IArea Area { get; set; }
-
+        /// <summary>
+        /// the elevatorCart is part of Hotel
+        /// </summary>
         public Hotel Hotel { get; set; }
-
+        /// <summary>
+        /// amount of capacity of the Elevator (while during the meetings no end capacity)
+        /// </summary>
         public int Capacity { get; set; }
 
         // Iarea information
@@ -25,18 +32,33 @@ namespace HotelSimulationTheLock
 
         public Dictionary<MovableStatus, Action> Actions { get; set; }
         #endregion
-
-
-        //Since we cannot remove a Guest during the threat we need to make a second second list in order to remove
-        //the guest in the next loop
+               
+        /// <summary>
+        ///  Since we cannot remove a Guest during the threat we need to make a second second list in order to remove
+        /// the guest in the next loop
+        /// </summary>
         List<IMovable> RemoveGuests = new List<IMovable>();
+        /// <summary>
+        /// all the request from calling the elevator for the first time will be put into this requestlist
+        /// </summary>
         public List<IMovable> RequestList { get; set; } = new List<IMovable>();
+        /// <summary>
+        /// once they are in the Request list we remove them from the requestlist and it goes into the guest list 
+        /// this is because the elevator knows who is inside the elevator
+        /// </summary>
         public List<IMovable> GuestList { get; set; } = new List<IMovable>();
+        /// <summary>
+        /// final destination point of the guest
+        /// </summary>
         public IArea FinalDes { get; set; }
 
 
         //'U' for UP, 'D' for DOWN, 'I' for IDLE
-        //we need to compare these lists with eachother in order to have an 'smart' elevator
+        /// <summary>
+        ///  we need to compare these lists with eachother in order to have an 'smart' elevator
+        ///  if up list is bigger than down elevatorCart goes up
+        ///  if uplist is smaller than the down list elevatorCart goes down
+        /// </summary>
         public List<int> Up = new List<int>();
         public List<int> Down = new List<int>();
 
@@ -133,7 +155,7 @@ namespace HotelSimulationTheLock
             }
             AddDestinationFloor();
           
-
+            //if both list are empty we are changing the elevatorCart status and the elevator will go down
             if (Up.Count == 0 && Down.Count == 0)
             {
                 Status = MovableStatus.IDLE;
@@ -172,6 +194,7 @@ namespace HotelSimulationTheLock
         }
         private void _elevatorGoesUp()
         {
+            //if for some reason the Down list is bigger we change the status and elevator will go down instead of going up
             if (Up.Count == 0 && Down.Count != 0)
             {
                 this.Status = MovableStatus.DOWN;
