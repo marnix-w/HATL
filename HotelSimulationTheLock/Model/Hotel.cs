@@ -27,7 +27,7 @@ namespace HotelSimulationTheLock
         // Adding and removing guests while handeling events caused mayor errors
         // we save them in a temparary list and add them in the thread hotel is running on
         // this seems to solve the problem
-        // there probably might be a better solution but we havn't had time to go in depth on threads
+        // there probably might be a better solution but we havn'_timer had time to go in depth on threads
         
         /// <summary>
         /// Guests that are leaving
@@ -97,7 +97,7 @@ namespace HotelSimulationTheLock
         /// Creates a function hotel 
         /// </summary>
         /// <param name="layout">A file wich contains a funcitoning layout</param>
-        /// <param name="settings">the settings for the simulation</param>
+        /// <param name="settings">the Settings for the simulation</param>
         /// <param name="TypeOfBuilder">a type of builder that can handle the provided file</param>
         public Hotel(List<JsonModel> layout, SettingsModel settings, IHotelBuilder TypeOfBuilder)
         {

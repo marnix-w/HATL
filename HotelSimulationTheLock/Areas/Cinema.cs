@@ -18,11 +18,11 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// An Specefic identifier for an IArea, this must be uniqe.
         /// </summary>
-        public int ID { get; set; } // We didn't have the time to ensure this number would be unique.
+        public int ID { get; set; } // We didn'_timer have the time to ensure this number would be unique.
         /// <summary>
         /// The Position where the IArea stands in the hotel, This must be uniqe.
         /// </summary>
-        public Point Position { get; set; } // We didn't have the time to ensure this number would be unique.
+        public Point Position { get; set; } // We didn'_timer have the time to ensure this number would be unique.
         /// <summary>
         /// The Size of the IArea.
         /// </summary>

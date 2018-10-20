@@ -245,7 +245,7 @@ namespace HotelSimulationTheLock
 
         /// <summary>
         /// If the status is Idle we still want the elevator to be smart enough to check the up and down list
-        /// while we haven't asked if the elevator need to stay on the same floor is the status is Idle we wanted to put the 
+        /// while we haven'_timer asked if the elevator need to stay on the same floor is the status is Idle we wanted to put the 
         /// elevator always down when no actions are performed just like in real life
         /// </summary>
         private void _ElevatorDoesNothing()
@@ -315,7 +315,7 @@ namespace HotelSimulationTheLock
         /// there can be alot of request with different kind of end destinations so for
         /// example we have 5 requests and when they are thrown in the list it could be something like
         /// { 5, 6, 1, 3, 2}
-        /// while the elevator is on floor 7. We don't want our elevator to jump from floor 7 to floor 1 back to 5 we want to update the list into 
+        /// while the elevator is on floor 7. We don'_timer want our elevator to jump from floor 7 to floor 1 back to 5 we want to update the list into 
         /// a reasonable order so
         /// { 6, 5, 3, 2, 1 } would be the proper way to handle the request and will let our elevator be a "smart elevator"
         /// </summary>

@@ -20,7 +20,7 @@ namespace HotelSimulationTheLock_UnitTests
             //act       
             test_startupscreen = new StartupScreen();
 
-            test_startupscreen.settings = new SettingsModel
+            test_startupscreen.Settings = new SettingsModel
             {
                 AmountOfMaids = 3,
                 ElevatorDuration = 3,
@@ -37,11 +37,11 @@ namespace HotelSimulationTheLock_UnitTests
             test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout");
             test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
 
-            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.settings);
-            test_Simulation._Settings = test_startupscreen.settings;
+            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.Settings);
+            test_Simulation.Settings = test_startupscreen.Settings;
 
             //assert
-            Assert.AreEqual(3, test_Simulation._Settings.EatingDuration);
+            Assert.AreEqual(3, test_Simulation.Settings.EatingDuration);
         }
     }
 }

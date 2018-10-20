@@ -8,13 +8,13 @@ namespace HotelSimulationTheLock
     public interface IHotelBuilder
     {
         /// <summary>
-        /// Provide a generic file and an settings model
+        /// Provide a generic file and an Settings model
         /// Truh these parameters create an list of Iareas
         /// This method is also resposable for setting the neighbors
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="file">An file provding information to build an Iarea list</param>
-        /// <param name="settings">The settings model used for the simulation</param>
+        /// <param name="settings">The Settings model used for the simulation</param>
         /// <returns></returns>
         List<IArea> BuildHotel<T>(T file, SettingsModel settings);
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HotelSimulationTheLock
 {
     /// <summary>
-    /// A temp class for saving some settings
+    /// A temp class for saving some Settings
     /// </summary>
     public class SettingsModel
     {

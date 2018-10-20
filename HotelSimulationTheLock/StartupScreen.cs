@@ -15,32 +15,40 @@ namespace HotelSimulationTheLock
 {
     public partial class StartupScreen : Form
     {
-        // private string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel.layout");
+        /// <summary>
+        /// we want to have a string path that we can show in the textbox field
+        /// </summary>
         public string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel3.layout");
 
+        /// <summary>
+        /// once the json file is read out we want to fill it in a list of Jsmonmodels
+        /// </summary>
         public List<JsonModel> layout { get; set; }
-        public SettingsModel settings { get; set; }
-        //global hte settings
+        /// <summary>
+        /// before the simulations starts we can adjust the settings and want to give the SettingsModel to the simulation screen
+        /// </summary>
+        public SettingsModel Settings { get; set; }
+        //global hte Settings
         private string _hte_per_sec = "Amount HTE ticks per second ";
 
         //setting text for maid
         private string _maid_amount = "Amount of Maids ";
 
-        //elevator settings
+        //elevator Settings
         private string _elevator_dur = "Amount of HTE ticks for elevator ";
         private string _elevator_cap = "Capicity for the elevator ";
 
-        //staircase settings  
+        //staircase Settings  
         private string _staircase_hte = "Amount of HTE ticks for staircase ";
 
-        //cinema settings
+        //cinema Settings
         private string _cinema_dur = "Duration of the cinema in hte ";
 
-        //restaurant settings
+        //restaurant Settings
         private string restaurant_dur = "Duration of the restaurant ";
         private string restaurant_cap = "Capicity of the restaurant ";
 
-        //fitness settings
+        //fitness Settings
         private string _eating_dur = "Eating in hte ";
         private string _fitness_cap = "Capicity for a fitness facility ";
 
@@ -66,7 +74,12 @@ namespace HotelSimulationTheLock
             fitness_cap_LB.Text = _fitness_cap;
         }
         
-        // Json uitlezen en dan een list van maken voor layout
+      
+        /// <summary>
+        /// This method will Readout the Json file and will return it for the layout
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public List<JsonModel> ReadLayoutJson(string path)
         {
             try
@@ -84,9 +97,15 @@ namespace HotelSimulationTheLock
         }
 
      
-
+        /// <summary>
+        /// Once the user clicks on the run simulation button the Layout from Jsmondel will be used
+        /// the Settings Model will be used to pass it to the simulation form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void _runSimulation_Click_1(object sender, EventArgs e)
         {
+            //standard path for the application unless you browse for something else
             string path = file_path_TB.Text;
 
             if (layout == null)
@@ -94,7 +113,8 @@ namespace HotelSimulationTheLock
                 layout = ReadLayoutJson(path);
             }
 
-            settings = new SettingsModel
+            //converting the Decimal value's to int in order to use them in the simulation form
+            Settings = new SettingsModel
             {
                 AmountOfMaids = Decimal.ToInt32(maid_TB.Value),
                 ElevatorDuration = Decimal.ToInt32(elevator_hte_TB.Value),
@@ -109,12 +129,18 @@ namespace HotelSimulationTheLock
             };
 
             //below the Simulation is linked to this form
-            Simulation hotelsimulation = new Simulation(this, layout, settings);
+            Simulation hotelsimulation = new Simulation(this, layout, Settings);
 
             hotelsimulation.Show();
             this.Hide();
         }
 
+        /// <summary>
+        /// Added a dialog to the screen so if the user is browsing to a different kind of json layout file
+        /// the user will still see a nice interface in how to browse
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void find_file_Click_1(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog1.ShowDialog();

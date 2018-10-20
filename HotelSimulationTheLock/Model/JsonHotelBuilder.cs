@@ -42,13 +42,13 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Provide a generic file and an settings model
+        /// Provide a generic file and an Settings model
         /// Truh these parameters create an list of Iareas
         /// This method is also resposable for setting the neighbors
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="file">An file provding information to build an Iarea list</param>
-        /// <param name="settings">The settings model used for the simulation</param>
+        /// <param name="settings">The Settings model used for the simulation</param>
         /// <returns></returns>
         public List<IArea> BuildHotel<T>(T file, SettingsModel settings)
         {
@@ -126,19 +126,19 @@ namespace HotelSimulationTheLock
             #region Settings infromation from the settings model and the neigbors
             foreach (IArea area in HotelAreas)
             {
-                // Set settings for cinema
+                // Set Settings for cinema
                 if (area is Cinema)
                 {
                     ((Cinema)area).Duration = settings.CinemaDuration;
                 }
 
-                // Set settings for fitness
+                // Set Settings for fitness
                 else if (area is Fitness)
                 {
                     ((Fitness)area).Capacity = settings.FitnessCapicity;
                 }
 
-                // Set settings for restaurant
+                // Set Settings for restaurant
                 else if (area is Restaurant)
                 {
                     ((Restaurant)area).Capacity = settings.RestaurantCapicity;

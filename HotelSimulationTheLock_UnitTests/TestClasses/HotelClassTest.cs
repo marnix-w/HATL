@@ -25,7 +25,7 @@ namespace HotelSimulationTheLock_UnitTests
             //act       
             test_startupscreen = new StartupScreen();
 
-            test_startupscreen.settings = new SettingsModel
+            test_startupscreen.Settings = new SettingsModel
             {
                 AmountOfMaids = 3,
                 ElevatorDuration = 3,
@@ -41,11 +41,11 @@ namespace HotelSimulationTheLock_UnitTests
 
             test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout");
             test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
-            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.settings);
-            test_Simulation._Settings = test_startupscreen.settings;
+            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.Settings);
+            test_Simulation.Settings = test_startupscreen.Settings;
 
 
-            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings, new JsonHotelBuilder());
+            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.Settings, new JsonHotelBuilder());
             g = new Guest(null, "SUPERMAN BOB", 155, new System.Drawing.Point(5, 5), 10);
 
             elevator = new ElevatorCart(new System.Drawing.Point(0, 1), HotelTest, 5);
@@ -80,7 +80,7 @@ namespace HotelSimulationTheLock_UnitTests
             //act       
             test_startupscreen = new StartupScreen();
 
-            test_startupscreen.settings = new SettingsModel
+            test_startupscreen.Settings = new SettingsModel
             {
                 AmountOfMaids = 3,
                 ElevatorDuration = 3,
@@ -96,12 +96,12 @@ namespace HotelSimulationTheLock_UnitTests
 
             test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout");
             test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
-            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.settings);
-            test_Simulation._Settings = test_startupscreen.settings;
+            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.Settings);
+            test_Simulation.Settings = test_startupscreen.Settings;
             ListTest = new List<string>();
 
 
-            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings, new JsonHotelBuilder());
+            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.Settings, new JsonHotelBuilder());
             g = new Guest(null, "Arthas died as Lich King", 155, new System.Drawing.Point(5, 5), 10);
 
             ListTest = new List<string>();
@@ -127,7 +127,7 @@ namespace HotelSimulationTheLock_UnitTests
             //act       
             test_startupscreen = new StartupScreen();
 
-            test_startupscreen.settings = new SettingsModel
+            test_startupscreen.Settings = new SettingsModel
             {
                 AmountOfMaids = 3,
                 ElevatorDuration = 3,
@@ -143,12 +143,12 @@ namespace HotelSimulationTheLock_UnitTests
 
             test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout");
             test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
-            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.settings);
-            test_Simulation._Settings = test_startupscreen.settings;
+            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.Settings);
+            test_Simulation.Settings = test_startupscreen.Settings;
             ListTest = new List<string>();
 
 
-            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings, new JsonHotelBuilder());
+            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.Settings, new JsonHotelBuilder());
             g = new Guest(null, "Iron Man", 4, new System.Drawing.Point(5, 5), 10);
 
             ListTest = new List<string>();
@@ -174,7 +174,7 @@ namespace HotelSimulationTheLock_UnitTests
             //act       
             test_startupscreen = new StartupScreen();
 
-            test_startupscreen.settings = new SettingsModel
+            test_startupscreen.Settings = new SettingsModel
             {
                 AmountOfMaids = 3,
                 ElevatorDuration = 3,
@@ -190,10 +190,10 @@ namespace HotelSimulationTheLock_UnitTests
 
             test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout");
             test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
-            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.settings);
-            test_Simulation._Settings = test_startupscreen.settings;    
+            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.Settings);
+            test_Simulation.Settings = test_startupscreen.Settings;    
 
-            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings, new JsonHotelBuilder());
+            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.Settings, new JsonHotelBuilder());
             AreaTest = new Room();
             AreaTest.Position = new Point(5, 5);
             Point locationTest = new Point(5, 5);     
@@ -218,7 +218,7 @@ namespace HotelSimulationTheLock_UnitTests
             //act       
             test_startupscreen = new StartupScreen();
 
-            test_startupscreen.settings = new SettingsModel
+            test_startupscreen.Settings = new SettingsModel
             {
                 AmountOfMaids = 3,
                 ElevatorDuration = 3,
@@ -234,10 +234,10 @@ namespace HotelSimulationTheLock_UnitTests
 
             test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout");
             test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
-            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.settings);
-            test_Simulation._Settings = test_startupscreen.settings;  
+            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.Settings);
+            test_Simulation.Settings = test_startupscreen.Settings;  
 
-            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings, new JsonHotelBuilder());
+            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.Settings, new JsonHotelBuilder());
             AreaTestID = new Room();
             AreaTestID.ID = 101;
 
@@ -262,7 +262,7 @@ namespace HotelSimulationTheLock_UnitTests
             //act       
             test_startupscreen = new StartupScreen();
 
-            test_startupscreen.settings = new SettingsModel
+            test_startupscreen.Settings = new SettingsModel
             {
                 AmountOfMaids = 3,
                 ElevatorDuration = 3,
@@ -278,10 +278,10 @@ namespace HotelSimulationTheLock_UnitTests
 
             test_path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\..\HotelSimulationTheLock\Assets\Libraries\Hotel_reparatie.layout");
             test_startupscreen.layout = test_startupscreen.ReadLayoutJson(test_path);
-            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.settings);
-            test_Simulation._Settings = test_startupscreen.settings;
+            test_Simulation = new Simulation(test_startupscreen, test_startupscreen.layout, test_startupscreen.Settings);
+            test_Simulation.Settings = test_startupscreen.Settings;
 
-            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.settings, new JsonHotelBuilder());
+            HotelTest = new Hotel(test_startupscreen.layout, test_startupscreen.Settings, new JsonHotelBuilder());
             AreaTestID = new Room();
             AreaTestID.ID = 101;
 

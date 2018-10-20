@@ -31,7 +31,7 @@
             this.roomTB = new System.Windows.Forms.TextBox();
             this.facillityTB = new System.Windows.Forms.TextBox();
             this.guestTB = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.pauseBtn = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this._fastForward = new System.Windows.Forms.Button();
             this._slowDown = new System.Windows.Forms.Button();
@@ -66,15 +66,15 @@
             this.guestTB.Size = new System.Drawing.Size(350, 267);
             this.guestTB.TabIndex = 8;
             // 
-            // button1
+            // pauseBtn
             // 
-            this.button1.Location = new System.Drawing.Point(728, 29);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.pauseBtn.Location = new System.Drawing.Point(728, 29);
+            this.pauseBtn.Name = "pauseBtn";
+            this.pauseBtn.Size = new System.Drawing.Size(75, 23);
+            this.pauseBtn.TabIndex = 10;
+            this.pauseBtn.Text = "Pause";
+            this.pauseBtn.UseVisualStyleBackColor = true;
+            this.pauseBtn.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -134,7 +134,7 @@
             this.Controls.Add(this._slowDown);
             this.Controls.Add(this._fastForward);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.pauseBtn);
             this.Controls.Add(this.guestTB);
             this.Controls.Add(this.facillityTB);
             this.Controls.Add(this.roomTB);
@@ -151,7 +151,7 @@
         private System.Windows.Forms.TextBox roomTB;
         private System.Windows.Forms.TextBox facillityTB;
         private System.Windows.Forms.TextBox guestTB;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button pauseBtn;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button _fastForward;
         private System.Windows.Forms.Button _slowDown;

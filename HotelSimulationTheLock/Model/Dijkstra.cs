@@ -87,7 +87,7 @@ namespace HotelSimulationTheLock
             // Calculating time to walk or take elevator
             #region
             // this part is not completetly true but it works for now
-            // it should count the backtrack wieghts
+            // it should _count the backtrack wieghts
             // This is for the future to change
 
             // - 1 for the deque of the first area
