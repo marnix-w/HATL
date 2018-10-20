@@ -6,7 +6,7 @@ namespace HotelSimulationTheLock
 {
     /// <summary>
     /// The status that a movable can have
-    /// based on their status the correct behavoir is chosen
+    /// based on their status the correct behavior is chosen
     /// </summary>
     public enum MovableStatus
     {        
@@ -23,8 +23,7 @@ namespace HotelSimulationTheLock
         GOING_TO_CINEMA,
         GOING_TO_FITNESS,
         CHECKING_OUT,
-        WAITING_TO_START,
-        NOONE_INSIDE,
+        WAITING_TO_START,        
         ELEVATOR_REQUEST,
         LEAVING_ELEVATOR,
         WAITING_FOR_ELEVATOR,

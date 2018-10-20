@@ -24,7 +24,7 @@ namespace HotelSimulationTheLock
     /// <summary>
     /// The hotels cleaners
     /// </summary>
-    public class Maid : IMovable, IListner
+    public class Maid : IMovable, IListener
     {
         #region Properties
         /// <summary>

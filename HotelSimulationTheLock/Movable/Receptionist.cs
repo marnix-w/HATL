@@ -8,7 +8,7 @@ namespace HotelSimulationTheLock
     /// <summary>
     /// The receptionist of the hotel
     /// </summary>
-    public class Receptionist : IMovable, IListner
+    public class Receptionist : IMovable, IListener
     {
         #region Properties
         /// <summary>

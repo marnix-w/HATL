@@ -52,7 +52,7 @@ namespace HotelSimulationTheLock
         /// </summary>
         public IArea FinalDes { get; set; }
 
-
+        #region
         //'U' for UP, 'D' for DOWN, 'I' for IDLE
         /// <summary>
         ///  we need to compare these lists with eachother in order to have an 'smart' elevator
@@ -61,6 +61,7 @@ namespace HotelSimulationTheLock
         /// </summary>
         public List<int> Up = new List<int>();
         public List<int> Down = new List<int>();
+        #endregion 
 
         /// <summary>
         /// Sets the parameter from the builder file and the jsonfile
@@ -192,6 +193,9 @@ namespace HotelSimulationTheLock
             }
 
         }
+        /// <summary>
+        /// this function put the status of the elevator to UP which means the position of Y is going minus 1
+        /// </summary>
         private void _elevatorGoesUp()
         {
             //if for some reason the Down list is bigger we change the status and elevator will go down instead of going up
@@ -217,7 +221,7 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// The elevator will always go down by 1 aslong the downlist is filled
+        /// The elevator will always go down by 1 aslong the downlist is filled which means the position of y is going plus 1
         /// </summary>
         private void _elevatorGoesDown()
         {

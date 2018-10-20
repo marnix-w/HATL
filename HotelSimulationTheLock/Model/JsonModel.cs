@@ -4,6 +4,10 @@ using System.Drawing;
 namespace HotelSimulationTheLock
 {
     /// <summary>
+    /// update from hotel.layout 1 there were typo's in Dimension and Position
+    /// update from hotel.layout 2 there has been ID added
+    /// update from hotel.layout 3 there was more data to be found
+    /// 
     /// An temporary class for saving the information pulled from
     /// an json layout file
     /// </summary>
