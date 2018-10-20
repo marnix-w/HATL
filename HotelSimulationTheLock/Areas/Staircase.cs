@@ -27,6 +27,7 @@ namespace HotelSimulationTheLock
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
         public List<IMovable> Movables { get; set; } = new List<IMovable>();
 
+<<<<<<< HEAD
         public Staircase()
         {
 
@@ -36,6 +37,8 @@ namespace HotelSimulationTheLock
         /// Creates a new IArea
         /// </summary>
         /// <returns>A new Staircase</returns>
+=======
+>>>>>>> hotel-team
         public IArea CreateArea()
         {
             return new Staircase();
@@ -51,9 +54,11 @@ namespace HotelSimulationTheLock
         /// <param name="classification">Classification of the area</param>
         public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
+            ID = id;
             Position = position;
         }
 
+<<<<<<< HEAD
         /// <summary>
         /// Checks wheter the capacity of the area allows a new IMovable to enter
         /// </summary>
@@ -66,5 +71,7 @@ namespace HotelSimulationTheLock
             }
             return true;
         }
+=======
+>>>>>>> hotel-team
     }
 }

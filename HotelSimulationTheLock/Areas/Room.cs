@@ -31,11 +31,6 @@ namespace HotelSimulationTheLock
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
         public List<IMovable> Movables { get; set; } = new List<IMovable>();
 
-        public Room()
-        {
-
-
-        }
 
         /// <summary>
         /// Creates a new IArea
@@ -83,9 +78,7 @@ namespace HotelSimulationTheLock
             }
         }
 
-        public bool MoveToArea()
-        {
-            return true;
-        }
+        
+
     }
 }

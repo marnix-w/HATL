@@ -33,9 +33,9 @@
             this.guestTB = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this._fastForward = new System.Windows.Forms.Button();
+            this._slowDown = new System.Windows.Forms.Button();
+            this._resetSpeed = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -85,33 +85,35 @@
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // _fastForward
             // 
-            this.button3.Location = new System.Drawing.Point(522, 821);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(86, 68);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this._fastForward.Location = new System.Drawing.Point(797, 791);
+            this._fastForward.Name = "_fastForward";
+            this._fastForward.Size = new System.Drawing.Size(205, 141);
+            this._fastForward.TabIndex = 12;
+            this._fastForward.Text = "Speed up the simulation";
+            this._fastForward.UseVisualStyleBackColor = true;
+            this._fastForward.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button4
+            // _slowDown
             // 
-            this.button4.Location = new System.Drawing.Point(743, 821);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(86, 68);
-            this.button4.TabIndex = 13;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
+            this._slowDown.Location = new System.Drawing.Point(494, 791);
+            this._slowDown.Name = "_slowDown";
+            this._slowDown.Size = new System.Drawing.Size(205, 141);
+            this._slowDown.TabIndex = 13;
+            this._slowDown.Text = "Slow simulation down";
+            this._slowDown.UseVisualStyleBackColor = true;
+            this._slowDown.Click += new System.EventHandler(this.button4_Click);
             // 
-            // button5
+            // _resetSpeed
             // 
-            this.button5.Location = new System.Drawing.Point(944, 821);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(86, 68);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "button5";
-            this.button5.UseVisualStyleBackColor = true;
+            this._resetSpeed.Location = new System.Drawing.Point(1149, 791);
+            this._resetSpeed.Name = "_resetSpeed";
+            this._resetSpeed.Size = new System.Drawing.Size(205, 141);
+            this._resetSpeed.TabIndex = 14;
+            this._resetSpeed.Text = "Reset the simulation speed";
+            this._resetSpeed.UseVisualStyleBackColor = true;
+            this._resetSpeed.Click += new System.EventHandler(this.button5_Click);
             // 
             // label1
             // 
@@ -128,9 +130,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1676, 976);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this._resetSpeed);
+            this.Controls.Add(this._slowDown);
+            this.Controls.Add(this._fastForward);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.guestTB);
@@ -151,9 +153,9 @@
         private System.Windows.Forms.TextBox guestTB;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button _fastForward;
+        private System.Windows.Forms.Button _slowDown;
+        private System.Windows.Forms.Button _resetSpeed;
         private System.Windows.Forms.Label label1;
     }
 }

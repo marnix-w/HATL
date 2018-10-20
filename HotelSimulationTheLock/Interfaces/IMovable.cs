@@ -34,16 +34,15 @@ namespace HotelSimulationTheLock
 
         //elvator
         NOONE_INSIDE,
-        ELEVATOR_REQUEST,  
+        ELEVATOR_REQUEST,
         LEAVING_ELEVATOR,
         WAITING_FOR_ELEVATOR,
+
         UP,
         DOWN,
-        IDLE
+        IDLE,
 
-
-
-
+        CLEANING
     }
 
     public interface IMovable
@@ -60,7 +59,7 @@ namespace HotelSimulationTheLock
         Hotel Hotel { get; set; }
 
         void PerformAction();
-
+        IArea FinalDes { get; set; }
         void SetPath(IArea destination);
 
     }

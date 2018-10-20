@@ -35,6 +35,7 @@ namespace HotelSimulationTheLock
         public List<IMovable> MovablesInRestaurant { get; set; } = new List<IMovable>();
        
 
+<<<<<<< HEAD
         public Restaurant()
         {
           
@@ -44,6 +45,8 @@ namespace HotelSimulationTheLock
         /// Creates a new IArea
         /// </summary>
         /// <returns>A new Restaurant</returns>
+=======
+>>>>>>> hotel-team
         public IArea CreateArea()
         {
             return new Restaurant();
@@ -64,6 +67,7 @@ namespace HotelSimulationTheLock
             Dimension = dimension;
             Capacity = capacity;
         }
+<<<<<<< HEAD
 
         /// <summary>
         /// Checks wheter the capacity of the area allows a new IMovable to enter
@@ -77,5 +81,9 @@ namespace HotelSimulationTheLock
             }
             return true;
         }
+=======
+        
+
+>>>>>>> hotel-team
     }
 }

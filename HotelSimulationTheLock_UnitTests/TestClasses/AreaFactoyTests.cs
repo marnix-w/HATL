@@ -80,24 +80,22 @@ namespace HotelSimulationTheLock_UnitTests
             Assert.AreEqual(expected, gotten);
         }
 
-        // THIS TEST CAN BE SET WITH THE CORRECT DLL ONES IAREA IS FULLY DIFEND
+        [TestMethod]
+        public void CreateNonexistentRoomsUsingAreaFactoryAndRealDLL()
+        {
+            // arrange
+            IArea expected;
+            IArea gotten;
+            AreaFactory areaFactory = new AreaFactory();
 
-        //[TestMethod]
-        //public void CreateNonexistentRoomsUsingAreaFactoryAndRealDLL()
-        //{
-        //    // arrange
-        //    IArea expected;
-        //    IArea gotten;
-        //    AreaFactory areaFactory = new AreaFactory();
+            //act
+            expected = new ActualPool.ActualPool();
 
-        //    //act
-        //    expected = new ActualPool.ActualPool();
+            gotten = areaFactory.GetArea("ActualPool");
 
-        //    gotten = areaFactory.GetArea("ActualPool");
-
-        //    //assert
-        //    Assert.AreEqual(expected.GetType(), gotten.GetType());
-        //}
+            //assert
+            Assert.AreEqual(expected.GetType(), gotten.GetType());
+        }
 
     }
 }

@@ -13,10 +13,7 @@ namespace HotelSimulationTheLock
 
         public Hotel Hotel { get; set; }
 
-        private Dictionary<IMovable, int> InElevator { get; set; } = new Dictionary<IMovable, int>();
-
         public int Capacity { get; set; }
-
 
 
         // other shit
@@ -29,26 +26,27 @@ namespace HotelSimulationTheLock
         public Dictionary<MovableStatus, Action> Actions { get; set; }
 
 
-        public Queue<IArea> Path { get; set; }
-
 
         //volgens david
         List<IMovable> RemoveGuests = new List<IMovable>();
         public List<IMovable> RequestList { get; set; } = new List<IMovable>();
         public List<IMovable> GuestList { get; set; } = new List<IMovable>();
+        public IArea FinalDes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
 
         //'U' for UP, 'D' for DOWN, 'I' for IDLE
-        private List<int> Up = new List<int>();
-        private List<int> Down = new List<int>();
+        public List<int> Up = new List<int>();
+        public List<int> Down = new List<int>();
 
         public ElevatorCart(Point position, Hotel hotel, int capacity)
         {
             Hotel = hotel;
             // Remind me to set it to capicity
             Capacity = capacity;
-            Status = MovableStatus.NOONE_INSIDE;
+            Status = MovableStatus.IDLE;
+            Position = position;
             // Area = Hotel.GetArea(new Point(0, Hotel.HotelHeight));
-            Area = Hotel.GetArea(position);
+            Area = Hotel.GetArea(Position);
 
             ((Elevator)Area).ElevatorCart = this;
         }
@@ -59,7 +57,7 @@ namespace HotelSimulationTheLock
             RemoveGuests.Clear();
             for (int i = 0; i < GuestList.Count; i++)
             {
-                if (GuestList[i] is Guest g)
+                if (GuestList[i] is IMovable g)
                 {
                     if (Position.Y == g.FinalDes.Position.Y)
                     {
@@ -96,12 +94,12 @@ namespace HotelSimulationTheLock
             {
                 Status = MovableStatus.IDLE;
             }
-            foreach (Guest human in GuestList)
+            foreach (IMovable human in GuestList)
             {
                 human.Position = Position;
             }
             AddDestinationFloor();
-            //}
+          
 
             if (Up.Count == 0 && Down.Count == 0)
             {
@@ -112,12 +110,11 @@ namespace HotelSimulationTheLock
             {
                 _ElevatorDoesNothing();
             }
-
         }
 
 
+        public void RequestElevator(IMovable RequestFloor, int height)
 
-        public void RequestElevator(Guest RequestFloor, int height)
         {
             //Extra Check
             //Check for Current floor
@@ -202,7 +199,8 @@ namespace HotelSimulationTheLock
 
             for (int i = 0; i < RequestList.Count; i++)
             {
-                if (RequestList[i] is Guest g)
+
+                if(RequestList[i] is IMovable g)
                 {
                     if (g.Position.Y == Position.Y)
                     {
@@ -233,7 +231,7 @@ namespace HotelSimulationTheLock
             }
             for (int i = 0; i < RemoveGuests.Count; i++)
             {
-                if (RemoveGuests[i] is Guest g)
+                if (RemoveGuests[i] is IMovable g)
                 {
                     RequestList.Remove(RemoveGuests[i]);
                 }

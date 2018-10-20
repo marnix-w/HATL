@@ -18,7 +18,7 @@ namespace HotelSimulationTheLock
         // Properties
         public Point Position { get; set; }
         public Size Dimension { get; set; }
-        public int Capacity { get; set; } = int.MaxValue;
+        public int Capacity { get; set; } = 11;
         public Bitmap Art { get; set; } = Properties.Resources.cinema;
         public int Duration { get; set; }
         public AreaStatus AreaStatus { get; set; }
@@ -28,13 +28,9 @@ namespace HotelSimulationTheLock
         public IArea NearestToStart { get; set; } = null;
         public bool Visited { get; set; } = false;
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
-        public List<IMovable> MovablesInCinema { get; set; } = new List<IMovable>();
-               
+        public List<IMovable> MovablesInCinema { get; set; } = new List<IMovable>();              
 
-        public Cinema()
-        {
-         
-        }
+  
 
         /// <summary>
         /// Creates a new IArea and registers that IArea whith the HotelEventManager
@@ -56,8 +52,7 @@ namespace HotelSimulationTheLock
             if (evt.EventType.Equals(HotelEventType.START_CINEMA))
             {
                 AreaStatus = AreaStatus.PLAYING_MOVIE;
-                Art = Properties.Resources.cinem_playinga;
-                Console.WriteLine("CINEMA IS STARTING");
+                Art = Properties.Resources.cinem_playinga;                
             }
         }
 
@@ -75,6 +70,7 @@ namespace HotelSimulationTheLock
             Position = position;
             Dimension = dimension;         
         }
+<<<<<<< HEAD
 
         /// <summary>
         /// Checks wheter the capacity of the area allows a new IMovable to enter
@@ -88,5 +84,8 @@ namespace HotelSimulationTheLock
             }
             return true;
         }
+=======
+        
+>>>>>>> hotel-team
     }
 }

@@ -32,6 +32,7 @@ namespace HotelSimulationTheLock
         public Queue<IMovable> CheckInQueue { get; set; } = new Queue<IMovable>();
        
 
+<<<<<<< HEAD
         public Reception()
         {
 
@@ -41,6 +42,8 @@ namespace HotelSimulationTheLock
         /// Creates a new IArea
         /// </summary>
         /// <returns>A new Reception</returns>
+=======
+>>>>>>> hotel-team
         public IArea CreateArea()
         {
             return new Reception();

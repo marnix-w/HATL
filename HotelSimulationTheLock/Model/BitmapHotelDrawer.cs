@@ -81,7 +81,10 @@ namespace HotelSimulationTheLock
                 {
                     try
                     {
-                        foreach (IMovable movable in movables)
+                        graphics.DrawImage(movables.Find(X => X is ElevatorCart).Art, movables.Find(X => X is ElevatorCart).Position.X * artSize,
+                                       (movables.Find(X => X is ElevatorCart).Position.Y - 1) * artSize);
+
+                        foreach (IMovable movable in movables.Where(X => !(X is ElevatorCart)))
                         {
                             //if the moveable have the status IN_ROOM we don't draw them
                             if (movable.Status != MovableStatus.IN_ROOM && movable.Status != MovableStatus.EATING && movable.Status != MovableStatus.WATCHING && movable.Status != MovableStatus.WORKING_OUT)

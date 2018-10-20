@@ -1,0 +1,273 @@
+Starting...
+True
+#- Begin Event Dump -#
+Message =
+Time = 2
+Type = CHECK_IN
+Data.value = Checkin 4stars
+Data.Key = Gast1
+#- End Event Dump nr 1-#
+
+#- Begin Event Dump -#
+Message =
+Time = 5
+Type = CHECK_IN
+Data.value = Checkin 3stars
+Data.Key = Gast2
+#- End Event Dump nr 2-#
+
+#- Begin Event Dump -#
+Message =
+Time = 6
+Type = CHECK_IN
+Data.value = Checkin 2stars
+Data.Key = Gast3
+#- End Event Dump nr 3-#
+
+#- Begin Event Dump -#
+Message =
+Time = 6
+Type = CHECK_IN
+Data.value = Checkin 1stars
+Data.Key = Gast4
+#- End Event Dump nr 4-#
+
+#- Begin Event Dump -#
+Message =
+Time = 6
+Type = CHECK_IN
+Data.value = Checkin 1stars
+Data.Key = Gast5
+#- End Event Dump nr 5-#
+
+#- Begin Event Dump -#
+Message =
+Time = 6
+Type = CHECK_IN
+Data.value = Checkin 1stars
+Data.Key = Gast6
+#- End Event Dump nr 6-#
+
+#- Begin Event Dump -#
+Message =
+Time = 6
+Type = CHECK_IN
+Data.value = Checkin 1stars
+Data.Key = Gast7
+#- End Event Dump nr 7-#
+
+#- Begin Event Dump -#
+Message =
+Time = 6
+Type = CHECK_IN
+Data.value = Checkin 3stars
+Data.Key = Gast8
+#- End Event Dump nr 8-#
+
+#- Begin Event Dump -#
+Message =
+Time = 6
+Type = CHECK_IN
+Data.value = Checkin 4stars
+Data.Key = Gast9
+#- End Event Dump nr 9-#
+
+#- Begin Event Dump -#
+Message =
+Time = 7
+Type = CHECK_IN
+Data.value = Checkin 5stars
+Data.Key = Gast10
+#- End Event Dump nr 10-#
+
+#- Begin Event Dump -#
+Message = TestEvent 7 seconds
+Time = 7
+Type = NONE
+#- End Event Dump nr 11-#
+
+#- Begin Event Dump -#
+Message =
+Time = 8
+Type = CHECK_IN
+Data.value = Checkin 5stars
+Data.Key = Gast11
+#- End Event Dump nr 12-#
+
+#- Begin Event Dump -#
+Message = TestEvent 8 seconds
+Time = 8
+Type = NONE
+#- End Event Dump nr 13-#
+
+#- Begin Event Dump -#
+Message = TestEvent 9 seconds
+Time = 9
+Type = NONE
+#- End Event Dump nr 14-#
+
+#- Begin Event Dump -#
+Message =
+Time = 50
+Type = CHECK_OUT
+Data.value = 1
+Data.Key = Gast
+#- End Event Dump nr 15-#
+
+#- Begin Event Dump -#
+Message =
+Time = 50
+Type = CLEANING_EMERGENCY
+Data.value = 16
+Data.Key = kamer
+Data.value = 6
+Data.Key = HTE
+#- End Event Dump nr 16-#
+
+#- Begin Event Dump -#
+Message =
+Time = 50
+Type = NEED_FOOD
+Data.value = 3
+Data.Key = Gast
+#- End Event Dump nr 17-#
+
+#- Begin Event Dump -#
+Message =
+Time = 51
+Type = CHECK_OUT
+Data.value = 2
+Data.Key = Gast
+#- End Event Dump nr 18-#
+
+#- Begin Event Dump -#
+Message =
+Time = 55
+Type = NEED_FOOD
+Data.value = 1
+Data.Key = Gast
+#- End Event Dump nr 19-#
+
+#- Begin Event Dump -#
+Message =
+Time = 60
+Type = CHECK_OUT
+Data.value = 4
+Data.Key = Gast
+#- End Event Dump nr 20-#
+
+#- Begin Event Dump -#
+Message =
+Time = 61
+Type = CLEANING_EMERGENCY
+Data.value = 21
+Data.Key = kamer
+Data.value = 4
+Data.Key = HTE
+#- End Event Dump nr 21-#
+
+#- Begin Event Dump -#
+Message =
+Time = 80
+Type = GOTO_FITNESS
+Data.value = 6
+Data.Key = Gast
+Data.value = 8
+Data.Key = HTE
+#- End Event Dump nr 22-#
+
+#- Begin Event Dump -#
+Message =
+Time = 82
+Type = GOTO_FITNESS
+Data.value = 7
+Data.Key = Gast
+Data.value = 5
+Data.Key = HTE
+#- End Event Dump nr 23-#
+
+#- Begin Event Dump -#
+Message =
+Time = 90
+Type = GOTO_CINEMA
+Data.value = 5
+Data.Key = Gast
+#- End Event Dump nr 24-#
+
+#- Begin Event Dump -#
+Message =
+Time = 90
+Type = GOTO_CINEMA
+Data.value = 8
+Data.Key = Gast
+#- End Event Dump nr 25-#
+
+#- Begin Event Dump -#
+Message =
+Time = 90
+Type = GOTO_CINEMA
+Data.value = 9
+Data.Key = Gast
+#- End Event Dump nr 26-#
+
+#- Begin Event Dump -#
+Message =
+Time = 125
+Type = GOTO_CINEMA
+Data.value = 11
+Data.Key = Gast
+#- End Event Dump nr 27-#
+
+#- Begin Event Dump -#
+Message =
+Time = 129
+Type = GOTO_CINEMA
+Data.value = 10
+Data.Key = Gast
+#- End Event Dump nr 28-#
+
+#- Begin Event Dump -#
+Message =
+Time = 130
+Type = NEED_FOOD
+Data.value = 11
+Data.Key = Gast
+#- End Event Dump nr 29-#
+
+#- Begin Event Dump -#
+Message =
+Time = 130
+Type = START_CINEMA
+Data.value = 3
+Data.Key = ID
+#- End Event Dump nr 30-#
+
+#- Begin Event Dump -#
+Message =
+Time = 154
+Type = CHECK_OUT
+Data.value = 3
+Data.Key = Gast
+#- End Event Dump nr 31-#
+
+#- Begin Event Dump -#
+Message = Fire on floor 3
+Time = 155
+Type = EVACUATE
+#- End Event Dump nr 32-#
+
+#- Begin Event Dump -#
+Message =
+Time = 156
+Type = NEED_FOOD
+Data.value = 6
+Data.Key = Gast
+#- End Event Dump nr 33-#
+
+#- Begin Event Dump -#
+Message = No more events
+Time = 156
+Type = NONE
+#- End Event Dump nr 34-#
+
+Stopping...

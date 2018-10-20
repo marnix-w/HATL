@@ -61,10 +61,17 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AreaFactoyTests.cs" />
-    <Compile Include="MovableTests.cs" />
+    <Compile Include="TestClasses\AreaFactoyTests.cs" />
+    <Compile Include="TestClasses\GuestTests.cs" />
+    <Compile Include="TestClasses\HotelClassTest.cs" />
+    <Compile Include="TestClasses\AreaTests.cs" />
+    <Compile Include="TestClasses\DijkstraTests.cs" />
+    <Compile Include="TestClasses\MaidTests.cs" />
+    <Compile Include="TestClasses\MovableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StartupScreenTest.cs" />
+    <Compile Include="TestClasses\StartupScreenTest.cs" />
+    <Compile Include="TestClasses\SimulationTests.cs" />
+    <Compile Include="TestClasses\StubedHotelBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

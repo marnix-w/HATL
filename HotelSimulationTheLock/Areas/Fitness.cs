@@ -27,10 +27,7 @@ namespace HotelSimulationTheLock
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
         public List<IMovable> MovablesInFitness { get; set; } = new List<IMovable>();
 
-        public Fitness()
-        {
-            
-        }
+
 
         /// <summary>
         /// Creates a new IArea
@@ -55,6 +52,7 @@ namespace HotelSimulationTheLock
             Position = position;
             Dimension = dimension;
         }
+<<<<<<< HEAD
 
         /// <summary>
         /// Checks wheter the capacity of the area allows a new IMovable to enter
@@ -68,5 +66,8 @@ namespace HotelSimulationTheLock
             }
             return true;
         }
+=======
+        
+>>>>>>> hotel-team
     }
 }

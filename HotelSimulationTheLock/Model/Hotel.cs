@@ -17,7 +17,7 @@ namespace HotelSimulationTheLock
         private List<IMovable> LeavingGuests { get; set; } = new List<IMovable>();
         private List<IMovable> ArivingGuests { get; set; } = new List<IMovable>();
 
-        private IHotelBuilder HotelBuilder { get; set; } = new JsonHotelBuilder();
+        private IHotelBuilder HotelBuilder { get; set; }
         private IHotelDrawer HotelDrawer { get; set; } = new BitmapHotelDrawer();
 
         // Hotel dimensions for calcuations
@@ -29,12 +29,18 @@ namespace HotelSimulationTheLock
 
         private ElevatorCart _elevatorCart { get; set; }
 
-        public Hotel(List<JsonModel> layout, SettingsModel settings)
+        public Hotel()
+        {
+
+        }
+
+        public Hotel(List<JsonModel> layout, SettingsModel settings, IHotelBuilder TypeOfBuilder)
         {
             // Hotel will handle the CheckIn_events so it can add them to its list
             // making it posible to keep the list private
             HotelEventManager.Register(this);
 
+            HotelBuilder = TypeOfBuilder;
 
             // Build the hotel
             HotelAreas = HotelBuilder.BuildHotel(layout, settings);
@@ -42,16 +48,9 @@ namespace HotelSimulationTheLock
 
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
-
-            //      Guest bob = new Guest(this, "bob", 5, new Point(1, 5), 5);
-            //        bob.MyRoom = GetArea(new Point(1, 1));
-            //        HotelMovables.Add(bob);  
+   
 
             _elevatorCart = (ElevatorCart)HotelMovables.Find(X => X is ElevatorCart);
-
-            //          bob.CallElevator();
-
-            //    ElevatorCart elevator = new ElevatorCart(this, settings.ElevatorCapicity);
 
             // Right?
             HotelEventManager.HTE_Factor = 2;
@@ -71,16 +70,22 @@ namespace HotelSimulationTheLock
                 area.Visited = false;
             }
         }
-
-        public List<IArea> GetAreas()
+        
+        public IArea GetRoomToClean()
         {
-            return HotelAreas;
+            if (HotelAreas.Where(X => X.AreaStatus == AreaStatus.NEED_CLEANING).Any())
+            {
+                IArea temp = HotelAreas.Where(X => X.AreaStatus == AreaStatus.NEED_CLEANING).First();
+                temp.AreaStatus = AreaStatus.IN_CLEANING_QUEUE;
+                return temp;
+            }
 
+            return null;
         }
 
         public bool IsHotelSafe()
         {
-            if (HotelMovables.Where(X => X is Guest && X.Area is Reception).Count() == HotelMovables.Where(X => X is Guest).Count())
+            if (HotelMovables.Where(X =>!(X is ElevatorCart) && X.Area is Reception).Count() == HotelMovables.Where(X => !(X is ElevatorCart)).Count())
             {
                 return true;
             }
@@ -111,6 +116,11 @@ namespace HotelSimulationTheLock
             return HotelAreas.Find(X => X.Position == location);
         }
 
+        public IArea GetAreaByID(int ID)
+        {
+            return HotelAreas.Find(X => X.ID == ID);
+        }
+
         public IArea GetArea(int request)
         {
             IArea result = null;
@@ -137,6 +147,10 @@ namespace HotelSimulationTheLock
         /// <returns>The coresponding IArea if none found, null</returns>
         public IArea GetArea(Type type)
         {
+            if (!(HotelAreas.Any()))
+            {
+                return null;
+            }
             return HotelAreas.Find(X => X.GetType() == type);
         }
 
@@ -170,19 +184,19 @@ namespace HotelSimulationTheLock
         }
 
         // end get room
-        public IArea GetNewLocation(IArea blabla, Type fuck)
+        public IArea GetNewLocation(IArea CurrentArea, Type newArea)
         {
 
             List<IArea> CurrentShortest = HotelAreas;
 
             IArea guestRoom = null;
 
-            foreach (IArea area in HotelAreas.Where(X => X.GetType() == fuck))
+            foreach (IArea area in HotelAreas.Where(X => X.GetType() == newArea))
             {
-                if (Dijkstra.GetShortestPathDijkstra(blabla, area).Count < CurrentShortest.Count)
+                if (Dijkstra.GetShortestPathDijkstra(CurrentArea, area).Count < CurrentShortest.Count)
                 {
 
-                    CurrentShortest = Dijkstra.GetShortestPathDijkstra(blabla, area);
+                    CurrentShortest = Dijkstra.GetShortestPathDijkstra(CurrentArea, area);
                     guestRoom = area;
                 }
             }
@@ -190,7 +204,7 @@ namespace HotelSimulationTheLock
             //this room needs to be casted to the guest
             return guestRoom;
         }
-        public void CallElevator(Guest guest)
+        public void CallElevator(IMovable guest)
         {
                 _elevatorCart.RequestElevator(guest, HotelHeight);
           //if(_elevatorCart.RequestList.Count < _elevatorCart.Capacity)
