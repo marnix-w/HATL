@@ -18,7 +18,7 @@ namespace HotelSimulationTheLock
         private List<IMovable> ArivingGuests { get;  } = new List<IMovable>();
 
         private IHotelBuilder HotelBuilder { get; set; }
-        private IHotelDrawer HotelDrawer { get; set; } = new BitmapHotelDrawer();
+        private IHotelDrawer HotelDrawer { get; set; } = new HotelSimDrawer();
 
         // Hotel dimensions for calcuations
         public static int HotelHeight { get; set; }
