@@ -27,18 +27,6 @@ namespace HotelSimulationTheLock
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>();
         public List<IMovable> Movables { get; set; } = new List<IMovable>();
 
-<<<<<<< HEAD
-        public Staircase()
-        {
-
-        }
-
-        /// <summary>
-        /// Creates a new IArea
-        /// </summary>
-        /// <returns>A new Staircase</returns>
-=======
->>>>>>> hotel-team
         public IArea CreateArea()
         {
             return new Staircase();
@@ -58,20 +46,5 @@ namespace HotelSimulationTheLock
             Position = position;
         }
 
-<<<<<<< HEAD
-        /// <summary>
-        /// Checks wheter the capacity of the area allows a new IMovable to enter
-        /// </summary>
-        /// <returns>Wheter the IMovable can enter the area</returns>
-        public bool MoveToArea()
-        {
-            if (Capacity == Movables.Count)
-            {
-                return false;
-            }
-            return true;
-        }
-=======
->>>>>>> hotel-team
     }
 }

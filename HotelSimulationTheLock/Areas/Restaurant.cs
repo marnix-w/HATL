@@ -34,19 +34,6 @@ namespace HotelSimulationTheLock
         // Event properties
         public List<IMovable> MovablesInRestaurant { get; set; } = new List<IMovable>();
        
-
-<<<<<<< HEAD
-        public Restaurant()
-        {
-          
-        }
-
-        /// <summary>
-        /// Creates a new IArea
-        /// </summary>
-        /// <returns>A new Restaurant</returns>
-=======
->>>>>>> hotel-team
         public IArea CreateArea()
         {
             return new Restaurant();
@@ -67,23 +54,5 @@ namespace HotelSimulationTheLock
             Dimension = dimension;
             Capacity = capacity;
         }
-<<<<<<< HEAD
-
-        /// <summary>
-        /// Checks wheter the capacity of the area allows a new IMovable to enter
-        /// </summary>
-        /// <returns>Wheter the IMovable can enter the area</returns>
-        public bool MoveToArea()
-        {
-            if (Capacity == MovablesInRestaurant.Count)
-            {
-                return false;
-            }
-            return true;
-        }
-=======
-        
-
->>>>>>> hotel-team
     }
 }

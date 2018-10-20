@@ -30,11 +30,7 @@ namespace HotelSimulationTheLock
         {
             Position = position;
             Hotel = hotel;
-<<<<<<< HEAD
-=======
             Area = hotel.GetArea(typeof(Reception));
-
->>>>>>> hotel-team
         }
 
         public void Notify(HotelEvent evt)
@@ -44,19 +40,6 @@ namespace HotelSimulationTheLock
 
             }
         }
-<<<<<<< HEAD
-        
-        /// <summary>
-        /// Removes guest from the hotel
-        /// </summary>
-        /// <param name="guest">The guest that needs to be removed</param>
-        public void RemoveGuest(Guest guest)
-        {
-            Hotel.RemoveGuest(guest);
-        }
-=======
-
->>>>>>> hotel-team
 
         public void PerformAction()
         {

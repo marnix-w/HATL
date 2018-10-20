@@ -52,22 +52,6 @@ namespace HotelSimulationTheLock
             Position = position;
             Dimension = dimension;
         }
-<<<<<<< HEAD
 
-        /// <summary>
-        /// Checks wheter the capacity of the area allows a new IMovable to enter
-        /// </summary>
-        /// <returns>Wheter the IMovable can enter the area</returns>
-        public bool EnterArea()
-        {
-            if (Capacity == MovablesInFitness.Count)
-            {
-                return false;
-            }
-            return true;
-        }
-=======
-        
->>>>>>> hotel-team
     }
 }
