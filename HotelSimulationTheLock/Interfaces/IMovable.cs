@@ -39,8 +39,7 @@ namespace HotelSimulationTheLock
     /// </summary>
     public interface IMovable
     {
-        // Movable properties
-        #region
+        #region Movable properties
         /// <summary>
         /// The Movable its current position
         /// </summary>
@@ -72,9 +71,8 @@ namespace HotelSimulationTheLock
         /// </summary>
         Hotel Hotel { get; set; }
         #endregion
-
-        // Methods:
-        #region
+        
+        #region Methods
         /// <summary>
         /// Calls the Actions list and performs an action
         /// </summary>

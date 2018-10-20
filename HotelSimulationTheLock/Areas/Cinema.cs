@@ -13,9 +13,8 @@ namespace HotelSimulationTheLock
     [Export(typeof(IArea))]
     [ExportMetadata("AreaType", "Cinema")]
     public class Cinema : IArea, IListner
-    {
-        // IArea properties implementation:        
-        #region
+    {            
+        #region IArea properties
         /// <summary>
         /// An Specefic identifier for an IArea, this must be uniqe.
         /// </summary>
@@ -42,8 +41,7 @@ namespace HotelSimulationTheLock
         public AreaStatus AreaStatus { get; set; } // Currently all statuses can be used for rooms, this might change in the future.       
         #endregion
 
-        // Dijkstra search properties:
-        #region
+        #region Dijkstra search properties
 
         // We wanted to implement a more generic version of dijkstra
         // using an ISearchable interface. this is somthing to add in the future
@@ -69,8 +67,7 @@ namespace HotelSimulationTheLock
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>(); // IArea will be changed to ISearchable in the future.
         #endregion
 
-        // Cinema Properties:
-        #region
+        #region Cinema Properties
         /// <summary>
         /// The duration in HTE of an movie
         /// </summary>
