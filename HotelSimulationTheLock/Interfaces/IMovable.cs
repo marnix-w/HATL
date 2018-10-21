@@ -40,20 +40,20 @@ namespace HotelSimulationTheLock
     {
         #region Movable properties
         /// <summary>
-        /// The Movable its current position
+        /// The movables current position
         /// </summary>
         IArea Area { get; set; }
         /// <summary>
-        /// The final destanation a movable is going
+        /// The final destination the movable wants to go to
         /// </summary>
         IArea FinalDes { get; set; }
         /// <summary>
         /// The position of the movable
-        /// This coresponds with the Area
+        /// This corresponds with the area
         /// </summary>
-        Point Position { get; set; } // this is used for drawing and the elevatorcart
+        Point Position { get; set; } // this is used for drawing and for the elevatorcart
         /// <summary>
-        /// The vizual representation of the movable
+        /// The visual representation of the movable
         /// </summary>
         Bitmap Art { get; set; } // Bob, Barbra or cool bob
         /// <summary>
@@ -63,10 +63,10 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// The List of actions a movable can perfrom
         /// </summary>
-        Dictionary<MovableStatus, Action> Actions { get; set; } // This list uses the status and an delegate to handle bahavoir
+        Dictionary<MovableStatus, Action> Actions { get; set; } // This list uses the status and a delegate to handle behaviour
         /// <summary>
         /// The movable knows the hotel so it can find its way around
-        /// and call for varius types of data
+        /// and call for various types of data
         /// </summary>
         Hotel Hotel { get; set; }
         #endregion
@@ -77,7 +77,7 @@ namespace HotelSimulationTheLock
         /// </summary>
         void PerformAction();
         /// <summary>
-        /// Sets a path truh calling dijkstra to an destanation
+        /// Sets a path through calling dijkstra, with a destination
         /// </summary>
         void SetPath(IArea destination);
         #endregion

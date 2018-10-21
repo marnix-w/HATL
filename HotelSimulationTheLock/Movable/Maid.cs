@@ -7,7 +7,7 @@ using HotelEvents;
 namespace HotelSimulationTheLock
 {
     /// <summary>
-    /// An collection of information about a cleaning event
+    /// A collection of information about a cleaning event
     /// </summary>
     public class CleaningEvent
     {
@@ -40,15 +40,15 @@ namespace HotelSimulationTheLock
         /// </summary>
         public MovableStatus Status { get; set; }
         /// <summary>
-        /// The queue of cleaning events she has to perfom
+        /// The queue of cleaning events the maid has to perform
         /// </summary>
         public Queue<CleaningEvent> ToCleanList { get; set; } = new Queue<CleaningEvent>();
         /// <summary>
-        /// The actions list she can perform
+        /// The list of actions the maid can perform
         /// </summary>
         public Dictionary<MovableStatus, Action> Actions { get; set; } = new Dictionary<MovableStatus, Action>();
         /// <summary>
-        /// The path she will move of
+        /// The path the maid will move on
         /// </summary>
         public Queue<IArea> Path { get; set; } = new Queue<IArea>();
         /// <summary>
@@ -56,11 +56,11 @@ namespace HotelSimulationTheLock
         /// </summary>
         public bool WantsElevator { get; set; } = false;
         /// <summary>
-        /// An bool for restting the status after the elevator
+        /// A bool for resetting the status after the elevator
         /// </summary>
         public MovableStatus LastStatus { get; set; }
         /// <summary>
-        /// The hotels she belongs to
+        /// The hotel the maid belongs to
         /// </summary>
         public Hotel Hotel { get; set; }
         /// <summary>
@@ -72,11 +72,11 @@ namespace HotelSimulationTheLock
         /// </summary>
         public int _hteCalculateCounter { get; set; } = 0;
         /// <summary>
-        /// The area she stands on
+        /// The area the maid is standing on
         /// </summary>
         public IArea Area { get; set; }
         /// <summary>
-        /// Her final destination
+        /// The final destination of the maid
         /// </summary>
         public IArea FinalDes { get; set; }
         #endregion
@@ -85,8 +85,8 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Creating a maid to use in the hotel
         /// </summary>
-        /// <param name="startLocation"></param>
-        /// <param name="hotel"></param>
+        /// <param name="startLocation">The location in the hotel the maid is first put on after creation</param>
+        /// <param name="hotel">The hotel the maid works in</param>
         public Maid(Point startLocation, Hotel hotel)
         {
             Hotel = hotel;
@@ -113,13 +113,13 @@ namespace HotelSimulationTheLock
 
         // Important note:
         // This list contains a fair amount of code duplication
-        // this was the cause of simaltaniusly working on event implemenation
+        // this was the cause of simultaneously working on event implementation
         // we made this choice because of the limeted time we had to implement these
         // as cause the actions list has become to big and needs a good refactor
-        // there is no time for this so it is an issue that needs to be rethaught in the fututure
+        // there is no time for this so it is an issue that needs to be rethought in the fututure
 
         /// <summary>
-        /// CHecks if there is anything to clean
+        /// Cecks if there is anything to clean
         /// </summary>
         private void _IsSomthingInQueue()
         {
@@ -194,7 +194,7 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Goes a room wich needs cleaning
+        /// Goes to a room which needs cleaning
         /// </summary>
         private void _GoToRoom()
         {
@@ -300,7 +300,7 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Sets a path to the final destanation
         /// </summary>
-        /// <param name="destination"></param>
+        /// <param name="destination">The destination the movable wants to go to</param>
         public void SetPath(IArea destination)
         {
             if (Dijkstra.IsElevatorCloser(Area, destination) is Elevator && Status != MovableStatus.EVACUATING)
@@ -326,7 +326,7 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Handles incomming events
         /// </summary>
-        /// <param name="evt"></param>
+        /// <param name="evt">teh incomming event</param>
         public void Notify(HotelEvent evt)
         {
             if (evt.EventType == HotelEventType.EVACUATE)

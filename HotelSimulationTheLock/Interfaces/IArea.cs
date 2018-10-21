@@ -4,7 +4,7 @@ using System.Drawing;
 namespace HotelSimulationTheLock
 {
     /// <summary>
-    /// The enumarator the sets an stauts for an IArea
+    /// The enumarator that sets a status for an IArea
     /// </summary>
     public enum AreaStatus
     {
@@ -16,27 +16,27 @@ namespace HotelSimulationTheLock
     }
 
     /// <summary>
-    /// A identifier for an Iarea implementor
+    /// A identifier for an IArea implementation
     /// </summary>
     public interface IAreaType
     {
         // This Identifier is currently not unique and can cause problems
-        // This is somthing to work on in the future
+        // This is something to work on in the future
         string AreaType { get; }
     }
 
     /// <summary>
-    /// The generic declaration for an Area in the Hotel
+    /// The generic declaration for an area in the hotel
     /// </summary>
     public interface IArea
     {           
         #region IArea properties
         /// <summary>
-        /// An specific identifier for an IArea, this must be uniqe.
+        /// A specific identifier for an IArea, this must be unique.
         /// </summary>
         int ID { get; set; }
         /// <summary>
-        /// The Position where the IArea stands in the hotel, This must be uniqe.
+        /// The Position where the IArea is located in the hotel. This must be unique.
         /// </summary>
         Point Position { get; set; }
         /// <summary>
@@ -44,7 +44,7 @@ namespace HotelSimulationTheLock
         /// </summary>
         Size Dimension { get; set; }
         /// <summary>
-        /// The amount of movabales that are allowed to enter the area.
+        /// The amount of movables that are allowed to enter the area.
         /// </summary>
         int Capacity { get; set; }
         /// <summary>
@@ -52,7 +52,7 @@ namespace HotelSimulationTheLock
         /// </summary>
         Bitmap Art { get; set; }
         /// <summary>
-        /// An enumarator the provides a status for a room .
+        /// An enumarator that provides a status for an area.
         /// </summary>
         AreaStatus AreaStatus { get; set; }
         #endregion
@@ -60,25 +60,25 @@ namespace HotelSimulationTheLock
         #region Dijkstra search properties
 
         // We wanted to implement a more generic version of dijkstra
-        // using an ISearchable interface. this is somthing to add in the future
+        // using an ISearchable interface. this is something to add in the future
 
-        // BackTrackCost, NeasestToStart and visted
-        // will be reset everytime dijkstra has ran it GetShortestPath() function
+        // BackTrackCost, NeasestToStart and visited
+        // will be reset every time dijkstra has ran its GetShortestPath() function
 
         /// <summary>
-        /// A number wich is used for calculating the shortest path.
+        /// A number which is used for calculating the shortest path.
         /// </summary>
         double? BackTrackCost { get; set; } // This is double so the future ISearchable can be more reusable.
         /// <summary>
-        /// The ISerachable that is closest to the starting from this current ISearchable.
+        /// The ISerachable neighbour that is closest to the start.
         /// </summary>
         IArea NearestToStart { get; set; }
         /// <summary>
-        /// Deterimens wheter this ISearchable has been visted.
+        /// Determines whether this ISearchable has been visited.
         /// </summary>
         bool Visited { get; set; }
         /// <summary>
-        /// An collection of connection that the ISearchable has.
+        /// A collection of connections that the ISearchable has.
         /// </summary>
         Dictionary<IArea, int> Edge { get; set; } // IArea will be changed to ISearchable in the future.
         #endregion

@@ -6,8 +6,8 @@ using HotelEvents;
 namespace HotelSimulationTheLock
 {
     /// <summary>
-    /// <para>An specific implementation of an IArea.</para>
-    /// <para>Cinema Takes care of handeling the START_CINEMA event.</para>
+    /// <para>A specific implementation of an IArea.</para>
+    /// <para>Cinema Takes care of handling the START_CINEMA event.</para>
     /// <para>Metadata: "AreaType", "Cinema".</para>
     /// </summary>
     [Export(typeof(IArea))]
@@ -16,19 +16,19 @@ namespace HotelSimulationTheLock
     {            
         #region IArea properties
         /// <summary>
-        /// An specific identifier for an IArea, this must be uniqe.
+        /// A specific identifier for an IArea, this must be unique.
         /// </summary>
-        public int ID { get; set; } // We didn'_timer have the time to ensure this number would be unique.
+        public int ID { get; set; } // We didn't have the time to ensure this number would be unique.
         /// <summary>
-        /// The Position where the IArea stands in the hotel, This must be uniqe.
+        /// The Position where the IArea is located in the hotel, This must be unique.
         /// </summary>
-        public Point Position { get; set; } // We didn'_timer have the time to ensure this number would be unique.
+        public Point Position { get; set; } // We didn't have the time to ensure this number would be unique.
         /// <summary>
         /// The Size of the IArea.
         /// </summary>
         public Size Dimension { get; set; } // It's usage is for setting the neigbors.
         /// <summary>
-        /// The amount of movabales that are allowed to enter the area.
+        /// The amount of movables that are allowed to enter the area.
         /// </summary>
         public int Capacity { get; set; } = 20; // This is not fully implemented but can be in the future.
         /// <summary>
@@ -36,7 +36,7 @@ namespace HotelSimulationTheLock
         /// </summary>
         public Bitmap Art { get; set; } = Properties.Resources.cinema;
         /// <summary>
-        /// An enumarator the provides a status for a room .
+        /// An enumarator that provides a status for an area.
         /// </summary>
         public AreaStatus AreaStatus { get; set; } // Currently all statuses can be used for rooms, this might change in the future.       
         #endregion
@@ -47,22 +47,22 @@ namespace HotelSimulationTheLock
         // using an ISearchable interface. this is somthing to add in the future
 
         // BackTrackCost, NearestToStart and visted
-        // will be reset everytime dijkstra has ran it GetShortestPath() function
+        // will be reset every time dijkstra has ran its GetShortestPath() function
 
         /// <summary>
         /// A number wich is used for calculating the shortest path.
         /// </summary>
         public double? BackTrackCost { get; set; } = null; // This is double so the future ISearchable can be more reusable.
         /// <summary>
-        /// The ISearchable that is closest to the starting from this current ISearchable.
+        /// The ISearchable that is closest to the start.
         /// </summary>
         public IArea NearestToStart { get; set; } = null;
         /// <summary>
-        /// Determins weather this ISearchable has been visted.
+        /// Determines whether this ISearchable has been visted.
         /// </summary>
         public bool Visited { get; set; } = false;
         /// <summary>
-        /// An collection of connection that the ISearchable has.
+        /// A collection of connections that the ISearchable has.
         /// </summary>
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>(); // IArea will be changed to ISearchable in the future.
         #endregion
@@ -95,7 +95,7 @@ namespace HotelSimulationTheLock
 
         /// <summary>
         /// Sets values from the given json file
-        /// Used by th Json Hotelbuilder
+        /// Used by the Json Hotelbuilder
         /// </summary>
         /// <param name="id">ID of the area</param>
         /// <param name="position">Position of the area in the hotel</param>
@@ -104,8 +104,8 @@ namespace HotelSimulationTheLock
         /// <param name="classification">Classification of the area</param>
         public void SetJsonValues(int id, Point position, int capacity, Size dimension, int classification)
         {
-            // This method is not very expandleble
-            // a posibility is to pass a collection so it can work with other IHotelBuilders
+            // This method is not very expendable
+            // a possibility is to pass a collection so it can work with other IHotelBuilders
 
             ID = id;
             Position = position;
@@ -118,8 +118,8 @@ namespace HotelSimulationTheLock
         /// <param name="evt">The given event</param>
         public void Notify(HotelEvent evt)
         {
-            // Checks for an START_CINEMA event.
-            // it changes its status and vizualie "plays" an movie
+            // Checks for a START_CINEMA event.
+            // it changes its status and visualize(plays) a movie
             if (evt.EventType.Equals(HotelEventType.START_CINEMA))
             {
                 AreaStatus = AreaStatus.PLAYING_MOVIE;

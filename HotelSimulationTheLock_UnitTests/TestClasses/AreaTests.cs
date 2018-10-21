@@ -81,7 +81,5 @@ namespace HotelSimulationTheLock_UnitTests
             Assert.IsTrue(a);
    
         }
-
-
     }
 }

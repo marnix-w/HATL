@@ -67,7 +67,7 @@ namespace HotelSimulationTheLock
                 }
                 if (item.Position.X == 0 || item.Position.X == 7)
                 {
-                    // Keep lift weight in mind needs a rework
+                    // Keep lift weight in mind, needs a rework
 
                     if (item is Elevator)
                     {

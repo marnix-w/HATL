@@ -8,18 +8,18 @@ using System.Linq;
 namespace HotelSimulationTheLock
 {
     /// <summary>
-    /// An implementation of a combenation of a Factory design pattern and a bit of the MEF framework
-    /// This is no a true factory nor is it a true implemtation of the MEF framework
-    /// It combines the best of both to create a good "factory" for this project
+    /// An implementation of a combination of a factory design pattern and a bit of the MEF framework
+    /// This is not a true factory nor is it a true implemtation of the MEF framework
+    /// It combines the best of both, to create a good "factory" for this project
     /// </summary>
     public class AreaFactory
     {
-        // For this project we used a special variation on the Design pattern factory
+        // For this project we used a special variation on the factory design pattern
         // this variation makes the simulation modulair
         // it implements the MEF framework to capture new types of areas and can directly work with them
-        // if an area will be added they have to implement the IArea interface and by filling in the create area method 
-        // it is compatable with the program. this way it is posible to add loads of new area's without having to deal with 
-        // implementation in the program
+        // if an area is added, it has to implement the IArea interface and by filling in the create area method 
+        // it is compatable with the program. this way it is possible to add a lot of new area's without having to deal with 
+        // their implementation in the program
 
         // For more information on the MEF framework go to
         // https://docs.microsoft.com/en-us/dotnet/framework/mef/

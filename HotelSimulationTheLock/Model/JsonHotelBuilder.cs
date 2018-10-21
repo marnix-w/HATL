@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 namespace HotelSimulationTheLock
 {
     /// <summary>
-    /// An hotel builder that works with the jsonmodel
+    /// A hotel builder that works with the jsonmodel
     /// </summary>
     public class JsonHotelBuilder : IHotelBuilder
     {
@@ -16,26 +16,26 @@ namespace HotelSimulationTheLock
         /// </summary>
         private List<IArea> HotelAreas { get; set; } = new List<IArea>();
         /// <summary>
-        /// Hotel width that is used for building opperations
+        /// Hotel width that is used for building operations
         /// </summary>
         private int HotelWidth { get; set; }
         /// <summary>
-        /// Hotel hieght that is used for building opperations
+        /// Hotel height that is used for building operations
         /// </summary>
         private int HotelHeight { get; set; }
         /// <summary>
-        /// Create the area facotry wich the Hotel builder will use
+        /// Create the area factory which the Hotel builder will use
         /// </summary>
         private AreaFactory Factory { get; set; } = new AreaFactory();
 
         #endregion
 
         /// <summary>
-        /// Method used for testing testing the neighbor function
+        /// Method used for testing the neighbour function
         /// </summary>
-        /// <param name="from">Area from wich the edge goes</param>
-        /// <param name="to">Area to wich te edge arives</param>
-        /// <param name="weight">The weight thats added tot the edge</param>
+        /// <param name="from">Area from which the edge goes</param>
+        /// <param name="to">Area to which te edge arrives</param>
+        /// <param name="weight">The weight that's added tot the edge</param>
         public static void AddDirectedEdge(IArea from, IArea to, int weight)
         {
             from.Edge.Add(to, weight);
@@ -43,11 +43,11 @@ namespace HotelSimulationTheLock
 
         /// <summary>
         /// Provide a generic file and an Settings model
-        /// Truh these parameters create an list of Iareas
-        /// This method is also resposable for setting the neighbors
+        /// Through these parameters create a list of IAreas
+        /// This method is also responsible for setting the neighbours
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="file">An file provding information to build an Iarea list</param>
+        /// <param name="file">A file providing information to build an IArea list</param>
         /// <param name="settings">The Settings model used for the simulation</param>
         /// <returns></returns>
         public List<IArea> BuildHotel<T>(T file, SettingsModel settings)
@@ -63,7 +63,7 @@ namespace HotelSimulationTheLock
             else
             {
                 // the provided file is incorrect
-                // The error handeling is not fully implemented
+                // The error handling is not fully implemented
                 return null;
             }
             #endregion
@@ -173,7 +173,7 @@ namespace HotelSimulationTheLock
                 }
                 if (area.Position.X == 0 || area.Position.X == HotelWidth)
                 {
-                    // The elevator wont get any neigbros
+                    // The elevator won't get any neighbours
                     if (area is Elevator)
                     {
                         continue;                      
@@ -192,17 +192,17 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Create a list of set movables fot the hotel
-        /// This list is also resposable for creating the elevator
+        /// Create a list of set movables for the hotel
+        /// This list is also responsible for creating the elevator
         /// </summary>
-        /// <param name="settings"></param>
-        /// <param name="hotel"></param>
+        /// <param name="settings">The used SettingsModel</param>
+        /// <param name="hotel">The hotel of the simulation</param>
         /// <returns></returns>
         public List<IMovable> BuildMovable(SettingsModel settings, Hotel hotel)
         {
             List<IMovable> movables = new List<IMovable>();
 
-            // creating the correct amount of maids from the setting
+            // Creating the correct amount of maids from the settings
             for (int i = 0; i < settings.AmountOfMaids; i++)
             {
                 movables.Add(new Maid(new Point(4, HotelHeight), hotel));
@@ -216,13 +216,13 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// An funcition that returns true it has added neighbor
+        /// A function that returns true if it has added a neighbour
         /// </summary>
         /// <param name="area">From area</param>
-        /// <param name="xOffset">Offset for finding neigbor</param>
-        /// <param name="yOffset">Offset for finding neigbor</param>
-        /// <param name="weight">The weight that is givin to the edge</param>
-        /// <returns></returns>
+        /// <param name="xOffset">X Offset for finding neighbour</param>
+        /// <param name="yOffset">Y Offset for finding neighbour</param>
+        /// <param name="weight">The weight that is given to the edge</param>
+        /// <returns>True if a neighbour has been added, otherwise false</returns>
         private bool AddNeighbour(IArea area, int xOffset, int yOffset, int weight)
         {
             if (!(HotelAreas.Find(X => X.Position == new Point(area.Position.X + xOffset, area.Position.Y + yOffset)) is null))
