@@ -45,7 +45,7 @@
             this.roomTB.Multiline = true;
             this.roomTB.Name = "roomTB";
             this.roomTB.ReadOnly = true;
-            this.roomTB.Size = new System.Drawing.Size(350, 392);
+            this.roomTB.Size = new System.Drawing.Size(387, 392);
             this.roomTB.TabIndex = 6;
             // 
             // facillityTB
@@ -54,7 +54,7 @@
             this.facillityTB.Multiline = true;
             this.facillityTB.Name = "facillityTB";
             this.facillityTB.ReadOnly = true;
-            this.facillityTB.Size = new System.Drawing.Size(350, 141);
+            this.facillityTB.Size = new System.Drawing.Size(387, 141);
             this.facillityTB.TabIndex = 7;
             // 
             // guestTB
@@ -63,14 +63,14 @@
             this.guestTB.Multiline = true;
             this.guestTB.Name = "guestTB";
             this.guestTB.ReadOnly = true;
-            this.guestTB.Size = new System.Drawing.Size(350, 267);
+            this.guestTB.Size = new System.Drawing.Size(387, 267);
             this.guestTB.TabIndex = 8;
             // 
             // pauseBtn
             // 
-            this.pauseBtn.Location = new System.Drawing.Point(728, 29);
+            this.pauseBtn.Location = new System.Drawing.Point(690, 22);
             this.pauseBtn.Name = "pauseBtn";
-            this.pauseBtn.Size = new System.Drawing.Size(75, 23);
+            this.pauseBtn.Size = new System.Drawing.Size(149, 36);
             this.pauseBtn.TabIndex = 10;
             this.pauseBtn.Text = "Pause";
             this.pauseBtn.UseVisualStyleBackColor = true;
@@ -87,9 +87,9 @@
             // 
             // _fastForward
             // 
-            this._fastForward.Location = new System.Drawing.Point(797, 791);
+            this._fastForward.Location = new System.Drawing.Point(795, 825);
             this._fastForward.Name = "_fastForward";
-            this._fastForward.Size = new System.Drawing.Size(205, 141);
+            this._fastForward.Size = new System.Drawing.Size(186, 63);
             this._fastForward.TabIndex = 12;
             this._fastForward.Text = "Speed up the simulation";
             this._fastForward.UseVisualStyleBackColor = true;
@@ -97,9 +97,9 @@
             // 
             // _slowDown
             // 
-            this._slowDown.Location = new System.Drawing.Point(494, 791);
+            this._slowDown.Location = new System.Drawing.Point(477, 825);
             this._slowDown.Name = "_slowDown";
-            this._slowDown.Size = new System.Drawing.Size(205, 141);
+            this._slowDown.Size = new System.Drawing.Size(186, 63);
             this._slowDown.TabIndex = 13;
             this._slowDown.Text = "Slow simulation down";
             this._slowDown.UseVisualStyleBackColor = true;
@@ -107,9 +107,9 @@
             // 
             // _resetSpeed
             // 
-            this._resetSpeed.Location = new System.Drawing.Point(1149, 791);
+            this._resetSpeed.Location = new System.Drawing.Point(1132, 825);
             this._resetSpeed.Name = "_resetSpeed";
-            this._resetSpeed.Size = new System.Drawing.Size(205, 141);
+            this._resetSpeed.Size = new System.Drawing.Size(186, 63);
             this._resetSpeed.TabIndex = 14;
             this._resetSpeed.Text = "Reset the simulation speed";
             this._resetSpeed.UseVisualStyleBackColor = true;
@@ -118,7 +118,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1346, 121);
+            this.label1.Location = new System.Drawing.Point(926, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 15;

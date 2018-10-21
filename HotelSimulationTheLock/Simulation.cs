@@ -289,11 +289,9 @@ namespace HotelSimulationTheLock
         /// </summary>
         private void SetButtonsText()
         {
-            _fastForward.Text = "Speed up the simulation times 2  \n current speed is " + HotelEventManager.HTE_Factor;
-            _slowDown.Text = "Slow down the simulation subtract by 2 \n current speed is " + HotelEventManager.HTE_Factor;
-            _resetSpeed.Text = "Reset the HTE factor to 1";
-
-            Console.WriteLine("INTERVAL IS " + _timer.Interval);
+            _fastForward.Text = "Speed up \n the simulation times 2  \n current speed is " + HotelEventManager.HTE_Factor;
+            _slowDown.Text = "Slow down \n the simulation subtract by 2 \n current speed is " + HotelEventManager.HTE_Factor;
+            _resetSpeed.Text = "Reset the HTE factor to 1";          
         }
 
         /// <summary>
