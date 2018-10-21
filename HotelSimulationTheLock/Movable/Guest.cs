@@ -21,16 +21,16 @@ namespace HotelSimulationTheLock
         /// </summary>
         public Bitmap Art { get; set; } = Properties.Resources.customer; // <3 Bob
         /// <summary>
-        /// Its current status
-        /// depending on the status of the guest an action will perform
+        /// Teh guests current status
+        /// depending on the status of the guest an action will be performed
         /// </summary>
         public MovableStatus Status { get; set; }
         /// <summary>
-        /// Its last status, used for elevator handeling
+        /// Teh guests last status, used for elevator handling
         /// </summary>
         public MovableStatus LastStatus { get; set; }
         /// <summary>
-        /// how long does this guest fitness
+        /// How long does this guest fitness
         /// </summary>
         public int FitnessDuration { get; set; }
         /// <summary>
@@ -38,19 +38,19 @@ namespace HotelSimulationTheLock
         /// </summary>
         public int ID { get; set; }
         /// <summary>
-        /// The guest name 
+        /// The guests name 
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// The room a guest will request
+        /// The room the guest will request
         /// </summary>
         public int RoomRequest { get; set; }
         /// <summary>
-        /// A check if the guest si registerd as listner
+        /// A check if the guest is registerd as listner
         /// </summary>
         private bool Registerd { get; set; } = false;
         /// <summary>
-        /// and bool to check if a guests wants to take the elevator
+        /// A bool to check if a guest wants to take the elevator
         /// </summary>
         public bool WantsElevator { get; set; }
         /// <summary>
@@ -58,35 +58,35 @@ namespace HotelSimulationTheLock
         /// </summary>
         public Queue<IArea> Path { get; set; } = new Queue<IArea>();
         /// <summary>
-        /// A list of statusses paired with the coresponding action
+        /// A list of statuses paired with the corresponding actions
         /// </summary>
         public Dictionary<MovableStatus, Action> Actions { get; set; } = new Dictionary<MovableStatus, Action>();
         /// <summary>
-        /// the hotel the guest is part of
+        /// The hotel the guest is a part of
         /// </summary>
         public Hotel Hotel { get; set; }
 
         #endregion
 
-        #region Iarea Properties
+        #region IArea Properties
         /// <summary>
-        /// Its current area
+        /// The guests current area
         /// </summary>
         public IArea Area { get; set; }
         /// <summary>
-        /// His own room
+        /// The guests own room
         /// </summary>
         public IArea MyRoom { get; set; }
         /// <summary>
-        /// His final destination
+        /// The guests final destination
         /// </summary>
         public IArea FinalDes { get; set; }
         #endregion
  
         #region Counter Properties
-        // the death counter is not working yet
+        // The death counter is not working yet
         // For a future release it can be implemented
-        // we just need to check the simulation count timer and the guest timer if its equal we kill the guest
+        // We just need to check the simulation count timer and the guests timer if its equal we kill the guest
 
         /// <summary>
         /// Death barrier
@@ -101,7 +101,7 @@ namespace HotelSimulationTheLock
         /// </summary>
         public int _hteTime { get; set; }
         /// <summary>
-        /// Event time vounter
+        /// Event time counter
         /// </summary>
         public int _hteCalculateCounter { get; set; } = 0;
         /// <summary>
@@ -114,11 +114,11 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Creating a new guest
         /// </summary>
-        /// <param name="hotel">the hotel he is part of</param>
-        /// <param name="name">Its name</param>
-        /// <param name="roomRequest">The room he wants to stay in</param>
-        /// <param name="point">its location</param>
-        /// <param name="id">an unique ID</param>
+        /// <param name="hotel">The hotel the guest is a part of</param>
+        /// <param name="name">The guests name</param>
+        /// <param name="roomRequest">The room the guest wants to stay in</param>
+        /// <param name="point">The guest location in the hotel</param>
+        /// <param name="id">A unique ID</param>
         public Guest(Hotel hotel, string name, int roomRequest, Point point, int id)
         {
             Hotel = hotel;
@@ -133,25 +133,25 @@ namespace HotelSimulationTheLock
 
         #region Initilizers
         /// <summary>
-        /// Setting Guests bahavior
+        /// Setting Guests behaviour
         /// </summary>
         public void SetBahvior()
         {
-            //these are all the actions and statuses for guests
+            //These are all the actions and statuses for guests
 
-            //elevator actions and statuses
+            //Elevator actions and statuses
             Actions.Add(MovableStatus.ELEVATOR_REQUEST, CallElevator);
             Actions.Add(MovableStatus.LEAVING_ELEVATOR, _LeavingElevator);
             Actions.Add(MovableStatus.WAITING_FOR_ELEVATOR, _CheckForEvacuate);
             Actions.Add(MovableStatus.IN_ELEVATOR, null);
 
-            //actions for going to the facillity
+            //Actions for going to the facility
             Actions.Add(MovableStatus.GOING_TO_ROOM, _goingToRoom);
             Actions.Add(MovableStatus.GOING_TO_CINEMA, _getToCinema);
             Actions.Add(MovableStatus.GET_FOOD, _getFood);
             Actions.Add(MovableStatus.GOING_TO_FITNESS, _goToFitness);
 
-            //actions during the event
+            //Actions during the event
             Actions.Add(MovableStatus.CHEKING_IN, _checkIn);
             Actions.Add(MovableStatus.WATCHING, _addHteCounter);
             Actions.Add(MovableStatus.EATING, _addHteCounter);
@@ -159,24 +159,24 @@ namespace HotelSimulationTheLock
             Actions.Add(MovableStatus.WAITING_TO_START, null);
             Actions.Add(MovableStatus.IN_ROOM, null);
 
-            //actions when the guest is leaving
+            //Actions when the guest is leaving
             Actions.Add(MovableStatus.LEAVING, _removeMe);
             Actions.Add(MovableStatus.CHECKING_OUT, _getCheckOut);
             Actions.Add(MovableStatus.EVACUATING, _Evacuate);
         }
         #endregion
 
-        #region Bahaviors
+        #region Bahaviours
 
         // Important note:
         // This list contains a fair amount of code duplication
-        // this was the cause of simaltaniusly working on event implemenation
-        // we made this choice because of the limeted time we had to implement these
+        // this was the cause of simultaneously working on event implementation
+        // we made this choice because of the limited time we had to implement these
         // as cause the actions list has become to big and needs a good refactor
-        // there is no time for this so it is an issue that needs to be rethaught in the fututure
+        // there is no time for this so it is an issue that needs to be rethought in the fututure
 
         /// <summary>
-        /// Sets variables for evacuate
+        /// Sets variables for evacuation
         /// </summary>
         private void _EvacuateSequence()
         {
@@ -215,7 +215,7 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Moves the guest to the next position in his path
+        /// Moves the guest to the next position in its path
         /// </summary>
         private void _Move()
         {
@@ -228,7 +228,7 @@ namespace HotelSimulationTheLock
         /// Kills the guest if he waits to long
         /// Note: Not fully implemented
         /// </summary>
-        /// <param name="guest"></param>
+        /// <param name="guest">The guest in question</param>
         private void _AddDeathCounter(Guest guest)
         {
             if (_deathCounter == _deathAt)
@@ -317,10 +317,9 @@ namespace HotelSimulationTheLock
                 }
                 else
                 {
-                    // kill timer
+                    // Kill timer
                 }
             }
-
         }
 
         /// <summary>
@@ -345,7 +344,7 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Makes the guest go to his room
+        /// Makes the guest go to its room
         /// </summary>
         private void _goingToRoom()
         {
@@ -519,7 +518,7 @@ namespace HotelSimulationTheLock
         }
         #endregion
 
-        #region Opperations
+        #region Operations
         /// <summary>
         /// Perform an action
         /// </summary>
@@ -529,7 +528,6 @@ namespace HotelSimulationTheLock
             {
                 Actions[Status]();
             }
-
         }
 
         /// <summary>
@@ -547,7 +545,7 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Set a path to the requested destination
         /// </summary>
-        /// <param name="destination"></param>
+        /// <param name="destination">The IArea the movable wants to go to</param>
         public void SetPath(IArea destination)
         {
             if (Dijkstra.IsElevatorCloser(Area, destination) is Elevator && Status != MovableStatus.EVACUATING)
@@ -573,7 +571,7 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Handles guests events
         /// </summary>
-        /// <param name="evt"></param>
+        /// <param name="evt">The given event</param>
         public void Notify(HotelEvent evt)
         {
             if (evt.EventType == HotelEventType.EVACUATE)
@@ -602,7 +600,7 @@ namespace HotelSimulationTheLock
                     {
                         switch (evt.EventType)
                         {
-                            // find requested guest
+                            // Find requested guest
 
                             case HotelEventType.CHECK_OUT:
                                 // guest.checkout()

@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 namespace HotelSimulationTheLock
 {
     /// <summary>
-    /// The simulation object that handels the main opperations
+    /// The simulation object that handles the main operations
     /// </summary>
     public class Hotel : IListener
     {    
@@ -18,29 +18,29 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Stores all the areas in the hotel
         /// </summary>
-        public List<IArea> HotelAreas { get; set; } = new List<IArea>(); // We wanted this list private but coudnt make it because of problems with dijkstra
+        public List<IArea> HotelAreas { get; set; } = new List<IArea>(); // We wanted this list private but couldn't make it because of problems with dijkstra
         /// <summary>
         /// Stores all the movables in the hotel
         /// </summary>
         private List<IMovable> HotelMovables { get; set; } = new List<IMovable>();
         
-        // Adding and removing guests while handeling events caused mayor errors
-        // we save them in a temparary list and add them in the thread hotel is running on
+        // Adding and removing guests while handling events caused serious errors
+        // we save them in a temporary list and add them in the thread hotel is running on
         // this seems to solve the problem
-        // there probably might be a better solution but we havn'_timer had time to go in depth on threads
+        // there probably is a better solution but we havn't had time to go in depth on threads
         
         /// <summary>
         /// Guests that are leaving
         /// </summary>
         private List<IMovable> LeavingGuests { get; } = new List<IMovable>(); 
         /// <summary>
-        /// Guests that are ariving
+        /// Guests that are arriving
         /// </summary>
         private List<IMovable> ArivingGuests { get;  } = new List<IMovable>();
         #endregion
 
         #region Utility Properties
-        // using the SOLID preinciple of dependency onversion
+        // using the SOLID principle of dependency inversion
         // so that hotel has less string coupeling
 
         /// <summary>
@@ -55,22 +55,22 @@ namespace HotelSimulationTheLock
 
         #region Calculation properties
         /// <summary>
-        /// The hieght of the current hotel
+        /// The height of the current hotel
         /// </summary>
         public static int HotelHeight { get; set; }
         /// <summary>
-        /// The widht of the curretn hotel
+        /// The width of the current hotel
         /// </summary>
         public static int HotelWidth { get; set; }
         #endregion
 
         #region Statistic Properties
         /// <summary>
-        /// A list of statistic from the movables
+        /// A list of statistics from the movables
         /// </summary>
         private List<string> _listOfMoveables { get; } = new List<string>();
         /// <summary>
-        /// A list of statistic from the areas
+        /// A list of statistics from the areas
         /// </summary>
         private List<string> _listOfFacillty { get; } = new List<string>();
         #endregion
@@ -90,19 +90,19 @@ namespace HotelSimulationTheLock
         /// </summary>
         public Hotel()
         {
-            // Write implemtation if needed in the future
+            // Write implementation if needed in the future
         }
 
         /// <summary>
         /// Creates a function hotel 
         /// </summary>
-        /// <param name="layout">A file wich contains a funcitoning layout</param>
-        /// <param name="settings">the Settings for the simulation</param>
-        /// <param name="TypeOfBuilder">a type of builder that can handle the provided file</param>
+        /// <param name="layout">A file which contains a functioning layout</param>
+        /// <param name="settings">The Settings for the simulation</param>
+        /// <param name="TypeOfBuilder">A type of builder that can handle the provided file</param>
         public Hotel(List<JsonModel> layout, SettingsModel settings, IHotelBuilder TypeOfBuilder)
         {
             // Hotel will handle the CheckIn_events so it can add them to its list
-            // making it posible to keep the list private
+            // making it possible to keep the list private
             HotelEventManager.Register(this);
 
             _hotelBuilder = TypeOfBuilder;
@@ -111,12 +111,12 @@ namespace HotelSimulationTheLock
             HotelAreas = _hotelBuilder.BuildHotel(layout, settings);
             HotelMovables = _hotelBuilder.BuildMovable(settings, this);
 
-            // set calculation properties
+            // Set calculation properties
             HotelWidth = HotelAreas.OrderBy(X => X.Position.X).Last().Position.X;
             HotelHeight = HotelAreas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
             
             _elevatorCart = (ElevatorCart)HotelMovables.Find(X => X is ElevatorCart);
-            
+
             // Methods for final initialization           
             Dijkstra.IntilazeDijkstra(this);
             HotelEventManager.Start();
@@ -151,7 +151,7 @@ namespace HotelSimulationTheLock
                 }
             }
 
-            // removing checkoud out guests
+            // Removing guests that have checked out
             foreach (var item in LeavingGuests)
             {
                 HotelMovables.Remove(item);
@@ -177,9 +177,9 @@ namespace HotelSimulationTheLock
 
         #region Drawing
         /// <summary>
-        /// Calls the hotel drawer and delivers an bitmap of the hotel
+        /// Calls the hotel drawer
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A bitmap of the hotel</returns>
         public Bitmap DrawMap()
         {
             return _hotelDrawer.DrawHotel(HotelAreas, HotelMovables);
@@ -188,9 +188,9 @@ namespace HotelSimulationTheLock
 
         #region EventHandeling
         /// <summary>
-        /// Handles checkin events and add the the ariving guest list
+        /// Handles checkin events and add the ariving guest to the list
         /// </summary>
-        /// <param name="evt"></param>
+        /// <param name="evt">The given event</param>
         public void Notify(HotelEvent evt)
         {
             if (evt.EventType.Equals(HotelEventType.CHECK_IN))
@@ -217,7 +217,7 @@ namespace HotelSimulationTheLock
                 }
                 else
                 {
-                    // kill test events
+                    // Kill test events
                     return;
                 }
 
@@ -256,7 +256,7 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Gives an IArea that needs to be cleaned
         /// </summary>
-        /// <returns></returns>
+        /// <returns>An IArea or null</returns>
         public IArea GetRoomToClean()
         {
             if (HotelAreas.Where(X => X.AreaStatus == AreaStatus.NEED_CLEANING).Any())
@@ -272,7 +272,7 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Checks if everyone is out of the hotel
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True of false</returns>
         public bool IsHotelSafe()
         {
             if (HotelMovables.Where(X => !(X is ElevatorCart) && X.Area is Reception).Count() == HotelMovables.Where(X => !(X is ElevatorCart)).Count())
@@ -283,9 +283,9 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Checks how long the movie has been playing
+        /// Checks how long the movie has been playing for
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The time the movies has already been playing for</returns>
         public int HowLongWillMovieTake()
         {
             return HotelMovables.Where(X => X is Guest && ((Guest)X).Status == MovableStatus.WATCHING && ((Guest)X)._hteTime != 0).Select(X => ((Guest)X)._hteTime - ((Guest)X)._hteCalculateCounter).First();
@@ -294,8 +294,8 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Finds an area based on its position
         /// </summary>
-        /// <param name="location"></param>
-        /// <returns></returns>
+        /// <param name="location">The location of the area you want to find</param>
+        /// <returns>The IArea on the given location</returns>
         public IArea GetArea(Point location)
         {
             return HotelAreas.Find(X => X.Position == location);
@@ -304,8 +304,8 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Finds an area based on its ID
         /// </summary>
-        /// <param name="ID"></param>
-        /// <returns></returns>
+        /// <param name="ID">The ID of the area you want to find</param>
+        /// <returns>The IArea with the given ID</returns>
         public IArea GetAreaByID(int ID)
         {
             return HotelAreas.Find(X => X.ID == ID);
@@ -313,16 +313,16 @@ namespace HotelSimulationTheLock
 
         /// <summary>
         /// returns a room based on the request
-        /// if no room is avalibe it will check for higher rooms
-        /// else it will return null
+        /// if no room is available it will check for higher star rooms
+        /// if no higher star room is available it will return null
         /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="request">The requested classification of the room</param>
+        /// <returns>A room</returns>
         public IArea GetArea(int request)
         {
             IArea result = null;
 
-            // upgrade guests room if request is not available
+            // Upgrade a guests room if request is not available
             for (int i = request; i <= 5; i++)
             {
                 if (!(FindRoom(i) is null))
@@ -333,14 +333,13 @@ namespace HotelSimulationTheLock
             }
 
             return result;
-          
         }
 
         /// <summary>
         /// Finds an area based on its type
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
+        /// <param name="type">The type of area you want to find</param>
+        /// <returns>The IArea with the given type</returns>
         public IArea GetArea(Type type)
         {
             if (!(HotelAreas.Any()))
@@ -349,12 +348,12 @@ namespace HotelSimulationTheLock
             }
             return HotelAreas.Find(X => X.GetType() == type);
         }
-        
+
         /// <summary>
-        /// Exstansion of the GetArea(int request) mehtod
+        /// extension of the GetArea(int request) mehtod
         /// </summary>
         /// <param name="request">Requested classifacation it should find</param>
-        /// <returns>The coresponding IArea if none found, null</returns>
+        /// <returns>The corresponding IArea. If none found, null</returns>
         private IArea FindRoom(int request)
         {
             List<IArea> CurrentShortest = HotelAreas;
@@ -374,15 +373,15 @@ namespace HotelSimulationTheLock
                 }
             }
 
-            //this room needs to be casted to the guest
+            // This room needs to be casted to the guest
             return guestRoom;
         }
 
         /// <summary>
         /// Finds an area based on its current area and type
         /// </summary>
-        /// <param name="CurrentArea"></param>
-        /// <param name="newArea"></param>
+        /// <param name="CurrentArea">The current area</param>
+        /// <param name="newArea">The type of the new area</param>
         /// <returns></returns>
         public IArea GetArea(IArea CurrentArea, Type newArea)
         {
@@ -400,7 +399,7 @@ namespace HotelSimulationTheLock
                 }
             }
 
-            //this room needs to be casted to the guest
+            // This room needs to be casted to the guest
             return guestRoom;
         }
 
@@ -408,9 +407,9 @@ namespace HotelSimulationTheLock
 
         #region Elevator
         /// <summary>
-        /// Puts an elevator request
+        /// An elevator request
         /// </summary>
-        /// <param name="guest"></param>
+        /// <param name="guest">The guest that requests the elevator</param>
         public void CallElevator(IMovable guest)
         {
             _elevatorCart.RequestElevator(guest, HotelHeight);
@@ -419,7 +418,7 @@ namespace HotelSimulationTheLock
 
         #region Statistics
         /// <summary>
-        /// Sets Movable statics
+        /// Sets movable statistics
         /// </summary>
         /// <returns></returns>
         public List<string> CurrentValue()
@@ -450,9 +449,9 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Sets Area statics reading data out from the Facillity list
+        /// Sets area statistics reading data from the Facillity list
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of facillities</returns>
         public List<string> CurrentValueIArea()
         {
             _listOfFacillty.Clear();

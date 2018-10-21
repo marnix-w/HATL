@@ -4,18 +4,18 @@ using System.Linq;
 namespace HotelSimulationTheLock
 {
     /// <summary>
-    /// An varation on the implemtation of dijkstra
+    /// A variation on the implementation of dijkstra
     /// </summary>
     public static class Dijkstra
     {
         // This dijkstra is taken from my DSALG project
-        // And alterted to work here
+        // and alterted to work here
         // on some points its not optimal and incomplete
         // we are still missing a reavaluation for calling the elevator
-        // this meight be added in the future
+        // this might be added in the future
 
         // I made this a static class to make sure it works everywhere and from everywhere
-        // this was helpfull during develpment but might not be very pretty
+        // this was helpfull during development but might not be very pretty
 
         /// <summary>
         /// The hotel area list
@@ -30,7 +30,7 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Sets the properties to use dijkstra
         /// </summary>
-        /// <param name="hotel"></param>
+        /// <param name="hotel">The current hotel</param>
         public static void IntilazeDijkstra(Hotel hotel)
         {
             Hotel = hotel;
@@ -38,17 +38,17 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Creates a list of areas that is the shortest path it could find
+        /// Creates a list of areas that make up the shortest path it could find
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
+        /// <param name="from">The area the movable is comming form</param>
+        /// <param name="to">The area the movable wants to go to</param>
         /// <returns></returns>
         public static List<IArea> GetShortestPathDijkstra(IArea from, IArea to)
         {
-            // setting the dijkstra variables
+            // Setting the dijkstra variables
             SetDijkstraSearchValues(from, to);
 
-            // building the path
+            // Building the path
             var shortestPath = new List<IArea>
             {
                 to
@@ -57,21 +57,21 @@ namespace HotelSimulationTheLock
             BuildShortestPath(shortestPath, to);
             shortestPath.Reverse();
 
-            // reseting the varables
+            // Resetting the variables
             Hotel.RemoveSearchProperties();
             Areas = Hotel.HotelAreas;
 
-            // returning the path
+            // Returning the path
             return shortestPath;
         }
 
         /// <summary>
-        /// <para>An not optimal way of deciding the elevevator is faster</para>
-        /// <para>Big 0 Natation: 0(n)</para>
+        /// <para>A not optimal way of deciding whether the elevevator is faster</para>
+        /// <para>Big 0 notation: 0(n)</para>
         /// </summary>
         /// <param name="from">From area</param>
-        /// <param name="to">to Area</param>
-        /// <returns>Returns the elevator or to depending on what is closer</returns>
+        /// <param name="to">To Area</param>
+        /// <returns>Returns the elevator or the To Area, depending on what is closer</returns>
         public static IArea IsElevatorCloser(IArea from, IArea to)
         {
             Elevator ev = (Elevator)Areas.Find(X => X.Position.Y == from.Position.Y && X is Elevator);
@@ -84,13 +84,13 @@ namespace HotelSimulationTheLock
             int dictanceWithStairs = 0;
             int dictanceWithElevator = 0;
 
-            // Calculating time to walk or take elevator
+            // Calculating the time to walk or take the elevator
             #region
-            // this part is not completetly true but it works for now
-            // it should _count the backtrack wieghts
+            // this part is not completely true but it works for now
+            // it should count the backtrack weights
             // This is for the future to change
 
-            // - 1 for the deque of the first area
+            // - 1 for the dequeue of the first area
             dictanceWithStairs += GetShortestPathDijkstra(from, to).Count - 1;     
             dictanceWithElevator += GetShortestPathDijkstra(from, ev).Count - 1;
  
@@ -103,11 +103,11 @@ namespace HotelSimulationTheLock
                 dictanceWithElevator += to.Position.Y - ev.Position.Y;
             }
             
-            // Adding the dictance it has to walk from elevator to room
+            // Adding the distance it has to walk from elevator to room
             dictanceWithElevator += GetShortestPathDijkstra((Elevator)Areas.Find(X => X.Position.Y == to.Position.Y && X is Elevator), to).Count() - 1;
             #endregion
 
-            // Movables will favor the elevator over the stairs if the dictance is the same
+            // Movables will favor the elevator over the stairs if the distance is the same
             if (dictanceWithStairs >= dictanceWithElevator)
             {
                 return ev;
@@ -117,11 +117,11 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Builds the shortest path based on the Area that is neaest to start
+        /// Builds the shortest path based on the Area that is nearest to start
         /// this is a recursive method that keeps buidling till its done and returns the list
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="node"></param>
+        /// <param name="list">The list of IAreas</param>
+        /// <param name="node">The current node of the path</param>
         private static void BuildShortestPath(List<IArea> list, IArea node)
         {
             if (node.NearestToStart == null)
@@ -135,10 +135,10 @@ namespace HotelSimulationTheLock
 
         /// <summary>
         /// Searching for the shortest path
-        /// Big O natation: O(n)
+        /// Big O notation: O(n)
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
+        /// <param name="from">The IArea the movable is comming from</param>
+        /// <param name="to">The IArea the movable wants to go to</param>
         private static void SetDijkstraSearchValues(IArea from, IArea to)
         { 
             from.BackTrackCost = 0;
@@ -148,8 +148,8 @@ namespace HotelSimulationTheLock
                 from
             };
 
-            // looping till it finds its destatnation
-            // and looked trugh the paths if a shorter one is achavible
+            // Looping till it finds its destination
+            // and looked through the paths if a shorter one is available
             do
             {
                 toVisit = toVisit.OrderBy(x => x.BackTrackCost.Value).ToList();
@@ -163,32 +163,32 @@ namespace HotelSimulationTheLock
                 {
                     IArea childNode = edge.Key;
 
-                    // Skip viseted nodes
+                    // Skip visited nodes
                     if (childNode.Visited)
                     {
                         continue;
                     }
-                    // checking if the edge is backtrackcost is less then it was
+                    // Checking if the edge's backtrackcost is less then it was
                     if (childNode.BackTrackCost == null ||
                         current.BackTrackCost + edge.Value < childNode.BackTrackCost)
                     {
-                        // setting the new closests node
+                        // Setting the new closest node
                         childNode.BackTrackCost = current.BackTrackCost + edge.Value;
                         childNode.NearestToStart = current;
                         
-                        // looking for a shorter path back
+                        // Looking for a shorter path back
                         if (!toVisit.Contains(childNode))
                         {
-                            // adding a new to visiti node
+                            // Adding a new toVisit node
                             toVisit.Add(childNode);
                         }
                     }
                 }
 
-                // setting the current node as visited
+                // Setting the current node as visited
                 current.Visited = true;
 
-                // if the current no is the destination it will end
+                // If the current node is the destination it will end
                 if (current == to)
                 {
                     break;
@@ -197,6 +197,5 @@ namespace HotelSimulationTheLock
             }
             while (toVisit.Any());
         }
-        
     }
 }

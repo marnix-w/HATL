@@ -5,8 +5,8 @@ using System.Drawing;
 namespace HotelSimulationTheLock
 {
     /// <summary>
-    /// <para>An specefic implemantation of an IArea.</para>
-    /// <para>The only IArea that can have top and bothem neigbors</para>
+    /// <para>A specific implementationf of an IArea.</para>
+    /// <para>The only IArea that can have top and bottom neighbours.</para>
     /// <para>Metadata: "AreaType", "Staircase".</para>
     /// </summary>
     [Export(typeof(IArea))]
@@ -16,11 +16,11 @@ namespace HotelSimulationTheLock
       
         #region IArea properties
         /// <summary>
-        /// An specific identifier for an IArea, this must be uniqe.
+        /// A specific identifier for an IArea, this must be unique.
         /// </summary>
         public int ID { get; set; }
         /// <summary>
-        /// The Position where the IArea stands in the hotel, This must be uniqe.
+        /// The Position where the IArea is located in the hotel, This must be unique.
         /// </summary>
         public Point Position { get; set; }
         /// <summary>
@@ -28,7 +28,7 @@ namespace HotelSimulationTheLock
         /// </summary>
         public Size Dimension { get; set; } = new Size(1, 1);
         /// <summary>
-        /// The amount of movabales that are allowed to enter the area.
+        /// The amount of movables that are allowed to enter the area.
         /// </summary>
         public int Capacity { get; set; } = 20;
         /// <summary>
@@ -36,29 +36,35 @@ namespace HotelSimulationTheLock
         /// </summary>
         public Bitmap Art { get; set; } = Properties.Resources.staircase;
         /// <summary>
-        /// An enumarator the provides a status for a room .
+        /// An enumarator that provides a status for an area.
         /// </summary>
         public AreaStatus AreaStatus { get; set; }
         #endregion
 
         #region Dijkstra search properties
 
-        // This type of IArea has top and bothem neighbors
+        // We wanted to implement a more generic version of dijkstra
+        // using an ISearchable interface. this is somthing to add in the future
+
+        // BackTrackCost, NearestToStart and visted
+        // will be reset every time dijkstra has ran its GetShortestPath() function
+
+        // This type of IArea has top and bottom neighbours
 
         /// <summary>
-        /// A number wich is used for calculating the shortest path.
+        /// A number which is used for calculating the shortest path.
         /// </summary>
         public double? BackTrackCost { get; set; } = null; // This is double so the future ISearchable can be more reusable.
         /// <summary>
-        /// The ISerachable that is closest to the starting from this current ISearchable.
+        /// The ISearchable neighbour that is closest to the start.
         /// </summary>
         public IArea NearestToStart { get; set; } = null;
         /// <summary>
-        /// Deterimens wheter this ISearchable has been visted.
+        /// Determines whether this ISearchable has been visted.
         /// </summary>
         public bool Visited { get; set; } = false;
         /// <summary>
-        /// An collection of connection that the ISearchable has.
+        /// A collection of connections that the ISearchable has.
         /// </summary>
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>(); // IArea will be changed to ISearchable in the future.
         #endregion
@@ -66,7 +72,7 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Creates a new IArea
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A new IArea</returns>
         public IArea CreateArea()
         {
             return new Staircase();

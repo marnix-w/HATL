@@ -13,39 +13,39 @@ namespace HotelSimulationTheLock
         /// 
         /// !!! Note if the simulation causes a breakmode please stop and try to run the simulation again !!!
         /// 
-         
-        
+
+
         /// <summary>
-        /// in order to close the simulation form we needed to have the StartupScreen aswell
+        /// In order to close the simulation form we needed to have the StartupScreen aswell
         /// </summary>
         private StartupScreen _options { get; set; }
         /// <summary>
-        /// passing data for the timer to hotel
+        /// Passing data for the timer to hotel
         /// </summary>
-        public Hotel Hotel { get; set; }      
+        public Hotel Hotel { get; set; }
         /// <summary>
-        /// adding a timer to handle the events
+        /// Adding a timer to handle the events
         /// </summary>
         private Timer _timer { get; set; }
         /// <summary>
-        /// able to pause or resume the simulation
+        /// Able to pause or resume the simulation
         /// </summary>
         private bool _pauseResume { get; set; }
         // Drawing properties
         /// <summary>
-        /// sets the _buffer on the picturebox
+        /// Sets the _buffer on the picturebox
         /// </summary>
         private PictureBox _hotelBackground { get; set; }
         /// <summary>
-        /// converts the drawing items to bitmap
+        /// Converts the drawing items to bitmap
         /// </summary>
         private Bitmap _hotelImage { get; set; }
         /// <summary>
-        /// A const member is considered static by the compiler
+        /// A constant member is considered static by the compiler
         /// </summary>
         public static int RoomArtSize { get; } = 96;
         /// <summary>
-        /// showing a count timer to show how many Events has passed
+        /// Showing a count timer to show how many Events have passed
         /// </summary>
         private int _count { get; set; } = 0;
         /// <summary>
@@ -58,25 +58,25 @@ namespace HotelSimulationTheLock
         public Simulation(StartupScreen firstScreen, List<JsonModel> layout, SettingsModel Settings)
         {
             _options = firstScreen;
-            // 0.5f should be a varible in the Settings data set
+            // 0.5f should be a variable in the Settings data set
             Hotel = new Hotel(layout, Settings, new JsonHotelBuilder());
 
             this.Settings = Settings;
 
             HotelEventManager.HTE_Factor = this.Settings.HTEPerSeconds;
 
-            //we have a timer that will have a different interval depending on the HTE settings
+            //We have a timer that will have a different interval depending on the HTE settings
             //in order to keep drawing the guest correclty
             _timer = new Timer
             {
-                Interval = 1000 / this.Settings.HTEPerSeconds // specify interval time as you want 
+                Interval = 1000 / this.Settings.HTEPerSeconds // Specify interval time as you want 
             };
             _timer.Tick += new EventHandler(Timer_Tick);
             _timer.Start();
-           
+
             _hotelImage = Hotel.DrawMap();
 
-            //puts the bitmap on the Picturebox
+            //Puts the bitmap on the Picturebox
             _hotelBackground = new PictureBox
             {
                 Location = new Point(450, 100),
@@ -85,7 +85,7 @@ namespace HotelSimulationTheLock
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 Image = _hotelImage
             };
-            //adding the picturebox to the form
+            //Adding the picturebox to the form
             Controls.Add(_hotelBackground);
 
             // Last methods for setup
@@ -96,7 +96,7 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Everytime the timer ticks we will perform actions based on the Events that was send from the dll
+        /// Every time the timer ticks we will perform actions based on the Events that were send from the dll
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -107,12 +107,12 @@ namespace HotelSimulationTheLock
 
             Hotel.PerformAllActions();
 
-            // fix frequent GC calls
+            // Fix frequent GC calls
 
-            //every timer tick we refresh the facillity layout
+            //Every timer tick we refresh the facility layout
             _fillFacillityTB();
 
-            //every timer tick we refresh the moveable layout
+            //Every timer tick we refresh the movable layout
             _fillMoveAbleTB();
 
             // Disposing the movable bitmap to prevent memory leaking
@@ -123,13 +123,13 @@ namespace HotelSimulationTheLock
 
 
         }
-       
+
         /// <summary>
         /// Overview of hotel facilities
         /// </summary>
         private void _fillFacillityTB()
         {
-            roomTB.Clear();            
+            roomTB.Clear();
             facillityTB.Clear();
 
             roomTB.Text = "ID: \t Facillity:  \t\tPosition: \t\tStatus:\n";
@@ -155,7 +155,7 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Overview for all the moveables
+        /// Overview for all the movables
         /// </summary>
         private void _fillMoveAbleTB()
         {
@@ -207,24 +207,24 @@ namespace HotelSimulationTheLock
         /// <param name="e"></param>
         private void Simulation_FormClosed(object sender, FormClosedEventArgs e)
         {
-            StopSimulation();
+            _stopSimulation();
 
             this.Dispose();
             _options.Dispose();
         }
 
         /// <summary>
-        /// When the fastforward button is clicked the events will go faster and the interval will go aswell
-        /// the Hte events facter will be multiplied by 2
+        /// When the fastforward button is clicked the events will go faster and the interval will go, also
+        /// the Hte events factor will be multiplied by 2
         /// this will also increase the interval time
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
-            StopSimulation();
+            _stopSimulation();
 
-            if(Settings.HTEPerSeconds >= 4)
+            if (Settings.HTEPerSeconds >= 4)
             {
                 Settings.HTEPerSeconds = 4;
             }
@@ -232,57 +232,62 @@ namespace HotelSimulationTheLock
             {
                 Settings.HTEPerSeconds = Settings.HTEPerSeconds * 2;
                 HotelEventManager.HTE_Factor = Settings.HTEPerSeconds;
-            }        
+            }
+
+            _updateInterval();
 
             SetButtonsText();
 
-            StartSimulation();
+            _startSimulation();
         }
 
         /// <summary>
-        /// Once the slow down button is pressed the events will be divided by 2 maximum to 1 event per seconde
+        /// Once the slow down button is pressed the events will be divided by 2 maximum to 1 event per second
         /// this will slower the interval
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
-            StopSimulation();
+            _stopSimulation();
 
             if (Settings.HTEPerSeconds <= 1)
             {
                 Settings.HTEPerSeconds = 1;
-                _timer.Interval = 1000;
+
             }
             else
             {
                 Settings.HTEPerSeconds = Settings.HTEPerSeconds / 2;
                 HotelEventManager.HTE_Factor = Settings.HTEPerSeconds;
-            }
 
+            }
+            _updateInterval();
 
             SetButtonsText();
 
-            StartSimulation();
+            _startSimulation();
         }
 
         /// <summary>
-        /// this button will reset all the interval back to normal which is 1 Event per 1 second
+        /// This button will reset all the intervals back to normal which is 1 Event per 1 second
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void button5_Click(object sender, EventArgs e)
         {
-            StopSimulation();
+            _stopSimulation();
 
 
             Settings.HTEPerSeconds = 1;
             HotelEventManager.HTE_Factor = Settings.HTEPerSeconds;
             _timer.Interval = 1000 / Settings.HTEPerSeconds;
 
+            _updateInterval();
+
             SetButtonsText();
 
-            StartSimulation();
+            _startSimulation();
         }
 
         /// <summary>
@@ -298,21 +303,28 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// stopping the simulation from running new events
+        /// Stopping the simulation from running new events
         /// </summary>
-        private void StopSimulation()
+        private void _stopSimulation()
         {
             _timer.Stop();
             HotelEventManager.Stop();
         }
 
         /// <summary>
-        /// resuming the simulation and starting the events again
+        /// Resuming the simulation and starting the events again
         /// </summary>
-        private void StartSimulation()
+        private void _startSimulation()
         {
             _timer.Start();
             HotelEventManager.Start();
+        }
+        /// <summary>
+        /// updates the interval so it will be displayed correctly on the screen
+        /// </summary>
+        private void _updateInterval()
+        {
+            _timer.Interval = 1000 / Settings.HTEPerSeconds;
         }
     }
 }

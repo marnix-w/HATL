@@ -6,19 +6,19 @@ using System.Linq;
 namespace HotelSimulationTheLock
 {
     /// <summary>
-    /// Draws an Bitmap fot the hotel sim
+    /// Draws an Bitmap for the hotel simulation
     /// </summary>
     class HotelSimDrawer : IHotelDrawer
     {
         /// <summary>
-        /// Draws an bitmap for the hotel sim
+        /// Draws an bitmap for the hotel simulation
         /// </summary>
-        /// <param name="areas">The hotel Areas</param>
-        /// <param name="movables">The hotel Movables</param>
+        /// <param name="areas">The hotel areas</param>
+        /// <param name="movables">The hotel movables</param>
         /// <returns></returns>
         public Bitmap DrawHotel(List<IArea> areas, List<IMovable> movables)
         {
-            // Setting the hotel height and widht to use during drawing
+            // Setting the hotel height and width to use during drawing
             int HotelWidth = areas.OrderBy(X => X.Position.X).Last().Position.X;
             int HotelHeight = areas.OrderBy(Y => Y.Position.Y).Last().Position.Y;
             
@@ -27,10 +27,10 @@ namespace HotelSimulationTheLock
 
             // Creating a bitmap with the correct dimensions
             Bitmap buffer = new Bitmap((HotelWidth + 1) * artSize, (HotelHeight) * artSize);
-            
+
             #region Layer 1
-            // Layer 1 is and static image with all hallway images
-            // This creates the emergance that its a real hotel
+            // Layer 1 is a static image with all hallway images
+            // This creates the emergence that its a real hotel
             using (Graphics graphics = Graphics.FromImage(buffer))
             {
                 // Loading a hallway image for layer 1
@@ -63,8 +63,6 @@ namespace HotelSimulationTheLock
                                             artSize,
                                             artSize);
                     }
-
-
                 }
             }
             #endregion
@@ -77,20 +75,20 @@ namespace HotelSimulationTheLock
                 {
                     try
                     {
-                        // making sure the elevator is drawn first so it wont colide with other movables
+                        // making sure the elevator is drawn first so it won't collide with other movables
                         graphics.DrawImage(movables.Find(X => X is ElevatorCart).Art, movables.Find(X => X is ElevatorCart).Position.X * artSize,
                                        (movables.Find(X => X is ElevatorCart).Position.Y - 1) * artSize);
 
                         foreach (IMovable movable in movables.Where(X => !(X is ElevatorCart)))
                         {
-                            // Skip drawing on evacuaction
+                            // Skip drawing when exiting the hotel during an evacuation
                             if (movable.Status == MovableStatus.EVACUATING && movable.Area is Reception)
                             {
                                 continue;
                             }
 
-                            // on a few occations guest wont be drawn
-                            // These will indicate that there in an room
+                            // On a few occasions guests won't be drawn
+                            // These will indicate that they are in a room
                             if (movable.Status != MovableStatus.IN_ROOM && 
                                 movable.Status != MovableStatus.EATING && 
                                 movable.Status != MovableStatus.WATCHING && 
@@ -103,12 +101,10 @@ namespace HotelSimulationTheLock
                             }
                         }
                     }
-                    catch (InvalidOperationException) // Somtimes this method crashes, we coudnt figure out why in the time we had
+                    catch (InvalidOperationException) // Sometimes this method crashes, we couldn't figure out why in the time we had
                     {
                         return buffer;
                     }
-
-
                 }
             }
             #endregion
