@@ -171,7 +171,7 @@ namespace HotelSimulationTheLock
         // Important note:
         // This list contains a fair amount of code duplication
         // this was the cause of simultaneously working on event implementation
-        // we made this choice because of the limeted time we had to implement these
+        // we made this choice because of the limited time we had to implement these
         // as cause the actions list has become to big and needs a good refactor
         // there is no time for this so it is an issue that needs to be rethought in the fututure
 

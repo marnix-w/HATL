@@ -13,8 +13,8 @@ namespace HotelSimulationTheLock
         /// 
         /// !!! Note if the simulation causes a breakmode please stop and try to run the simulation again !!!
         /// 
-         
-        
+
+
         /// <summary>
         /// In order to close the simulation form we needed to have the StartupScreen aswell
         /// </summary>
@@ -22,7 +22,7 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Passing data for the timer to hotel
         /// </summary>
-        public Hotel Hotel { get; set; }      
+        public Hotel Hotel { get; set; }
         /// <summary>
         /// Adding a timer to handle the events
         /// </summary>
@@ -73,7 +73,7 @@ namespace HotelSimulationTheLock
             };
             _timer.Tick += new EventHandler(Timer_Tick);
             _timer.Start();
-           
+
             _hotelImage = Hotel.DrawMap();
 
             //Puts the bitmap on the Picturebox
@@ -123,13 +123,13 @@ namespace HotelSimulationTheLock
 
 
         }
-       
+
         /// <summary>
         /// Overview of hotel facilities
         /// </summary>
         private void _fillFacillityTB()
         {
-            roomTB.Clear();            
+            roomTB.Clear();
             facillityTB.Clear();
 
             roomTB.Text = "ID: \t Facillity:  \t\tPosition: \t\tStatus:\n";
@@ -207,7 +207,7 @@ namespace HotelSimulationTheLock
         /// <param name="e"></param>
         private void Simulation_FormClosed(object sender, FormClosedEventArgs e)
         {
-            StopSimulation();
+            _stopSimulation();
 
             this.Dispose();
             _options.Dispose();
@@ -222,9 +222,9 @@ namespace HotelSimulationTheLock
         /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
-            StopSimulation();
+            _stopSimulation();
 
-            if(Settings.HTEPerSeconds >= 4)
+            if (Settings.HTEPerSeconds >= 4)
             {
                 Settings.HTEPerSeconds = 4;
             }
@@ -232,11 +232,13 @@ namespace HotelSimulationTheLock
             {
                 Settings.HTEPerSeconds = Settings.HTEPerSeconds * 2;
                 HotelEventManager.HTE_Factor = Settings.HTEPerSeconds;
-            }        
+            }
+
+            _updateInterval();
 
             SetButtonsText();
 
-            StartSimulation();
+            _startSimulation();
         }
 
         /// <summary>
@@ -247,23 +249,24 @@ namespace HotelSimulationTheLock
         /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
-            StopSimulation();
+            _stopSimulation();
 
             if (Settings.HTEPerSeconds <= 1)
             {
                 Settings.HTEPerSeconds = 1;
-                _timer.Interval = 1000;
+
             }
             else
             {
                 Settings.HTEPerSeconds = Settings.HTEPerSeconds / 2;
                 HotelEventManager.HTE_Factor = Settings.HTEPerSeconds;
-            }
 
+            }
+            _updateInterval();
 
             SetButtonsText();
 
-            StartSimulation();
+            _startSimulation();
         }
 
         /// <summary>
@@ -273,16 +276,18 @@ namespace HotelSimulationTheLock
         /// <param name="e"></param>
         private void button5_Click(object sender, EventArgs e)
         {
-            StopSimulation();
+            _stopSimulation();
 
 
             Settings.HTEPerSeconds = 1;
             HotelEventManager.HTE_Factor = Settings.HTEPerSeconds;
             _timer.Interval = 1000 / Settings.HTEPerSeconds;
 
+            _updateInterval();
+
             SetButtonsText();
 
-            StartSimulation();
+            _startSimulation();
         }
 
         /// <summary>
@@ -300,7 +305,7 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Stopping the simulation from running new events
         /// </summary>
-        private void StopSimulation()
+        private void _stopSimulation()
         {
             _timer.Stop();
             HotelEventManager.Stop();
@@ -309,10 +314,17 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Resuming the simulation and starting the events again
         /// </summary>
-        private void StartSimulation()
+        private void _startSimulation()
         {
             _timer.Start();
             HotelEventManager.Start();
+        }
+        /// <summary>
+        /// updates the interval so it will be displayed correctly on the screen
+        /// </summary>
+        private void _updateInterval()
+        {
+            _timer.Interval = 1000 / Settings.HTEPerSeconds;
         }
     }
 }
