@@ -194,7 +194,7 @@ namespace HotelSimulationTheLock
             {
                 _pauseResume = false;
                 pauseBtn.Text = "Pause";
-                label1.Text = "Simulation is running on normaal speed";
+                label1.Text = "Simulation is running on " + HotelEventManager.HTE_Factor + "Events per " + _timer.Interval + "milisecond";
                 _timer.Start();
                 HotelEventManager.Pauze();
             }
@@ -252,6 +252,7 @@ namespace HotelSimulationTheLock
             if (Settings.HTEPerSeconds <= 1)
             {
                 Settings.HTEPerSeconds = 1;
+                _timer.Interval = 1000;
             }
             else
             {
@@ -289,11 +290,11 @@ namespace HotelSimulationTheLock
         /// </summary>
         private void SetButtonsText()
         {
-            _fastForward.Text = "Speed up the simulation times 2  \n current speed is " + HotelEventManager.HTE_Factor;
-            _slowDown.Text = "Slow down the simulation subtract by 2 \n current speed is " + HotelEventManager.HTE_Factor;
+            _fastForward.Text = "Speed up \n the simulation times 2  \n current speed is " + HotelEventManager.HTE_Factor;
+            _slowDown.Text = "Slow down \n the simulation subtract by 2 \n current speed is " + HotelEventManager.HTE_Factor;
             _resetSpeed.Text = "Reset the HTE factor to 1";
 
-            Console.WriteLine("INTERVAL IS " + _timer.Interval);
+            label1.Text = "Simulation is running on " + HotelEventManager.HTE_Factor + "Events per " + _timer.Interval + "milisecond";
         }
 
         /// <summary>
