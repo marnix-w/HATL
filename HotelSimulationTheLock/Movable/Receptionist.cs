@@ -12,38 +12,38 @@ namespace HotelSimulationTheLock
     {
         #region Properties
         /// <summary>
-        /// The receptionist position
+        /// The receptionists position
         /// </summary>
         public Point Position { get; set; }
         /// <summary>
-        /// The movable his art
+        /// The movable's art
         /// </summary>
         public Bitmap Art { get; set; } = Properties.Resources.receptionist;
         /// <summary>
-        /// The moable his status
+        /// The movable's status
         /// </summary>
         public MovableStatus Status { get; set; }
         /// <summary>
-        /// The movable his area
+        /// The movable's area
         /// </summary>
         public IArea Area { get; set; }
         /// <summary>
-        /// The movables action list
+        /// The movable's action list
         /// </summary>
         public Dictionary<MovableStatus, Action> Actions { get; set; }
         /// <summary>
-        /// The hotel he belongs to
+        /// The hotel the movable belongs to
         /// </summary>
         public Hotel Hotel { get; set; }
         /// <summary>
-        /// Its final destination
+        /// The movable's final destination
         /// </summary>
         public IArea FinalDes { get; set; }
         #endregion
 
         #region Constructors
         /// <summary>
-        /// Constructor used for unit testinf
+        /// Constructor used for unit testing
         /// </summary>
         public Receptionist()
         {
@@ -53,8 +53,8 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Creates an receptionist that can work with the hotel
         /// </summary>
-        /// <param name="position"></param>
-        /// <param name="hotel"></param>
+        /// <param name="position">The position of the receptionist</param>
+        /// <param name="hotel">The hotel in which the receptionist is located</param>
         public Receptionist(Point position, Hotel hotel)
         {
             Position = position;
@@ -69,7 +69,7 @@ namespace HotelSimulationTheLock
         /// <summary>
         /// Handles an evacuate event
         /// </summary>
-        /// <param name="evt"></param>
+        /// <param name="evt">The given event</param>
         public void Notify(HotelEvent evt)
         {
             if (evt.EventType == HotelEventType.EVACUATE)
@@ -79,7 +79,7 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Implemantation for evacuate event
+        /// Implementation for evacuate event
         /// </summary>
         public void PerformAction()
         {
@@ -90,9 +90,9 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Seth his path function
+        /// Set the movables path
         /// </summary>
-        /// <param name="destination"></param>
+        /// <param name="destination">The destination the movable wants to go to</param>
         public void SetPath(IArea destination)
         {
         }

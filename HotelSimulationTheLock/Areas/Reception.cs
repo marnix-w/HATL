@@ -6,8 +6,8 @@ using System.Linq;
 namespace HotelSimulationTheLock
 {
     /// <summary>
-    /// <para>An specefic implemantation of an IArea.</para>
-    /// <para>An IArea that handels 1 Checkin at a time.</para>
+    /// <para>A specific implementation of an IArea.</para>
+    /// <para>An IArea that handles 1 Checkin at a time.</para>
     /// <para>Metadata: "AreaType", "Reception".</para>
     /// </summary>
     [Export(typeof(IArea))]
@@ -16,11 +16,11 @@ namespace HotelSimulationTheLock
     {       
         #region IArea properties
         /// <summary>
-        /// An specific identifier for an IArea, this must be uniqe.
+        /// A specific identifier for an IArea, this must be unique.
         /// </summary>
         public int ID { get; set; }
         /// <summary>
-        /// The Position where the IArea stands in the hotel, This must be uniqe.
+        /// The Position where the IArea is located in the hotel, This must be unique.
         /// </summary>
         public Point Position { get; set; }
         /// <summary>
@@ -28,7 +28,7 @@ namespace HotelSimulationTheLock
         /// </summary>
         public Size Dimension { get; set; } = new Size(1, 1);
         /// <summary>
-        /// The amount of movabales that are allowed to enter the area.
+        /// The amount of movables that are allowed to enter the area.
         /// </summary>
         public int Capacity { get; set; } = 2;
         /// <summary>
@@ -36,26 +36,33 @@ namespace HotelSimulationTheLock
         /// </summary>
         public Bitmap Art { get; set; } = Properties.Resources.reception;
         /// <summary>
-        /// An enumarator the provides a status for a room .
+        /// An enumarator the provides a status for an area.
         /// </summary>
         public AreaStatus AreaStatus { get; set; }
         #endregion
 
         #region Dijkstra search properties
+
+        // We wanted to implement a more generic version of dijkstra
+        // using an ISearchable interface. this is somthing to add in the future
+
+        // BackTrackCost, NearestToStart and visted
+        // will be reset every time dijkstra has ran its GetShortestPath() function
+
         /// <summary>
-        /// A number wich is used for calculating the shortest path.
+        /// A number which is used for calculating the shortest path.
         /// </summary>
         public double? BackTrackCost { get; set; } = null; // This is double so the future ISearchable can be more reusable.
         /// <summary>
-        /// The ISerachable that is closest to the starting from this current ISearchable.
+        /// The ISearchable neighbour that is closest to the start.
         /// </summary>
         public IArea NearestToStart { get; set; } = null;
         /// <summary>
-        /// Deterimens wheter this ISearchable has been visted.
+        /// Determines whether this ISearchable has been visted.
         /// </summary>
         public bool Visited { get; set; } = false;
         /// <summary>
-        /// An collection of connection that the ISearchable has.
+        /// A collection of connections that the ISearchable has.
         /// </summary>
         public Dictionary<IArea, int> Edge { get; set; } = new Dictionary<IArea, int>(); // IArea will be changed to ISearchable in the future.
         #endregion
@@ -65,12 +72,12 @@ namespace HotelSimulationTheLock
         /// The Queue of guests waiting to be checked in
         /// </summary>
         public Queue<IMovable> CheckInQueue { get; set; } = new Queue<IMovable>();
-        
+
         /// <summary>
         /// The AreaFactory creation method.
-        /// This creates and initilizes a new IArea.
+        /// This creates and initializes a new IArea.
         /// </summary>
-        /// <returns>A new Elevator</returns>
+        /// <returns>A new elevator</returns>
         public IArea CreateArea()
         {
             return new Reception();
@@ -91,10 +98,10 @@ namespace HotelSimulationTheLock
         }
 
         /// <summary>
-        /// Check wheter the IMovable is the next person in the CheckInQueue
+        /// Checks whether the IMovable is the next one in the CheckInQueue
         /// </summary>
         /// <param name="movable">The IMovable that wants to check in</param>
-        /// <returns>Wheter the IMovable can enter the reception area to check in</returns>
+        /// <returns>Whether the IMovable can enter the reception area to check in</returns>
         public bool EnterArea(IMovable movable)
         {
             if (CheckInQueue.Any() && CheckInQueue.First() == movable)

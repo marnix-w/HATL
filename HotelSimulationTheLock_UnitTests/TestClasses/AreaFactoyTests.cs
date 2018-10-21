@@ -96,6 +96,5 @@ namespace HotelSimulationTheLock_UnitTests
             //assert
             Assert.AreEqual(expected.GetType(), gotten.GetType());
         }
-
     }
 }

@@ -22,39 +22,39 @@ namespace HotelSimulationTheLock
         
         
         /// <summary>
-        /// we want to have a string path that we can show in the textbox field
+        /// We want to have a string path that we can show in the textbox field
         /// </summary>
         public string _path = Path.GetFullPath(Directory.GetCurrentDirectory() + @"..\..\..\Assets\Libraries\Hotel3.layout");
 
         /// <summary>
-        /// once the json file is read out we want to fill it in a list of Jsmonmodels
+        /// Once the json file is read out we want to fill it in a list of JsonModels
         /// </summary>
         public List<JsonModel> layout { get; set; }
         /// <summary>
-        /// before the simulations starts we can adjust the settings and want to give the SettingsModel to the simulation screen
+        /// Before the simulation starts we can adjust the settings and want to give the SettingsModel to the simulation screen
         /// </summary>
         public SettingsModel Settings { get; set; }
-        //global hte Settings
+        //Global hte Settings
         private string _hte_per_sec = "Amount HTE ticks per second ";
 
-        //setting text for maid
+        //Maid Settings
         private string _maid_amount = "Amount of Maids ";
 
-        //elevator Settings
+        //Elevator Settings
         private string _elevator_dur = "Amount of HTE ticks for elevator ";
         private string _elevator_cap = "Capicity for the elevator ";
 
-        //staircase Settings  
+        //Staircase Settings  
         private string _staircase_hte = "Amount of HTE ticks for staircase ";
 
-        //cinema Settings
+        //Cinema Settings
         private string _cinema_dur = "Duration of the cinema in hte ";
 
-        //restaurant Settings
+        //Restaurant Settings
         private string restaurant_dur = "Duration of the restaurant ";
         private string restaurant_cap = "Capicity of the restaurant ";
 
-        //fitness Settings
+        //Fitness Settings
         private string _eating_dur = "Eating in hte ";
         private string _fitness_cap = "Capicity for a fitness facility ";
 
@@ -64,10 +64,10 @@ namespace HotelSimulationTheLock
         {
             InitializeComponent();
 
-            //path for default layout
+            //Path for default layout
             file_path_TB.Text = _path;
 
-            //casting string to textbox
+            //Casting string to textbox
             maid_LB.Text = _maid_amount;
             elevator_hte_LB.Text = _elevator_dur;
             elevator_cap_LB.Text = _elevator_cap;
@@ -82,10 +82,10 @@ namespace HotelSimulationTheLock
         
       
         /// <summary>
-        /// This method will Readout the Json file and will return it for the layout
+        /// This method will read out the Json file and will return it for the layout
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path">The path to the location of the file</param>
+        /// <returns>The read out json file</returns>
         public List<JsonModel> ReadLayoutJson(string path)
         {
             try
@@ -111,7 +111,7 @@ namespace HotelSimulationTheLock
         /// <param name="e"></param>
         private void _runSimulation_Click_1(object sender, EventArgs e)
         {
-            //standard path for the application unless you browse for something else
+            //Standard path for the application unless you browse for something else
             string path = file_path_TB.Text;
 
             if (layout == null)
@@ -119,7 +119,7 @@ namespace HotelSimulationTheLock
                 layout = ReadLayoutJson(path);
             }
 
-            //converting the Decimal value's to int in order to use them in the simulation form
+            //Converting the Decimal value's to int in order to use them in the simulation form
             Settings = new SettingsModel
             {
                 AmountOfMaids = Decimal.ToInt32(maid_TB.Value),
@@ -134,7 +134,7 @@ namespace HotelSimulationTheLock
                 FitnessCapicity = Decimal.ToInt32(fitness_cap_TB.Value)
             };
 
-            //below the Simulation is linked to this form
+            //Below the Simulation is linked to this form
             Simulation hotelsimulation = new Simulation(this, layout, Settings);
 
             hotelsimulation.Show();
@@ -143,7 +143,7 @@ namespace HotelSimulationTheLock
 
         /// <summary>
         /// Added a dialog to the screen so if the user is browsing to a different kind of json layout file
-        /// the user will still see a nice interface in how to browse
+        /// the user will still see a nice interface to browse in
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
