@@ -1,2 +1,2 @@
 # HotelLock
-Hotel management game
+Hotel simulation
